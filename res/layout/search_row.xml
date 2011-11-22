@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:layout_height="wrap_content" 
+	android:layout_width="fill_parent" 
+	android:padding="5dip">
+
+	<TextView 
+		android:id="@+id/result_title" 
+		android:text="title is gonna be soooo long that it has to explode the line doesn't it ?"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+        android:singleLine="true"
+        android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:paddingTop="1dip"  />
+		
+	<TextView 
+		android:id="@+id/result_size" 
+		android:text="1 Meg"
+		android:textSize="14dip"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_below="@id/result_title" 
+		android:layout_alignLeft="@id/result_title" />
+	
+	<TextView 
+		android:id="@+id/result_leechers" 
+		android:text="200"
+		android:textSize="14dip"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_alignParentRight="true" 
+		android:layout_alignTop="@id/result_size" 
+		android:layout_alignWithParentIfMissing="true" />
+		
+	<TextView 
+		android:id="@+id/tv_L" 
+		android:text="L: "
+		android:textSize="14dip"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"  
+		android:layout_alignTop="@id/result_size"
+		android:layout_toLeftOf="@id/result_leechers" />
+	
+	<TextView 
+		android:id="@+id/result_seeds" 
+		android:text="100"
+		android:textSize="14dip"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"  
+		android:layout_marginRight="10dip"
+		android:layout_alignTop="@id/result_size"
+		android:layout_toLeftOf="@id/tv_L" />
+	
+	<TextView 
+		android:id="@+id/tv_S" 
+		android:text="S: "
+		android:textSize="14dip"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"  
+		android:layout_alignTop="@id/result_size"
+		android:layout_toLeftOf="@id/result_seeds" />
+	
+	<TextView 
+		android:id="@+id/result_date" 
+		android:text="today"
+		android:textSize="14dip"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_below="@id/result_size" />
+		
+	<TextView 
+		android:id="@+id/result_url" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:visibility="gone" />
+		
+
+</RelativeLayout>

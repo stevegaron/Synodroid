@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<string name="app_name">Synodroid</string>
+<string name="app_opensource">Opensource project</string>
+<string name="app_url">http://code.google.com/p/synodroid-ds/</string>
+
+<string name="connect_cant_connect">&quot;No se puede conectar a {0}. El error es '{1}'.&quot;</string>
+<string name="unknow_reason">&quot;Se ha producido un error por una razón desconocida&quot;</string>
+<string name="connect_wrong_userpassword">&quot;Usuario o contraseña incorrecta. Pruebe de nuevo.&quot;</string>
+<string name="connect_already_connected">&quot;Está conectado desde otro ordenador. Por favor reconecte.&quot;</string>
+<string name="connect_nohost">&quot;No se puede conectar al servidor. Verifique sus parámetros.&quot;</string>
+<string name="connect_error_title">&quot;Error&quot;</string>
+<string name="connect_connecting2">&quot;Conectando. Espere por favor&quot;</string>
+<string name="connect_connecting">&quot;Conectando a \n{0}\nEspere por favor...&quot;</string>
+<string name="connect_ssl_error">&quot;Error SSL: {0}&quot;</string>
+<string name="action_deleting">&quot;Eliminando archivo %s&quot;</string>
+<string name="action_clearall">&quot;Limpiando todas las tareas completas...&quot;</string>
+<string name="action_pausing">&quot;Pausando archivo %s&quot;</string>
+<string name="action_resuming">&quot;Reanudando el archivo %s&quot;</string>
+<string name="action_pauseall">&quot;Pausando todas las tareas activas...&quot;</string>
+<string name="action_resumeall">&quot;Reanudando todas las tareas pausadas...&quot;</string>
+<string name="menu_connect">Conectar a</string>
+<string name="menu_search">Buscar</string>
+<string name="menu_clearall">Limpiar tareas completadas</string>
+<string name="menu_pauseall">Pausar todo</string>
+<string name="menu_resumeall">Reanudar todo</string>
+<string name="dialog_title_action">Acción</string>
+<string name="menu_parameter">Parámetros</string>
+<string name="err_unknown">Error desconocido</string>
+
+<string name="connect_cant">&quot;No estás autorizado a utilizar este servicio&quot;</string>
+<string name="label_nickname">Nickname</string>
+<string name="label_protocol">Protocolo</string>
+<string name="label_host">Servidor</string>
+<string name="label_port">Puerto</string>
+<string name="label_username">Usuario</string>
+<string name="label_password">Contraseña</string>
+<string name="label_refreshinterval">Intervalo de refresco</string>
+<string name="hint_nickname">Establece el nickname</string>
+<string name="hint_protocol">Establece el protocolo a usar</string>
+<string name="hint_host">Establece el servidor o la IP</string>
+<string name="hint_port">Establece el puerto</string>
+<string name="hint_username">Usuario</string>
+<string name="hint_password">Contraseña</string>
+
+
+<string name="hint_refreshinterval">Tiempo de actualización en segundos</string>
+<string-array name="protocols_array"><item>HTTP</item>
+<item>HTTPS</item>
+</string-array>
+
+<string name="button_cancel">Cancelar</string>
+<string name="label_dsm_version">Disk Station Manager</string>
+<string name="hint_dsm_version">&quot;Establece tu versión DSM&quot;</string>
+<string name="title_preference">Preferencias</string>
+<string name="label_autorefresh">Actualización automática</string>
+<string name="hint_autorefresh_on">Actualización automática habilitada</string>
+<string name="hint_autorefresh_off">Actualización automática deshabilitada</string>
+<string name="title_cat_servers">Servidores</string>
+<string name="title_cat_general">Opciones Generales</string>
+
+
+<string name="menu_delete_server">Borrar servidor(es)</string>
+<string-array name="sorts_array"><item>Por fecha de creación</item>
+<item>Por usuario</item>
+</string-array>
+<string name="label_process_sort">Ordenar tareas</string>
+<string name="hint_process_sort">Seleccione cómo ordenar las tareas</string>
+
+
+<string-array name="sort_array_values"><item>fecha</item>
+<item>usuario</item>
+</string-array>
+<string name="button_delete">Borrar</string>
+<string name="menu_add_server">Añadir un servidor</string>
+<string name="label_default_server_prefix">Servidor </string>
+<string name="hint_default_server">Servidor no válido, click para editar</string>
+<string name="menu_refresh">Refrescar</string>
+<string name="title_cat_connection">Parámetros de conexión</string>
+<string name="title_cat_server">Parámetros generales</string>
+
+<string name="action_resume">Reanudar</string>
+<string name="action_pause">Pausar</string>
+<string name="action_clear">Limpiar</string>
+<string name="action_cancel">Cancelar</string>
+<string name="action_retry">Reintentar</string>
+<string name="action_delete">Borrar</string>
+<string name="action_details">Mostrar detalles...</string>
+
+<string name="dialog_title_confirm">Confirmación</string>
+<string name="button_yes">Si</string>
+<string name="button_no">No</string>
+<string name="dialog_message_confirm">&quot;Las operaciones sobre al archivo no se han completado. ¿Desea continuar?&quot;</string>
+<string name="label_sort_taskid">Por fecha de creación</string>
+<string name="label_sort_filename">Por nombre de archivo</string>
+<string name="label_sort_totalsize">Por tamaño total</string>
+<string name="label_sort_currentsize">Por tamaño actual</string>
+<string name="label_sort_progress">Por progreso</string>
+<string name="label_sort_uploadrate">Por ratio de subida</string>
+<string name="label_sort_currentrate">Por ratio de bajada</string>
+<string name="label_sort_timeleft">Por tiempo restante</string>
+<string name="label_sort_status">Por estatus</string>
+<string name="label_sort_username">Por nombre de usuario</string>
+<string name="label_asc_sort">Por orden ascendente</string>
+<string name="hint_asc_sort_on">La ordenación es ascendente</string>
+<string name="hint_asc_sort_off">La ordenación es descendente</string>
+<string name="eula_title">Licencia</string>
+<string name="eula_accept">Aceptar</string>
+<string name="eula_hide">Ocultar</string>
+<string name="eula_refuse">Rechazar</string>
+<string name="action_detailing">Recuperando los detalles de \'%s\'</string>
+<string name="action_adding">Añadiendo archivo %s</string>
+<string name="detail_tab_general">General</string>
+<string name="detail_tab_transfer">Transferir</string>
+<string name="detail_tab_files">Archivos</string>
+
+
+<string name="detail_filesize">Tamaño del archivo</string>
+
+
+<string name="detail_username">Nombre usuario</string>
+<string name="detail_filename">Nombre del fichero</string>
+<string name="detail_destination">Destino</string>
+
+<string name="detail_creationtime">Hora de creación</string>
+<string name="detail_url">Url</string>
+
+<string name="detail_originaltorrent">Torrent original</string>
+<string name="detail_status">Estatus</string>
+<string name="detail_transfered">Transferido</string>
+<string name="detail_speed">Velocidad</string>
+<string name="detail_peers">Pares (conectados / total)</string>
+<string name="detail_seeders_leechers">Semillas - Sanguijuelas</string>
+<string name="detail_eta">Tiempo estimado de finalización</string>
+<string name="detail_pieces">Piezas (actuales / total)</string>
+<string name="detail_progress">Progreso</string>
+<string name="detail_status_waiting">Esperando</string>
+<string name="detail_status_downloading">Descargando</string>
+<string name="detail_status_seeding">Compartiendo</string>
+<string name="detail_status_paused">Pausado</string>
+<string name="detail_status_finished">Finalizado</string>
+<string name="detail_status_hash_checking">Chequeando Hash</string>
+<string name="detail_status_error">Error</string>
+<string name="menu_about">Acerca de </string>
+<string name="app_contributors">&quot;Participantes en el proyecto:&quot;</string>
+<string name="app_status_project">Chequea el estado de nuestro proyecto:</string>
+<string name="button_ok">OK</string>
+<string name="eula_view">Licencia</string>
+<string name="button_yesplease">Sí por favor</string>
+<string name="button_nothanks">No gracias</string>
+<string name="dialog_title_information">Información</string>
+<string name="no_server_configured">No se ha configurado ningún servidor todavía o no se ha configurado correctamante.\n\n¿Desea configurar el sistema ahora?</string>
+<string name="detail_progress_upload">Subido:</string>
+<string name="detail_progress_download">Descargado:</string>
+<string name="detail_finished">Finalizado</string>
+<string name="detail_unvailable">no disponible</string>
+<string name="not_yet_implemented">Característica no implementada todavía</string>
+<string name="title_information">Información</string>
+<string name="detail_unknown">Desconocido</string>
+<string name="action_files">Recuperando archivos \'%s\'</string>
+<string name="action_updating">&quot;Actualizando archivo %s&quot;</string>
+<string name="seeding_time">Tiempo compartiendo</string>
+<string name="seeding_ratio">Ratio de compartición (%)</string>
+<string name="seeding_parameters_time">Parámetros de compartición</string>
+<string-array name="seeding_time_array">
+<item>Ignorar</item>
+<item>90 mins</item>
+<item>2 horas</item>
+<item>3 horas</item>
+<item>4 horas</item>
+<item>5 horas</item>
+<item>6 horas</item>
+<item>7 horas</item>
+<item>8 horas</item>
+<item>9 horas</item>
+<item>10 horas</item>
+<item>12 horas</item>
+<item>16 horas</item>
+<item>20 horas</item>
+<item>24 horas</item>
+<item>30 horas</item>
+<item>36 horas</item>
+<item>48 horas</item>
+<item>60 horas</item>
+<item>72 horas</item>
+<item>96 horas</item>
+<item>Para siempre</item>
+</string-array>
+
+<string name="logo_download">Torrent, NZB, Url</string>
+<string name="logo_emule">eMule (no implementado)</string>
+<string name="logo_about">Acerca de</string>
+<string-array name="seeding_time_array_values">
+<item>0</item>
+<item>90</item>
+<item>120</item>
+<item>180</item>
+<item>240</item>
+<item>300</item>
+<item>360</item>
+<item>420</item>
+<item>480</item>
+<item>540</item>
+<item>600</item>
+<item>720</item>
+<item>960</item>
+<item>1200</item>
+<item>1440</item>
+<item>1800</item>
+<item>2160</item>
+<item>2880</item>
+<item>3600</item>
+<item>4320</item>
+<item>5760</item>
+<item>-1</item>
+</string-array>
+<string name="detail_forever">Para siempre</string>
+<string name="action_enum_shared">Recuperando directorios compartidos</string>
+<string name="shared_dir_title">Seleccione un directorio</string>
+<string name="shared_note">Nota: este parámetro afectará a todas las descargas pendientes</string>
+<string name="action_set_shared">Estableciendo directorio compartido</string>
+<string name="menu_destination">Destino</string>
+<string name="action_download_original_file">Descargando archivo original</string>
+<string name="action_download_original_saved">El fichero se ha guardado en el almacenamiento externo(/sdcard/download)</string>
+<string name="action_download_original_failed">Imposile guardar el archivo. Posiblemente el almacenamiento externo esté desmontado</string>
+<string name="lang_es">Castellano</string>
+<string name="translator">&quot;Traductor(es):&quot;</string>
+<string name="fullscreen_preference">Pantalla completa</string>
+<string name="summary_fullscreen_preference">Oculta la barra de notificación</string>
+<string name="crash_notif_ticker_text">Error inesperado, por favor, envíe un informe...</string>
+<string name="crash_notif_title">Synodroid ha fallado...</string>
+<string name="crash_notif_text">Por favor, presione aquí para ayudar a arreglar el problema.</string>
+
+<string name="crash_dialog_title">Synodroid ha fallado</string>
+<string name="crash_dialog_text">Ha ocurrido un error inesperado obligando a para la aplicación. Por favor, ayúdenos a resolver este problema envíandonos los datos del error,
+        todo lo que tienes que hacer es presionar \'OK\'.</string>
+<string name="crash_dialog_comment_prompt">Puedes añadir tu email y tus comentarios sobre el problema debajo:</string>
+<string name="crash_dialog_ok_toast">¡ Gracias !</string>
+<string name="label_showupload">Mostrar progreso de subida</string>
+<string name="hint_showupload_on">Se muestra el progreso de subida</string>
+<string name="hint_showupload_off">No se muestra el progreso de subida</string>
+<string name="label_wlan">Conexión WIFI</string>
+<string name="hint_wlan_on">Esta conexión se utiliza sólo sobre WIFI</string>
+<string name="hint_wlan_off">Esta conexión no se utiliza sobre WIFI</string>
+<string name="label_wifissid">Red WIFI</string>
+<string name="hint_wifissid">Seleccione la red WIFI a utilizar</string>
+<string name="title_wifi_disabled">Wifi está deshabilitada</string>
+<string name="message_wifi_disabled">Por favor, habilite el Wifi antes de configurar la conexión</string>
+
+<string name="wizard_menu">Buscar servidor</string>
+<string name="wizard_searching_title">Buscando</string>
+<string name="wizard_searching_msg">Buscando NAS en tu red local. Por favor espere...</string>
+<string name="wizard_selectserver_title">Seleccione servidor</string>
+<string name="wizard_user_title">Información de usuario</string>
+<string name="wizard_user_user_label">Usuario</string>
+<string name="wizard_user_password_label">Contraseña</string>
+<string name="installTorrentSearch">Instalar Buscador de Torrents Transdroid</string>
+<string name="installTorrentSearchAlternate">Descarga alternativa de Torrent Search</string>
+<string name="logo_search">Buscar Torrent</string>
+<string name="dialog_message_confirm_add">¿Está seguro de que quiere comenzar a descargar el archivo?</string>
+<string name="provider_missing">Proveedor de búsqueda no instalado,presione el botón inferior para instalarlo.\n\n Nota: Tendrá que reiniciar synodroid para habilitar después de instalar el proveedor de búsqueda...</string>
+<string name="searching">Buscando...\n\n</string>
+<string name="no_results">No se han encontrado coincidencias.\n\n</string>
+<string name="sites">Sitios disponibles:\n</string>
+<string name="no_keyword">Por favor, introduzca una clava por la que buscar...</string>
+<string name="search_hint">Buscar Torrent</string>
+<string name="wizard_options_title">Opciones</string>
+<string name="wizard_https">Quiero usar una conexión segura</string>
+<string name="wizard_ddns">También quiero conectarme a través de internet</string>
+<string name="wizard_ddns_host">Nombre de host DDNS</string>
+<string name="wizard_selectdsm_title">Seleccione versión de DSM</string>
+<string name="wizard_no_server_found">No se ha podido encontrar ningún servidor en la red. Comprueba tu conexión y pruebe de nuevo.</string>
+<string name="err_nobrowser">Android Browser no está instalado en tu dispositivo.\n\nContacta con los desarrolladores para conseguir una copia de Transdroid search.</string><string name="err_nomarket">Android market no está instalado en tu dispositivo.\n\nContacta con los desarrolladores para conseguir una copia de Transdroid search.</string>
+<string name="err_provider_missing">El buscador de torrents Transdroid no está instalado en tu dispositivo.\n\nSigue las instrucciones en la pestaña de búsqueda para instalarlo.</string>
+<string name="help">Ayuda</string>
+
+<string name="label_usewifi">Usar wifi</string>
+<string name="hint_usewifi_on">Unido a una o más redes wifi</string>
+<string name="hint_usewifi_off">No unido a una red wifi</string>
+<string name="label_useext">Conectar desde cualquier sitio</string>
+<string name="hint_useext_on">Accesible desde cualquier sitio</string>
+<string name="hint_useext_off">No accesible fuera de wifi</string>
+<string name="clear_search_history">Limpiar historial de búsqueda</string>
+<string name="cleared_search_history">Historial de búsqueda limpiado.</string>
+<string name="wait_for_download">No cierre Synodroid hasta que el archivo sea añadido.\nEsperando al archivo...</string>
+
+<string name="err_noemail">No hay aplicaciones de correo configuradas en tus dispostivo.\n\nManda un correo a synodroid@gmail.com para conseguir ayuda.</string>
+<string name="app_help">FAQ: Preguntas frecuentes</string>
+<string name="email">Consigue soporte por email!</string>
+<string name="faq1">¿Como encuentro un servidor?</string>
+<string name="rep1">No vas a encontrar un servidor, necesitas poseer el tuyo propio. Synodroid toma el control de un servidor de almacenamiento conectado a la red, conocido como NAS(Network Attached Storage) de la marca Synodroid. Si no tienes una NAS de Synology, esta aplicación no es para ti, desinstalalá...</string>
+
+<string name="faq2">¿Dónde puedo conseguir una NAS de Synology?</string>
+<string name="rep2">Busca en la web de Synologoy para buscar información de compra.</string>
+
+<string name="faq6">¿Qué es una NAS de Synology?</string>
+<string name="rep6">Busca en la página web de Synology sobre sus productos.</string>
+
+<string name="faq7">¿Cómo descargo un archivo al teléfono usando esta aplicación?</string>
+<string name="rep7">Esta aplicación no descarga archivos en el teléfono.Únicamente controla la sección \"Download Station\" de tu NAS Synology.</string>
+
+<string name="faq3">¿Cómo conecto a mi NAS Synology?</string>
+<string name="rep3">Desde la pantalla principal de Synodroid, presiona el botón de menú de tu teléfono, y selecciona \"Parámetros\". Presiona el botón menú de nuevo desde la pantalla de parámetros, y selecciona una de las 2 opciones siguientes:\n\n1. Buscar un servidor\n2. Añadir un servidor</string>
+
+<string name="faq4">El botón \"Buscar servidor\" no encuentra mi NAS Synology, ¿por qué?</string>
+<string name="rep4">Antes de usar la función \"Buscar servidor\", necesitas saber 3 cosas:\n\n- 1 -\nDebes estar conectado a la misma WIFI que tu NAS.\n\n- 2 -\nTu NAS debe estar encendida y lista para usar.\n\n- 3 -\nDebes tener Android 1.6 o superior en tu teléfono.\n\n** Nota:\nSi la función \"Buscar servidor\"no te funciona, aún puedes añadir el servidor manualmente usando el menú \"Añadir un servidor\" en la ventana de parámetros.</string>
+
+<string name="faq5">Este FAQ no me ha ayudado.¿Qué debería hacer?</string>
+<string name="rep5">Manda un email a los desarrolladores usando el botón inferior.\n\nPor favor, haz una pregunta precisa para ayudarnos a comprender tu problema.</string>
+
+<string name="ul_rate">Velocidad máxima de subida (KB\\s)</string>
+<string name="dl_rate">Velocidad máxima de bajada (KB\\s)</string>
+<string name="max_peers">Número máximo de pares</string>
+<string name="priority">Prioridad en descarga</string>
+<string name="destination">Carpeta destino</string>
+<string-array name="priority_array">
+<item>Alta</item>
+<item>Normal</item>
+<item>Baja</item>
+</string-array>
+<string-array name="priority_array_value">
+<item>1</item>
+<item>0</item>
+<item>-1</item>
+</string-array>
+<string-array name="destination_array">
+</string-array>
+<string name="action_task_prop">Recopilando propiedades de la tarea.</string>
+<string name="task_parameters">Propiedades de la tarea</string>
+<string name="downloadOnly">Sólo funciona cuando la tarea está en descarga...</string>
+
+<string name="port_mismatch">El protocolo no coincide con el puerto seleccionado.</string>
+
+<string name="debug">Depuración</string>
+<string name="hint_debug">Activar la depuración de los registros</string>
+
+</resources>

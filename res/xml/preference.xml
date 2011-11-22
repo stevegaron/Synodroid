@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <!-- This file is /res/xml/flightoptions.xml -->
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:key="synodroid_preference"
+  android:title="@string/title_preference"
+  android:summary="A sample summary"
+>
+  <PreferenceCategory
+    android:key="general_cat"
+    android:title="@string/title_cat_general"
+    android:persistent="true">
+    <CheckBoxPreference
+      android:title="@string/label_asc_sort"
+      android:summaryOn="@string/hint_asc_sort_on"
+      android:key="asc"
+    android:summaryOff="@string/hint_asc_sort_off"></CheckBoxPreference>
+  </PreferenceCategory>
+  <PreferenceCategory
+    android:summary="Cat1 summary"
+    android:title="@string/title_cat_servers"
+    android:key="servers_cat"
+    android:persistent="true"
+  >
+  </PreferenceCategory>
+</PreferenceScreen>

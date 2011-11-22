@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="?android:attr/listPreferredItemHeight"
+  android:padding="6dip"
+>
+  <RelativeLayout
+    android:layout_weight="1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+  >
+    <CheckBox
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:paddingLeft="5dip"
+      android:layout_width="wrap_content"
+      android:id="@+id/id_detail_checked"
+    ></CheckBox>
+    <TextView
+      android:layout_width="fill_parent"
+      android:layout_weight="1"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="Title"
+      android:id="@+id/id_detail_name"
+      android:layout_alignParentLeft="true"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="false"
+      android:layout_alignParentTop="true"
+      android:layout_toLeftOf="@+id/id_detail_checked" />
+    <TextView
+      android:layout_width="fill_parent"
+      android:layout_weight="1"
+      android:singleLine="true"
+      android:ellipsize="marquee"
+      android:text="Here is the value"
+      android:id="@+id/id_detail_value"
+      android:layout_below="@+id/id_detail_name"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_toLeftOf="@+id/id_detail_checked" />
+
+  </RelativeLayout>
+
+</LinearLayout>

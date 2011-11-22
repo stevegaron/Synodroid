@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_scroll"
+    android:layout_width="fill_parent"
+    android:isScrollContainer="true"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dip"
+            android:layout_marginLeft="25dip"
+            android:gravity="top"
+            android:layout_width="fill_parent">
+            <ImageView
+                android:id="@+id/ImageView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_phone"/>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout04"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingRight="10dip"
+                android:layout_width="fill_parent"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/app_vers_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge" 
+                    android:text="@string/app_name"/>
+                <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="@string/app_help"/>
+            </LinearLayout>
+            
+
+        </LinearLayout>
+            
+        <LinearLayout android:layout_marginTop="15dip" android:layout_marginLeft="5dip" android:layout_height="wrap_content" android:id="@+id/LinearLayout03" android:layout_marginRight="5dip" android:orientation="vertical" android:layout_width="fill_parent">
+<TextView android:text="@string/faq1" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView1"></TextView>
+<TextView android:text="@string/rep1" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView01"></TextView>
+
+<TextView android:text="@string/faq6" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView07"></TextView>
+<TextView android:text="@string/rep6" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView08"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/syno_main_web" android:text="www.synology.com" android:layout_marginLeft="15dip"></TextView>
+
+<TextView android:text="@string/faq2" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView02"></TextView>
+<TextView android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView03" android:text="@string/rep2"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:id="@+id/syno_buy_web" android:text="http://www.synology.com/support/wheretobuy.php"></TextView>
+
+<TextView android:text="@string/faq7" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView07"></TextView>
+<TextView android:text="@string/rep7" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView08"></TextView>
+
+
+<TextView android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView05" android:text="@string/faq3"></TextView>
+<TextView android:text="@string/rep3" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView06"></TextView>
+
+<TextView android:text="@string/faq4" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView07"></TextView>
+<TextView android:text="@string/rep4" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView08"></TextView>
+
+<TextView android:text="@string/faq5" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/TextView07"></TextView>
+<TextView android:text="@string/rep5" android:layout_height="wrap_content" android:layout_marginLeft="15dip" android:layout_width="wrap_content" android:id="@+id/TextView08"></TextView>
+
+
+
+
+
+
+
+
+</LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayout05"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="25dip"
+        	android:orientation="vertical">
+            
+          	<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dip"
+                android:paddingTop="3dip"
+                android:paddingRight="30dip"
+                android:paddingLeft="30dip" android:id="@+id/id_gplus" android:text="@string/gplus" android:layout_marginTop="15dip"/>
+         	<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dip"
+                android:paddingTop="3dip"
+                android:paddingRight="30dip"
+                android:paddingLeft="30dip" android:id="@+id/id_email" android:text="@string/email" android:layout_marginTop="15dip"/>
+        </LinearLayout>
+  
+</LinearLayout>
+</ScrollView>

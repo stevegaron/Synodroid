@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	<item android:id="@+id/menu_add"
+        android:icon="@drawable/ic_menu_add_download"
+        android:title="@string/menu_add"
+        android:orderInCategory="0" 
+        android:showAsAction="ifRoom" android:visible="false"></item>
+    
+    <item android:menuCategory="system" 
+        android:title="@string/menu_clearall" 
+        android:id="@+id/menu_clear_all" 
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom" 
+        android:icon="@android:drawable/ic_menu_close_clear_cancel" />
+    
+    <item android:id="@+id/menu_pause_all"
+        android:icon="@drawable/ic_menu_pause"
+        android:title="@string/menu_pauseall"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom" 
+        android:menuCategory="system"></item>
+    
+    <item android:id="@+id/menu_revert"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="@string/menu_resumeall"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom" 
+        android:menuCategory="system"></item>
+    
+    <item android:id="@+id/menu_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/menu_destination"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom" 
+        android:menuCategory="system"></item>
+    
+    <item android:showAsAction="ifRoom" 
+        android:menuCategory="system" 
+        android:orderInCategory="1" 
+        android:id="@+id/menu_preferences" 
+        android:icon="@android:drawable/ic_menu_preferences" 
+        android:title="@string/title_preference" />
+    
+    <item android:id="@+id/menu_about"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_about"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom" 
+        android:menuCategory="system"></item>
+    
+</menu>
