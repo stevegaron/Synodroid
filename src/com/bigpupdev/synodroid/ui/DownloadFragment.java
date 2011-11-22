@@ -150,7 +150,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// An error message
 		else if (msg.what == ResponseHandler.MSG_ERROR) {
 			// Change the title
-			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false, false);
+			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false);
 			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
 			
@@ -189,7 +189,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// Change the title
 			String title = server.getNickname();
 			
-			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS, server.getConnection().equals(server.getPublicConnection()));
+			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS);
 			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			
 			// Dissmiss the connection dialog
@@ -450,7 +450,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		if (server != null && server.isConnected()) {
 			String title = server.getNickname();
 			
-			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS, server.getConnection().equals(server.getPublicConnection()));
+			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS);
 			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			
 			// Launch the gets task's details recurrent action

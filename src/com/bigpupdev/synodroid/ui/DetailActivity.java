@@ -387,7 +387,7 @@ public class DetailActivity extends BaseActivity{
 	
 	public void updateActionBarTitle(String title){
     	ActivityHelper ah = getActivityHelper();
-    	if (ah != null) ah.setActionBarTitle(title, false, false);
+    	if (ah != null) ah.setActionBarTitle(title, false);
     }
 	
 	/*

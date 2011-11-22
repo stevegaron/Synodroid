@@ -179,11 +179,6 @@ public class ActivityHelper {
         actionBarCompat.addView(titleText);
         
         if (is_home){
-        	ImageView pub = new ImageView(mActivity, null, R.attr.actionbarCompat3GStyle);
-        	pub.setVisibility(View.GONE);
-        	pub.setLayoutParams(secLayoutParams);
-        	actionBarCompat.addView(pub);
-        	
         	ImageView sec = new ImageView(mActivity, null, R.attr.actionbarCompatHttpsStyle);
         	sec.setVisibility(View.GONE);
         	sec.setLayoutParams(secLayoutParams);
@@ -194,7 +189,7 @@ public class ActivityHelper {
     /**
      * Sets the action bar title to the given string.
      */
-    public void setActionBarTitle(CharSequence title, boolean is_secure, boolean is_public) {
+    public void setActionBarTitle(CharSequence title, boolean is_secure) {
         ViewGroup actionBar = getActionBarCompat();
         if (actionBar == null) {
             return;
@@ -203,11 +198,6 @@ public class ActivityHelper {
         TextView titleText = (TextView) actionBar.findViewById(R.id.actionbar_compat_text);
         if (titleText != null) {
             titleText.setText(title);
-        }
-        
-        ImageView pub = (ImageView) actionBar.findViewById(R.id.actionbar_compat_3g);
-        if (pub != null) {
-        	pub.setVisibility(is_public ? View.VISIBLE : View.GONE);
         }
         
         ImageView sec = (ImageView) actionBar.findViewById(R.id.actionbar_compat_secure);

@@ -27,7 +27,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 
 /**
  * An extension of {@link ActivityHelper} that provides Android 3.0-specific functionality for
@@ -93,7 +92,7 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
      * visible. If color is null, then the default colorstrip is visible.
      */
     public void setupActionBar(CharSequence title, boolean is_home) {
-        setActionBarTitle(title, false, false);
+        setActionBarTitle(title, false);
     }
     
     /** {@inheritDoc} */
@@ -131,39 +130,20 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
      * No-op on Honeycomb. The action bar title always remains the same.
      */
     @Override
-    public void setActionBarTitle(CharSequence title, boolean is_secure, boolean is_public) {
+    public void setActionBarTitle(CharSequence title, boolean is_secure) {
     	mActivity.getActionBar().setTitle(title);
 		if (UIUtils.isICS()){
-    		if (is_secure && is_public){
-    			mActivity.getActionBar().setLogo(R.drawable.title_logo_https_3g);
-    		}
-        	else if (is_secure){
+    		if (is_secure){
         		mActivity.getActionBar().setLogo(R.drawable.title_logo_https);
-        	}
-        	else if (is_public){
-        		mActivity.getActionBar().setLogo(R.drawable.title_logo_3g);
         	}
     	}
     	else{
-    		if (is_secure && is_public){
-    			mActivity.getActionBar().setCustomView(R.layout.https_custom_view);
-    			mActivity.getActionBar().setDisplayShowCustomEnabled(true);
-    		}
-        	else if (is_secure){
+    		if (is_secure){
     			View v = mActivity.getLayoutInflater().inflate(R.layout.https_custom_view, null);
-    			ImageView pub = (ImageView) v.findViewById(R.id.custom_3g);
-    	        pub.setVisibility(View.GONE);
-            	mActivity.getActionBar().setCustomView(v);
+    			mActivity.getActionBar().setCustomView(v);
     			mActivity.getActionBar().setDisplayShowCustomEnabled(true);
     		}
-        	else if (is_public){
-    			View v = mActivity.getLayoutInflater().inflate(R.layout.https_custom_view, null);
-    			ImageView sec = (ImageView) v.findViewById(R.id.custom_secure);
-    	        sec.setVisibility(View.GONE);
-            	mActivity.getActionBar().setCustomView(v);
-    			mActivity.getActionBar().setDisplayShowCustomEnabled(true);
-    		}
-    		else{
+        	else{
     			mActivity.getActionBar().setDisplayShowCustomEnabled(false);
     		}
     	}

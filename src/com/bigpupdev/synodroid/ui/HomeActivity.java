@@ -65,9 +65,9 @@ public class HomeActivity extends BaseActivity {
 		super.onConfigurationChanged(newConfig);
 	}
     
-    public void updateActionBarTitle(String title, boolean is_secure, boolean is_public){
+    public void updateActionBarTitle(String title, boolean is_secure){
     	ActivityHelper ah = getActivityHelper();
-    	if (ah != null) ah.setActionBarTitle(title, is_secure, is_public);
+    	if (ah != null) ah.setActionBarTitle(title, is_secure);
     }
     
     public void updateActionBarTitleOCL(android.view.View.OnClickListener ocl){
