@@ -225,7 +225,7 @@
 <string name="action_download_original_saved">El fichero se ha guardado en el almacenamiento externo(/sdcard/download)</string>
 <string name="action_download_original_failed">Imposile guardar el archivo. Posiblemente el almacenamiento externo esté desmontado</string>
 <string name="lang_es">Castellano</string>
-<string name="translator">&quot;Traductor(es):&quot;</string>
+<string name="translator">&quot;Traductores:&quot;</string>
 <string name="fullscreen_preference">Pantalla completa</string>
 <string name="summary_fullscreen_preference">Oculta la barra de notificación</string>
 <string name="crash_notif_ticker_text">Error inesperado, por favor, envíe un informe...</string>
