@@ -9,6 +9,7 @@
 package com.bigpupdev.synodroid.ui;
 
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.Synodroid;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,7 @@ public class HelpFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
+		if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HelpFragment: Creating help fragment");
 		
 		final FragmentActivity helpActivity = this.getActivity();
 		View help = inflater.inflate(R.layout.help, null, false);

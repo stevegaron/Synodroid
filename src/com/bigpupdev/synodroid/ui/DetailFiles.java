@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,8 @@ public class DetailFiles extends SynodroidFragment {
 	}
 	
 	public void resetList(){
+		if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailFiles: Reseting file list.");
+		
 		if (fileAdapter != null)
 			fileAdapter.updateFiles(new ArrayList<TaskFile>());
 	}
@@ -87,6 +90,7 @@ public class DetailFiles extends SynodroidFragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		a = this.getActivity();
+		if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailFiles: Creating file list fragment.");
 		
 		// Get the details intent
 		Intent intent = a.getIntent();

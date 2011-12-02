@@ -50,21 +50,21 @@ public class ActionModeHelper {
         	Synodroid app = (Synodroid) mCurrentFragment.getActivity().getApplication();
 			switch (menuItem.getItemId()) {
                 case R.id.menu_pause:
-                	Log.d(Synodroid.DS_TAG, "Action Mode pause clicked.");
+                	if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode pause clicked.");
                 	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
                 		app.executeAction(mCurrentFragment, new PauseTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
                 	}
                 	actionMode.finish();
                     return true;
                 case R.id.menu_clear:
-                	Log.d(Synodroid.DS_TAG, "Action Mode clear clicked.");
+                	if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode clear clicked.");
                 	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
                 		app.executeAction(mCurrentFragment, new DeleteTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
                 	}
                 	actionMode.finish();
                     return true;
                 case R.id.menu_resume:
-                	Log.d(Synodroid.DS_TAG, "Action Mode resume clicked.");
+                	if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode resume clicked.");
                 	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
                 		app.executeAction(mCurrentFragment, new ResumeTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
                 	}

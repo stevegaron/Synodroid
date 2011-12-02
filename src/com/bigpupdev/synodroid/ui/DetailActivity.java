@@ -138,7 +138,8 @@ public class DetailActivity extends BaseActivity{
 	@Override
 	public void onResume() {
 		super.onResume();
-
+		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Resuming detail activity.");
+		
 		// Check for fullscreen
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 		if (preferences.getBoolean(PREFERENCE_FULLSCREEN, false)) {
@@ -556,15 +557,19 @@ public class DetailActivity extends BaseActivity{
 		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Message received with ID = "+ msgP.what);
 		switch (msgP.what) {
 		case ResponseHandler.MSG_DETAILS_FILES_RETRIEVED:
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive file listing message.");
+			
 			List<TaskFile> tfile = (List<TaskFile>) msgP.obj;
 			try{
 				files.fileAdapter.updateFiles(tfile);	
 			
 			} catch (Exception e) {
-				Log.e(Synodroid.DS_TAG, "An error occured while trying to update files list:", e);
+				if (app.DEBUG) Log.e(Synodroid.DS_TAG, "DetailActivity: An error occured while trying to update files list:", e);
 			}
 			break;
 		case ResponseHandler.MSG_PROPERTIES_RECEIVED:
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive task properties message.");
+			
 			TaskProperties tp = (TaskProperties) msgP.obj;
 			ul_rate = tp.ul_rate;
 			dl_rate = tp.dl_rate;
@@ -580,6 +585,8 @@ public class DetailActivity extends BaseActivity{
 			}
 			break;
 		case ResponseHandler.MSG_SHARED_DIRECTORIES_RETRIEVED:
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive share directory listing message.");
+			
 			List<SharedDirectory> newDirs = (List<SharedDirectory>) msgP.obj;
 			destinations = new String[newDirs.size()];
 			for (int iLoop = 0; iLoop < newDirs.size(); iLoop++) {
@@ -593,6 +600,8 @@ public class DetailActivity extends BaseActivity{
 			break;
 		// Details updated
 		case ResponseHandler.MSG_DETAILS_RETRIEVED:
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive task detail message.");
+			
 			TaskDetail details = (TaskDetail) msgP.obj;
 			if (!task.isTorrent && !task.isNZB && files != null){
 				files.updateEmptyValues(getString(R.string.empty_file_list_wrong_type), false);
@@ -623,12 +632,16 @@ public class DetailActivity extends BaseActivity{
 			}
 			break;
 		case ResponseHandler.MSG_ERROR:
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive error message.");
+			
 			SynoServer server = ((Synodroid) getApplication()).getServer();
 			if (server != null)
 				server.setLastError((String) msgP.obj);
 			main.showError(server.getLastError(), null);
 			break;
 		case ResponseHandler.MSG_ORIGINAL_FILE_RETRIEVED:
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive original file retreived message.");
+			
 			OriginalFile oriFile = (OriginalFile) msgP.obj;
 			File path = Environment.getExternalStorageDirectory();
 			path = new File(path, "download");
@@ -651,7 +664,7 @@ public class DetailActivity extends BaseActivity{
 			}
 			break;
 		default: 
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Ignored message ID = "+ msgP.what);
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Ignored message ID = "+ msgP.what);
 		}
 	}
 	
@@ -730,22 +743,32 @@ public class DetailActivity extends BaseActivity{
 		Synodroid app = (Synodroid) getApplication();
 		DetailMain main = (DetailMain)mAdapter.getItem(MAIN_ITEM);
 		if (item.getItemId() == R.id.menu_refresh) {
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu refresh selected.");
+			
 			((Synodroid) getApplication()).forceRefresh();
             return true;
         }
 		else if (item.getItemId() == MENU_PAUSE){
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu pause selected.");
+			
 			app.executeAction(main, new PauseTaskAction(task), true);
 			return true;
 		}
 		else if (item.getItemId() == MENU_DELETE || item.getItemId() == MENU_CANCEL || item.getItemId() == MENU_CLEAR){
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu cancel/delete/clear selected.");
+			
 			app.executeAction(main, new DeleteTaskAction(task), true);
 			return true;
 		}
 		else if (item.getItemId() == MENU_RESUME || item.getItemId() == MENU_RETRY){
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu resume/retry selected.");
+			
 			app.executeAction(main, new ResumeTaskAction(task), true);
 			return true;
 		}
 		else if (item.getItemId() == MENU_PARAMETERS){
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu task properties selected.");
+			
 			if (app.getServer().getDsmVersion() == DSMVersion.VERSION3_1 || app.getServer().getDsmVersion() == DSMVersion.VERSION3_2) {
 				app.executeAsynchronousAction(main, new EnumShareAction(), false, false);
 			} else {
@@ -833,11 +856,13 @@ public class DetailActivity extends BaseActivity{
 		private DetailMain main;
 		private DetailFiles files;
 		private DetailTransfer transfer;
+		private boolean debug = false;
 		
-		public MyAdapter(FragmentManager pFm, int pItemNum, DetailActivity pCurActivity) {
+		public MyAdapter(FragmentManager pFm, int pItemNum, DetailActivity pCurActivity, boolean p_debug) {
 			super(pFm);
 			mItemsNum = pItemNum;
 			mCurActivity = pCurActivity;
+			debug = p_debug;
         }
 
 		/**
@@ -845,7 +870,7 @@ public class DetailActivity extends BaseActivity{
 		 */
 		@Override
         public void destroyItem(View container, int position, Object object){
-			Log.d(Synodroid.DS_TAG, "View pager attemps to destroy pager number: "+position);
+			if (debug) Log.d(Synodroid.DS_TAG, "DetailActivity: View pager attemps to destroy pager number: "+position);
 			if (position == 2){
 				mCurActivity.updateTask(false);
 			}
@@ -897,7 +922,7 @@ public class DetailActivity extends BaseActivity{
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
 		task = (Task) intent.getSerializableExtra("com.bigpupdev.synodroid.ds.Details");
-        mAdapter = new MyAdapter(getSupportFragmentManager(), 3, this);
+        mAdapter = new MyAdapter(getSupportFragmentManager(), 3, this, ((Synodroid)getApplication()).DEBUG);
         
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);

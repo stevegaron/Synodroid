@@ -12,6 +12,7 @@ package com.bigpupdev.synodroid.ui;
 
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.Synodroid;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -43,6 +45,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 			// According to the message
 			switch (msgP.what) {
 			case MSG_OPERATION_PENDING:
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received operation pending message.");
 				if (a instanceof HomeActivity){
 					((HomeActivity) a).updateRefreshStatus(true);
 				}
@@ -51,11 +54,13 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 				}
 				break;
 			case MSG_TOAST:
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
 				String text = (String) msgP.obj;
 				Toast toast = Toast.makeText(a, text, Toast.LENGTH_SHORT);
 				toast.show();
 				break;
 			default:
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received default message.");
 				if (a instanceof HomeActivity){
 					((HomeActivity) a).updateRefreshStatus(false);
 				}
@@ -129,6 +134,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 	 *            A listener which will be called when the user will click on the OK button
 	 */
 	public void showError(String msgP, DialogInterface.OnClickListener listenerP) {
+		if (((Synodroid)SynodroidFragment.this.getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Showing error message.");
 		try {
 			errorDialog.setMessage(msgP);
 			errorDialogListener = listenerP;

@@ -10,10 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.utils.ViewPagerIndicator;
 
 public class AboutActivity extends BaseActivity{
@@ -36,6 +38,7 @@ public class AboutActivity extends BaseActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
         setContentView(R.layout.activity_about);
         mAdapter = new MyAdapter(getSupportFragmentManager(), 2, this);
         mPager = (ViewPager)findViewById(R.id.pager);
@@ -84,7 +87,8 @@ public class AboutActivity extends BaseActivity{
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Resuming about activity.");
+		
 		// Check for fullscreen
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 		if (preferences.getBoolean(PREFERENCE_FULLSCREEN, false)) {

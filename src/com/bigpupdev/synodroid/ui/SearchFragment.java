@@ -63,7 +63,9 @@ public class SearchFragment extends SynodroidFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		final Activity a = getActivity();
-		if (savedInstanceState != null)
+		if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: Creating search fragment.");
+    	
+        if (savedInstanceState != null)
 			lastSearch = savedInstanceState.getString("lastSearch");
 		else
 			lastSearch = "";
@@ -222,7 +224,7 @@ public class SearchFragment extends SynodroidFragment {
 				try {
 					d.show();
 				} catch (BadTokenException e) {
-					Log.e(Synodroid.DS_TAG, e.getMessage());
+					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: " + e.getMessage());
 					// Unable to show dialog probably because intent has been closed. Ignoring...
 				}
 			}
@@ -252,7 +254,9 @@ public class SearchFragment extends SynodroidFragment {
 		String action = intent.getAction();
 		
 		if (Intent.ACTION_SEARCH.equals(action)) {
-			if (getSupportedSites() != null) {
+			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: New search intent received.");
+        	
+            if (getSupportedSites() != null) {
 				if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
 				}
 				String searchKeywords = intent.getStringExtra(SearchManager.QUERY);
@@ -267,7 +271,9 @@ public class SearchFragment extends SynodroidFragment {
 					resList.setVisibility(TextView.GONE);
 				}
 			} else {
-				AlertDialog.Builder builder = new AlertDialog.Builder(a);
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
+	        	
+	            AlertDialog.Builder builder = new AlertDialog.Builder(a);
 				builder.setMessage(R.string.err_provider_missing);
 				builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -337,7 +343,7 @@ public class SearchFragment extends SynodroidFragment {
 				}
 			}
 			catch (Exception e){
-				Log.d(Synodroid.DS_TAG, "Activity was killed before the searchresult came back...");
+				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: Activity was killed before the searchresult came back...");
 			}
 		}
 

@@ -33,6 +33,7 @@ public class AboutFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
+		if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Creating about fragment.");
 		
 		final FragmentActivity aboutActivity = this.getActivity();
 		View about = inflater.inflate(R.layout.about, null, false);
@@ -55,7 +56,7 @@ public class AboutFragment extends Fragment{
 				vn += " " + pi.versionName;
 			}
 		} catch (Exception e) {
-			Log.e(Synodroid.DS_TAG, "Error while retrieving package information", e);
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "AboutFragment: Error while retrieving package information", e);
 		}
 		TextView vname = (TextView) about.findViewById(R.id.app_vers_name_text);
 		vname.setText(vn);

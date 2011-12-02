@@ -9,6 +9,7 @@
 package com.bigpupdev.synodroid.ui;
 
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.ui.SynodroidFragment;
 import com.bigpupdev.synodroid.adapter.DetailAdapter;
 
@@ -16,6 +17,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,7 @@ public class DetailTransfer extends SynodroidFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		a = this.getActivity();
+		if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailTransfer: Creating detail transfer fragment.");
 		
 		// Build the transfer tab
 		View v = inflater.inflate(R.layout.detail_transfer, null);

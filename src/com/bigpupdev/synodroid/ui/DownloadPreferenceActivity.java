@@ -53,6 +53,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.provider.SearchRecentSuggestions;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -225,7 +226,8 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: Resuming download preference activity.");
+		
 		// Check for fullscreen
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 		if (preferences.getBoolean(PREFERENCE_FULLSCREEN, false)) {
@@ -285,6 +287,8 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_wizard) {
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: Menu find server selected.");
+			
 			WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 			boolean wifiOn = wifiMgr.isWifiEnabled();
 			final WifiInfo currentWifi = wifiMgr.getConnectionInfo();
@@ -300,18 +304,14 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 			return true;
 		// Create a new server
 		}else if (item.getItemId() == R.id.menu_create) {
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: Menu add server selected.");
+			
 			AddServerWizard wiz = new AddServerWizard(this, ((Synodroid)getApplication()).DEBUG);
 			wiz.start();
-//			maxServerId = maxServerId + 1;
-//			// Create the create new server screen
-//			PreferenceScreen screen = createServerPreference(maxServerId, serversCategory, PreferenceFacade.SERVER_PREFIX + maxServerId, getString(R.string.label_default_server_prefix) + maxServerId, getString(R.string.hint_default_server));
-//			if (screen != null) {
-//				showServerDialog(screen);
-//			}
-//			return true;
-
 		// Delete one or more servers
 		}else if (item.getItemId() == R.id.menu_delete) {
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: Menu delete servers selected.");
+			
 			// Load servers list
 			final ArrayList<ServerInfo> servers = new ArrayList<ServerInfo>();
 			PreferenceFacade.processLoadingServers(getPreferenceScreen().getSharedPreferences(), new PreferenceProcessor() {
@@ -719,7 +719,11 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	 * @param metaDataP
 	 */
 	public void onWizardFinished(HashMap<String, Object> metaDataP) {
+		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: Wizard finished.");
+		
 		if (metaDataP != null) {
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: Adding server connection.");
+			
 			maxServerId++;
 			Editor editor = getPreferenceScreen().getEditor();
 			// Write commons datas
@@ -743,6 +747,8 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		}
 		// Display a message for the end user
 		else {
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: No server where found by the wizard.");
+			
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.dialog_title_information).setMessage(R.string.wizard_no_server_found).setCancelable(false).setPositiveButton(R.string.button_ok, null).create().show();
 		}
