@@ -215,6 +215,9 @@ public class DetailActivity extends BaseActivity{
 			} catch (ArithmeticException e) {
 				downPer = 100;
 			}
+			if (downPer == 100 && downloaded != filesize){
+				downPer = 99;
+			}
 			downPerStr = "" + downPer + "%";
 		}
 
