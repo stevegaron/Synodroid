@@ -64,15 +64,6 @@ class DSHandlerDSM31 implements DSHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#getBaseURL()
-	 */
-	public String getBaseURL() {
-		return server.getUrl() + "/" + DM_URI;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see com.bigpupdev.synodroid.common.Protocol#getAllTask()
 	 */
 	public TaskContainer getAllTask(int startP, int limitP, String sortAttrP, boolean ascendingP) throws Exception {

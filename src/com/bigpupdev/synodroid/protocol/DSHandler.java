@@ -27,13 +27,6 @@ import android.net.Uri;
 public interface DSHandler {
 
 	/**
-	 * Return the base URL to request the DownloadStation without '/' at the end
-	 * 
-	 * @return
-	 */
-	public String getBaseURL();
-
-	/**
 	 * For DSM version 2.3 and before (to confirm to DSM 3.0 and upper), startP parameter MUST be a multiple of 25 and limitP parameter must be 25. Return all torrent
 	 * 
 	 * @param startP
