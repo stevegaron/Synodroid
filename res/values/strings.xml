@@ -222,7 +222,7 @@
 <string name="action_download_original_saved">File has been saved to your external storage (/sdcard/download)</string>
 <string name="action_download_original_failed">Unable to save file, likeky because external storage is not mounted</string>
 <string name="lang_es">Spanish</string>
-<string name="translator">&quot;Translator's:&quot;</string>
+<string name="translator">&quot;Translators:&quot;</string>
 <string name="fullscreen_preference">Full screen</string>
 <string name="summary_fullscreen_preference">Hides the notification bar</string>
 <string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
