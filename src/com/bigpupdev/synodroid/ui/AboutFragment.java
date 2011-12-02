@@ -62,7 +62,7 @@ public class AboutFragment extends Fragment{
 		vname.setText(vn);
 
 		TextView message = (TextView) about.findViewById(R.id.about_code);
-		message.setText(Html.fromHtml("<a href=\"https://plus.google.com/111893484035545745539\">Synodroid Google+ Page</a>"));
+		message.setText(Html.fromHtml("<a href=\"https://plus.google.com/111893484035545745539\">"+getString(R.string.gplus_title)+"</a>"));
 		message.setMovementMethod(LinkMovementMethod.getInstance());
 		return about;
 	}
