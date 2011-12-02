@@ -98,7 +98,7 @@ public class DetailActivity extends BaseActivity{
 	// The values of seeding time
 	private int[] seedingTimes;
 	
-   private static final int MENU_PAUSE = 1;
+    private static final int MENU_PAUSE = 1;
 	private static final int MENU_DELETE = 2;
 	private static final int MENU_CANCEL = 3;
 	private static final int MENU_RESUME = 4;
@@ -615,6 +615,9 @@ public class DetailActivity extends BaseActivity{
 			
 			setStatus(details.getStatus());
 			updateActionBarTitle(details.fileName);
+			if (UIUtils.isICS()){
+				invalidateOptionsMenu();
+			}
 			break;
 		case ResponseHandler.MSG_ERROR:
 			SynoServer server = ((Synodroid) getApplication()).getServer();
@@ -695,8 +698,9 @@ public class DetailActivity extends BaseActivity{
 				menu.add(0, MENU_RETRY, 0, getString(R.string.action_retry)).setIcon(android.R.drawable.ic_menu_revert);
 				menu.add(0, MENU_DELETE, 0, getString(R.string.action_delete)).setIcon(android.R.drawable.ic_menu_delete);
 				break;
-			case TASK_FINISHING:
 			case TASK_FINISHED:
+				menu.add(0, MENU_RESUME, 0, getString(R.string.action_resume)).setIcon(android.R.drawable.ic_menu_revert);
+			case TASK_FINISHING:
 				menu.add(0, MENU_CLEAR, 0, getString(R.string.action_clear)).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 				break;
 			case TASK_HASH_CHECKING:
@@ -707,7 +711,7 @@ public class DetailActivity extends BaseActivity{
 			}
 		}
 		if (task.isTorrent) {
-			if (task.getStatus() == TaskStatus.TASK_DOWNLOADING) {
+			if (task.getStatus() == TaskStatus.TASK_DOWNLOADING || task.getStatus() == TaskStatus.TASK_SEEDING) {
 				menu.add(0, MENU_PARAMETERS, 0, getString(R.string.task_parameters)).setIcon(android.R.drawable.ic_menu_preferences).setEnabled(true);
 			} else {
 				menu.add(0, MENU_PARAMETERS, 0, getString(R.string.task_parameters)).setIcon(android.R.drawable.ic_menu_preferences).setEnabled(false);
