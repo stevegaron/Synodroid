@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">Synodroid</string>
-    <string name="app_opensource">Projet Opensource</string>
-    <string name="app_url">http://code.google.com/p/synodroid-ds/</string>
+<string name="app_name">Synodroid Pro</string>
+<string name="app_opensource">Projet Opensource</string>
+<string name="app_url">http://code.google.com/p/synodroid-ds/</string>
 
 <string name="connect_cant_connect">&quot;Impossible de se connecter à {0}. L'erreur est '{1}'.&quot;</string>
 <string name="unknow_reason">&quot;Une erreur s'est produite pour une raison inconnue.&quot;</string>
