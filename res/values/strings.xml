@@ -333,8 +333,6 @@
 
 <string name="debug">Debug</string>
 <string name="hint_debug">Activate debugging logs</string>    
-
-    
     
 <string name="empty_file_list">Files cannot be shown at the moment...</string>
 <string name="empty_file_list_wrong_type">Not available for non-Torrent/NZB downloads.</string>
@@ -372,6 +370,5 @@
 <string name="accept">Accept</string>
 <string name="decline">Decline</string>
 <string name="gplus_title">Synodroid Google+ Page</string>
-
-    
+  
 </resources>

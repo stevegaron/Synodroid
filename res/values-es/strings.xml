@@ -91,7 +91,6 @@
 <string name="dialog_title_confirm">Confirmación</string>
 <string name="button_yes">Si</string>
 <string name="button_no">No</string>
-<string name="dialog_message_confirm">&quot;Las operaciones sobre al archivo no se han completado. ¿Desea continuar?&quot;</string>
 <string name="label_sort_taskid">Por fecha de creación</string>
 <string name="label_sort_filename">Por nombre de archivo</string>
 <string name="label_sort_totalsize">Por tamaño total</string>
@@ -105,7 +104,6 @@
 <string name="label_asc_sort">Por orden ascendente</string>
 <string name="hint_asc_sort_on">La ordenación es ascendente</string>
 <string name="hint_asc_sort_off">La ordenación es descendente</string>
-<string name="eula_title">Licencia</string>
 <string name="eula_accept">Aceptar</string>
 <string name="eula_hide">Ocultar</string>
 <string name="eula_refuse">Rechazar</string>
@@ -335,4 +333,41 @@
 <string name="debug">Depuración</string>
 <string name="hint_debug">Activar la depuración de los registros</string>
 
+<string name="empty_file_list">Los archivos no se pueden mostrar en este momento...</string>
+<string name="empty_file_list_wrong_type">No disponible para descargas no-Torrent/NZB.</string>
+<string name="empty_download_list">No hay descargas en tu NAS en este momento.\n\nPuedes añadir descargas pulsando en el botón &quot;Añadir&quot;,el botón de búsqueda o usando la función de compartir desde tu navegador Android.</string>
+<string name="empty_list_loading">Cargando...</string>
+<string name="empty_not_connected">No conectado.</string>	
+<string name="err_file_list">Fallo al traer la lista de ficheros. Asegúrate que la configuración del servidor coincide con la versión de tu DSM.</string>
+<string name="tab_main">Descargas</string>    
+<string name="tab_transfer">Transferencia</string>    
+<string name="tab_file">Ficheros</string>    
+<string name="add_wizard_srv_name">Nombre servidor:</string>
+<string-array name="add_wizard_srv_type_array">
+	<item>Sólo wifi</item>
+	<item>Sólo red de datos móvil</item>
+	<item>Wifi y red de datos móvil</item>
+</string-array>
+<string name="add_wizard_srv_sel_title">Información servidor</string>
+<string name="add_wizard_wifi_title">Conexión Wifi</string>
+<string name="add_wizard_wifi_host">IP del Servidor/Nombre de dominio:</string>
+<string name="add_wizard_cell_title">Conexión red de datos móvil</string>
+<string name="add_wizard_sec_title">Seguridad</string>
+<string name="dialog_message_confirm">&quot;La operación de descarga no está completamente finalizada.¿Está seguro terminar la descarga?&quot;</string>
+<string name="menu_add">Añadir descarga</string>
+<string name="add_download_url_title">URL:</string>
+<string name="app_pro">Versión PRO</string>
+<string name="app_google_plus">Añadenos a Google+ para mantenerte informado sobre Synodroid:</string>
+<string name="tab_about">Sobre</string>    
+<string name="tab_help">F.A.Q.</string>    
+<string name="gplus">Obtén ayuda en Google+</string>    
+<string name="description_logo">SynoDroid Pro</string>
+<string name="description_home">Inicio</string>
+<string name="description_search">Buscar</string>
+<string name="description_refresh">Actualizar</string>
+<string name="eula_title">Acuerdo de licencia</string>
+<string name="accept">Aceptar</string>
+<string name="decline">Rechazar</string>
+<string name="gplus_title">Página de Synodroid en Google+</string>
+    
 </resources>

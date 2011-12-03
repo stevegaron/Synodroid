@@ -92,7 +92,6 @@
 <string name="dialog_title_confirm">Confirmation</string>
 <string name="button_yes">Oui</string>
 <string name="button_no">Non</string>
-<string name="dialog_message_confirm">&quot;L'opération sur le fichier n'est pas terminée. Voulez-vous continuer?&quot;</string>
 <string name="label_sort_taskid">Par date de création</string>
 <string name="label_sort_filename">Par nom de fichier</string>
 <string name="label_sort_totalsize">Par taille totale</string>
@@ -106,7 +105,6 @@
 <string name="label_asc_sort">Ordre de tri</string>
 <string name="hint_asc_sort_on">Le tri est croissant</string>
 <string name="hint_asc_sort_off">Le tri est décroissant</string>
-<string name="eula_title">License</string>
 <string name="eula_accept">"J'accepte"</string>
 <string name="eula_hide">Fermer</string>
 <string name="eula_refuse">Je refuse</string>
@@ -271,7 +269,8 @@
 <string name="wizard_ddns_host">Nom DDNS</string>
 <string name="wizard_selectdsm_title">Sélectionner la version DSM</string>
 <string name="wizard_no_server_found">Aucun serveur n\'a pu être trouvé sur le réseau. Vérifiez votre connexion et essayez à nouveau.</string>
-<string name="err_nomarket">Android market n\'est pas installé sur votre appareil.\n\nContactez le développeur pour avoir une version de Transdroid Search.</string><string name="err_nobrowser">Android Browser n\'est pas installé sur votre appareil.\n\nContactez le développeur pour avoir une version de Transdroid Search.</string>
+<string name="err_nomarket">Android market n\'est pas installé sur votre appareil.\n\nContactez le développeur pour avoir une version de Transdroid Search.</string>
+<string name="err_nobrowser">Android Browser n\'est pas installé sur votre appareil.\n\nContactez le développeur pour avoir une version de Transdroid Search.</string>
 <string name="err_provider_missing">Transdroid search n\'est pas installé sur votre appareil.\n\nSuivez les instructions dans l\'onglet \'Recherche\' pour l\'installer.</string>
 <string name="help">Aide</string>
 
@@ -336,4 +335,41 @@
 <string name="debug">Débogage</string>
 <string name="hint_debug">Activer journaux de débogage</string>
 
+<string name="empty_file_list">Les fichiers ne peuvent pas être affichier pour l\'instant...</string>
+<string name="empty_file_list_wrong_type">N\'est pas valide pour les téléchargement autre que torrent et NZB.</string>
+<string name="empty_download_list">Il n\'y a pas de téléchargement sur votre NAS pour le moment.\n\nVous pouvez ajouter un téléchargement en utilisant le menu ajouter, le moteur de recherche ou bien la fonction partage de lien de votre fureteur Android.</string>
+<string name="empty_list_loading">Chargement...</string>
+<string name="empty_not_connected">Non connecter.</string>	
+<string name="err_file_list">N\'a pas pu obtenir la liste de fichier. Assurez-vous que votre configuration serveur équivaut à la version DSM de votre NAS.</string>
+<string name="tab_main">Téléchargement</string>    
+<string name="tab_transfer">Transfert</string>    
+<string name="tab_file">Fichiers</string>    
+<string name="add_wizard_srv_name">Nom du serveur:</string>
+<string-array name="add_wizard_srv_type_array">
+	<item>Wifi seulement</item>
+	<item>Réseau cellulaire seulement</item>
+	<item>Wifi et Réseau cellulaire</item>
+</string-array>
+<string name="add_wizard_srv_sel_title">Information de serveur</string>
+<string name="add_wizard_wifi_title">Connexion Wifi</string>
+<string name="add_wizard_wifi_host">IP ou Nom de domaine:</string>
+<string name="add_wizard_cell_title">Conexion Cellulaire</string>
+<string name="add_wizard_sec_title">Securité</string>
+<string name="dialog_message_confirm">&quot;L\'opération de téléchargement n\'est pas complètement terminé. Êtes-vous sur de vouloir arrêter le téléchargement?&quot;</string>
+<string name="menu_add">Ajout de téléchargement</string>
+<string name="add_download_url_title">Lien:</string>
+<string name="app_pro">Version Professionelle</string>
+<string name="app_google_plus">Ajoutez-nous sur Google+ pour de lìnformation à jour sur Synodroid:</string>
+<string name="tab_about">À propos</string>    
+<string name="tab_help">F.A.Q.</string>    
+<string name="gplus">Recevez du support sur Google+</string>    
+<string name="description_logo">SynoDroid Pro</string>
+<string name="description_home">Départ</string>
+<string name="description_search">Recherche</string>
+<string name="description_refresh">Rafraichir</string>
+<string name="eula_title">Contrat de licence</string>
+<string name="accept">J\'accepte</string>
+<string name="decline">Je refuse</string>
+<string name="gplus_title">Page Google+ de Synodroid</string>
+    
 </resources>

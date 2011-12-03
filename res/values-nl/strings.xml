@@ -92,7 +92,6 @@
 <string name="dialog_title_confirm">Bevestigen</string>
 <string name="button_yes">Ja</string>
 <string name="button_no">Nee</string>
-<string name="dialog_message_confirm">&quot;De bestandsbewerkingen zijn nog niet compleet. Wilt u doorgaan?&quot;</string>
 <string name="label_sort_taskid">Op datum</string>
 <string name="label_sort_filename">Op bestandsnaam</string>
 <string name="label_sort_totalsize">Op totale grootte</string>
@@ -106,7 +105,6 @@
 <string name="label_asc_sort">Oplopend sorteren</string>
 <string name="hint_asc_sort_on">Oplopend gesorteerd</string>
 <string name="hint_asc_sort_off">Aflopend gesorteerd</string>
-<string name="eula_title">Licentie</string>
 <string name="eula_accept">Accepteer</string>
 <string name="eula_hide">Verbergen</string>
 <string name="eula_refuse">Weigeren</string>
@@ -309,8 +307,6 @@
 <string name="faq5">Dit FAQ heeft me niet geholpen, wat nu?</string>
 <string name="rep5">Stuur een email naar de ontwikkelaars via de onderstaand knop.\n\nStuur uw probleem duidelijk beschreven zodat wij het goed begrijpen en kunnen verhelpen.</string>
 
-
-
 <string name="ul_rate">Maximale upload snelheid (KB\\s)</string>
 <string name="dl_rate">Maximale download snelheid (KB\\s)</string>
 <string name="max_peers">Maximalen aantal van peers</string>
@@ -337,4 +333,41 @@
 <string name="debug">Debug</string>
 <string name="hint_debug">Activeer debugging logboeken</string>
 
+<string name="empty_file_list">Er zijn geen bestanden om weer te geven...</string>
+<string name="empty_file_list_wrong_type">Niet beschikbaar voor non-Torrent/NZB downloads.</string>
+<string name="empty_download_list">eEr zijn geen downloads actief op je NAS.\n\nJe kan downloads toevoegen via de toevoegen-knop, de zoek knop of de deel-functie van je Android browser.</string>
+<string name="empty_list_loading">Laden...</string>
+<string name="empty_not_connected">Niet verbonden.</string>	
+<string name="err_file_list">Mislukt om de bestandslijst op te vragen. Controleer de server configuratie van je DSM-versie.</string>
+<string name="tab_main">Download</string>    
+<string name="tab_transfer">Overdracht</string>    
+<string name="tab_file">Bestanden</string>    
+<string name="add_wizard_srv_name">Server naam:</string>
+<string-array name="add_wizard_srv_type_array">
+	<item>Alleen Wifi</item>
+	<item>Alleen 3G</item>
+	<item>Wifi en 3G</item>
+</string-array>
+<string name="add_wizard_srv_sel_title">Server Info</string>
+<string name="add_wizard_wifi_title">Wifi Connectie</string>
+<string name="add_wizard_wifi_host">Server IP/Domein naam:</string>
+<string name="add_wizard_cell_title">3G Connectie</string>
+<string name="add_wizard_sec_title">Beveiliging</string>
+<string name="dialog_message_confirm">&quot;De download is nog niet voltooid. Weet je zeker dat je de download wilt verwijderen?&quot;</string>
+<string name="menu_add">Download toevoegen</string>
+<string name="add_download_url_title">URL:</string>
+<string name="app_pro">Professionele Versie</string>
+<string name="app_google_plus">Controleer Synodroid op Google+ voor actuele informatie:</string>
+<string name="tab_about">Over</string>    
+<string name="tab_help">F.A.Q.</string>    
+<string name="gplus">Ondersteuning vragen op Google+</string>    
+<string name="description_logo">SynoDroid Pro</string>
+<string name="description_home">Start</string>
+<string name="description_search">Zoeken</string>
+<string name="description_refresh">Vernieuwen</string>
+<string name="eula_title">Licentieovereenkomst</string>
+<string name="accept">Accepteren</string>
+<string name="decline">Weigeren</string>
+<string name="gplus_title">Synodroid Google+ pagina</string>
+    
 </resources>
