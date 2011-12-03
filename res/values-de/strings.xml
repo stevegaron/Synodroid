@@ -92,7 +92,6 @@
 <string name="dialog_title_confirm">Bestätigen</string>
 <string name="button_yes">Ja</string>
 <string name="button_no">Nein</string>
-<string name="dialog_message_confirm">&quot;Die Operationen sind noch nicht abgeschlossen. Möchten Sie Fortfahren?&quot;</string>
 <string name="label_sort_taskid">Nach Erstellungsdatum</string>
 <string name="label_sort_filename">Nach Dateiname</string>
 <string name="label_sort_totalsize">Nach Gesamtgröße</string>
@@ -106,7 +105,6 @@
 <string name="label_asc_sort">Aufsteigende Sortierung</string>
 <string name="hint_asc_sort_on">Sortiere aufsteigend</string>
 <string name="hint_asc_sort_off">Sortiere absteigend</string>
-<string name="eula_title">Lizenz</string>
 <string name="eula_accept">Akzeptieren</string>
 <string name="eula_hide">Verstecken</string>
 <string name="eula_refuse">Ablehnen</string>
@@ -334,5 +332,42 @@
 
 <string name="debug">Debug</string>
 <string name="hint_debug">Aktivieren Sie das Debugging-Protokoll</string>
+
+<string name="empty_file_list">Im Moment können keine Dateien angezeigt werden…</string>
+<string name="empty_file_list_wrong_type">Nur für Torrents und NZB-Downloads verfügbar.</string>
+<string name="empty_download_list">Ed gibt im Moment keine Downloads auf ihrem NAS.\n\nSie können Downloads über den hinzufügen-Button, die Suche oder die "Weitergeben"-Funktion des Browsers hinzufügen.</string>
+<string name="empty_list_loading">Lade...</string>
+<string name="empty_not_connected">Nicht verbunden.</string>	
+<string name="err_file_list">Dateiliste konnte nicht empfangen werden. Überprüfen sie, dass in der Server-Konfiguration die richtige DSM Version angegeben ist.</string>
+<string name="tab_main">Download</string>    
+<string name="tab_transfer">Transfer</string>    
+<string name="tab_file">Dateien</string>    
+<string name="add_wizard_srv_name">Servername:</string>
+<string-array name="add_wizard_srv_type_array">
+	<item>Nur WLAN</item>
+	<item>Nur Mobilfunk</item>
+	<item>WLAN und Mobilfunk</item>
+</string-array>
+<string name="add_wizard_srv_sel_title">Serverinfo</string>
+<string name="add_wizard_wifi_title">WLAN Verbindung</string>
+<string name="add_wizard_wifi_host">Server IP/Domainname:</string>
+<string name="add_wizard_cell_title">Mobilfunk</string>
+<string name="add_wizard_sec_title">Sicherheit</string>
+<string name="dialog_message_confirm">&quot;Der Download ist noch nicht komplett fertig gestellt. Sind sie sicher, dass der Download beendet werden soll?&quot;</string>
+<string name="menu_add">Download hinzufügen</string>
+<string name="add_download_url_title">Adresse:</string>
+<string name="app_pro">Professional version</string>
+<string name="app_google_plus">Fügen sie uns zu ihren Google+ Kreisen hinzu um immer die neuesten Informationen zu Synodroid zu bekommen:</string>
+<string name="tab_about">Über</string>    
+<string name="tab_help">F.A.Q.</string>    
+<string name="gplus">Support bei Google+</string>    
+<string name="description_logo">SynoDroid Pro</string>
+<string name="description_home">Home</string>
+<string name="description_search">Suche</string>
+<string name="description_refresh">Neu laden</string>
+<string name="eula_title">Lizenzvereinbarung</string>
+<string name="accept">Akzeptieren</string>
+<string name="decline">Ablehnen</string>
+<string name="gplus_title">Synodroid Google+ Seite</string>
 
 </resources>
