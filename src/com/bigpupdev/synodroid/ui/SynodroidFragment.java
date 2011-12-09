@@ -42,35 +42,38 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 		@Override
 		public void handleMessage(Message msgP) {
 			Activity a = SynodroidFragment.this.getActivity();
-			// According to the message
-			switch (msgP.what) {
-			case MSG_OPERATION_PENDING:
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received operation pending message.");
-				if (a instanceof HomeActivity){
-					((HomeActivity) a).updateRefreshStatus(true);
+			if (a != null){
+				Synodroid app = (Synodroid) a.getApplication();
+				// According to the message
+				switch (msgP.what) {
+				case MSG_OPERATION_PENDING:
+					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received operation pending message.");
+					if (a instanceof HomeActivity){
+						((HomeActivity) a).updateRefreshStatus(true);
+					}
+					else if (a instanceof DetailActivity){
+						((DetailActivity) a).updateRefreshStatus(true);
+					}
+					break;
+				case MSG_TOAST:
+					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
+					String text = (String) msgP.obj;
+					Toast toast = Toast.makeText(a, text, Toast.LENGTH_SHORT);
+					toast.show();
+					break;
+				default:
+					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received default message.");
+					if (a instanceof HomeActivity){
+						((HomeActivity) a).updateRefreshStatus(false);
+					}
+					else if (a instanceof DetailActivity){
+						((DetailActivity) a).updateRefreshStatus(false);
+					}
+					break;
 				}
-				else if (a instanceof DetailActivity){
-					((DetailActivity) a).updateRefreshStatus(true);
-				}
-				break;
-			case MSG_TOAST:
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
-				String text = (String) msgP.obj;
-				Toast toast = Toast.makeText(a, text, Toast.LENGTH_SHORT);
-				toast.show();
-				break;
-			default:
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received default message.");
-				if (a instanceof HomeActivity){
-					((HomeActivity) a).updateRefreshStatus(false);
-				}
-				else if (a instanceof DetailActivity){
-					((DetailActivity) a).updateRefreshStatus(false);
-				}
-				break;
+				// Delegate to the sub class in case it have something to do
+				SynodroidFragment.this.handleMessage(msgP);
 			}
-			// Delegate to the sub class in case it have something to do
-			SynodroidFragment.this.handleMessage(msgP);
 		}
 	};
 
