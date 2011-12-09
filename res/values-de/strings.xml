@@ -335,7 +335,7 @@
 
 <string name="empty_file_list">Im Moment können keine Dateien angezeigt werden…</string>
 <string name="empty_file_list_wrong_type">Nur für Torrents und NZB-Downloads verfügbar.</string>
-<string name="empty_download_list">Ed gibt im Moment keine Downloads auf ihrem NAS.\n\nSie können Downloads über den hinzufügen-Button, die Suche oder die "Weitergeben"-Funktion des Browsers hinzufügen.</string>
+<string name="empty_download_list">Es gibt im Moment keine Downloads auf ihrem NAS.\n\nSie können Downloads über den hinzufügen-Button, die Suche oder die "Weitergeben"-Funktion des Browsers hinzufügen.</string>
 <string name="empty_list_loading">Lade...</string>
 <string name="empty_not_connected">Nicht verbunden.</string>	
 <string name="err_file_list">Dateiliste konnte nicht empfangen werden. Überprüfen sie, dass in der Server-Konfiguration die richtige DSM Version angegeben ist.</string>
