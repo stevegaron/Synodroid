@@ -48,7 +48,7 @@ public class EditTextPreferenceWithValue extends EditTextPreference implements P
 	 */
 	public EditTextPreferenceWithValue(Context context, AttributeSet attrs, boolean trim) {
 		super(context, attrs);
-		if (UIUtils.isTablet(context)){
+		if (UIUtils.isHoneycombTablet(context)){
 			setLayoutResource(R.layout.preference_with_value_padded);
 		}
 		else{
