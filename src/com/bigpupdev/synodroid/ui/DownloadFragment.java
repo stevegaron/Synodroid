@@ -375,60 +375,63 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	 */
 	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated) {
 		final Activity a = getActivity();
-		if (!connectDialogOpened) {
-			final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), ((Synodroid) a.getApplication()).DEBUG);
-			// If at least one server
-			if (servers.size() != 0) {
-				// If more than 1 server OR if we don't want to autoconnect then
-				// show the dialog
-				if (servers.size() > 1 || !autoConnectIfOnlyOneServerP) {
-					connectDialogOpened = true;
-					String[] serversTitle = new String[servers.size()];
-					for (int iLoop = 0; iLoop < servers.size(); iLoop++) {
-						SynoServer s = servers.get(iLoop);
-						serversTitle[iLoop] = s.getNickname();
-					}
-					AlertDialog.Builder builder = new AlertDialog.Builder(a);
-					builder.setTitle(getString(R.string.menu_connect));
-					// When the user select a server
-					builder.setItems(serversTitle, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int item) {
-							SynoServer server = servers.get(item);
+		if (!connectDialogOpened && a != null) {
+			final Synodroid app = (Synodroid) a.getApplication();
+			if (app != null){
+				final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), app.DEBUG);
+				// If at least one server
+				if (servers.size() != 0) {
+					// If more than 1 server OR if we don't want to autoconnect then
+					// show the dialog
+					if (servers.size() > 1 || !autoConnectIfOnlyOneServerP) {
+						connectDialogOpened = true;
+						String[] serversTitle = new String[servers.size()];
+						for (int iLoop = 0; iLoop < servers.size(); iLoop++) {
+							SynoServer s = servers.get(iLoop);
+							serversTitle[iLoop] = s.getNickname();
+						}
+						AlertDialog.Builder builder = new AlertDialog.Builder(a);
+						builder.setTitle(getString(R.string.menu_connect));
+						// When the user select a server
+						builder.setItems(serversTitle, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int item) {
+								SynoServer server = servers.get(item);
+								// Change the server
+								app.connectServer(DownloadFragment.this, server, actionQueueP, automated);
+								dialog.dismiss();
+							}
+						});
+						AlertDialog connectDialog = builder.create();
+						try {
+							connectDialog.show();
+						} catch (BadTokenException e) {
+							// Unable to show dialog probably because intent has been closed. Ignoring...
+						}
+						connectDialog.setOnDismissListener(new OnDismissListener() {
+							public void onDismiss(DialogInterface dialog) {
+								connectDialogOpened = false;
+							}
+						});
+					} else {
+						// Auto connect to the first server
+						if (servers.size() > 0) {
+							SynoServer server = servers.get(0);
 							// Change the server
-							((Synodroid) a.getApplication()).connectServer(DownloadFragment.this, server, actionQueueP, automated);
-							dialog.dismiss();
+							app.connectServer(DownloadFragment.this, server, actionQueueP, automated);
 						}
-					});
-					AlertDialog connectDialog = builder.create();
-					try {
-						connectDialog.show();
-					} catch (BadTokenException e) {
-						// Unable to show dialog probably because intent has been closed. Ignoring...
-					}
-					connectDialog.setOnDismissListener(new OnDismissListener() {
-						public void onDismiss(DialogInterface dialog) {
-							connectDialogOpened = false;
-						}
-					});
-				} else {
-					// Auto connect to the first server
-					if (servers.size() > 0) {
-						SynoServer server = servers.get(0);
-						// Change the server
-						((Synodroid) a.getApplication()).connectServer(DownloadFragment.this, server, actionQueueP, automated);
 					}
 				}
-			}
-			// No server then show the dialog to configure a server
-			else {
-				// Only if the EULA has been accepted. If the EULA has not been
-				// accepted, it means that the EULA is currenlty being displayed so
-				// don't show the "Wizard" dialog
-				if (EulaHelper.hasAcceptedEula(a) && !alreadyCanceled) {
-					try {
-						a.showDialog(NO_SERVER_DIALOG_ID);
-					} catch (Exception e) {
-						// Unable to show dialog probably because intent has been closed or the dialog is already displayed. Ignoring...
+				// No server then show the dialog to configure a server
+				else {
+					// Only if the EULA has been accepted. If the EULA has not been
+					// accepted, it means that the EULA is currenlty being displayed so
+					// don't show the "Wizard" dialog
+					if (EulaHelper.hasAcceptedEula(a) && !alreadyCanceled) {
+						try {
+							a.showDialog(NO_SERVER_DIALOG_ID);
+						} catch (Exception e) {
+							// Unable to show dialog probably because intent has been closed or the dialog is already displayed. Ignoring...
+						}
 					}
 				}
 			}
