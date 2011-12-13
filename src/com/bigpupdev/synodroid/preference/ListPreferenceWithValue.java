@@ -55,7 +55,7 @@ public class ListPreferenceWithValue extends ListPreference implements Preferenc
 	 */
 	public ListPreferenceWithValue(Context context) {
 		super(context);
-		if (UIUtils.isTablet(context)){
+		if (UIUtils.isHoneycombTablet(context)){
 			setLayoutResource(R.layout.preference_with_value_padded);
 		}
 		else{
