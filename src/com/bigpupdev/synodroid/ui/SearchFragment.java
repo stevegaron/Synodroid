@@ -63,8 +63,10 @@ public class SearchFragment extends SynodroidFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		final Activity a = getActivity();
-		if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: Creating search fragment.");
-    	
+		try{
+			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: Creating search fragment.");
+		}catch (Exception ex){/*DO NOTHING*/}
+
         if (savedInstanceState != null)
 			lastSearch = savedInstanceState.getString("lastSearch");
 		else
@@ -224,7 +226,10 @@ public class SearchFragment extends SynodroidFragment {
 				try {
 					d.show();
 				} catch (BadTokenException e) {
-					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: " + e.getMessage());
+					try{
+						if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: " + e.getMessage());
+					}
+					catch (Exception ex){/*DO NOTHING*/}
 					// Unable to show dialog probably because intent has been closed. Ignoring...
 				}
 			}
@@ -254,8 +259,11 @@ public class SearchFragment extends SynodroidFragment {
 		String action = intent.getAction();
 		
 		if (Intent.ACTION_SEARCH.equals(action)) {
-			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: New search intent received.");
-        	
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: New search intent received.");
+			}
+			catch (Exception ex){/*DO NOTHING*/}
+			
             if (getSupportedSites() != null) {
 				if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
 				}
@@ -271,8 +279,11 @@ public class SearchFragment extends SynodroidFragment {
 					resList.setVisibility(TextView.GONE);
 				}
 			} else {
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
-	        	
+				try{
+					if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
+				}
+				catch (Exception ex){/*DO NOTHING*/}
+				
 	            AlertDialog.Builder builder = new AlertDialog.Builder(a);
 				builder.setMessage(R.string.err_provider_missing);
 				builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -343,7 +354,10 @@ public class SearchFragment extends SynodroidFragment {
 				}
 			}
 			catch (Exception e){
-				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: Activity was killed before the searchresult came back...");
+				try{
+					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: Activity was killed before the searchresult came back...");
+				}
+				catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
 

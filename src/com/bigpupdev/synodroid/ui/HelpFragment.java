@@ -48,7 +48,9 @@ public class HelpFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HelpFragment: Creating help fragment");
+		try{
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HelpFragment: Creating help fragment");
+		}catch (Exception ex){/*DO NOTHING*/}
 		
 		final FragmentActivity helpActivity = this.getActivity();
 		View help = inflater.inflate(R.layout.help, null, false);

@@ -56,7 +56,9 @@ public class DetailMain extends SynodroidFragment{
 	public void onResume(){
 		super.onResume();
 		Synodroid app = (Synodroid) a.getApplication();
-		if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailMain: Resuming server.");
+		try{
+			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailMain: Resuming server.");
+		}catch (Exception ex){/*DO NOTHING*/}
 		
 		SynoAction detailAction = new DetailTaskAction(task);
 		app.executeAsynchronousAction(this, detailAction, false);
@@ -73,7 +75,9 @@ public class DetailMain extends SynodroidFragment{
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		a = this.getActivity();
-		if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailMain: Creating detail main fragment.");
+		try{
+			if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailMain: Creating detail main fragment.");
+		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Get the details intent
 		Intent intent = a.getIntent();

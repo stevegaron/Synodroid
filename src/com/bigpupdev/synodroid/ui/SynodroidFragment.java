@@ -137,7 +137,9 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 	 *            A listener which will be called when the user will click on the OK button
 	 */
 	public void showError(String msgP, DialogInterface.OnClickListener listenerP) {
-		if (((Synodroid)SynodroidFragment.this.getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Showing error message.");
+		try{
+			if (((Synodroid)SynodroidFragment.this.getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Showing error message.");
+		}catch (Exception ex){/*DO NOTHING*/}
 		try {
 			errorDialog.setMessage(msgP);
 			errorDialogListener = listenerP;

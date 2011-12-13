@@ -124,7 +124,9 @@ public class HomeActivity extends BaseActivity {
 			add_download.setPositiveButton(getString(R.string.menu_add), new OnClickListener() {
 				// Launch the Preference activity
 				public void onClick(DialogInterface dialogP, int whichP) {
-					if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "HomeActivity: Adding url:" + edt.getText().toString());
+					try{
+						if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "HomeActivity: Adding url:" + edt.getText().toString());
+					}catch (Exception ex){/*DO NOTHING*/}
 					Synodroid app = (Synodroid) getApplication();
 					FragmentManager fm = getSupportFragmentManager();
 			        try{
@@ -133,7 +135,9 @@ public class HomeActivity extends BaseActivity {
 			        }
 					catch (Exception e){
 						//Cannot clear all when download fragment not accessible.
-						if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "HomeActivity: App tried to call add download when download fragment hidden.");
+						try{
+							if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "HomeActivity: App tried to call add download when download fragment hidden.");
+						}catch (Exception ex){/*DO NOTHING*/}
 					}
 					removeDialog(ADD_DOWNLOAD);
 				}
@@ -187,7 +191,9 @@ public class HomeActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Resuming home activity.");
+		try{
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Resuming home activity.");
+		}catch (Exception ex){/*DO NOTHING*/}
 	}
 	
 	/*
@@ -254,28 +260,38 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_refresh) {
-        	if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu refresh selected.");
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu refresh selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
         	
             triggerRefresh();
             return true;
         }
         else if (item.getItemId() == R.id.menu_search){
-        	if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
         	
             startSearch(null, false, null, false);
         }
         else if (item.getItemId() == R.id.menu_add){
-        	if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu add selected.");
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu add selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
         	
             showDialog(ADD_DOWNLOAD);
         }
 		else if (item.getItemId() == R.id.menu_preferences){
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu preference selected.");
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu preference selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
         	
             showPreferenceActivity();
 		}
 		else if (item.getItemId() == R.id.menu_share){
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu get share list selected.");
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu get share list selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
         	
             Synodroid app = (Synodroid) getApplication();
 			FragmentManager fm = getSupportFragmentManager();
@@ -284,11 +300,15 @@ public class HomeActivity extends BaseActivity {
 	        	app.executeAsynchronousAction(fragment_download, new EnumShareAction(), false);
 	        }
 			catch (Exception e){
-				if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call get share when download fragment hidden.");
+				try{
+					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call get share when download fragment hidden.");
+				}catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
 		else if (item.getItemId() == R.id.menu_clear_all){
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu clear all completed selected.");
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu clear all completed selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
         	
             Synodroid app = (Synodroid) getApplication();
 			FragmentManager fm = getSupportFragmentManager();
@@ -297,11 +317,15 @@ public class HomeActivity extends BaseActivity {
 	        	app.executeAction(fragment_download, new ClearAllTaskAction(), false);
 	        }
 			catch (Exception e){
-				if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call clear all when download fragment hidden.");
+				try{
+					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call clear all when download fragment hidden.");
+				}catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
 		else if (item.getItemId() == R.id.menu_pause_all){
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu pause all selected.");
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu pause all selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
         	
             Synodroid app = (Synodroid) getApplication();
 			FragmentManager fm = getSupportFragmentManager();
@@ -311,11 +335,15 @@ public class HomeActivity extends BaseActivity {
 	    		app.executeAction(fragment_download, new StopAllAction(tasks), false);
 	        }
 			catch (Exception e){
-				if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call pause all when download fragment hidden.");
+				try{
+					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call pause all when download fragment hidden.");
+				}catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
 		else if (item.getItemId() == R.id.menu_revert){
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu resume all selected.");
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu resume all selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
         	
             Synodroid app = (Synodroid) getApplication();
 			FragmentManager fm = getSupportFragmentManager();
@@ -325,11 +353,15 @@ public class HomeActivity extends BaseActivity {
 	    		app.executeAction(fragment_download, new ResumeAllAction(tasks), false);
 	        }
 			catch (Exception e){
-				if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call resume all when download fragment hidden.");
+				try{
+					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call resume all when download fragment hidden.");
+				}catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
 		else if (item.getItemId() == R.id.menu_about){
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu about selected.");
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu about selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
         	
             // Starting new intent
 			Intent next = new Intent();
@@ -340,7 +372,9 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void triggerRefresh() {
-    	if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Forcing task list refresh.");
+    	try{
+    		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Forcing task list refresh.");
+    	}catch (Exception ex){/*DO NOTHING*/}
     	
     	((Synodroid) getApplication()).forceRefresh();
     }

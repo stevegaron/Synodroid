@@ -87,7 +87,9 @@ public class AboutActivity extends BaseActivity{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Resuming about activity.");
+		try{
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Resuming about activity.");
+		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Check for fullscreen
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);

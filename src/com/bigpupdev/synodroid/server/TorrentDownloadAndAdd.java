@@ -84,8 +84,12 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 			File file = new File(path, fname);
 
 			long startTime = System.currentTimeMillis();
-			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Downloading " + uri.toString() + " to temp folder...");
-			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Temp file destination: " + file.getAbsolutePath());
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Downloading " + uri.toString() + " to temp folder...");
+			}catch (Exception ex){/*DO NOTHING*/}
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Temp file destination: " + file.getAbsolutePath());
+			}catch (Exception ex){/*DO NOTHING*/}
 			/* Open a connection to that URL. */
 			URLConnection ucon = url.openConnection();
 
@@ -108,11 +112,17 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(baf.toByteArray());
 			fos.close();
-			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Download completed. Elapsed time: " + ((System.currentTimeMillis() - startTime) / 1000) + " sec(s)");
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Download completed. Elapsed time: " + ((System.currentTimeMillis() - startTime) / 1000) + " sec(s)");
+			}catch (Exception ex){/*DO NOTHING*/}
 			uri = Uri.fromFile(file);
 		} catch (Exception e) {
-			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Download Error: " + e);
-			if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Letting the NAS do the heavy lifting...");
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Download Error: " + e);
+			}catch (Exception ex){/*DO NOTHING*/}
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Letting the NAS do the heavy lifting...");
+			}catch (Exception ex){/*DO NOTHING*/}
 		}
 		return uri;
 	}

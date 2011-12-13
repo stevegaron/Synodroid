@@ -52,7 +52,9 @@ public class DetailTransfer extends SynodroidFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		a = this.getActivity();
-		if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailTransfer: Creating detail transfer fragment.");
+		try{
+			if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailTransfer: Creating detail transfer fragment.");
+		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Build the transfer tab
 		View v = inflater.inflate(R.layout.detail_transfer, null);

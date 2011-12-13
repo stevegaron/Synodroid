@@ -138,7 +138,10 @@ public class DetailActivity extends BaseActivity{
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Resuming detail activity.");
+		try{
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Resuming detail activity.");
+		}
+		catch (Exception ex){/*DO NOTHING*/}
 		
 		// Check for fullscreen
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
@@ -554,10 +557,14 @@ public class DetailActivity extends BaseActivity{
 		Synodroid app = (Synodroid) getApplication();
 		DetailMain main = (DetailMain) mAdapter.getItem(MAIN_ITEM);
 		DetailFiles files = (DetailFiles)mAdapter.getItem(FILE_ITEM);
-		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Message received with ID = "+ msgP.what);
+		try{
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Message received with ID = "+ msgP.what);
+		}catch (Exception ex){/*DO NOTHING*/}
 		switch (msgP.what) {
 		case ResponseHandler.MSG_DETAILS_FILES_RETRIEVED:
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive file listing message.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive file listing message.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			List<TaskFile> tfile = (List<TaskFile>) msgP.obj;
 			try{
@@ -568,7 +575,9 @@ public class DetailActivity extends BaseActivity{
 			}
 			break;
 		case ResponseHandler.MSG_PROPERTIES_RECEIVED:
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive task properties message.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive task properties message.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			TaskProperties tp = (TaskProperties) msgP.obj;
 			ul_rate = tp.ul_rate;
@@ -585,7 +594,9 @@ public class DetailActivity extends BaseActivity{
 			}
 			break;
 		case ResponseHandler.MSG_SHARED_DIRECTORIES_RETRIEVED:
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive share directory listing message.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive share directory listing message.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			List<SharedDirectory> newDirs = (List<SharedDirectory>) msgP.obj;
 			destinations = new String[newDirs.size()];
@@ -600,7 +611,9 @@ public class DetailActivity extends BaseActivity{
 			break;
 		// Details updated
 		case ResponseHandler.MSG_DETAILS_RETRIEVED:
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive task detail message.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive task detail message.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			TaskDetail details = (TaskDetail) msgP.obj;
 			if (!task.isTorrent && !task.isNZB && files != null){
@@ -632,7 +645,9 @@ public class DetailActivity extends BaseActivity{
 			}
 			break;
 		case ResponseHandler.MSG_ERROR:
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive error message.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive error message.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			SynoServer server = ((Synodroid) getApplication()).getServer();
 			if (server != null)
@@ -640,7 +655,9 @@ public class DetailActivity extends BaseActivity{
 			main.showError(server.getLastError(), null);
 			break;
 		case ResponseHandler.MSG_ORIGINAL_FILE_RETRIEVED:
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive original file retreived message.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive original file retreived message.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			OriginalFile oriFile = (OriginalFile) msgP.obj;
 			File path = Environment.getExternalStorageDirectory();
@@ -658,13 +675,17 @@ public class DetailActivity extends BaseActivity{
 			} catch (Exception e) {
 				// Unable to create file, likely because external storage is
 				// not currently mounted.
-				if (((Synodroid)getApplication()).DEBUG) Log.w(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
+				try{
+					if (((Synodroid)getApplication()).DEBUG) Log.w(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
+				}catch (Exception ex){/*DO NOTHING*/}
 				Toast toast = Toast.makeText(this, getString(R.string.action_download_original_failed), Toast.LENGTH_LONG);
 				toast.show();
 			}
 			break;
 		default: 
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Ignored message ID = "+ msgP.what);
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Ignored message ID = "+ msgP.what);
+			}catch (Exception ex){/*DO NOTHING*/}
 		}
 	}
 	
@@ -743,31 +764,41 @@ public class DetailActivity extends BaseActivity{
 		Synodroid app = (Synodroid) getApplication();
 		DetailMain main = (DetailMain)mAdapter.getItem(MAIN_ITEM);
 		if (item.getItemId() == R.id.menu_refresh) {
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu refresh selected.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu refresh selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			((Synodroid) getApplication()).forceRefresh();
             return true;
         }
 		else if (item.getItemId() == MENU_PAUSE){
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu pause selected.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu pause selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			app.executeAction(main, new PauseTaskAction(task), true);
 			return true;
 		}
 		else if (item.getItemId() == MENU_DELETE || item.getItemId() == MENU_CANCEL || item.getItemId() == MENU_CLEAR){
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu cancel/delete/clear selected.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu cancel/delete/clear selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			app.executeAction(main, new DeleteTaskAction(task), true);
 			return true;
 		}
 		else if (item.getItemId() == MENU_RESUME || item.getItemId() == MENU_RETRY){
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu resume/retry selected.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu resume/retry selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			app.executeAction(main, new ResumeTaskAction(task), true);
 			return true;
 		}
 		else if (item.getItemId() == MENU_PARAMETERS){
-			if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu task properties selected.");
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu task properties selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
 			
 			if (app.getServer().getDsmVersion() == DSMVersion.VERSION3_1 || app.getServer().getDsmVersion() == DSMVersion.VERSION3_2) {
 				app.executeAsynchronousAction(main, new EnumShareAction(), false, false);
@@ -870,7 +901,9 @@ public class DetailActivity extends BaseActivity{
 		 */
 		@Override
         public void destroyItem(View container, int position, Object object){
-			if (debug) Log.d(Synodroid.DS_TAG, "DetailActivity: View pager attemps to destroy pager number: "+position);
+			try{
+				if (debug) Log.d(Synodroid.DS_TAG, "DetailActivity: View pager attemps to destroy pager number: "+position);
+			}catch (Exception ex){/*DO NOTHING*/}
 			if (position == 2){
 				mCurActivity.updateTask(false);
 			}
