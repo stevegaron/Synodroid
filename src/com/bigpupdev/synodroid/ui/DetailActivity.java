@@ -800,7 +800,7 @@ public class DetailActivity extends BaseActivity{
 				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu task properties selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			if (app.getServer().getDsmVersion() == DSMVersion.VERSION3_1 || app.getServer().getDsmVersion() == DSMVersion.VERSION3_2) {
+			if (app.getServer().getDsmVersion() == DSMVersion.VERSION3_1 || app.getServer().getDsmVersion() == DSMVersion.VERSION3_2 || app.getServer().getDsmVersion() == DSMVersion.VERSION4_0) {
 				app.executeAsynchronousAction(main, new EnumShareAction(), false, false);
 			} else {
 				try {
@@ -844,7 +844,7 @@ public class DetailActivity extends BaseActivity{
 		}
 
 		if (server != null) {
-			if (server.getDsmVersion() == DSMVersion.VERSION3_1 || server.getDsmVersion() == DSMVersion.VERSION3_2) {
+			if (server.getDsmVersion() == DSMVersion.VERSION3_1 || server.getDsmVersion() == DSMVersion.VERSION3_2 || app.getServer().getDsmVersion() == DSMVersion.VERSION4_0) {
 				if (files != null && files.fileAdapter != null){
 					modifiedTaskFiles = files.fileAdapter.getModifiedTaskList();
 				}

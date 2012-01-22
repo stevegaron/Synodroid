@@ -21,6 +21,7 @@ import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.protocol.v22.DSHandlerDSM22Factory;
 import com.bigpupdev.synodroid.protocol.v31.DSHandlerDSM31Factory;
+import com.bigpupdev.synodroid.protocol.v40.DSHandlerDSM40Factory;
 
 /**
  * This is the protocol abstract factory. The goal of this class is to provide the protocol factory implementation according to the DSM version
@@ -54,6 +55,8 @@ public abstract class DSMHandlerFactory {
 			return new DSHandlerDSM31Factory(serverP, debug);
 		case VERSION3_2:
 			return new DSHandlerDSM31Factory(serverP, debug);
+		case VERSION4_0:
+			return new DSHandlerDSM40Factory(serverP, debug);
 		}
 		return result;
 	}
