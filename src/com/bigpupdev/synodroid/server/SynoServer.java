@@ -389,14 +389,18 @@ public class SynoServer {
 					// Connection error
 					catch (DSMException e) {
 						if (DEBUG) Log.e(Synodroid.DS_TAG, "DSMException occured", e);
-						fireMessage(SynoServer.this.handler, ResponseHandler.MSG_ERROR, translateError(SynoServer.this.handler, e));
+						try{
+							fireMessage(SynoServer.this.handler, ResponseHandler.MSG_ERROR, translateError(SynoServer.this.handler, e));
+						}catch (Exception err){}
 					}
 					// Programmation exception
 					catch (Exception e) {
 						if (DEBUG) Log.e(Synodroid.DS_TAG, "Exception occured", e);
 						// This is most likely a connection timeout
 						DSMException ex = new DSMException(e);
-						fireMessage(SynoServer.this.handler, ResponseHandler.MSG_ERROR, translateError(SynoServer.this.handler, ex));
+						try{
+							fireMessage(SynoServer.this.handler, ResponseHandler.MSG_ERROR, translateError(SynoServer.this.handler, ex));
+						}catch (Exception err){}
 					}
 					// Set the connection to null to force connection next time
 					finally {
@@ -735,11 +739,15 @@ public class SynoServer {
 					actionP.execute(handlerP, SynoServer.this);
 				} catch (DSMException ex) {
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected DSM error", ex);
-					fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.translateError(SynoServer.this.handler, ex));
+					try{
+						fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.translateError(SynoServer.this.handler, ex));
+					}catch (Exception err){}
 				} catch (Exception e) {
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", e);
 					DSMException ex = new DSMException(e);
-					fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.translateError(SynoServer.this.handler, ex));
+					try {
+						fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.translateError(SynoServer.this.handler, ex));
+					}catch (Exception err){}
 				} finally {
 					fireMessage(handlerP, ResponseHandler.MSG_OPERATION_DONE);
 					// Interrup the collector's thread so it will refresh
