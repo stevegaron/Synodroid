@@ -43,7 +43,6 @@ import android.util.Log;
 class DSHandlerDSM31 implements DSHandler {
 
 	// DownloadManager constant declaration
-	private static final String DM_URI = "/download/downloadman.cgi";
 	private static final String DM_URI_NEW = "/webman/modules/DownloadStation/dlm/downloadman.cgi";
 	private static final String TORRENT_INFO = "/webman/modules/DownloadStation/dlm/torrent_info.cgi";
 
@@ -411,23 +410,25 @@ class DSHandlerDSM31 implements DSHandler {
 				// Create the multipart
 				MultipartBuilder builder = new MultipartBuilder("-----------7dabb2d41348", DEBUG);
 
-				// The field's part
-				builder.addPart(new Part("field").setContent("task_id".getBytes()));
-				// The direction's part
-				builder.addPart(new Part("direction").setContent("ASC".getBytes()));
-				// The url_http's part
-				builder.addPart(new Part("url_http").setContent("".getBytes()));
-				// The url_https's part
-				builder.addPart(new Part("url_https").setContent("".getBytes()));
-				// The url_ftp's part
-				builder.addPart(new Part("url_ftp").setContent("".getBytes()));
-
 				// The upload_type's part
 				builder.addPart(new Part("upload_type").setContent("torrent".getBytes()));
+				// The upload_type's part
+				builder.addPart(new Part("desttext").setContent(getSharedDirectory().getBytes()));
+				// The direction's part
+				builder.addPart(new Part("direction").setContent("ASC".getBytes()));
+				// The field's part
+				builder.addPart(new Part("field").setContent("task_id".getBytes()));
+				
 				// The torrent's part
-				Part filePart = new Part("torrent").addExtra("filename", uriP.getPath());
-				filePart.setContentType("application/octet-stream");
-
+				Part filePart = new Part("torrent");
+				filePart.addExtra("filename", uriP.getLastPathSegment());
+				if (uriP.getPath().toLowerCase().endsWith("nzb")){
+					filePart.setContentType("application/octet-stream");
+				}
+				else{
+					filePart.setContentType("application/x-bittorrent");
+				}
+				
 				// Get the stream according to the Uri
 				byte[] buffer = StreamFactory.getStream(uriP);
 
@@ -435,8 +436,23 @@ class DSHandlerDSM31 implements DSHandler {
 				filePart.setContent(buffer);
 				builder.addPart(filePart);
 				// Execute
+				JSONObject json;
 				synchronized (server) {
-					server.sendMultiPart(DM_URI, builder);
+					json = server.sendMultiPart(DM_URI_NEW, builder);
+				}
+				if (json != null){
+					boolean success = json.getBoolean("success");
+					// If successful then build details list
+					if (!success) {
+						String reason = "";
+						if (json.has("reason")) {
+							reason = json.getString("reason");
+						} else if (json.has("errno")) {
+							JSONObject err = json.getJSONObject("errno");
+							reason = err.getString("key");
+						}
+						throw new DSMException(reason);
+					}
 				}
 			}
 		}
@@ -446,46 +462,26 @@ class DSHandlerDSM31 implements DSHandler {
 		// If we are logged on
 		if (server.isConnected()) {
 			if (uriP.toString() != null) {
-				// Create the multipart
-				MultipartBuilder builder = new MultipartBuilder("-----------7dabb2d41348", DEBUG);
-
-				// The field's part
-				builder.addPart(new Part("field").setContent("task_id".getBytes()));
-				// The direction's part
-				builder.addPart(new Part("direction").setContent("ASC".getBytes()));
-
-				if (uriP.toString().toLowerCase().startsWith("https:")) {
-					// The url_http's part
-					builder.addPart(new Part("url_http").setContent("".getBytes()));
-					// The url_https's part
-					builder.addPart(new Part("url_https").setContent(uriP.toString().getBytes()));
-					// The url_ftp's part
-					builder.addPart(new Part("url_ftp").setContent("".getBytes()));
-				} else if (uriP.toString().toLowerCase().startsWith("http:")) {
-					// The url_http's part
-					builder.addPart(new Part("url_http").setContent(uriP.toString().getBytes()));
-					// The url_https's part
-					builder.addPart(new Part("url_https").setContent("".getBytes()));
-					// The url_ftp's part
-					builder.addPart(new Part("url_ftp").setContent("".getBytes()));
-				} else if (uriP.toString().toLowerCase().startsWith("ftp:")) {
-					// The url_http's part
-					builder.addPart(new Part("url_http").setContent("".getBytes()));
-					// The url_https's part
-					builder.addPart(new Part("url_https").setContent("".getBytes()));
-					// The url_ftp's part
-					builder.addPart(new Part("url_ftp").setContent(uriP.toString().getBytes()));
-				} else {
-					return;
-				}
-				// The url_ftp's part
-				builder.addPart(new Part("url").setContent(uriP.toString().getBytes()));
-				// The upload_type's part
-				builder.addPart(new Part("upload_type").setContent("url".getBytes()));
-
+				String urls = "[\""+uriP.toString()+"\"]";
+				
+				// Create the builder
+				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task");
+				
 				// Execute
+				JSONObject json = null;
 				synchronized (server) {
-					server.sendMultiPart(DM_URI, builder);
+					json = server.sendJSONRequest(DM_URI_NEW, builder.toString(), "POST");
+				}
+				boolean success = json.getBoolean("success");
+				if (!success){
+					String reason = "";
+					if (json.has("reason")) {
+						reason = json.getString("reason");
+					} else if (json.has("errno")) {
+						JSONObject err = json.getJSONObject("errno");
+						reason = err.getString("key");
+					}
+					throw new DSMException(reason);
 				}
 			}
 		}
