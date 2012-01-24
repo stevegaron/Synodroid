@@ -31,7 +31,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
+import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.utils.SearchViewBinder;
 import com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion;
 
@@ -219,8 +219,11 @@ public class SearchFragment extends SynodroidFragment {
 				Dialog d = new AlertDialog.Builder(a).setTitle(R.string.dialog_title_confirm).setMessage(R.string.dialog_message_confirm_add).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						TextView tv = (TextView) rl.findViewById(R.id.result_url);
-						String url = tv.getText().toString();
-						new TorrentDownloadAndAdd(SearchFragment.this).execute(url);
+						Uri uri = Uri.parse(tv.getText().toString());
+						
+						AddTaskAction addTask = new AddTaskAction(uri, true);
+						Synodroid app = (Synodroid) getActivity().getApplication();
+						app.executeAction(SearchFragment.this, addTask, true);
 					}
 				}).create();
 				try {

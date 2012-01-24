@@ -14,7 +14,6 @@ import java.util.List;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.server.SynoServer;
-import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
@@ -296,7 +295,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
         setHasOptionsMenu(true);
         ocl = new android.view.View.OnClickListener(){
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				showDialogToConnect(false, null, false);
 			}
 		};
@@ -364,9 +362,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				
 				uri = intentP.getData();
 				if (uri.toString().startsWith("http") || uri.toString().startsWith("ftp")) {
-					/** Download and fix URL */
-					new TorrentDownloadAndAdd(this).execute(uri.toString());
-					return false;
+					out_url = true;
 				}
 			} else if (action.equals(Intent.ACTION_SEND)) {
 				try{
