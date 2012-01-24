@@ -891,13 +891,14 @@ public class SynoServer {
 	/**
 	 * Upload a file which is located on the mobile
 	 */
-	public void sendMultiPart(String uriP, MultipartBuilder multiPartP) {
-		HttpURLConnection conn;
+	public JSONObject sendMultiPart(String uriP, MultipartBuilder multiPartP) {
+		HttpURLConnection conn = null;
+		JSONObject respJSO = null;
 		try {
 			// Create the connection
 			conn = createConnection(uriP, "", "POST");
-			conn.setRequestProperty("Connection", "Keep-Alive");
-			conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + multiPartP.getBoundary());
+			conn.setRequestProperty("Connection", "keep-alive");
+			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + multiPartP.getBoundary());
 
 			// Write the multipart
 			multiPartP.writeData(conn.getOutputStream());
@@ -915,11 +916,18 @@ public class SynoServer {
 			br.close();
 
 			if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
-			JSONObject respJSO = new JSONObject(sb.toString());
+			respJSO = new JSONObject(sb.toString());
 			if (DEBUG) Log.d(Synodroid.DS_TAG, "Multipart response is: " + code + "/" + resp + "/" + respJSO);
 		} catch (Exception e) {
 			if (DEBUG) Log.e(Synodroid.DS_TAG, "Error while sending multipart", e);
 		}
+		finally {
+			if (conn != null) {
+				conn.disconnect();
+			}
+			conn = null;
+		}
+		return respJSO;
 	}
 
 	public StringBuffer download(String uriP, String requestP) throws Exception {
