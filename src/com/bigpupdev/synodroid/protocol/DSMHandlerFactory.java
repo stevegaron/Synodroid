@@ -21,6 +21,7 @@ import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.protocol.v22.DSHandlerDSM22Factory;
 import com.bigpupdev.synodroid.protocol.v31.DSHandlerDSM31Factory;
+import com.bigpupdev.synodroid.protocol.v32.DSHandlerDSM32Factory;
 import com.bigpupdev.synodroid.protocol.v40.DSHandlerDSM40Factory;
 
 /**
@@ -54,7 +55,7 @@ public abstract class DSMHandlerFactory {
 		case VERSION3_1:
 			return new DSHandlerDSM31Factory(serverP, debug);
 		case VERSION3_2:
-			return new DSHandlerDSM31Factory(serverP, debug);
+			return new DSHandlerDSM32Factory(serverP, debug);
 		case VERSION4_0:
 			return new DSHandlerDSM40Factory(serverP, debug);
 		}
