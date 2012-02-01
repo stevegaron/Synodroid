@@ -891,35 +891,44 @@ public class SynoServer {
 	/**
 	 * Upload a file which is located on the mobile
 	 */
-	public JSONObject sendMultiPart(String uriP, MultipartBuilder multiPartP) {
+	public JSONObject sendMultiPart(String uriP, MultipartBuilder multiPartP) throws Exception {
 		HttpURLConnection conn = null;
 		JSONObject respJSO = null;
+		int retry = 0;
+		int MAX_RETRY = 2;
 		try {
-			// Create the connection
-			conn = createConnection(uriP, "", "POST");
-			conn.setRequestProperty("Connection", "keep-alive");
-			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + multiPartP.getBoundary());
-
-			// Write the multipart
-			multiPartP.writeData(conn.getOutputStream());
-
-			// Get the response
-			int code = conn.getResponseCode();
-			String resp = conn.getResponseMessage();
-			// Now read the reponse and build a string with it
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			StringBuffer sb = new StringBuffer();
-			String line;
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
+			while (retry <= MAX_RETRY) {
+				try {
+					// Create the connection
+					conn = createConnection(uriP, "", "POST");
+					conn.setRequestProperty("Connection", "keep-alive");
+					conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + multiPartP.getBoundary());
+		
+					// Write the multipart
+					multiPartP.writeData(conn.getOutputStream());
+		
+					// Now read the reponse and build a string with it
+					BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					StringBuffer sb = new StringBuffer();
+					String line;
+					while ((line = br.readLine()) != null) {
+						sb.append(line);
+					}
+					br.close();
+		
+					if (conn.getResponseCode() == -1) {
+						retry++;
+						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+					} else {
+						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
+						respJSO = new JSONObject(sb.toString());
+						return respJSO;
+					}
+				} catch (Exception e) {
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
+					retry ++;
+				}
 			}
-			br.close();
-
-			if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
-			respJSO = new JSONObject(sb.toString());
-			if (DEBUG) Log.d(Synodroid.DS_TAG, "Multipart response is: " + code + "/" + resp + "/" + respJSO);
-		} catch (Exception e) {
-			if (DEBUG) Log.e(Synodroid.DS_TAG, "Error while sending multipart", e);
 		}
 		finally {
 			if (conn != null) {
@@ -927,7 +936,7 @@ public class SynoServer {
 			}
 			conn = null;
 		}
-		return respJSO;
+		throw new Exception("Failed to read response from server. Please reconnect!");
 	}
 
 	public StringBuffer download(String uriP, String requestP) throws Exception {
