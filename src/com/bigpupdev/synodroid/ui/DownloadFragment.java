@@ -14,11 +14,13 @@ import java.util.List;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SetShared;
 import com.bigpupdev.synodroid.action.SynoAction;
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 import com.bigpupdev.synodroid.data.Task;
@@ -362,7 +364,13 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				
 				uri = intentP.getData();
 				if (uri.toString().startsWith("http") || uri.toString().startsWith("ftp")) {
-					out_url = true;
+					if (((Synodroid)getActivity().getApplication()).getServer().getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+						new TorrentDownloadAndAdd(DownloadFragment.this).execute(uri.toString());
+						return false;
+					}
+					else{
+						out_url = true;
+					}
 				}
 			} else if (action.equals(Intent.ACTION_SEND)) {
 				try{

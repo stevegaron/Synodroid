@@ -10,7 +10,6 @@ import java.net.URLConnection;
 import org.apache.http.util.ByteArrayBuffer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -26,18 +25,16 @@ import com.bigpupdev.synodroid.ui.SearchFragment;
 
 public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 	private Fragment currentFragment = null;
-	private Context c;
 	private Activity a;
 	
 	public TorrentDownloadAndAdd (Fragment fragment){
 		currentFragment = fragment;
 		a = currentFragment.getActivity();
-		c = a.getApplicationContext();
 	}
 	
 	@Override
 	protected void onPreExecute() {
-		Toast toast = Toast.makeText(c, c.getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(a, a.getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
 		toast.show();
 	}
 
@@ -74,7 +71,7 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 		try {
 			URL url = new URL(uri.toString()); // you can write here any link
 			File path = Environment.getExternalStorageDirectory();
-			path = new File(path, "data/com.bigpupdev.synodroid/");
+			path = new File(path, "Android/data/com.bigpupdev.synodroid/");
 			path.mkdirs();
 			String temp[] = uri.toString().split("/");
 			String fname = temp[(temp.length) - 1];

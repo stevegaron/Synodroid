@@ -14,18 +14,20 @@ package com.bigpupdev.synodroid.data;
  * @author Eric Taix (eric.taix at gmail dot com)
  */
 public enum DSMVersion {
-	VERSION2_2("DSM 2.2"), VERSION2_3("DSM 2.3"), VERSION3_0("DSM 3.0"), VERSION3_1("DSM 3.1"), VERSION3_2("DSM 3.2"), VERSION4_0("DSM 4.0");
+	VERSION2_2("DSM 2.2", 22), VERSION2_3("DSM 2.3", 23), VERSION3_0("DSM 3.0", 30), VERSION3_1("DSM 3.1", 31), VERSION3_2("DSM 3.2", 32), VERSION4_0("DSM 4.0", 40);
 
 	// The title of this version
 	private final String title;
+	private final int value;
 
 	/**
 	 * Constructor which set the title to be displayed in the UI
 	 * 
 	 * @param titleP
 	 */
-	private DSMVersion(String titleP) {
+	private DSMVersion(String titleP, int valueP) {
 		title = titleP;
+		value = valueP;
 	}
 
 	/**
@@ -35,6 +37,15 @@ public enum DSMVersion {
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	* Return the numeral value of this entry
+	*
+	* @return
+	*/
+	public int getValue() {
+		return value;
 	}
 
 	/*
@@ -76,5 +87,12 @@ public enum DSMVersion {
 		}
 		return values;
 	}
-
+	
+	public boolean smallerThen(DSMVersion v) {
+		return (getValue() < v.getValue());
+	}
+	
+	public boolean greaterThen(DSMVersion v) {
+		return (getValue() > v.getValue());
+	}
 }
