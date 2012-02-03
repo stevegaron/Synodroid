@@ -131,7 +131,7 @@ public class HomeActivity extends BaseActivity {
 					FragmentManager fm = getSupportFragmentManager();
 			        try{
 			        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-			        	app.executeAsynchronousAction(fragment_download, new AddTaskAction(Uri.parse(edt.getText().toString()), true), true);
+			        	app.executeAsynchronousAction(fragment_download, new AddTaskAction(Uri.parse(edt.getText().toString()), true, false), true);
 			        }
 					catch (Exception e){
 						//Cannot clear all when download fragment not accessible.

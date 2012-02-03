@@ -14,13 +14,11 @@ import java.util.List;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.server.SynoServer;
-import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SetShared;
 import com.bigpupdev.synodroid.action.SynoAction;
-import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 import com.bigpupdev.synodroid.data.Task;
@@ -61,6 +59,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
@@ -130,7 +129,11 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public void handleMessage(Message msg) {
 		final Activity a = getActivity();
 		// Update tasks
-		if (msg.what == ResponseHandler.MSG_TASKS_UPDATED) {
+		if (msg.what == ResponseHandler.MSG_TASK_DL_WAIT){
+			Toast toast = Toast.makeText(getActivity(), getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		else if (msg.what == ResponseHandler.MSG_TASKS_UPDATED) {
 			try{
 				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received task updated message.");
 			}catch (Exception ex){/*DO NOTHING*/}
@@ -357,6 +360,8 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		if (action != null) {
 			Uri uri = null;
 			boolean out_url = false;
+			boolean use_safe = false;
+			
 			if (action.equals(Intent.ACTION_VIEW)) {
 				try{
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: New action_view intent recieved.");
@@ -364,13 +369,8 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				
 				uri = intentP.getData();
 				if (uri.toString().startsWith("http") || uri.toString().startsWith("ftp")) {
-					if (((Synodroid)getActivity().getApplication()).getServer().getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
-						new TorrentDownloadAndAdd(DownloadFragment.this).execute(uri.toString());
-						return false;
-					}
-					else{
-						out_url = true;
-					}
+					use_safe = true;
+					out_url = true;
 				}
 			} else if (action.equals(Intent.ACTION_SEND)) {
 				try{
@@ -392,7 +392,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Processing intent...");
 				}catch (Exception ex){/*DO NOTHING*/}
 				
-				AddTaskAction addTask = new AddTaskAction(uri, out_url);
+				AddTaskAction addTask = new AddTaskAction(uri, out_url, use_safe);
 				Synodroid app = (Synodroid) getActivity().getApplication();
 				app.executeAction(this, addTask, true);
 			}

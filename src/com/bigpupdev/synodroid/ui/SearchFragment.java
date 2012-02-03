@@ -26,14 +26,14 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
-import com.bigpupdev.synodroid.data.DSMVersion;
-import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
+import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.utils.SearchViewBinder;
 import com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion;
 
@@ -218,20 +218,16 @@ public class SearchFragment extends SynodroidFragment {
 		resList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				final RelativeLayout rl = (RelativeLayout) arg1;
-				Dialog d = new AlertDialog.Builder(a).setTitle(R.string.dialog_title_confirm).setMessage(R.string.dialog_message_confirm_add).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				
+				Dialog d = new AlertDialog.Builder(a).setTitle(R.string.dialog_title_confirm).setMessage(generateMessage(rl)).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						TextView tv = (TextView) rl.findViewById(R.id.result_url);
 						
-						if (((Synodroid) getActivity().getApplication()).getServer().getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
-							String url = tv.getText().toString();
-							new TorrentDownloadAndAdd(SearchFragment.this).execute(url);
-						}
-						else{
-							Uri uri = Uri.parse(tv.getText().toString());
-							AddTaskAction addTask = new AddTaskAction(uri, true);
-							Synodroid app = (Synodroid) getActivity().getApplication();
-							app.executeAction(SearchFragment.this, addTask, true);
-						}
+						Uri uri = Uri.parse(tv.getText().toString());
+						AddTaskAction addTask = new AddTaskAction(uri, true, true);
+						Synodroid app = (Synodroid) getActivity().getApplication();
+						app.executeAction(SearchFragment.this, addTask, true);
+						
 					}
 				}).create();
 				try {
@@ -246,6 +242,24 @@ public class SearchFragment extends SynodroidFragment {
 			}
 		});
 		return searchContent;
+	}
+	
+	private String generateMessage(RelativeLayout rl){
+		TextView itemValue = (TextView) rl.findViewById(R.id.result_title);
+		TextView itemSize = (TextView) rl.findViewById(R.id.result_size);
+		TextView itemSeed = (TextView) rl.findViewById(R.id.result_seeds);
+		TextView itemLeech = (TextView) rl.findViewById(R.id.result_leechers);
+		TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
+		String out = "";
+	
+		out += getString(R.string.dialog_message_confirm_add) + "\n\n";
+		out += itemValue.getText().toString() + "\n";
+		out += itemSize.getText().toString() + "\t\t";
+		out += "S: "+ itemSeed.getText().toString() + "\t";
+		out += "L: "+ itemLeech.getText().toString() + "\n";
+		out += itemDate.getText().toString();
+		
+		return out; 
 	}
 	
 	private Cursor getSupportedSites() {
@@ -385,6 +399,11 @@ public class SearchFragment extends SynodroidFragment {
 		super.onSaveInstanceState(savedInstanceState);
 	}
 
-	@Override
-	public void handleMessage(Message msgP) {}
+	public void handleMessage(Message msg) {
+		// Update tasks
+		if (msg.what == ResponseHandler.MSG_TASK_DL_WAIT){
+			Toast toast = Toast.makeText(getActivity(), getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}
 }

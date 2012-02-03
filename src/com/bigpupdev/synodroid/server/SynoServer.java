@@ -38,6 +38,7 @@ import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
 import com.bigpupdev.synodroid.R;
 import org.json.JSONObject;
 
+import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SynoProtocol;
@@ -728,6 +729,12 @@ public class SynoServer {
 				// An operation is pending
 				fireMessage(handlerP, ResponseHandler.MSG_OPERATION_PENDING);
 				if (DEBUG) Log.d(Synodroid.DS_TAG, "Executing action: " + actionP.getName());
+				
+				//Kill toast if it is a safe addTaskAction...
+				try{
+					((AddTaskAction) actionP).checkToast(SynoServer.this);
+				} catch (Exception e){}
+				
 				try {
 					// If a Toast must be shown
 					if (actionP.isToastable() && showToast) {

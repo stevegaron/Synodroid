@@ -17,12 +17,15 @@
 package com.bigpupdev.synodroid.action;
 
 import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
 
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 
 /**
  * This action upload a file
@@ -33,18 +36,21 @@ public class AddTaskAction implements SynoAction {
 
 	private Uri uri;
 	private Task task;
-
+	private boolean use_safe;
+	private boolean toast = true;
+	
 	/**
 	 * Constructor to upload a file defined by an Uri
 	 * 
 	 * @param uriP
 	 * @param outside_url
 	 */
-	public AddTaskAction(Uri uriP, boolean outside_url) {
+	public AddTaskAction(Uri uriP, boolean outside_url, boolean use_safeP) {
 		uri = uriP;
 		task = new Task();
 		task.fileName = uri.getLastPathSegment();
 		task.outside_url = outside_url;
+		use_safe = use_safeP;
 	}
 
 	/*
@@ -53,14 +59,25 @@ public class AddTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#execute(com.bigpupdev.synodroid.ds .DownloadActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		if (task.outside_url) {
+		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+			new TorrentDownloadAndAdd((Fragment)handlerP).execute(uri.toString());
+		}
+		else{
+			if (task.outside_url) {
 			// Start task using url instead of reading file
 			serverP.getDSMHandlerFactory().getDSHandler().uploadUrl(uri);
-		} else {
-			serverP.getDSMHandlerFactory().getDSHandler().upload(uri);
+			} else {
+				serverP.getDSMHandlerFactory().getDSHandler().upload(uri);
+			}
 		}
 	}
-
+	
+	public void checkToast(SynoServer serverP){
+		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+			toast = false;
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -94,7 +111,7 @@ public class AddTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#isToastable()
 	 */
 	public boolean isToastable() {
-		return true;
+		return toast;
 	}
 
 }
