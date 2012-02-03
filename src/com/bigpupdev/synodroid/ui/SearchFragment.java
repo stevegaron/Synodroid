@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -218,8 +219,34 @@ public class SearchFragment extends SynodroidFragment {
 		resList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				final RelativeLayout rl = (RelativeLayout) arg1;
+				TextView itemValue = (TextView) rl.findViewById(R.id.result_title);
+				TextView itemSize = (TextView) rl.findViewById(R.id.result_size);
+				TextView itemSeed = (TextView) rl.findViewById(R.id.result_seeds);
+				TextView itemLeech = (TextView) rl.findViewById(R.id.result_leechers);
+				TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
 				
-				Dialog d = new AlertDialog.Builder(a).setTitle(R.string.dialog_title_confirm).setMessage(generateMessage(rl)).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				LayoutInflater inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.search_dialog, null);
+				
+				final TextView msgView = (TextView) layout.findViewById(R.id.msg);
+				final TextView tView = (TextView) layout.findViewById(R.id.title);
+				final TextView sView = (TextView) layout.findViewById(R.id.size);
+				final TextView seedView = (TextView) layout.findViewById(R.id.seed);
+				final TextView leechView = (TextView) layout.findViewById(R.id.leech);
+				final TextView dateView = (TextView) layout.findViewById(R.id.date);
+				
+				tView.setText(itemValue.getText());
+				sView.setText(itemSize.getText());
+				seedView.setText(itemSeed.getText());
+				leechView.setText(itemLeech.getText());
+				dateView.setText(itemDate.getText());
+				msgView.setText(getString(R.string.dialog_message_confirm_add));
+				
+				Dialog d = new AlertDialog.Builder(a)
+					.setTitle(R.string.dialog_title_confirm)
+					.setView(layout)
+					.setNegativeButton(android.R.string.no, null)
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						TextView tv = (TextView) rl.findViewById(R.id.result_url);
 						
@@ -242,24 +269,6 @@ public class SearchFragment extends SynodroidFragment {
 			}
 		});
 		return searchContent;
-	}
-	
-	private String generateMessage(RelativeLayout rl){
-		TextView itemValue = (TextView) rl.findViewById(R.id.result_title);
-		TextView itemSize = (TextView) rl.findViewById(R.id.result_size);
-		TextView itemSeed = (TextView) rl.findViewById(R.id.result_seeds);
-		TextView itemLeech = (TextView) rl.findViewById(R.id.result_leechers);
-		TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
-		String out = "";
-	
-		out += getString(R.string.dialog_message_confirm_add) + "\n\n";
-		out += itemValue.getText().toString() + "\n";
-		out += itemSize.getText().toString() + "\t\t";
-		out += "S: "+ itemSeed.getText().toString() + "\t";
-		out += "L: "+ itemLeech.getText().toString() + "\n";
-		out += itemDate.getText().toString();
-		
-		return out; 
 	}
 	
 	private Cursor getSupportedSites() {
