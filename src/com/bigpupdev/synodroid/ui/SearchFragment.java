@@ -43,7 +43,7 @@ public class SearchFragment extends SynodroidFragment {
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_SEARCH_SOURCE = "general_cat.search_source";
 	private static final String PREFERENCE_SEARCH_ORDER = "general_cat.search_order";
-	private static final String TORRENT_SEARCH_URL_DL = "http://code.google.com/p/transdroid-search/downloads/list";
+	private static final String TORRENT_SEARCH_URL_DL = "http://transdroid.org/latest-search";
 	private static final String TORRENT_SEARCH_URL_DL_MARKET = "market://details?id=org.transdroid.search";
 	
 	private final String[] from = new String[] { "NAME", "SIZE", "ADDED", "LEECHERS", "SEEDERS", "TORRENTURL" };
