@@ -78,6 +78,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public ListView taskView;
 	// The total upload rate view
 	private TextView totalUpView;
+	private TextView totalTasksView;
 	// The total download rate view
 	private TextView totalDownView;
 	// Flag to tell app that the connect dialog is opened
@@ -150,6 +151,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// Update total rates
 			totalUpView.setText(container.getTotalUp());
 			totalDownView.setText(container.getTotalDown());
+			totalTasksView.setText(String.format("%d", container.getTotalTasks()));
 			updateEmptyValues(a.getString(R.string.empty_download_list), false);
 		}
 		// Update a task's detail
@@ -329,6 +331,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		taskView = (ListView) downloadContent.findViewById(android.R.id.list);
 		totalUpView = (TextView) downloadContent.findViewById(R.id.id_total_upload);
 		totalDownView = (TextView) downloadContent.findViewById(R.id.id_total_download);
+		totalTasksView = (TextView) downloadContent.findViewById(R.id.id_total_num_dl);
 		// Create the task adapter
 		TaskAdapter taskAdapter = new TaskAdapter(this);
 		taskView.setAdapter(taskAdapter);

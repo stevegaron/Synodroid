@@ -371,5 +371,6 @@
 <string name="accept">J\'accepte</string>
 <string name="decline">Je refuse</string>
 <string name="gplus_title">Page Google+ de Synodroid</string>
-    
+   
+<string name="tasks">tâche(s)</string>
 </resources>

@@ -5,7 +5,30 @@
     android:layout_width="wrap_content"
     android:orientation="vertical"
     android:layout_height="fill_parent">
-
+	<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_alignParentTop="true"
+        android:id="@+id/dl_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="#FF101010">
+        <TextView
+            android:textColor="#FFFFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:id="@+id/id_total_num_dl"
+            android:layout_marginRight="5dip" android:textSize="14dip"></TextView>
+        <TextView
+        	android:textColor="#FFFFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/tasks"
+            android:textSize="14dip"></TextView>
+    </LinearLayout>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_alignParentBottom="true"
@@ -47,7 +70,8 @@
         android:choiceMode="singleChoice"
         android:longClickable="true"
         android:isScrollContainer="true"
-        android:layout_above="@+id/rate_bar" android:id="@id/android:list">
+        android:layout_above="@+id/rate_bar"
+        android:layout_below="@+id/dl_bar" android:id="@id/android:list">
     </ListView>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@id/android:empty"
