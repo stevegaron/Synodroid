@@ -372,11 +372,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				uri = intentP.getData();
-				if (uri.toString().startsWith("http") || uri.toString().startsWith("ftp")) {
-					use_safe = true;
-					out_url = true;
-				}
-				else if (uri.toString().startsWith("magnet")){
+				if (uri.toString().startsWith("magnet")){
 					try{
 						if (((Synodroid)getActivity().getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
 							use_safe = true;
@@ -390,7 +386,10 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					}
 					catch (Exception ex){return false;}
 				}
-						
+				else if (!uri.toString().startsWith("file")) {
+					use_safe = true;
+					out_url = true;
+				}	
 			} else if (action.equals(Intent.ACTION_SEND)) {
 				try{
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: New action_send intent recieved.");
