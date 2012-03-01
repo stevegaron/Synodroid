@@ -19,6 +19,7 @@ import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SetShared;
 import com.bigpupdev.synodroid.action.SynoAction;
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 import com.bigpupdev.synodroid.data.Task;
@@ -375,6 +376,21 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					use_safe = true;
 					out_url = true;
 				}
+				else if (uri.toString().startsWith("magnet")){
+					try{
+						if (((Synodroid)getActivity().getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+							use_safe = true;
+							out_url = true;
+						}
+						else{
+							Toast toast = Toast.makeText(getActivity(), getText(R.string.magnet), Toast.LENGTH_LONG);
+							toast.show();
+							return false;
+						}
+					}
+					catch (Exception ex){return false;}
+				}
+						
 			} else if (action.equals(Intent.ACTION_SEND)) {
 				try{
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: New action_send intent recieved.");

@@ -372,4 +372,5 @@
 <string name="gplus_title">Synodroid Google+ Page</string>
   
 <string name="tasks">task(s)</string>
+<string name="magnet">Magnet links only work with DSM 3.2 and up...</string>
 </resources>
