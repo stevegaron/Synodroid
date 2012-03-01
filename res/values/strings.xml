@@ -354,7 +354,7 @@
 <string name="add_wizard_wifi_host">Server IP/Domain name:</string>
 <string name="add_wizard_cell_title">Cellular Connection</string>
 <string name="add_wizard_sec_title">Security</string>
-<string name="dialog_message_confirm">&quot;The download operation is not completely finished. Are you sure you want to terminate the download?&quot;</string>
+<string name="dialog_message_confirm">&quot;The task is not completely finished. Are you sure you want to terminate it?&quot;</string>
 <string name="menu_add">Add Download</string>
 <string name="add_download_url_title">URL:</string>
 <string name="app_pro">Professional version</string>

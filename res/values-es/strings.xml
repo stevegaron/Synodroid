@@ -353,7 +353,7 @@
 <string name="add_wizard_wifi_host">IP del Servidor/Nombre de dominio:</string>
 <string name="add_wizard_cell_title">Conexión red de datos móvil</string>
 <string name="add_wizard_sec_title">Seguridad</string>
-<string name="dialog_message_confirm">&quot;La operación de descarga no está completamente finalizada.¿Está seguro terminar la descarga?&quot;</string>
+<string name="dialog_message_confirm">&quot;La tarea no está completamente finalizada.¿Está seguro terminar la tarea?&quot;</string>
 <string name="menu_add">Añadir descarga</string>
 <string name="add_download_url_title">URL:</string>
 <string name="app_pro">Versión PRO</string>

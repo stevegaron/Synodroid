@@ -355,7 +355,7 @@
 <string name="add_wizard_wifi_host">IP ou Nom de domaine:</string>
 <string name="add_wizard_cell_title">Conexion Cellulaire</string>
 <string name="add_wizard_sec_title">Securité</string>
-<string name="dialog_message_confirm">&quot;L\'opération de téléchargement n\'est pas complètement terminée. Êtes-vous certain de vouloir arrêter le téléchargement?&quot;</string>
+<string name="dialog_message_confirm">&quot;La tâche n\'est pas complètement terminée. Êtes-vous certain de vouloir l\'arrêter?&quot;</string>
 <string name="menu_add">Ajout de téléchargement</string>
 <string name="add_download_url_title">Lien:</string>
 <string name="app_pro">Version Professionelle</string>

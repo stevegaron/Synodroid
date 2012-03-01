@@ -353,7 +353,7 @@
 <string name="add_wizard_wifi_host">Server IP/Domein naam:</string>
 <string name="add_wizard_cell_title">3G Connectie</string>
 <string name="add_wizard_sec_title">Beveiliging</string>
-<string name="dialog_message_confirm">&quot;De download is nog niet voltooid. Weet je zeker dat je de download wilt verwijderen?&quot;</string>
+<string name="dialog_message_confirm">&quot;De take is nog niet voltooid. Weet je zeker dat je de take wilt verwijderen?&quot;</string>
 <string name="menu_add">Download toevoegen</string>
 <string name="add_download_url_title">URL:</string>
 <string name="app_pro">Professionele Versie</string>
