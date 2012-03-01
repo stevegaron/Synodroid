@@ -115,25 +115,25 @@
 <string name="detail_tab_files">Bestanden</string>
 
 
-<string name="detail_filesize">File grootte</string>
+<string name="detail_filesize">Bestandsgrootte</string>
 
 
 <string name="detail_username">Gebruikersnaam</string>
 <string name="detail_filename">Bestandsnaam</string>
-<string name="detail_destination">Bestamming</string>
+<string name="detail_destination">Bestemming</string>
 
-<string name="detail_creationtime">Start Datum</string>
+<string name="detail_creationtime">Startdatum</string>
 <string name="detail_url">Url</string>
 
 <string name="detail_originaltorrent">Originele torrent</string>
 <string name="detail_status">Status</string>
 <string name="detail_transfered">Overgedragen</string>
-<string name="detail_speed">Snelheidd</string>
+<string name="detail_speed">Snelheid</string>
 <string name="detail_peers">Peers (Verbonden / Totaal)</string>
 <string name="detail_seeders_leechers">Seeders - Leechers</string>
 <string name="detail_eta">Geschatte resterende tijd</string>
 <string name="detail_pieces">Stukjes (Huidige / Totaal)</string>
-<string name="detail_progress">Vooruitang</string>
+<string name="detail_progress">Voortgang</string>
 <string name="detail_status_waiting">Wachten</string>
 <string name="detail_status_downloading">Downloaden</string>
 <string name="detail_status_seeding">Seeden</string>
@@ -159,8 +159,8 @@
 <string name="detail_unknown">Onbekend</string>
 <string name="action_files">Bestanden ophalen van \'%s\'</string>
 <string name="action_updating">&quot;Update van het bestand %s&quot;</string>
-<string name="seeding_time">Seeding tijd</string>
-<string name="seeding_ratio">Seeding verhouding (%)</string>
+<string name="seeding_time">Seedtijd</string>
+<string name="seeding_ratio">Seedverhouding (%)</string>
 <string name="seeding_parameters_time">Seeding parameters</string>
 <string-array name="seeding_time_array">
 <item>Negeren</item>
@@ -307,9 +307,9 @@
 <string name="faq5">Dit FAQ heeft me niet geholpen, wat nu?</string>
 <string name="rep5">Stuur een email naar de ontwikkelaars via de onderstaand knop.\n\nStuur uw probleem duidelijk beschreven zodat wij het goed begrijpen en kunnen verhelpen.</string>
 
-<string name="ul_rate">Maximale upload snelheid (KB\\s)</string>
-<string name="dl_rate">Maximale download snelheid (KB\\s)</string>
-<string name="max_peers">Maximalen aantal van peers</string>
+<string name="ul_rate">Maximale uploadsnelheid (KB/s)</string>
+<string name="dl_rate">Maximale downloadsnelheid (KB/s)</string>
+<string name="max_peers">Maximaal aantal peers</string>
 <string name="priority">Download prioriteit</string>
 <string name="destination">Doelmap</string>
 <string-array name="priority_array">
@@ -335,7 +335,7 @@
 
 <string name="empty_file_list">Er zijn geen bestanden om weer te geven...</string>
 <string name="empty_file_list_wrong_type">Niet beschikbaar voor non-Torrent/NZB downloads.</string>
-<string name="empty_download_list">eEr zijn geen downloads actief op je NAS.\n\nJe kan downloads toevoegen via de toevoegen-knop, de zoek knop of de deel-functie van je Android browser.</string>
+<string name="empty_download_list">Er zijn geen downloads actief op je NAS.\n\nJe kan downloads toevoegen via de toevoegen-knop, de zoek knop of de deel-functie van je Android browser.</string>
 <string name="empty_list_loading">Laden...</string>
 <string name="empty_not_connected">Niet verbonden.</string>	
 <string name="err_file_list">Mislukt om de bestandslijst op te vragen. Controleer de server configuratie van je DSM-versie.</string>
