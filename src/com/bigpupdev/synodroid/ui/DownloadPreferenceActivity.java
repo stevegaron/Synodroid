@@ -247,7 +247,9 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		if (hasFocus) {
 			SharedPreferences preferences = getSharedPreferences(PREFERENCE_AUTO, Activity.MODE_PRIVATE);
 			if (preferences.getBoolean(PREFERENCE_AUTO_CREATENOW, false)) {
-				openOptionsMenu();
+				if (!UIUtils.isHoneycomb()){
+					openOptionsMenu();
+				}
 				preferences.edit().putBoolean(PREFERENCE_AUTO_CREATENOW, false).commit();
 			}
 		}
