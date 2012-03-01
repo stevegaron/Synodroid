@@ -200,7 +200,7 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	 */
 	private void bindView(LinearLayout viewP, final Task taskP) {
 		CheckBox cb  = (CheckBox) viewP.findViewById(R.id.id_torrent_cb);
-		if (UIUtils.isHoneycombTablet(viewP.getContext())){
+		if (UIUtils.isHoneycomb()){
 			cb.setOnCheckedChangeListener(fragment);
 			cb.setTag(taskP);
 		}

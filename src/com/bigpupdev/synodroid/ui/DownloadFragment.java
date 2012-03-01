@@ -323,7 +323,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		
 		super.onCreateView(inflater, container, savedInstanceState);
 		
-		if (UIUtils.isHoneycombTablet(this.getActivity())){
+		if (UIUtils.isHoneycomb()){
 			mCurrentActionMode = new ActionModeHelper();
 		}
 
@@ -591,7 +591,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public List<Task> checked_tasks = new ArrayList<Task>();
 	
 	public void onCheckedChanged(CompoundButton button, boolean check) {
-		if (UIUtils.isHoneycombTablet(button.getContext())){
+		if (UIUtils.isHoneycomb()){
 			Task t = (Task)button.getTag();
 			if (check){
 				try{

@@ -72,6 +72,7 @@
         android:isScrollContainer="true"
         android:layout_above="@+id/rate_bar"
         android:layout_below="@+id/dl_bar" android:id="@id/android:list">
+        <!-- Preview: listitem=@layout/task_template -->
     </ListView>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@id/android:empty"

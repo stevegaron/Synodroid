@@ -35,8 +35,6 @@ public class ActionModeHelper {
      */
     private ActionMode.Callback mContentSelectionActionModeCallback = new ActionMode.Callback() {
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            //actionMode.setTitle(R.string.photo_selection_cab_title);
-
             MenuInflater inflater = mCurrentFragment.getActivity().getMenuInflater();
             inflater.inflate(R.menu.action_mode_menu, menu);
             return true;
