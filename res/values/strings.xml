@@ -374,6 +374,6 @@
 <string name="tasks">task(s)</string>
 <string name="magnet">Magnet links only work with DSM 3.2 and up...</string>
 <string name="update_search_engine">Update search engine</string>
-<string name="update_search_engine_toast">Downloading latest search engine version. The installation file will appear in the task bar.</string>
+<string name="update_search_engine_toast">Downloading latest search engine version.</string>
     
 </resources>
