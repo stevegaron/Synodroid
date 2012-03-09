@@ -45,6 +45,7 @@ import com.bigpupdev.synodroid.data.SynoProtocol;
 
 import android.net.Uri;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 /**
@@ -765,7 +766,8 @@ public class SynoServer {
 				}
 			}
 		};
-		new Thread(runnable, "Synodroid DS action").start();
+		((Fragment)handlerP).getActivity().runOnUiThread(runnable);
+		//new Thread(runnable, "Synodroid DS action").start();
 	}
 
 	/**
