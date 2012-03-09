@@ -864,7 +864,9 @@ public class DetailActivity extends BaseActivity{
 
 			} else {
 				if (files != null){
-					modifiedTaskFiles = files.fileAdapter.getModifiedTaskList();
+					try{
+						modifiedTaskFiles = files.fileAdapter.getModifiedTaskList();
+					}catch (Exception e) {}
 				}
 				else{
 					modifiedTaskFiles = new ArrayList<TaskFile>();
