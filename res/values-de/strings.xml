@@ -370,7 +370,7 @@
 <string name="decline">Ablehnen</string>
 <string name="gplus_title">Synodroid Google+ Seite</string>
 
-<string name="tasks">aufgabe(n)</string>
+<string name="tasks">Aufgabe(n)</string>
 <string name="magnet">Magnet Links funktionieren nur ab DSM 3.2 aufwärts...</string>
 <string name="update_search_engine">Suchengine updaten</string>
 <string name="update_search_engine_toast">Die neueste Version der Suchengine wird heruntergeladen.</string>
