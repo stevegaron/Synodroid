@@ -41,7 +41,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 		// The toast message
 		@Override
 		public void handleMessage(Message msgP) {
-			Activity a = SynodroidFragment.this.getActivity();
+			final Activity a = SynodroidFragment.this.getActivity();
 			if (a != null){
 				Synodroid app = (Synodroid) a.getApplication();
 				// According to the message
@@ -57,9 +57,14 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 					break;
 				case MSG_TOAST:
 					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
-					String text = (String) msgP.obj;
-					Toast toast = Toast.makeText(a, text, Toast.LENGTH_SHORT);
-					toast.show();
+					final String text = (String) msgP.obj;
+					Runnable runnable = new Runnable() {
+						public void run() {
+							Toast toast = Toast.makeText(a, text, Toast.LENGTH_SHORT);
+							toast.show();
+						}
+						};
+					a.runOnUiThread(runnable);
 					break;
 				default:
 					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received default message.");
