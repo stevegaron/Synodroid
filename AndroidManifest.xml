@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.bigpupdev.synodroid"
-      android:versionCode="207"
-      android:versionName="2.0.7"
+      android:versionCode="208"
+      android:versionName="2.0.8"
       android:installLocation="auto">
     
   <uses-sdk
