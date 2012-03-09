@@ -14,6 +14,7 @@ import com.bigpupdev.synodroid.action.ResumeTaskAction;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
 
 public class ActionModeHelper {
+	public boolean terminating = false;
 	ActionMode mCurrentActionMode = null;
 	DownloadFragment mCurrentFragment = null;
 	
@@ -25,6 +26,7 @@ public class ActionModeHelper {
 		if (mCurrentActionMode != null){
 			return;
 		}
+		terminating = false;
 		mCurrentFragment = fragment;
 		mCurrentActionMode = fragment.getActivity().startActionMode(mContentSelectionActionModeCallback);
 	}
@@ -79,11 +81,13 @@ public class ActionModeHelper {
         }
 
         public void onDestroyActionMode(ActionMode actionMode) {
-        	for ( int i = mCurrentFragment.checked_items.size() -1 ; i >= 0 ; i--){
+        	terminating = true;
+    		for ( int i = mCurrentFragment.checked_items.size() -1 ; i >= 0 ; i--){
         		mCurrentFragment.checked_items.get(i).setChecked(false);
         	}
-            mCurrentActionMode = null;
+        	mCurrentActionMode = null;
             mCurrentFragment = null;
+            terminating = false;
         }
     };
 }

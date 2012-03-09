@@ -625,7 +625,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				checked_items.remove(button);
 				checked_tasks.remove(t);
 				if (checked_items.size() == 0){
-					mCurrentActionMode.stopActionMode();
+					if (!mCurrentActionMode.terminating){
+						mCurrentActionMode.stopActionMode();
+					}
 				}
 			}
 		}
