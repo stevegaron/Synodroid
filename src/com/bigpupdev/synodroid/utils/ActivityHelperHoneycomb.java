@@ -141,6 +141,7 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
 		if (UIUtils.isICS()){
     		if (is_secure){
         		mActivity.getActionBar().setLogo(R.drawable.title_logo_https);
+        		mActivity.getActionBar().setIcon(R.drawable.title_logo_https);
         	}
     	}
     	else{
