@@ -184,17 +184,14 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 			view = (LinearLayout) convertViewP;
 		} else {
 			view = (LinearLayout) inflater.inflate(R.layout.task_template, parentP, false);
-			LinearLayout parent = (LinearLayout) view.findViewById(R.id.id_parent_view_template);
-			final CheckBox checkbox = (CheckBox) view.findViewById(R.id.id_torrent_cb);
-			parent.setOnClickListener(new OnClickListener(){
-				public void onClick(View arg0) {
-					if (checkbox.isChecked()){
-						checkbox.setChecked(false);
-					}
-					else{
-						checkbox.setChecked(true);
-					}
-				}});
+			if (UIUtils.isHoneycomb()){ 
+				LinearLayout parent = (LinearLayout) view.findViewById(R.id.id_parent_view_template);
+				final CheckBox checkbox = (CheckBox) view.findViewById(R.id.id_torrent_cb);
+				parent.setOnClickListener(new OnClickListener(){
+					public void onClick(View arg0) {
+						checkbox.performClick();
+					}});
+			}
 		}
 		try{
 			bindView(view, tasks.get(positionP));
