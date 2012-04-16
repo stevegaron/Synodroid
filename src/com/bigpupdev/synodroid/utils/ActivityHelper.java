@@ -58,6 +58,10 @@ public class ActivityHelper {
         mActivity = activity;
     }
 
+    public void invalidateOptionMenu(){
+    	
+    }
+    
     public void onPostCreate(Bundle savedInstanceState) {
         // Create the action bar
     	SimpleMenu menu = new SimpleMenu(mActivity);
@@ -154,6 +158,7 @@ public class ActivityHelper {
         
         LinearLayout.LayoutParams secLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         secLayoutParams.gravity = 0x10;
+        secLayoutParams.leftMargin = 4;
         
         View.OnClickListener homeClickListener = new View.OnClickListener() {
             public void onClick(View view) {
@@ -179,9 +184,12 @@ public class ActivityHelper {
         actionBarCompat.addView(titleText);
         
         if (is_home){
+        	LinearLayout.LayoutParams httpsLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        	httpsLayoutParams.gravity = 0x10;
+        	
         	ImageView sec = new ImageView(mActivity, null, R.attr.actionbarCompatHttpsStyle);
         	sec.setVisibility(View.GONE);
-        	sec.setLayoutParams(secLayoutParams);
+        	sec.setLayoutParams(httpsLayoutParams);
         	actionBarCompat.addView(sec);
         }
     }
@@ -225,11 +233,6 @@ public class ActivityHelper {
             return null;
         }
 
-        // Create the separator
-        ImageView separator = new ImageView(mActivity, null, R.attr.actionbarCompatSeparatorStyle);
-        separator.setLayoutParams(
-                new ViewGroup.LayoutParams(2, ViewGroup.LayoutParams.FILL_PARENT));
-
         // Create the button
         ImageButton actionButton = new ImageButton(mActivity, null,
                 R.attr.actionbarCompatButtonStyle);
@@ -244,15 +247,7 @@ public class ActivityHelper {
 
         // Add separator and button to the action bar in the desired order
 
-        if (!separatorAfter) {
-            actionBar.addView(separator);
-        }
-
         actionBar.addView(actionButton);
-
-        if (separatorAfter) {
-            actionBar.addView(separator);
-        }
 
         return actionButton;
     }
@@ -268,11 +263,6 @@ public class ActivityHelper {
         if (actionBar == null) {
             return null;
         }
-
-        // Create the separator
-        ImageView separator = new ImageView(mActivity, null, R.attr.actionbarCompatSeparatorStyle);
-        separator.setLayoutParams(
-                new ViewGroup.LayoutParams(2, ViewGroup.LayoutParams.FILL_PARENT));
 
         // Create the button
         ImageButton actionButton = new ImageButton(mActivity, null,
@@ -290,7 +280,6 @@ public class ActivityHelper {
             }
         });
 
-        actionBar.addView(separator);
         actionBar.addView(actionButton);
 
         if (item.getItemId() == R.id.menu_refresh) {
@@ -303,7 +292,7 @@ public class ActivityHelper {
                     R.attr.actionbarCompatProgressIndicatorStyle);
             LinearLayout.LayoutParams indicatorLayoutParams = new LinearLayout.LayoutParams(
                     buttonWidthDiv3, buttonWidthDiv3);
-            indicatorLayoutParams.setMargins(buttonWidthDiv3, buttonWidthDiv3,
+            indicatorLayoutParams.setMargins(buttonWidthDiv3-1, buttonWidthDiv3,
                     buttonWidth - 2 * buttonWidthDiv3, 0);
             indicator.setLayoutParams(indicatorLayoutParams);
             indicator.setVisibility(View.GONE);

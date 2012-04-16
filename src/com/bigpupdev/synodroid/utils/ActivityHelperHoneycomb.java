@@ -45,7 +45,13 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
         // Do nothing in onPostCreate. ActivityHelper creates the old action bar, we don't
         // need to for Honeycomb.
     }
-
+    
+    public void invalidateOptionMenu(){
+    	if (UIUtils.isICS()){
+			mActivity.invalidateOptionsMenu();
+		}	
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;

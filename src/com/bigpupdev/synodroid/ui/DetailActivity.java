@@ -397,6 +397,11 @@ public class DetailActivity extends BaseActivity{
     	if (ah != null) ah.setActionBarTitle(title, false);
     }
 	
+	public void menuHelperInvalidate(){
+    	ActivityHelper ah = getActivityHelper();
+    	if (ah != null) ah.invalidateOptionMenu();
+    }
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -640,9 +645,7 @@ public class DetailActivity extends BaseActivity{
 			
 			setStatus(details.getStatus());
 			updateActionBarTitle(details.fileName);
-			if (UIUtils.isICS()){
-				invalidateOptionsMenu();
-			}
+			menuHelperInvalidate();
 			break;
 		case ResponseHandler.MSG_ERROR:
 			try{
