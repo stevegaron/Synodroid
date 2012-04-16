@@ -30,12 +30,14 @@ public class ActionModeHelper {
 		mCurrentFragment = fragment;
 		mCurrentActionMode = fragment.getActivity().startActionMode(mContentSelectionActionModeCallback);
 	}
-	/**
-     * The callback for the 'photo selected' {@link ActionMode}. In this action mode, we can
-     * provide contextual actions for the selected photo. We currently only provide the 'share'
-     * action, but we could also add clipboard functions such as cut/copy/paste here as well.
-     */
-    private ActionMode.Callback mContentSelectionActionModeCallback = new ActionMode.Callback() {
+	
+	public void setTitle(String title){
+		if (mCurrentActionMode != null){
+			mCurrentActionMode.setTitle(title);
+		}
+	}
+	
+	private ActionMode.Callback mContentSelectionActionModeCallback = new ActionMode.Callback() {
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             MenuInflater inflater = mCurrentFragment.getActivity().getMenuInflater();
             inflater.inflate(R.menu.action_mode_menu, menu);

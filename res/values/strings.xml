@@ -376,4 +376,5 @@
 <string name="update_search_engine">Update search engine</string>
 <string name="update_search_engine_toast">Downloading latest search engine version.</string>
     
+<string name="selected">selected</string>
 </resources>

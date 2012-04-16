@@ -616,6 +616,11 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				mCurrentActionMode.startActionMode(this);
 				checked_items.add(button);
 				checked_tasks.add(t);
+				
+				try{
+					LinearLayout parentItem = ((LinearLayout)((LinearLayout)button.getParent()).getParent());
+					parentItem.setBackgroundResource(R.color.background_selected);
+				}catch (NullPointerException e){}
 			}
 			else{
 				try{
@@ -629,7 +634,14 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 						mCurrentActionMode.stopActionMode();
 					}
 				}
+				
+				try{
+					LinearLayout parentItem = ((LinearLayout)((LinearLayout)button.getParent()).getParent());
+					parentItem.setBackgroundResource(R.color.background_not_selected);
+				}catch (NullPointerException e){}
 			}
+			String selected = getActivity().getString(R.string.selected);
+			mCurrentActionMode.setTitle(Integer.toString(checked_items.size()) +" "+ selected);
 		}
 	}
 	

@@ -377,4 +377,6 @@
 <string name="update_search_engine">Mise-à-Jour du moteur de recherche</string>
 <string name="update_search_engine_toast">Téléchargement de la dernière version du moteur de recherche.</string>
     
+<string name="selected">sélectionné(s)</string>
+    
 </resources>

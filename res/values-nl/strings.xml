@@ -374,4 +374,6 @@
 <string name="magnet">Magnet links werken alleen met DSM 3.2 en hoger...</string>
 <string name="update_search_engine">Update zoekmachine</string>
 <string name="update_search_engine_toast">De zoekmachine wordt gedownload.</string>
+    
+<string name="selected">geselecteerd</string>
 </resources>
