@@ -8,6 +8,7 @@
  */
 package com.bigpupdev.synodroid.protocol.v31;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -46,7 +47,8 @@ class DSHandlerDSM31 implements DSHandler {
 	private static final String DM_URI = "/download/downloadman.cgi";
 	private static final String DM_URI_NEW = "/webman/modules/DownloadStation/dlm/downloadman.cgi";
 	private static final String TORRENT_INFO = "/webman/modules/DownloadStation/dlm/torrent_info.cgi";
-
+	private static final String BOUNDARY = "-----------7dabb2d41348";
+	
 	/* The Synology's server */
 	private SynoServer server;
 	private boolean DEBUG;
@@ -409,7 +411,7 @@ class DSHandlerDSM31 implements DSHandler {
 		if (server.isConnected()) {
 			if (uriP.getPath() != null) {
 				// Create the multipart
-				MultipartBuilder builder = new MultipartBuilder("-----------7dabb2d41348", DEBUG);
+				MultipartBuilder builder = new MultipartBuilder(BOUNDARY, DEBUG);
 
 				// The field's part
 				builder.addPart(new Part("field").setContent("task_id".getBytes()));
@@ -447,7 +449,7 @@ class DSHandlerDSM31 implements DSHandler {
 		if (server.isConnected()) {
 			if (uriP.toString() != null) {
 				// Create the multipart
-				MultipartBuilder builder = new MultipartBuilder("-----------7dabb2d41348", DEBUG);
+				MultipartBuilder builder = new MultipartBuilder("BOUNDARY", DEBUG);
 
 				// The field's part
 				builder.addPart(new Part("field").setContent("task_id".getBytes()));
@@ -491,6 +493,50 @@ class DSHandlerDSM31 implements DSHandler {
 		}
 	}
 
+	public String getMultipartUri(){
+		return DM_URI;
+	}
+	
+	public String getBoundary(){
+		return BOUNDARY;
+	}
+	
+	public byte[] generateMultipart(Uri uriP) throws Exception {
+		if (uriP.getPath() != null) {
+			// Create the multipart
+			MultipartBuilder builder = new MultipartBuilder(BOUNDARY, DEBUG);
+
+			// The field's part
+			builder.addPart(new Part("field").setContent("task_id".getBytes()));
+			// The direction's part
+			builder.addPart(new Part("direction").setContent("ASC".getBytes()));
+			// The url_http's part
+			builder.addPart(new Part("url_http").setContent("".getBytes()));
+			// The url_https's part
+			builder.addPart(new Part("url_https").setContent("".getBytes()));
+			// The url_ftp's part
+			builder.addPart(new Part("url_ftp").setContent("".getBytes()));
+
+			// The upload_type's part
+			builder.addPart(new Part("upload_type").setContent("torrent".getBytes()));
+			// The torrent's part
+			Part filePart = new Part("torrent").addExtra("filename", uriP.getPath());
+			filePart.setContentType("application/octet-stream");
+
+			// Get the stream according to the Uri
+			byte[] buffer = StreamFactory.getStream(uriP);
+
+			// Set the content
+			filePart.setContent(buffer);
+			builder.addPart(filePart);
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			builder.writeData(baos);
+			return baos.toByteArray();
+		}
+		return null;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

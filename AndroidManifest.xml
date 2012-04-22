@@ -171,6 +171,20 @@
         <category android:name="android.intent.category.DEFAULT"></category>
       </intent-filter>
     </activity>
+    
+    <service
+        android:name=".server.DownloadIntentService"
+        android:enabled="true"
+        android:icon="@drawable/icon_phone"
+        android:label="@string/app_name" >
+    </service>
+    <service
+        android:name=".server.UploadIntentService"
+        android:enabled="true"
+        android:icon="@drawable/icon_phone"
+        android:label="@string/app_name" >
+    </service>
+    
 	<provider android:name=".utils.SynodroidSearchSuggestion"
               android:authorities="com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion" />
   </application>

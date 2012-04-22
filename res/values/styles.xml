@@ -15,6 +15,17 @@
   -->
 
 <resources>
+    
+    <style name="NotificationText">
+      <item name="android:textColor">?android:attr/textColorSecondary</item>
+      <item name="android:textSize">12sp</item>
+    </style>
+    <style name="NotificationTitle">
+      <item name="android:textSize">14sp</item>
+      <item name="android:textColor">?android:attr/textColorPrimary</item>
+      <item name="android:textStyle">bold</item>
+    </style>
+
     <!-- Base application theme is the default theme. -->
     <style name="Theme" parent="android:style/Theme" />
 

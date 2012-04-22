@@ -34,7 +34,7 @@ import android.view.MenuItem;
  */
 public abstract class BaseActivity extends FragmentActivity {
     final ActivityHelper mActivityHelper = ActivityHelper.createInstance(this);
-
+	    
     @Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// ignore orientation change

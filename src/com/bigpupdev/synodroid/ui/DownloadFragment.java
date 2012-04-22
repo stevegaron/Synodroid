@@ -634,7 +634,4 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			mCurrentActionMode.setTitle(Integer.toString(checked_items.size()) +" "+ selected);
 		}
 	}
-	
-
-    
 }

@@ -16,14 +16,18 @@
  */
 package com.bigpupdev.synodroid.action;
 
+import com.bigpupdev.synodroid.server.DownloadIntentService;
 import com.bigpupdev.synodroid.server.SynoServer;
-import com.bigpupdev.synodroid.server.TorrentDownloadAndAdd;
+import com.bigpupdev.synodroid.server.UploadIntentService;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.Synodroid;
 
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 
@@ -63,14 +67,31 @@ public class AddTaskAction implements SynoAction {
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
 		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
-			new TorrentDownloadAndAdd((Fragment)handlerP).execute(uri.toString());
+			//new TorrentDownloadAndAdd((Fragment)handlerP).execute(uri.toString());
+			Activity a = ((Fragment)handlerP).getActivity();
+			Intent msgIntent = new Intent(a, DownloadIntentService.class);
+			msgIntent.putExtra(DownloadIntentService.URL, uri.toString());
+			msgIntent.putExtra(DownloadIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
+			a.startService(msgIntent);
 		}
 		else{
 			if (task.outside_url) {
-			// Start task using url instead of reading file
-			serverP.getDSMHandlerFactory().getDSHandler().uploadUrl(uri);
+				// Start task using url instead of reading file
+				serverP.getDSMHandlerFactory().getDSHandler().uploadUrl(uri);
 			} else {
-				serverP.getDSMHandlerFactory().getDSHandler().upload(uri);
+				//serverP.getDSMHandlerFactory().getDSHandler().upload((Fragment) handlerP, uri);
+				Activity a = ((Fragment)handlerP).getActivity();
+				Intent msgIntent = new Intent(a, UploadIntentService.class);
+				String cur_cookie = null;
+				for (String cookie : serverP.getCookies()) {
+					cur_cookie = cookie;
+				}
+				msgIntent.putExtra(DownloadIntentService.URL, uri.toString());
+				msgIntent.putExtra(UploadIntentService.COOKIES, cur_cookie);
+				msgIntent.putExtra(UploadIntentService.DSM_VERSION, serverP.getDsmVersion().getTitle());
+				msgIntent.putExtra(UploadIntentService.PATH, serverP.getUrl());
+				msgIntent.putExtra(UploadIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
+				a.startService(msgIntent);
 			}
 		}
 	}

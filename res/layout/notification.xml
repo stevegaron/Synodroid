@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:padding="5dp">
+	<ImageView android:id="@+id/status_icon"
+		android:layout_width="wrap_content" 
+		android:layout_height="fill_parent"
+		android:layout_alignParentLeft="true"
+		android:layout_margin="12dp"
+        android:src="@drawable/dl_download" />
+
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" 
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_toRightOf="@id/status_icon">
+		<TextView android:id="@+id/status_text" 
+		    android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:layout_alignParentTop="true"
+            android:text="/sdcard/Downloads/this is a really long file name.torrent"
+            style="@style/NotificationTitle"
+            android:ellipsize="end"
+            android:singleLine="true"/>
+		<ProgressBar android:id="@+id/status_progress"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_below="@id/status_text"
+			android:progressDrawable="@android:drawable/progress_horizontal"
+			android:indeterminate="false" 
+			android:indeterminateOnly="false"
+    		android:minHeight="10dip" 
+    		android:maxHeight="10dip" />
+		<TextView android:id="@+id/status_cancel" 
+		    android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+            android:text="Click to cancel..."
+            style="@style/NotificationText"
+            android:layout_below="@+id/status_progress"/>
+	</RelativeLayout>
+
+</RelativeLayout>

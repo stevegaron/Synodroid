@@ -74,6 +74,12 @@ public interface DSHandler {
 	 * @param uriP
 	 */
 	public void upload(final Uri uriP) throws Exception;
+	
+	public byte[] generateMultipart(final Uri uriP) throws Exception;
+	
+	public String getMultipartUri();
+	
+	public String getBoundary();
 
 	/**
 	 * Upload a file defined by an Uri
