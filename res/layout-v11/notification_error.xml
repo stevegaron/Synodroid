@@ -7,34 +7,30 @@
 		android:layout_width="wrap_content" 
 		android:layout_height="fill_parent"
 		android:layout_alignParentLeft="true"
-		android:layout_marginTop="12dp"
-		android:layout_marginBottom="12dp"
-		android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+		android:layout_margin="12dp"
         android:src="@drawable/dl_download" />
 
 	<RelativeLayout android:layout_width="fill_parent"
 		android:layout_height="fill_parent" 
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
-		android:layout_toRightOf="@id/status_icon"
-		android:gravity="center_vertical">"
+		android:gravity="center_vertical"
+		android:layout_toRightOf="@id/status_icon">
 		<TextView android:id="@+id/status_text" 
 		    android:layout_width="fill_parent"
 			android:layout_height="wrap_content" 
 			android:layout_alignParentTop="true"
-            android:text="/sdcard/Downloads/this is a really long file name.torrent"
+            android:text="ERROR"
+            style="@android:style/TextAppearance.StatusBar.EventContent.Title"
             android:ellipsize="end"
             android:singleLine="true"/>
-		<ProgressBar android:id="@+id/status_progress"
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"
-			android:layout_below="@id/status_text"
-			android:progressDrawable="@android:drawable/progress_horizontal"
-			android:indeterminate="false" 
-			android:indeterminateOnly="false"
-    		android:minHeight="10dip" 
-    		android:maxHeight="10dip" />
+		<TextView android:id="@+id/status_cancel" 
+		    android:textSize="12sp" 
+      		android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+            android:text="Error message"
+            style="@android:style/TextAppearance.StatusBar.EventContent"
+            android:layout_below="@+id/status_text"/>
 	</RelativeLayout>
 
 </RelativeLayout>

@@ -11,16 +11,14 @@ import java.net.URL;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.ui.HomeActivity;
+import com.bigpupdev.synodroid.utils.ServiceHelper;
 
 import android.app.IntentService;
 import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 public class DownloadIntentService extends IntentService{
 	public static String URL = "URL";
@@ -35,11 +33,6 @@ public class DownloadIntentService extends IntentService{
 	 */
 	public DownloadIntentService() {
 		super("DownloadIntentService");
-	}
-
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		return super.onStartCommand(intent,flags,startId);
 	}
 
 	@Override
@@ -59,18 +52,8 @@ public class DownloadIntentService extends IntentService{
 		
 		String temp[] = uri.split("/");
 		String fname = temp[(temp.length) - 1];
-		final Notification notification = new Notification(R.drawable.icon_phone, fname, System
-                .currentTimeMillis());
-        notification.flags = notification.flags | Notification.FLAG_ONGOING_EVENT;
-        notification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification);
-        notification.contentView.setTextViewText(R.id.status_text, fname);
-        notification.contentView.setProgressBar(R.id.status_progress, 100, progress, false);
-        getApplicationContext();
-		final NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(
-                Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(DL_ID, notification);
-        
+		Notification notification = ServiceHelper.getNotificationProgress(this, fname, progress, DL_ID, R.drawable.dl_download);
+		
 		try {
 			URL url = new URL(uri); // you can write here any link
 			File path = Environment.getExternalStorageDirectory();
@@ -117,15 +100,10 @@ public class DownloadIntentService extends IntentService{
 	        	downloadedSize += count;
 	        	progress = (int) (((float) downloadedSize/ ((float )contentLength)) * 100);
 	        	if (((lastUpdate + 250) < System.currentTimeMillis()) || downloadedSize == contentLength){
-					//this is where you would do something to report the prgress, like this maybe
-	                notification.contentView.setProgressBar(R.id.status_progress, 100, progress, false);
-	                // inform the progress bar of updates in progress
-	                notificationManager.notify(DL_ID, notification);
+	        		ServiceHelper.updateProgress(this, notification, progress, DL_ID);
 	        	}
 	        }
-	            
 	        
-			
 	        fos.write(out.toByteArray());
 	        fos.flush();
 			fos.close();
@@ -142,7 +120,7 @@ public class DownloadIntentService extends IntentService{
 				if (dbg) Log.d(Synodroid.DS_TAG, "Letting the NAS do the heavy lifting...");
 			}catch (Exception ex){/*DO NOTHING*/}
 		} finally{
-			notificationManager.cancel(DL_ID);
+			ServiceHelper.cancelNotification(this, DL_ID);
 		}
 
 		Intent broadcastIntent = new Intent();

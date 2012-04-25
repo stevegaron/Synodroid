@@ -82,12 +82,8 @@ public class AddTaskAction implements SynoAction {
 				//serverP.getDSMHandlerFactory().getDSHandler().upload((Fragment) handlerP, uri);
 				Activity a = ((Fragment)handlerP).getActivity();
 				Intent msgIntent = new Intent(a, UploadIntentService.class);
-				String cur_cookie = null;
-				for (String cookie : serverP.getCookies()) {
-					cur_cookie = cookie;
-				}
 				msgIntent.putExtra(DownloadIntentService.URL, uri.toString());
-				msgIntent.putExtra(UploadIntentService.COOKIES, cur_cookie);
+				msgIntent.putExtra(UploadIntentService.COOKIES, serverP.getCookies());
 				msgIntent.putExtra(UploadIntentService.DSM_VERSION, serverP.getDsmVersion().getTitle());
 				msgIntent.putExtra(UploadIntentService.PATH, serverP.getUrl());
 				msgIntent.putExtra(UploadIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);

@@ -1,11 +1,8 @@
 package com.bigpupdev.synodroid.server;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.SecureRandom;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -20,15 +17,13 @@ import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
+import com.bigpupdev.synodroid.utils.ServiceHelper;
 
 import android.app.IntentService;
 import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 public class UploadIntentService extends IntentService{
 	public static String URL = "URL";
@@ -58,11 +53,6 @@ public class UploadIntentService extends IntentService{
 	 */
 	public UploadIntentService() {
 		super("UploadIntentService");
-	}
-
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		return super.onStartCommand(intent,flags,startId);
 	}
 
 	@Override
@@ -99,19 +89,8 @@ public class UploadIntentService extends IntentService{
 		}
 		
 		if (content != null){
-			final Notification notification = new Notification(R.drawable.icon_phone, uri.getPath(), System
-	                .currentTimeMillis());
-	        notification.flags = notification.flags | Notification.FLAG_ONGOING_EVENT;
-	        notification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification);
-	        notification.contentView.setImageViewResource(R.id.status_icon, R.drawable.dl_upload);
-	        notification.contentView.setTextViewText(R.id.status_text, uri.getPath());
-	        notification.contentView.setProgressBar(R.id.status_progress, 100, progress, false);
-	        getApplicationContext();
-			final NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(
-	                Context.NOTIFICATION_SERVICE);
-	
-	        notificationManager.notify(UL_ID, notification);
-			
+			Notification notification = ServiceHelper.getNotificationProgress(this, uri.getPath(), progress, UL_ID, R.drawable.dl_upload);
+
 			HttpURLConnection conn = null;
 			JSONObject respJSO = null;
 			int retry = 0;
@@ -120,7 +99,7 @@ public class UploadIntentService extends IntentService{
 				while (retry <= MAX_RETRY) {
 					try {
 						// Create the connection
-						conn = createConnection(url, "", "POST", dbg, cookie, path);
+						conn = ServiceHelper.createConnection(url, "", "POST", dbg, cookie, path);
 						conn.setRequestProperty("Connection", "keep-alive");
 						conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + dsm.getDSHandler().getBoundary());
 						conn.setFixedLengthStreamingMode(content.length);
@@ -137,10 +116,7 @@ public class UploadIntentService extends IntentService{
 							progress = (int) ((float) offset / (float )content.length * 100);
 							if (((lastUpdate + 250) < System.currentTimeMillis()) || offset == content.length){
 								lastUpdate = System.currentTimeMillis();
-				                //this is where you would do something to report the prgress, like this maybe
-				                notification.contentView.setProgressBar(R.id.status_progress, 100, progress, false);
-				                // inform the progress bar of updates in progress
-				                notificationManager.notify(UL_ID, notification);
+				                ServiceHelper.updateProgress(this, notification, progress, UL_ID);
 							}
 			                conn.getOutputStream().flush();
 							   
@@ -165,14 +141,7 @@ public class UploadIntentService extends IntentService{
 							boolean success = respJSO.getBoolean("success");
 							// If successful then build details list
 							if (!success) {
-								String reason = "";
-								if (respJSO.has("reason")) {
-									reason = respJSO.getString("reason");
-								} else if (respJSO.has("errno")) {
-									JSONObject err = respJSO.getJSONObject("errno");
-									reason = err.getString("key");
-								}
-								//throw new DSMException(reason);
+								ServiceHelper.showNotificationError(this, uri.getPath(), getString(R.string.upload_failed), R.drawable.dl_error);
 							}
 							return;
 						}
@@ -187,27 +156,9 @@ public class UploadIntentService extends IntentService{
 					conn.disconnect();
 				}
 				conn = null;
-				notificationManager.cancel(UL_ID);
+				ServiceHelper.cancelNotification(this, UL_ID);
 			}
 		}
-		//throw new Exception("Failed to read response from server. Please reconnect!");
-	}
-	
-	private HttpURLConnection createConnection(String uriP, String requestP, String methodP, boolean dbg, String cookie, String url) throws MalformedURLException, IOException {
-		// Prepare the connection
-		HttpURLConnection con = (HttpURLConnection) new URL(url + Uri.encode(uriP, "/")).openConnection();
-
-		// Add cookies if exist
-		if (cookie != null) {
-			con.addRequestProperty("Cookie", cookie);
-			if (dbg) Log.d(Synodroid.DS_TAG, "Added cookie: " + cookie);
-		}
-		con.setDoOutput(true);
-		con.setDoInput(true);
-		con.setUseCaches(false);
-		con.setRequestMethod(methodP);
-		con.setConnectTimeout(20000);
-		if (dbg) Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
-		return con;
+		ServiceHelper.showNotificationError(this, uri.getPath(), getString(R.string.upload_failed), R.drawable.dl_error);
 	}
 }

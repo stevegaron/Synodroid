@@ -7,10 +7,7 @@
 		android:layout_width="wrap_content" 
 		android:layout_height="fill_parent"
 		android:layout_alignParentLeft="true"
-		android:layout_marginTop="12dp"
-		android:layout_marginBottom="12dp"
-		android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+		android:layout_margin="12dp"
         android:src="@drawable/dl_download" />
 
 	<RelativeLayout android:layout_width="fill_parent"
@@ -24,6 +21,7 @@
 			android:layout_height="wrap_content" 
 			android:layout_alignParentTop="true"
             android:text="/sdcard/Downloads/this is a really long file name.torrent"
+            style="@android:style/TextAppearance.StatusBar.EventContent.Title"
             android:ellipsize="end"
             android:singleLine="true"/>
 		<ProgressBar android:id="@+id/status_progress"

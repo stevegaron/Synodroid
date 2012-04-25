@@ -21,8 +21,6 @@ import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
@@ -88,7 +86,7 @@ public class SynoServer {
 	// The data's collector thread
 	private Thread collector;
 	// Cookies
-	private List<String> cookies;
+	private String cookies;
 
 	// Flag to know is the server has been interrupted while sleeping
 	private boolean interrupted;
@@ -329,7 +327,7 @@ public class SynoServer {
 	/**
 	 * Disconnect from the server
 	 */
-	public List<String> getCookies() {
+	public String getCookies() {
 		return cookies;
 	}
 
@@ -646,10 +644,8 @@ public class SynoServer {
 
 		// Add cookies if exist
 		if (cookies != null) {
-			for (String cookie : cookies) {
-				con.addRequestProperty("Cookie", cookie);
-				if (DEBUG) Log.d(Synodroid.DS_TAG, "Added cookie: " + cookie);
-			}
+			con.addRequestProperty("Cookie", cookies);
+			if (DEBUG) Log.d(Synodroid.DS_TAG, "Added cookie: " + cookies);
 		}
 		con.setDoOutput(true);
 		con.setDoInput(true);
@@ -695,8 +691,7 @@ public class SynoServer {
 					wr.close();
 	
 					// Try to retrieve the session cookie
-					Map<String, List<String>> headers = con.getHeaderFields();
-					List<String> newCookie = headers.get("set-cookie");
+					String newCookie = con.getHeaderField("set-cookie");
 					if (newCookie != null) {
 						synchronized (this){
 							cookies = newCookie;
@@ -724,6 +719,9 @@ public class SynoServer {
 				}catch (Exception e){
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
 					retry ++;
+				}
+				finally{
+					con.disconnect();
 				}
 				
 			}
@@ -820,8 +818,7 @@ public class SynoServer {
 			wr.flush();
 
 			// Try to retrieve the session cookie
-			Map<String, List<String>> headers = con.getHeaderFields();
-			List<String> newCookie = headers.get("set-cookie");
+			String newCookie = con.getHeaderField("set-cookie");
 			if (newCookie != null) {
 				synchronized (this){
 					cookies = newCookie;
