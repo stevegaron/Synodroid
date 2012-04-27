@@ -227,13 +227,13 @@
 <string name="translator">&quot;Übersetzer:&quot;</string>
 <string name="fullscreen_preference">Vollbild</string>
 <string name="summary_fullscreen_preference">Versteckt die Benachrichtigungsleiste</string>
-<string name="crash_notif_ticker_text">Unerwarteter Fehler. Bitte schicken Sie eine Fehlermeldung ein...</string>
-<string name="crash_notif_title">Synodroid ist abgestürzt...</string>
+<string name="crash_notif_ticker_text">Unerwarteter Fehler. Bitte schicken Sie eine Fehlermeldung ein.</string>
+<string name="crash_notif_title">Synodroid ist abgestürzt</string>
 <string name="crash_notif_text">Bitte klicken Sie hier um bei der Lösung des Problems zu helfen.</string>
         
 <string name="crash_dialog_title">Synodroid ist abgestürzt</string>
 <string name="crash_dialog_text">Ein unerwarteter Fehler ist aufgetreten und die Anwendung wurde beendet. Bitte helfen Sie uns, in dem uns die Fehlerdaten schicken, alles was Sie tun müssen ist \'OK\' klicken.</string>
-<string name="crash_dialog_comment_prompt">Sie könne Ihre Emailadresse und einen Komentar zum Problem unten eingeben:</string>
+<string name="crash_dialog_comment_prompt">Sie könne Ihre Emailadresse und einen Kommentar zum Problem unten eingeben:</string>
 <string name="crash_dialog_ok_toast">Vielen Dank!</string>
 <string name="label_showupload">Uploadfortschritt</string>
 <string name="hint_showupload_on">Uploadfortschritt wird angezeigt</string>
@@ -252,14 +252,14 @@
 <string name="wizard_user_title">Benutzerinformationen</string>
 <string name="wizard_user_user_label">Benutzer</string>
 <string name="wizard_user_password_label">Passwort</string>
-<string name="installTorrentSearchAlternate">Alternative Download für Torrent Search</string><string name="installTorrentSearch">Installieren Sie Transdroid Torrent Search</string>
+<string name="installTorrentSearchAlternate">Alternativer Download für Torrent Search</string><string name="installTorrentSearch">Installieren Sie Transdroid Torrent Search</string>
 <string name="logo_search">Torrentsuche</string>
 <string name="dialog_message_confirm_add">Sind Sie sicher, dass Sie diese Datei herunterladen möchten?</string>
-<string name="provider_missing">Der Suchanbieter ist nicht installiert, drücken Sie den Button um ihn zu installieren.\n\n Info: Sie müssen Synodroid nach der Installation neu starten um die Suche zu aktivieren...</string>
+<string name="provider_missing">Der Suchanbieter ist nicht installiert, drücken Sie den Button um ihn zu installieren.\n\n Info: Sie müssen Synodroid nach der Installation neu starten um die Suche zu aktivieren.</string>
 <string name="searching">Suche...\n\n</string>
 <string name="no_results">Keine Ergebnisse gefunden.\n\n</string>
 <string name="sites">Verfügbare sites:\n</string>
-<string name="no_keyword">Bitte geben Sie einen Suchtext ein...</string>
+<string name="no_keyword">Bitte geben Sie einen Suchtext ein.</string>
 <string name="search_hint">Torrentsuche</string>
 <string name="wizard_options_title">Einstellungen</string>
 <string name="wizard_https">Ich möchte eine sichere Verbindung benutzen</string>
@@ -267,8 +267,8 @@
 <string name="wizard_ddns_host">DDNS Hostname</string>
 <string name="wizard_selectdsm_title">Wählen Sie eine DSM version</string>
 <string name="wizard_no_server_found">Es konnte kein Server im Netzwerk gefunden werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.</string>
-<string name="err_nomarket">Der Android Market ist nicht auf Ihrem Gerät installiert.\n\nKontaktieren Sie die Entwickler, um eine Kopie von Transdroid search zu bekommen.</string><string name="err_nobrowser">Der Android Browser ist nicht auf Ihrem Gerät installiert.\n\nKontaktieren Sie die Entwickler, um eine Kopie von Transdroid search zu bekommen.</string>
-<string name="err_provider_missing">Transdroid torrent search ist nicht installiert.\n\nFolgen Sie den Anweisungen im Suchen-Tab um es zu installieren.</string>
+<string name="err_nomarket">Der Android Market ist nicht auf Ihrem Gerät installiert.\n\nKontaktieren Sie die Entwickler, um eine Kopie von Transdroid Torrent Search zu bekommen.</string><string name="err_nobrowser">Der Android Browser ist nicht auf Ihrem Gerät installiert.\n\nKontaktieren Sie die Entwickler, um eine Kopie von Transdroid Torrent Search zu bekommen.</string>
+<string name="err_provider_missing">Transdroid Torrent Search ist nicht installiert.\n\nFolgen Sie den Anweisungen im Suchen-Tab um es zu installieren.</string>
 <string name="help">Hilfe</string>
 
 <string name="label_usewifi">Über WLAN verbinden</string>
@@ -285,31 +285,31 @@
 <string name="app_help">FAQ: Häufig gestellte Fragen</string>
 <string name="email">Fordern sie Unterstützung per Mail an!</string>
 <string name="faq1">Wie finde ich einen Server?</string>
-<string name="rep1">Sie finden keinen server, sie müssen einen besitzen. Synodroid wurde geschrieben um ein Synology Network Attached Storage (NAS) zu steuern. Wenn sie kein Synology NAS besitzen ist diese App für sie nutzlos. Deinstallieren sie sie...</string>
+<string name="rep1">Sie finden keinen Server, sie müssen einen besitzen. Synodroid wurde geschrieben um ein Synology Network Attached Storage (NAS) zu steuern. Wenn sie kein Synology NAS besitzen ist diese App für sie nutzlos. Deinstallieren sie sie...</string>
 
 <string name="faq2">Wo kann ich ein Synology NAS kaufen?</string>
-<string name="rep2">Sehen sie auf der Synology website unter "Hier erhältlich" nach.</string>
+<string name="rep2">Sehen sie auf der Synology Website unter "Hier erhältlich" nach.</string>
 
 <string name="faq6">Was ist ein Synology NAS?</string>
-<string name="rep6">Suchen sie auf der Synology web site nach Informationen über ihre Produkte.</string>
+<string name="rep6">Suchen sie auf der Synology Website nach Informationen über ihre Produkte.</string>
 
 <string name="faq7">Wie kann ich eine Datei mit dieser App auf mein Telefon laden?</string>
-<string name="rep7">Diese App ist nicht dafür gedacht Dateien auf das Telefon zu laden. Sie ist nur dafür gedacht die \"Download Station\" sektion Ihres Synology NAS zu steuern.</string>
+<string name="rep7">Diese App ist nicht dafür gedacht Dateien auf das Telefon zu laden. Sie ist nur dafür gedacht die \"Download Station\" Sektion Ihres Synology NAS zu steuern.</string>
 
 <string name="faq3">Wie kann ich mich zu meinem Synology NAS verbinden?</string>
-<string name="rep3">Drücken Sie den Menu-Knopf Ihres Gerätes auf der Startseite von Synodroid und wählen sie Einstellungen. Drücken sie Menu erneut im Einstellungsfenster und wählen sie eine der folgenden Optionen:\n\n1. Einen Server suchen\n2. Einen Server hinzufügen</string>
+<string name="rep3">Drücken Sie den Menü-Knopf Ihres Gerätes auf der Startseite von Synodroid und wählen sie Einstellungen. Drücken sie Menü erneut im Einstellungsfenster und wählen sie eine der folgenden Optionen:\n\n1. Einen Server suchen\n2. Einen Server hinzufügen</string>
 
 <string name="faq4">Die Serversuche findet mein Synology NAS nicht, warum?</string>
-<string name="rep4">Bevor Sie die Serversuche benutzen sollten sie folgendes wissen:\n\n- 1 -\nSie müssen mit dem selben WLAN verbunden sein wie Ihr NAS.\n\n- 2 -\nIhr NAS muss angeschaltet und betriebsbereit sein.\n\n- 3 -\nSie müssen Android 1.6 oder höher verwenden.\n\n** Info:\nWenn die Serversche für sie nicht funktioniert können sie Ihren Server immer noch manuell über "Server hinzufügen" in den Einstellungen hinzufügen.</string>
+<string name="rep4">Bevor Sie die Serversuche benutzen sollten sie folgendes wissen:\n\n- 1 -\nSie müssen mit dem selben WLAN verbunden sein wie Ihr NAS.\n\n- 2 -\nIhr NAS muss eingeschaltet und betriebsbereit sein.\n\n- 3 -\nSie müssen Android 1.6 oder höher verwenden.\n\n** Info:\nWenn die Serversuche für sie nicht funktioniert können sie Ihren Server immer noch manuell über "Server hinzufügen" in den Einstellungen hinzufügen.</string>
 
 <string name="faq5">Diese FAQ haben mir nicht geholfen. Was soll ich tun?</string>
-<string name="rep5">Schreiben sie den Entwicklern eine Email (auf Englisch) indem sie den Button unten benutzen.\n\nBitte stellen sie eine präzise Frage und geben sie uns Informationen zum Verstädnis des Problems.</string>
+<string name="rep5">Schreiben sie den Entwicklern eine Email (auf Englisch) indem sie den Button unten benutzen.\n\nBitte stellen sie eine präzise Frage und geben sie uns Informationen zum Verständnis des Problems.</string>
 
 
 
 <string name="ul_rate">Maximale Upload-Rate (KB\\s)</string>
 <string name="dl_rate">Maximale Download-Rate (KB\\s)</string>
-<string name="max_peers">Maximalle Anzahl an peers</string>
+<string name="max_peers">Maximale Anzahl an Peers</string>
 <string name="priority">Download Priorität</string>
 <string name="destination">Zielordner</string>
 <string-array name="priority_array">
@@ -335,7 +335,7 @@
 
 <string name="empty_file_list">Im Moment können keine Dateien angezeigt werden…</string>
 <string name="empty_file_list_wrong_type">Nur für Torrents und NZB-Downloads verfügbar.</string>
-<string name="empty_download_list">Es gibt im Moment keine Downloads auf ihrem NAS.\n\nSie können Downloads über den hinzufügen-Button, die Suche oder die "Weitergeben"-Funktion des Browsers hinzufügen.</string>
+<string name="empty_download_list">Es gibt im Moment keine Downloads auf ihrem NAS.\n\nSie können Downloads über den Hinzufügen-Button, die Suche oder die "Weitergeben"-Funktion des Browsers hinzufügen.</string>
 <string name="empty_list_loading">Lade...</string>
 <string name="empty_not_connected">Nicht verbunden.</string>	
 <string name="err_file_list">Dateiliste konnte nicht empfangen werden. Überprüfen sie, dass in der Server-Konfiguration die richtige DSM Version angegeben ist.</string>
@@ -353,10 +353,10 @@
 <string name="add_wizard_wifi_host">Server IP/Domainname:</string>
 <string name="add_wizard_cell_title">Mobilfunk</string>
 <string name="add_wizard_sec_title">Sicherheit</string>
-<string name="dialog_message_confirm">&quot;Der aufgabe ist noch nicht komplett fertig gestellt. Sind sie sicher, dass der aufgabe beendet werden soll?&quot;</string>
+<string name="dialog_message_confirm">&quot;Die Aufgabe ist noch nicht komplett fertig gestellt. Sind sie sicher, dass die Aufgabe beendet werden soll?&quot;</string>
 <string name="menu_add">Download hinzufügen</string>
 <string name="add_download_url_title">Adresse:</string>
-<string name="app_pro">Professional version</string>
+<string name="app_pro">Professional Version</string>
 <string name="app_google_plus">Fügen sie uns zu ihren Google+ Kreisen hinzu um immer die neuesten Informationen zu Synodroid zu bekommen:</string>
 <string name="tab_about">Über</string>    
 <string name="tab_help">F.A.Q.</string>    
