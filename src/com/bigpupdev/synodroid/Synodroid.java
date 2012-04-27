@@ -227,6 +227,7 @@ public class Synodroid extends Application {
 				Activity a = fragmentP.getActivity();
 				Dialog d = new AlertDialog.Builder(a).setTitle(actionP.getTask().fileName).setMessage(R.string.dialog_message_confirm).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						currentServer.setRecurrentAction(fragmentP, null);
 						currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);
 						fragmentP.finish();
 					}
@@ -234,8 +235,8 @@ public class Synodroid extends Application {
 				// d.setOwnerActivity(this); // why can't the builder do this?
 				d.show();
 			} else if (actionP instanceof DeleteTaskAction) {
-				currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);
 				currentServer.setRecurrentAction(fragmentP, null);
+				currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);
 				fragmentP.finish();
 			}
 			// Ok no problem do it
