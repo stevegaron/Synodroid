@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis">
     
 <string name="app_name">Synodroid Pro</string>
 <string name="app_opensource">Projet Opensource</string>
@@ -379,4 +379,5 @@
     
 <string name="selected">sélectionné(s)</string>
     
+<string name="upload_failed">L\'envoi du fichier vers la NAS n\'a pas fonctionné. Réessayez...</string>
 </resources>

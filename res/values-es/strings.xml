@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis">
 
 <string name="app_name">Synodroid Pro</string>
 <string name="app_opensource">Opensource project</string>
@@ -78,6 +78,7 @@
 <string name="hint_default_server">Servidor no válido, click para editar</string>
 <string name="menu_refresh">Refrescar</string>
 <string name="title_cat_connection">Parámetros de conexión</string>
+<string name="title_cat_connection_local">Los parámetros locales de conexión</string>
 <string name="title_cat_server">Parámetros generales</string>
 
 <string name="action_resume">Reanudar</string>
@@ -376,4 +377,5 @@
 <string name="update_search_engine_toast">Descargar últimas versiones de los motores de búsqueda.</string>
 
 <string name="selected">seleccionado(s)</string>
+<string name="upload_failed">Carga de los archivos en el NAS no. Vuelva a intentar ...</string>
 </resources>

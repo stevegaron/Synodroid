@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis">
     
 <string name="app_name">Synodroid Pro</string>
 <string name="app_opensource">Opensource project</string>
@@ -255,6 +255,7 @@
 <string name="wizard_user_user_label">Gebruiker</string>
 <string name="wizard_user_password_label">Wachtwoord</string>
 <string name="installTorrentSearch">Installeer Transdroid Torrent Search</string>
+<string name="installTorrentSearchAlternate">Alternatieve downloaden</string>
 <string name="logo_search">Torrents zoeken</string>
 <string name="dialog_message_confirm_add">Weet u zeker dat u dit bestand wilt downloaden?</string>
 <string name="provider_missing">Zoekmachine niet geïnstalleerd, klik op de onderstaande knop om een zoekmachine te installeren.\n\n Let op! U moet Synodroid opnieuw opstarten om de zoekmachine in te schakelen.</string>
@@ -270,6 +271,7 @@
 <string name="wizard_selectdsm_title">Selecteer de DSM versie</string>
 <string name="wizard_no_server_found">Er is geen server op het netwerk gevonden. Controleer uw connectie en probeer het opnieuw.</string>
 <string name="err_nomarket">Android market is niet geïnstalleerd op dit apparaat.\n\nNeem contact op met de ontwikkelaars voor een kopie van Transdroid search.</string>
+<string name="err_nobrowser">Android browser is niet geïnstalleerd op dit apparaat.\n\nNeem contact op met de ontwikkelaars voor een kopie van Transdroid search.</string>
 <string name="err_provider_missing">Transdroid torrent search is niet geïnstalleerd op uw apparaat.\n\nVolg de instrusties op de zoek-tab om het te installeren.</string>
 <string name="help">Help</string>
 
@@ -376,4 +378,5 @@
 <string name="update_search_engine_toast">De zoekmachine wordt gedownload.</string>
     
 <string name="selected">geselecteerd</string>
+<string name="upload_failed">Upload van de bestanden naar de NAS is mislukt. Opnieuw ...</string>
 </resources>
