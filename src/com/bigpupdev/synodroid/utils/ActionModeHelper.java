@@ -19,7 +19,7 @@ public class ActionModeHelper {
 	DownloadFragment mCurrentFragment = null;
 	
 	public void stopActionMode(){
-		mCurrentActionMode.finish();
+		if (mCurrentActionMode != null) mCurrentActionMode.finish();
 	}
 	
 	public void startActionMode(DownloadFragment fragment){
@@ -59,6 +59,7 @@ public class ActionModeHelper {
                 		app.executeAction(mCurrentFragment, new PauseTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
                 	}
                 	actionMode.finish();
+                	app.forceRefresh();
                     return true;
                 case R.id.menu_clear:
                 	try{
@@ -68,6 +69,7 @@ public class ActionModeHelper {
                 		app.executeAction(mCurrentFragment, new DeleteTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
                 	}
                 	actionMode.finish();
+                	app.forceRefresh();
                     return true;
                 case R.id.menu_resume:
                 	try{
@@ -77,6 +79,7 @@ public class ActionModeHelper {
                 		app.executeAction(mCurrentFragment, new ResumeTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
                 	}
                 	actionMode.finish();
+                	app.forceRefresh();
                     return true;
             }
             return false;
@@ -84,9 +87,7 @@ public class ActionModeHelper {
 
         public void onDestroyActionMode(ActionMode actionMode) {
         	terminating = true;
-    		for ( int i = mCurrentFragment.checked_items.size() -1 ; i >= 0 ; i--){
-        		mCurrentFragment.checked_items.get(i).setChecked(false);
-        	}
+    		mCurrentFragment.resetChecked();
         	mCurrentActionMode = null;
             mCurrentFragment = null;
             terminating = false;

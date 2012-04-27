@@ -9,6 +9,7 @@
 package com.bigpupdev.synodroid.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bigpupdev.synodroid.R;
@@ -144,7 +145,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			List<Task> tasks = container.getTasks();
 			// Get the adapter
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
-			taskAdapter.updateTasks(tasks);
+			validateChecked(taskAdapter.updateTasks(tasks, checked_tasks_id));
 			
 			// Dismiss the connection dialog
 			killDialog(CONNECTION_DIALOG_ID);
@@ -164,7 +165,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			TaskDetail details = (TaskDetail) msg.obj;
 			// Get the adapter
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
-			taskAdapter.updateFromDetail(details);
+			taskAdapter.updateFromDetail(details, checked_tasks_id);
 		}
 		// An error message
 		else if (msg.what == ResponseHandler.MSG_ERROR) {
@@ -183,7 +184,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
 			taskView.setOnItemClickListener(taskAdapter);
 			taskView.setOnItemLongClickListener(taskAdapter);
-			taskAdapter.updateTasks(tasks);
+			validateChecked(taskAdapter.updateTasks(tasks, checked_tasks_id));
 			
 			// Dismiss the connection dialog
 			killDialog(CONNECTION_DIALOG_ID);
@@ -233,7 +234,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			
 			// Clear the prevous task list
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
-			taskAdapter.updateTasks(new ArrayList<Task>());
+			validateChecked(taskAdapter.updateTasks(new ArrayList<Task>(), checked_tasks_id));
 			// Show the connection dialog
 			try {
 				a.showDialog(CONNECTION_DIALOG_ID);
@@ -372,6 +373,13 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				uri = intentP.getData();
+				if (uri.toString().startsWith("http://magnet/")){
+					uri = Uri.parse(uri.toString().replace("http://magnet/", "magnet:"));
+				}
+				else if (uri.toString().startsWith("https://magnet/")){
+					uri = Uri.parse(uri.toString().replace("https://magnet/", "magnet:"));
+				}
+				
 				if (uri.toString().startsWith("magnet")){
 					try{
 						if (((Synodroid)getActivity().getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
@@ -601,37 +609,87 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// etc.
 		super.onSaveInstanceState(savedInstanceState);
 	}
+	
 	// List of checkbox and task
-	public List<CompoundButton> checked_items = new ArrayList<CompoundButton>();
 	public List<Task> checked_tasks = new ArrayList<Task>();
+	public List<Integer> checked_tasks_id = new ArrayList<Integer>();
+	
+	public void resetChecked(){
+		try{
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
+		}catch (Exception ex){/*DO NOTHING*/}
+		
+		checked_tasks = new ArrayList<Task>();
+		checked_tasks_id = new ArrayList<Integer>();
+		TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
+		taskAdapter.clearTasksSelection();
+	}
+	
+	public void validateChecked(ArrayList<Integer> currentTasks){
+		try{
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
+		}catch (Exception ex){/*DO NOTHING*/}
+		
+		List<Integer> toDel = new ArrayList<Integer>();
+		
+		for (Integer i : checked_tasks_id) {
+			if (!currentTasks.contains(i)){
+				toDel.add(checked_tasks_id.indexOf(i));
+			}
+		}
+		Collections.sort(toDel, Collections.reverseOrder());
+		
+		for (Integer pos : toDel){
+			try{
+				checked_tasks.remove(pos.intValue());
+			}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
+			try{
+				checked_tasks_id.remove(pos.intValue());
+			}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
+		}
+		
+		if (checked_tasks_id.size() == 0){
+			mCurrentActionMode.stopActionMode();
+		}
+		else{
+			String selected = getActivity().getString(R.string.selected);
+			mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
+		}
+	}
 	
 	public void onCheckedChanged(CompoundButton button, boolean check) {
 		if (UIUtils.isHoneycomb()){
 			Task t = (Task)button.getTag();
 			if (check){
+				if (checked_tasks_id.contains(t.taskId)) return;
+				t.selected = true;
+				
 				try{
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Task id "+t.taskId+" checked.");
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				mCurrentActionMode.startActionMode(this);
-				checked_items.add(button);
 				checked_tasks.add(t);
+				checked_tasks_id.add(t.taskId);
 			}
 			else{
+				if (!checked_tasks_id.contains(t.taskId)) return;
+				t.selected = false;
+				
 				try{
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Task id "+t.taskId+" unchecked.");
 				}catch (Exception ex){/*DO NOTHING*/}
 
-				checked_items.remove(button);
 				checked_tasks.remove(t);
-				if (checked_items.size() == 0){
+				checked_tasks_id.remove(checked_tasks_id.indexOf(t.taskId));
+				if (checked_tasks_id.size() == 0){
 					if (!mCurrentActionMode.terminating){
 						mCurrentActionMode.stopActionMode();
 					}
 				}
 			}
 			String selected = getActivity().getString(R.string.selected);
-			mCurrentActionMode.setTitle(Integer.toString(checked_items.size()) +" "+ selected);
+			mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
 		}
 	}
 }

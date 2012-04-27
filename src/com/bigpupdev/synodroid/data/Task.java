@@ -76,6 +76,8 @@ public class Task implements Serializable {
 	// "details.url" value
 	public String originalLink;
 	
+	public boolean selected = false;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
