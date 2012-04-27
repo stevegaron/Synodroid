@@ -638,7 +638,7 @@ public class SynoServer {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	private HttpURLConnection createConnection(String uriP, String requestP, String methodP) throws MalformedURLException, IOException {
+	private HttpURLConnection createConnection(String uriP, String requestP, String methodP, boolean log) throws MalformedURLException, IOException {
 		// Prepare the connection
 		HttpURLConnection con = (HttpURLConnection) new URL(getUrl() + Uri.encode(uriP, "/")).openConnection();
 
@@ -652,10 +652,18 @@ public class SynoServer {
 		con.setUseCaches(false);
 		con.setRequestMethod(methodP);
 		con.setConnectTimeout(20000);
-		if (DEBUG) Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
+		if (DEBUG) {
+			if (log){
+				Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
+			}
+			else{
+				Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + " (hidden request)");
+			}
+		}
 		return con;
 	}
 
+	
 	/**
 	 * Send a request to the server.
 	 * 
@@ -669,6 +677,23 @@ public class SynoServer {
 	 * @throws DSMException
 	 */
 	public JSONObject sendJSONRequest(String uriP, String requestP, String methodP) throws Exception {
+		return sendJSONRequest(uriP, requestP, methodP, true);	
+	}
+	
+		
+	/**
+	 * Send a request to the server.
+	 * 
+	 * @param uriP
+	 *            The part of the URI ie: /webman/doit.cgi
+	 * @param requestP
+	 *            The query in the form 'param1=foo&param2=yes'
+	 * @param methodP
+	 *            The method to send this request
+	 * @return A JSONObject containing the response of the server
+	 * @throws DSMException
+	 */
+	public JSONObject sendJSONRequest(String uriP, String requestP, String methodP, boolean log) throws Exception {
 		HttpURLConnection con = null;
 		OutputStreamWriter wr = null;
 		BufferedReader br = null;
@@ -682,7 +707,7 @@ public class SynoServer {
 			while (retry <= MAX_RETRY) {
 				try{
 					// Create the connection
-					con = createConnection(uriP, requestP, methodP);
+					con = createConnection(uriP, requestP, methodP, log);
 					// Add the parameters
 					wr = new OutputStreamWriter(con.getOutputStream());
 					wr.write(requestP);
@@ -767,7 +792,7 @@ public class SynoServer {
 			while (retry <= MAX_RETRY) {
 				try {
 					// Create the connection
-					conn = createConnection(uriP, "", "POST");
+					conn = createConnection(uriP, "", "POST", true);
 					conn.setRequestProperty("Connection", "keep-alive");
 					conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + multiPartP.getBoundary());
 		
@@ -810,7 +835,7 @@ public class SynoServer {
 		HttpURLConnection con = null;
 		try {
 			// Create the connection
-			con = createConnection(uriP, requestP, "GET");
+			con = createConnection(uriP, requestP, "GET", true);
 			// Add the parameters
 			OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
 			wr.write(requestP);
