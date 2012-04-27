@@ -615,45 +615,49 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public List<Integer> checked_tasks_id = new ArrayList<Integer>();
 	
 	public void resetChecked(){
-		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
-		}catch (Exception ex){/*DO NOTHING*/}
-		
-		checked_tasks = new ArrayList<Task>();
-		checked_tasks_id = new ArrayList<Integer>();
-		TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
-		taskAdapter.clearTasksSelection();
+		if (UIUtils.isHoneycomb()){
+			try{
+				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			checked_tasks = new ArrayList<Task>();
+			checked_tasks_id = new ArrayList<Integer>();
+			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
+			taskAdapter.clearTasksSelection();
+		}
 	}
 	
 	public void validateChecked(ArrayList<Integer> currentTasks){
-		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
-		}catch (Exception ex){/*DO NOTHING*/}
-		
-		List<Integer> toDel = new ArrayList<Integer>();
-		
-		for (Integer i : checked_tasks_id) {
-			if (!currentTasks.contains(i)){
-				toDel.add(checked_tasks_id.indexOf(i));
+		if (UIUtils.isHoneycomb()){
+			try{
+				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			List<Integer> toDel = new ArrayList<Integer>();
+			
+			for (Integer i : checked_tasks_id) {
+				if (!currentTasks.contains(i)){
+					toDel.add(checked_tasks_id.indexOf(i));
+				}
 			}
-		}
-		Collections.sort(toDel, Collections.reverseOrder());
-		
-		for (Integer pos : toDel){
-			try{
-				checked_tasks.remove(pos.intValue());
-			}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
-			try{
-				checked_tasks_id.remove(pos.intValue());
-			}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
-		}
-		
-		if (checked_tasks_id.size() == 0){
-			mCurrentActionMode.stopActionMode();
-		}
-		else{
-			String selected = getActivity().getString(R.string.selected);
-			mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
+			Collections.sort(toDel, Collections.reverseOrder());
+			
+			for (Integer pos : toDel){
+				try{
+					checked_tasks.remove(pos.intValue());
+				}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
+				try{
+					checked_tasks_id.remove(pos.intValue());
+				}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
+			}
+			
+			if (checked_tasks_id.size() == 0){
+				mCurrentActionMode.stopActionMode();
+			}
+			else{
+				String selected = getActivity().getString(R.string.selected);
+				mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
+			}
 		}
 	}
 	
