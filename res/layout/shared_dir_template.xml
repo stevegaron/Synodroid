@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativeLayout01"
     android:layout_width="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:paddingTop="10dip" android:background="#000000">
+    android:background="#000000"
+    android:paddingTop="10dip"
+    tools:ignore="HardcodedText" >
+
     <RadioButton
+        android:id="@+id/id_dir_selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dip"
         android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false" android:id="@+id/id_dir_selected" android:checked="true"></RadioButton>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_marginRight="10dip"
+        android:checked="true" >
+    </RadioButton>
+
     <TextView
+        android:id="@+id/id_dir_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dip"
-        android:singleLine="true"
+        android:layout_toLeftOf="@+id/id_dir_selected"
         android:ellipsize="marquee"
-        android:text="The shared dir name appears here" android:id="@+id/id_dir_name" android:layout_toLeftOf="@+id/id_dir_selected" android:textAppearance="?android:attr/textAppearanceMediumInverse"></TextView>
+        android:singleLine="true"
+        android:text="The shared dir name appears here"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse" >
+    </TextView>
+
     <TextView
+        android:id="@+id/id_dir_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/id_dir_name"
         android:layout_marginLeft="10dip"
-        android:text="The shared dir description appears here" android:id="@+id/id_dir_description" android:layout_toLeftOf="@+id/id_dir_selected" android:layout_below="@id/id_dir_name" android:textAppearance="?android:attr/textAppearanceSmallInverse"></TextView>
+        android:layout_toLeftOf="@+id/id_dir_selected"
+        android:text="The shared dir description appears here"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse" >
+    </TextView>
+
 </RelativeLayout>

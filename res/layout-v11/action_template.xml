@@ -4,11 +4,12 @@
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:orientation="horizontal" android:padding="16dip">
+  
   <TextView
     android:text="@+id/TextView01"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:id="@+id/id_action"
-    android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+    android:textAppearance="?android:attr/textAppearanceLarge"/>
 </LinearLayout>

@@ -1,52 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:padding="6dip"
-  android:layout_height="wrap_content"
->
-  <RelativeLayout
-    android:layout_weight="1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-  >
-    <ImageView
-      android:id="@+id/id_detail_action"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:layout_width="wrap_content"
-      android:src="@drawable/ic_list_action"
-      android:layout_alignParentTop="true"
-      android:layout_height="wrap_content"
-      android:paddingLeft="5dip"
-      android:layout_marginTop="5dip"
-    >
-    </ImageView>
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip">
+	
+	<ImageView
+        android:id="@+id/id_detail_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dip"
+        android:src="@drawable/ic_list_action" />
+
     <TextView
-      android:layout_width="fill_parent"
-      android:layout_weight="1"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:text="Title"
-      android:id="@+id/id_detail_name"
-      android:layout_alignParentLeft="true"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="false"
-      android:layout_alignParentTop="true"
-      android:layout_toLeftOf="@+id/id_detail_action" />
+        android:id="@+id/id_detail_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/id_detail_action"
+        android:text="@string/detail_progress"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
-      android:layout_weight="1"
-      android:singleLine="true"
-      android:ellipsize="marquee"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_width="wrap_content"
-      android:layout_below="@+id/id_detail_name"
-      android:text="Here is the value 1 a bit long"
-      android:layout_marginBottom="2dip"
-      android:layout_marginTop="2dip"
-      android:id="@+id/id_detail_value"
-      android:minWidth="150dip" />
+        android:id="@+id/id_detail_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/id_detail_name"
+        android:layout_marginBottom="2dip"
+        android:layout_marginTop="2dip"
+        android:ellipsize="marquee"
+        android:minWidth="150dip"
+        android:singleLine="true"
+        android:text="@string/detail_eta" />
+
     <ProgressBar
       android:layout_toLeftOf="@+id/id_detail_action"
       android:indeterminate="false"
@@ -57,7 +49,5 @@
       android:layout_toRightOf="@+id/id_detail_value"
       android:id="@+id/id_detail_progress"
       android:progressDrawable="@drawable/big_upload_progress"
-      android:layout_width="fill_parent"
-    ></ProgressBar>
-  </RelativeLayout>
-</LinearLayout>
+      android:layout_width="fill_parent"/>
+</RelativeLayout>

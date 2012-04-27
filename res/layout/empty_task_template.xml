@@ -7,4 +7,4 @@
   android:paddingLeft="4dip"
   android:paddingRight="4dip"
   android:paddingTop="0dip"
-  android:paddingBottom="0dip"></LinearLayout>
+  android:paddingBottom="0dip"/>

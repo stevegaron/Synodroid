@@ -28,7 +28,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -68,7 +67,7 @@ public class DetailFiles extends SynodroidFragment {
 	
 	public void updateEmptyValues(String text, boolean showPB){
 		if (filesListView != null){
-			LinearLayout empty = (LinearLayout) filesListView.getEmptyView();
+			View empty = filesListView.getEmptyView();
 			if (empty != null){
 				ProgressBar pb = (ProgressBar) empty.findViewById(R.id.empty_pb);
 				TextView tv = (TextView) empty.findViewById(R.id.empty_text);
@@ -107,7 +106,7 @@ public class DetailFiles extends SynodroidFragment {
 		filesListView = (ListView) v.findViewById(android.R.id.list);
 		fileAdapter = new FileDetailAdapter(this, task);
 		filesListView.setAdapter(fileAdapter);
-		LinearLayout empty = (LinearLayout) v.findViewById(android.R.id.empty);
+		View empty = v.findViewById(android.R.id.empty);
 		
 		filesListView.setEmptyView(empty);
 		

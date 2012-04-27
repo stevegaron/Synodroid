@@ -26,7 +26,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 /**
@@ -90,7 +89,7 @@ public class DetailMain extends SynodroidFragment{
 		genAdapter = new DetailAdapter(this);
 		genListView.setAdapter(genAdapter);
 		genListView.setOnItemClickListener(genAdapter);
-		LinearLayout empty = (LinearLayout) v.findViewById(android.R.id.empty);
+		View empty = v.findViewById(android.R.id.empty);
 		genListView.setEmptyView(empty);
 		setRetainInstance(true);
 		return v;

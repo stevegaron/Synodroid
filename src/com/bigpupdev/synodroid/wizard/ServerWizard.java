@@ -15,11 +15,11 @@ import android.content.DialogInterface;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -196,7 +196,7 @@ public class ServerWizard {
 	 * Edit HTTPS options
 	 */
 	private void editOptionsSecure() {
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_options_secured, null);
+		View ll = inflater.inflate(R.layout.wizard_options_secured, null);
 		final CheckBox httpsCB = (CheckBox) ll.findViewById(R.id.https_option);
 		optionsHTTPSDialog = new WizardBuilder(context).setTitle(context.getText(R.string.wizard_options_title)).setView(ll).setPositiveButton(context.getText(R.string.button_ok), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
@@ -213,7 +213,7 @@ public class ServerWizard {
 	 * Edit Internet options
 	 */
 	private void editOptionsInternet() {
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_options_internet, null);
+		View ll = inflater.inflate(R.layout.wizard_options_internet, null);
 		final CheckBox ddnsCB = (CheckBox) ll.findViewById(R.id.ddns_option);
 		final EditText ddnsET = (EditText) ll.findViewById(R.id.ddns_hostname);
 		ddnsET.setEnabled(false);
@@ -255,7 +255,7 @@ public class ServerWizard {
 	 * Show and edit user informations (username & password)
 	 */
 	private void editUser() {
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_user_pass_form, null);
+		View ll = inflater.inflate(R.layout.wizard_user_pass_form, null);
 		final TextView uView = (TextView) ll.findViewById(R.id.user);
 		final TextView pView = (TextView) ll.findViewById(R.id.password);
 		userDialog = new WizardBuilder(context).setTitle(context.getText(R.string.wizard_user_title)).setView(ll).setPositiveButton(context.getText(R.string.button_ok), new DialogInterface.OnClickListener() {
@@ -295,7 +295,7 @@ public class ServerWizard {
 	private void discoverServer() {
 		// Create or show the search dialog
 		if (searchDialog == null) {
-			LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_discover_server, null);
+			View ll = inflater.inflate(R.layout.wizard_discover_server, null);
 			TextView tv = (TextView) ll.findViewById(R.id.searching_text_id);
 			tv.setText(context.getText(R.string.wizard_searching_msg));
 			searchDialog = new WizardBuilder(context).setTitle(context.getText(R.string.wizard_searching_title)).setView(ll).create();

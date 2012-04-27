@@ -27,7 +27,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -86,11 +85,11 @@ public class ActionAdapter extends BaseAdapter {
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	public View getView(int positionP, View convertViewP, ViewGroup parentP) {
-		LinearLayout view = null;
+		View view = null;
 		if (convertViewP != null) {
-			view = (LinearLayout) convertViewP;
+			view = convertViewP;
 		} else {
-			view = (LinearLayout) inflater.inflate(R.layout.action_template, parentP, false);
+			view = inflater.inflate(R.layout.action_template, parentP, false);
 		}
 		TextView textView = (TextView) view.findViewById(R.id.id_action);
 		textView.setEnabled(actions.get(positionP).isEnabled());

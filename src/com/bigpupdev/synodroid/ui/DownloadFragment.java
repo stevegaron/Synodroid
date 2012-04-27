@@ -56,7 +56,6 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.WindowManager.BadTokenException;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -92,7 +91,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	private android.view.View.OnClickListener ocl;
 	
 	private void updateEmptyValues(String text, boolean showPB){
-		LinearLayout empty = (LinearLayout) taskView.getEmptyView();
+		View empty = taskView.getEmptyView();
 		if (empty != null){
 			ProgressBar pb = (ProgressBar) empty.findViewById(R.id.empty_pb);
 			TextView tv = (TextView) empty.findViewById(R.id.empty_text);
@@ -340,7 +339,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		taskView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		taskView.setOnItemClickListener(taskAdapter);
 		taskView.setOnItemLongClickListener(taskAdapter);
-		LinearLayout empty = (LinearLayout) downloadContent.findViewById(android.R.id.empty);
+		View empty = downloadContent.findViewById(android.R.id.empty);
 		taskView.setEmptyView(empty);
 		
 		return downloadContent;

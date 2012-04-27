@@ -16,21 +16,26 @@
 		android:layout_marginRight="10dp"
 		android:gravity="center_vertical"
 		android:layout_toRightOf="@id/status_icon">
-		<TextView android:id="@+id/status_text" 
+
+		<TextView
+		    android:id="@+id/status_text"
+		    style="@android:style/TextAppearance.StatusBar.EventContent.Title"
 		    android:layout_width="fill_parent"
-			android:layout_height="wrap_content" 
-			android:layout_alignParentTop="true"
-            android:text="ERROR"
-            style="@android:style/TextAppearance.StatusBar.EventContent.Title"
-            android:ellipsize="end"
-            android:singleLine="true"/>
-		<TextView android:id="@+id/status_cancel" 
-		    android:textSize="12sp" 
-      		android:layout_width="fill_parent"
-			android:layout_height="wrap_content" 
-            android:text="Error message"
-            style="@android:style/TextAppearance.StatusBar.EventContent"
-            android:layout_below="@+id/status_text"/>
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:ellipsize="end"
+		    android:singleLine="true"
+		    android:text="@string/err_unknown" />
+
+		<TextView
+		    android:id="@+id/status_cancel"
+		    style="@android:style/TextAppearance.StatusBar.EventContent"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/status_text"
+		    android:text="@string/err_unknown"
+		    android:textSize="12sp" />
+
 	</RelativeLayout>
 
 </RelativeLayout>

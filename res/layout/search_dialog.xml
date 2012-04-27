@@ -1,94 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:id="@+id/linearLayout1"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dip"
+    tools:ignore="HardcodedText" >
 
-    <ScrollView
-		android:id="@+id/scrollView1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentTop="true" 
-		android:layout_margin="10dip" >
-	
-		<RelativeLayout 
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent">
-					<TextView
-		        android:id="@+id/msg"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:text="Are you sure?"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		    
-		    
-		    <TextView
-		        android:id="@+id/title"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:layout_marginTop="20dip"
-		        android:layout_below="@+id/msg"
-		        android:text="File.torrent"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		
-		    <TextView
-		        android:id="@+id/size"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:layout_below="@+id/title"
-		        android:text="100MB"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
-		
-		    <TextView
-		        android:id="@+id/date"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:layout_below="@+id/size"
-		        android:text="Today"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
-		
-		    <TextView
-		        android:id="@+id/leech"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentRight="true"
-		        android:layout_below="@+id/title"
-		        android:text="20"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
-		
-		    <TextView
-		        android:id="@+id/tv_l"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/title"
-		        android:layout_toLeftOf="@+id/leech"
-		        android:text="L: "
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
-		
-		    <TextView
-		        android:id="@+id/seed"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/title"
-		        android:layout_marginRight="15dp"
-		        android:layout_toLeftOf="@+id/tv_l"
-		        android:text="12"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
-		
-		    <TextView
-		        android:id="@+id/tv_s"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_below="@+id/title"
-		        android:layout_toLeftOf="@+id/seed"
-		        android:text="S: "
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
-		
-		</RelativeLayout>
-	</ScrollView>
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Are you sure?"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/msg"
+            android:layout_marginTop="20dip"
+            android:text="File.torrent"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/title"
+            android:text="100MB"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/size"
+            android:text="Today"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/leech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/title"
+            android:text="20"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_l"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_toLeftOf="@+id/leech"
+            android:text="L: "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/seed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/tv_l"
+            android:text="12"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_toLeftOf="@+id/seed"
+            android:text="S: "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+
+</ScrollView>

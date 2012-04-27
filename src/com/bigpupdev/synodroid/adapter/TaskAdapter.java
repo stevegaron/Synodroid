@@ -43,7 +43,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -214,7 +213,7 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		View view = convertViewP;
 		
 		if (view == null) {
-			view = (LinearLayout) inflater.inflate(R.layout.task_template, parentP, false);
+			view = inflater.inflate(R.layout.task_template, parentP, false);
 		    ViewHolder vh = new ViewHolder();
 		    vh.cb = (CheckBox) view.findViewById(R.id.id_torrent_cb);
 		    vh.image = (ImageView) view.findViewById(R.id.id_torrent_icon);
@@ -228,7 +227,7 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 			vh.torrentETA = (TextView) view.findViewById(R.id.id_torrent_eta);
 			
 		    if (UIUtils.isHoneycomb()){ 
-				LinearLayout parent = (LinearLayout) view.findViewById(R.id.id_parent_view_template);
+		    	View parent = view.findViewById(R.id.id_parent_view_template);
 				final CheckBox checkbox = (CheckBox) view.findViewById(R.id.id_torrent_cb);
 				parent.setOnClickListener(new OnClickListener(){
 					public void onClick(View arg0) {
@@ -241,7 +240,7 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		try{
 			bindView(view, tasks.get(positionP));
 		}catch (IndexOutOfBoundsException e){
-			view =  (LinearLayout) inflater.inflate(R.layout.empty_task_template, parentP, false);
+			view = inflater.inflate(R.layout.empty_task_template, parentP, false);
 		}
 		
 		return view;

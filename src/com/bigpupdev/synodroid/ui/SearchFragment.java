@@ -22,7 +22,6 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
@@ -227,7 +226,7 @@ public class SearchFragment extends SynodroidFragment {
 				TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
 				
 				LayoutInflater inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.search_dialog, null);
+				View layout = (View) inflater.inflate(R.layout.search_dialog, null);
 				
 				final TextView msgView = (TextView) layout.findViewById(R.id.msg);
 				final TextView tView = (TextView) layout.findViewById(R.id.title);

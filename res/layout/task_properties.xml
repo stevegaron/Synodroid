@@ -1,40 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/LinearLayout01"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" android:padding="5dip">
- 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dip"
+    tools:ignore="HardcodedText" >
 
-<ScrollView android:id="@+id/ScrollView01" android:layout_width="fill_parent" android:layout_height="wrap_content">
-<LinearLayout android:id="@+id/LinearLayout02" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-<TextView android:layout_height="wrap_content" android:id="@+id/TextView03" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/ul_rate" android:layout_width="fill_parent"></TextView>
-<EditText android:id="@+id/ul_rate" android:layout_height="wrap_content" android:inputType="number" android:text="0" android:layout_width="fill_parent"></EditText>
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-<TextView android:text="@string/dl_rate" android:layout_height="wrap_content" android:id="@+id/TextView03" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="fill_parent"></TextView>
-<EditText android:id="@+id/dl_rate" android:layout_height="wrap_content" android:inputType="number" android:text="0" android:layout_width="fill_parent"></EditText>
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ul_rate"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
 
-<TextView android:text="@string/max_peers" android:layout_height="wrap_content" android:id="@+id/TextView03" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="fill_parent"></TextView>
-<EditText android:id="@+id/max_peers" android:layout_height="wrap_content" android:inputType="number" android:text="200" android:layout_width="fill_parent"></EditText>
+        <EditText
+            android:id="@+id/ul_rate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0" >
+        </EditText>
 
-<TextView android:id="@+id/TextView02" android:layout_height="wrap_content" android:text="@string/priority" android:layout_width="fill_parent" android:layout_marginTop="10dip" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-<Spinner android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/priority" android:entries="@array/priority_array"></Spinner>
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dl_rate"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
 
-<TextView android:id="@+id/TextView02" android:layout_height="wrap_content" android:text="@string/destination" android:layout_width="fill_parent" android:layout_marginTop="10dip" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-<Spinner android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/destination" android:entries="@array/destination_array"></Spinner>
+        <EditText
+            android:id="@+id/dl_rate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0" >
+        </EditText>
 
-<TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="@string/seeding_ratio" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginTop="10dip"></TextView>
-<EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="100" android:id="@+id/seedingPercentage" android:inputType="number"></EditText>
+        <TextView
+            android:id="@+id/TextView05"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/max_peers"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
 
-<TextView android:id="@+id/TextView02" android:layout_height="wrap_content" android:text="@string/seeding_time" android:layout_width="fill_parent" android:layout_marginTop="10dip" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-<Spinner android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/seedingTime" android:entries="@array/seeding_time_array"></Spinner>
+        <EditText
+            android:id="@+id/max_peers"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="200" >
+        </EditText>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:text="@string/priority"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/priority"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/priority_array" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/TextView06"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:text="@string/destination"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/destination"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/destination_array" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:text="@string/seeding_ratio"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/seedingPercentage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="100" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/TextView07"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:text="@string/seeding_time"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/seedingTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/seeding_time_array" >
+        </Spinner>
+    </LinearLayout>
 </ScrollView>
-
-
-
-
-
-
-
-
-
-</LinearLayout>

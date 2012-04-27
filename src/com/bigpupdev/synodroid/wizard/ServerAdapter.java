@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -83,11 +82,11 @@ public class ServerAdapter extends BaseAdapter {
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	public View getView(int positionP, View convertViewP, ViewGroup parentP) {
-		LinearLayout view = null;
+		View view = null;
 		if (convertViewP != null) {
-			view = (LinearLayout) convertViewP;
+			view = convertViewP;
 		} else {
-			view = (LinearLayout) inflater.inflate(R.layout.wizard_serverrow, parentP, false);
+			view = inflater.inflate(R.layout.wizard_serverrow, parentP, false);
 		}
 		bindView(view, infos[positionP]);
 		return view;
@@ -99,7 +98,7 @@ public class ServerAdapter extends BaseAdapter {
 	 * @param viewP
 	 * @param infoP
 	 */
-	private void bindView(LinearLayout viewP, ServiceInfo infoP) {
+	private void bindView(View viewP, ServiceInfo infoP) {
 		TextView nv = (TextView) viewP.findViewById(R.id.label);
 		nv.setText(infoP.getName());
 		TextView dv = (TextView) viewP.findViewById(R.id.description);

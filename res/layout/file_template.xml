@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  android:id="@+id/RelativeLayout01"
-  android:layout_width="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="wrap_content" android:paddingTop="10dip">
-  <CheckBox
-    android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout01"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:id="@+id/id_file_to_download" android:layout_marginRight="10dip" android:layout_alignParentBottom="false" android:layout_alignParentTop="false"></CheckBox>
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:id="@+id/id_file_name"
-    android:text="The filename of the task appears here"
-  android:layout_alignParentLeft="true" android:layout_toLeftOf="@+id/id_file_to_download" android:layout_marginLeft="10dip" android:singleLine="true" android:ellipsize="marquee"></TextView> 
+    android:paddingTop="10dip"
+    tools:ignore="HardcodedText" >
 
+    <CheckBox
+        android:id="@+id/id_file_to_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_marginRight="10dip" >
+    </CheckBox>
 
-<TextView android:layout_below="@id/id_file_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/id_file_size" android:layout_toLeftOf="@+id/id_file_to_download" android:layout_alignParentLeft="true" android:layout_marginLeft="10dip" android:text="782 MB"></TextView>
+    <TextView
+        android:id="@+id/id_file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dip"
+        android:layout_toLeftOf="@+id/id_file_to_download"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="The filename of the task appears here"
+        android:textAppearance="?android:attr/textAppearanceMedium" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/id_file_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/id_file_name"
+        android:layout_marginLeft="10dip"
+        android:layout_toLeftOf="@+id/id_file_to_download"
+        android:text="782 MB" >
+    </TextView>
+
 </RelativeLayout>

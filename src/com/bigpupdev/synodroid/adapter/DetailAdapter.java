@@ -29,7 +29,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -146,21 +145,21 @@ public class DetailAdapter extends BaseAdapter implements AdapterView.OnItemClic
 	 */
 	public View getView(int positionP, View convertViewP, ViewGroup parentP) {
 		Detail detail = details.get(positionP);
-		LinearLayout view = null;
+		View view = null;
 		if (convertViewP != null) {
-			view = (LinearLayout) convertViewP;
+			view = convertViewP;
 		}
 		// Create a new instance according to the class of the detail
 		else {
 			if (detail instanceof Detail2Progress) {
-				view = (LinearLayout) inflater.inflate(R.layout.details_2progress_template, parentP, false);
+				view = (View) inflater.inflate(R.layout.details_2progress_template, parentP, false);
 			} else if (detail instanceof DetailProgress) {
 				int res = ((DetailProgress) detail).getRes();
-				view = (LinearLayout) inflater.inflate(res, parentP, false);
+				view = (View) inflater.inflate(res, parentP, false);
 			} else if (detail instanceof Detail2Text) {
-				view = (LinearLayout) inflater.inflate(R.layout.details_2text_template, parentP, false);
+				view = (View) inflater.inflate(R.layout.details_2text_template, parentP, false);
 			} else {
-				view = (LinearLayout) inflater.inflate(R.layout.details_text_template, parentP, false);
+				view = (View) inflater.inflate(R.layout.details_text_template, parentP, false);
 			}
 		}
 		// Binds commons datas
@@ -184,7 +183,7 @@ public class DetailAdapter extends BaseAdapter implements AdapterView.OnItemClic
 	 * @param viewP
 	 * @param torrentP
 	 */
-	private void bindCommonsData(LinearLayout viewP, final Detail detailP) {
+	private void bindCommonsData(View viewP, final Detail detailP) {
 		// The name of the detail
 		TextView name = (TextView) viewP.findViewById(R.id.id_detail_name);
 		name.setText(detailP.getName());
@@ -203,7 +202,7 @@ public class DetailAdapter extends BaseAdapter implements AdapterView.OnItemClic
 	 * @param viewP
 	 * @param torrentP
 	 */
-	private void bindDetailText(LinearLayout viewP, final DetailText detailP) {
+	private void bindDetailText(View viewP, final DetailText detailP) {
 		// The value of the detail
 		TextView value = (TextView) viewP.findViewById(R.id.id_detail_value);
 		value.setText(detailP.getValue());
@@ -215,7 +214,7 @@ public class DetailAdapter extends BaseAdapter implements AdapterView.OnItemClic
 	 * @param viewP
 	 * @param torrentP
 	 */
-	private void bindDetail2Text(LinearLayout viewP, final Detail2Text detailP) {
+	private void bindDetail2Text(View viewP, final Detail2Text detailP) {
 		// The value 1 of the detail
 		TextView value = (TextView) viewP.findViewById(R.id.id_detail_value1);
 		value.setText(detailP.getValue1());
@@ -230,7 +229,7 @@ public class DetailAdapter extends BaseAdapter implements AdapterView.OnItemClic
 	 * @param viewP
 	 * @param torrentP
 	 */
-	private void bindDetail2Progress(LinearLayout viewP, final Detail2Progress detailP) {
+	private void bindDetail2Progress(View viewP, final Detail2Progress detailP) {
 		// The label for the first progress
 		TextView label = (TextView) viewP.findViewById(R.id.id_detail_value1);
 		label.setText(detailP.getLabel1());
@@ -252,7 +251,7 @@ public class DetailAdapter extends BaseAdapter implements AdapterView.OnItemClic
 	 * @param viewP
 	 * @param torrentP
 	 */
-	private void bindDetailProgress(LinearLayout viewP, final DetailProgress detailP) {
+	private void bindDetailProgress(View viewP, final DetailProgress detailP) {
 		// The label for the first progress
 		TextView label = (TextView) viewP.findViewById(R.id.id_detail_value);
 		label.setText(detailP.getLabel());

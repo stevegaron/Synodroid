@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -222,7 +221,7 @@ public class AddServerWizard {
 	}
 
 	private void createNewServer(){
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.add_wizard_create_server, null);
+		View ll = inflater.inflate(R.layout.add_wizard_create_server, null);
 		final EditText name = (EditText) ll.findViewById(R.id.add_wzi_srv_name);
 		final Spinner type = (Spinner) ll.findViewById(R.id.add_wiz_srv_type);
 		optionsSRVName = new AddWizardBuilder(context).setTitle(context.getText(R.string.add_wizard_srv_sel_title)).setView(ll).setPositiveButton(context.getText(R.string.button_ok), new DialogInterface.OnClickListener() {
@@ -240,7 +239,7 @@ public class AddServerWizard {
 	}
 	
 	private void show_wifi(){
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.add_wizard_wifi_selector, null);
+		View ll = inflater.inflate(R.layout.add_wizard_wifi_selector, null);
 		final EditText host = (EditText) ll.findViewById(R.id.add_wiz_srv_host);
 		final Spinner wifi = (Spinner) ll.findViewById(R.id.add_wiz_wifi_list);
 		final EditText name = (EditText) ll.findViewById(R.id.add_wiz_wifi_name);
@@ -299,7 +298,7 @@ public class AddServerWizard {
 	 * Edit HTTPS options
 	 */
 	private void editOptionsSecure() {
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_options_secured, null);
+		View ll = inflater.inflate(R.layout.wizard_options_secured, null);
 		final CheckBox httpsCB = (CheckBox) ll.findViewById(R.id.https_option);
 		optionsHTTPSDialog = new AddWizardBuilder(context).setTitle(context.getText(R.string.add_wizard_sec_title)).setView(ll).setPositiveButton(context.getText(R.string.button_ok), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
@@ -317,7 +316,7 @@ public class AddServerWizard {
 	 * Edit Internet options
 	 */
 	private void show_internet() {
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_options_internet, null);
+		View ll = inflater.inflate(R.layout.wizard_options_internet, null);
 		final CheckBox ddnsCB = (CheckBox) ll.findViewById(R.id.ddns_option);
 		final EditText ddnsET = (EditText) ll.findViewById(R.id.ddns_hostname);
 		ddnsCB.setVisibility(View.GONE);
@@ -355,7 +354,7 @@ public class AddServerWizard {
 	 * Show and edit user informations (username & password)
 	 */
 	private void editUser() {
-		LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.wizard_user_pass_form, null);
+		View ll = inflater.inflate(R.layout.wizard_user_pass_form, null);
 		final TextView uView = (TextView) ll.findViewById(R.id.user);
 		final TextView pView = (TextView) ll.findViewById(R.id.password);
 		userDialog = new AddWizardBuilder(context).setTitle(context.getText(R.string.wizard_user_title)).setView(ll).setPositiveButton(context.getText(R.string.button_ok), new DialogInterface.OnClickListener() {

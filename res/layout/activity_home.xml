@@ -10,14 +10,8 @@
     <fragment android:name="com.bigpupdev.synodroid.ui.DownloadFragment"
         android:id="@+id/fragment_download"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
         android:layout_weight="1" >
         <!-- Preview: layout=@layout/download_list -->
     </fragment>
-
- <!-- <fragment android:name="com.google.android.apps.iosched.ui.WhatsOnFragment"
-        android:id="@+id/fragment_now_playing"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/whats_on_height" />
- -->   
 </LinearLayout>

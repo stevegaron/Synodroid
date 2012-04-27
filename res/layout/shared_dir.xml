@@ -3,8 +3,7 @@
   android:id="@+id/RelativeLayout01"
   android:layout_width="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_height="wrap_content"
->
+  android:layout_height="wrap_content">
   <TextView
     android:id="@+id/TextView01"
     android:layout_alignParentBottom="true"
@@ -20,5 +19,5 @@
     android:layout_height="wrap_content"
     android:layout_above="@+id/TextView01"
     android:layout_alignParentTop="true"
-    android:id="@+id/id_list_shared_dir" android:background="#000000" android:clickable="true"></ListView>
+    android:id="@+id/id_list_shared_dir" android:background="#000000" android:clickable="true"/>
 </RelativeLayout>

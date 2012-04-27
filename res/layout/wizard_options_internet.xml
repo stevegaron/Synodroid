@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical"
-android:paddingLeft="10dip" android:paddingRight="10dip" android:padding="10dip">
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+  	android:orientation="vertical"
+	android:padding="10dp">
   
-  <CheckBox
-    android:layout_height="wrap_content"
-    android:id="@+id/ddns_option"
-    android:text="@string/wizard_ddns"
-    android:layout_width="fill_parent"></CheckBox>
-  
-  
-<TextView android:layout_height="wrap_content" android:text="@string/wizard_ddns_host" android:layout_marginRight="4dip" android:layout_marginTop="10dip" android:layout_width="fill_parent"/><EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/ddns_hostname" />
+  	<CheckBox
+    	android:layout_height="wrap_content"
+    	android:id="@+id/ddns_option"
+    	android:text="@string/wizard_ddns"
+    	android:layout_width="fill_parent"></CheckBox>
+   
+	<TextView 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/wizard_ddns_host" 
+	    android:layout_marginRight="4dip" 
+	    android:layout_marginTop="10dip" 
+	    android:layout_width="fill_parent"/>
+	
+	<EditText 
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"
+	    android:id="@+id/ddns_hostname" 
+	    android:inputType="textUri"/>
+	
 </LinearLayout>
