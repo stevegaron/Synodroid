@@ -69,8 +69,7 @@ public class DownloadOriginalIntentService extends IntentService{
 		try {
 			content = dsm.getDSHandler().buildOriginalFileString(taskid);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			if (dbg) Log.e(Synodroid.DS_TAG, "Failed building Original file string.", e1);
 		}
 		
 		String[] temp = original_link.split("/");
@@ -125,15 +124,14 @@ public class DownloadOriginalIntentService extends IntentService{
 						// Unable to create file, likely because external storage is
 						// not currently mounted.
 						try{
-							if (((Synodroid)getApplication()).DEBUG) Log.w(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
+							if (dbg) Log.e(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
 						}catch (Exception ex){/*DO NOTHING*/}
 					}
 				}
 			}
 			// Unexpected exception
 			catch (Exception ex) {
-				//if (dbg) 
-					Log.e(Synodroid.DS_TAG, "Unexpected error", ex);
+				if (dbg) Log.e(Synodroid.DS_TAG, "Unexpected error", ex);
 					retry++;
 			}
 			// Finally close everything
