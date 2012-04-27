@@ -82,7 +82,13 @@ public class AddTaskAction implements SynoAction {
 				//serverP.getDSMHandlerFactory().getDSHandler().upload((Fragment) handlerP, uri);
 				Activity a = ((Fragment)handlerP).getActivity();
 				Intent msgIntent = new Intent(a, UploadIntentService.class);
-				msgIntent.putExtra(DownloadIntentService.URL, uri.toString());
+				msgIntent.putExtra(UploadIntentService.URL, uri.toString());
+				if (serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+					msgIntent.putExtra(UploadIntentService.DIRECTORY, "");
+				}
+				else{
+					msgIntent.putExtra(UploadIntentService.DIRECTORY, serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory());
+				}
 				msgIntent.putExtra(UploadIntentService.COOKIES, serverP.getCookies());
 				msgIntent.putExtra(UploadIntentService.DSM_VERSION, serverP.getDsmVersion().getTitle());
 				msgIntent.putExtra(UploadIntentService.PATH, serverP.getUrl());

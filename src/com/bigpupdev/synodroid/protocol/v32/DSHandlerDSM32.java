@@ -497,7 +497,7 @@ class DSHandlerDSM32 implements DSHandler {
 		return BOUNDARY;
 	}
 	
-	public byte[] generateMultipart(Uri uriP) throws Exception {
+	public byte[] generateMultipart(Uri uriP, String shared) throws Exception {
 		if (uriP.getPath() != null) {
 			// Create the multipart
 			MultipartBuilder builder = new MultipartBuilder(BOUNDARY, DEBUG);
@@ -505,7 +505,7 @@ class DSHandlerDSM32 implements DSHandler {
 			// The upload_type's part
 			builder.addPart(new Part("upload_type").setContent("torrent".getBytes()));
 			// The upload_type's part
-			builder.addPart(new Part("desttext").setContent(getSharedDirectory().getBytes()));
+			builder.addPart(new Part("desttext").setContent(shared.getBytes()));
 			// The direction's part
 			builder.addPart(new Part("direction").setContent("ASC".getBytes()));
 			// The field's part
@@ -821,5 +821,14 @@ class DSHandlerDSM32 implements DSHandler {
 		}
 		return result;
 	}
-
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#getOriginalLink(com.bigpupdev .synodroid.common.data.Task)
+	 */
+	public String buildOriginalFileString(int taskid) throws Exception {
+		QueryBuilder getOriginal = new QueryBuilder().add("action", "torrent").add("id", "" + taskid).add("_rn", "" + System.currentTimeMillis());
+		return getOriginal.toString();
+	}
 }

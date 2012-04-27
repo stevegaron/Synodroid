@@ -75,7 +75,7 @@ public interface DSHandler {
 	 */
 	public void upload(final Uri uriP) throws Exception;
 	
-	public byte[] generateMultipart(final Uri uriP) throws Exception;
+	public byte[] generateMultipart(final Uri uriP, final String shared) throws Exception;
 	
 	public String getMultipartUri();
 	
@@ -160,6 +160,8 @@ public interface DSHandler {
 	 * @param urlP
 	 */
 	public StringBuffer getOriginalFile(Task taskP) throws Exception;
+	
+	public String buildOriginalFileString(int taskid) throws Exception;
 
 	/**
 	 * Resume all paused tasks

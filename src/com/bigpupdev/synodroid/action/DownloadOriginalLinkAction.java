@@ -16,11 +16,16 @@
  */
 package com.bigpupdev.synodroid.action;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+
+import com.bigpupdev.synodroid.server.DownloadOriginalIntentService;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.Synodroid;
 
-import com.bigpupdev.synodroid.data.OriginalFile;
 import com.bigpupdev.synodroid.data.Task;
 
 /**
@@ -43,12 +48,22 @@ public class DownloadOriginalLinkAction implements SynoAction {
 	 * @seecom.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds. TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		StringBuffer data = serverP.getDSMHandlerFactory().getDSHandler().getOriginalFile(task);
+		/*StringBuffer data = serverP.getDSMHandlerFactory().getDSHandler().getOriginalFile(task);
 		OriginalFile ori = new OriginalFile();
 		String[] temp = task.originalLink.split("/");
 		ori.fileName = temp[(temp.length) - 1];
 		ori.rawData = data;
 		serverP.fireMessage(handlerP, ResponseHandler.MSG_ORIGINAL_FILE_RETRIEVED, ori);
+		*/
+		Activity a = ((Fragment)handlerP).getActivity();
+		Intent msgIntent = new Intent(a, DownloadOriginalIntentService.class);
+		msgIntent.putExtra(DownloadOriginalIntentService.TASKID, task.taskId);
+		msgIntent.putExtra(DownloadOriginalIntentService.ORIGINAL_LINK, task.originalLink);
+		msgIntent.putExtra(DownloadOriginalIntentService.COOKIES, serverP.getCookies());
+		msgIntent.putExtra(DownloadOriginalIntentService.DSM_VERSION, serverP.getDsmVersion().getTitle());
+		msgIntent.putExtra(DownloadOriginalIntentService.PATH, serverP.getUrl());
+		msgIntent.putExtra(DownloadOriginalIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
+		a.startService(msgIntent);
 	}
 
 	/*

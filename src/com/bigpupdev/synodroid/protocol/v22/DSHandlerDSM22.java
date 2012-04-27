@@ -491,7 +491,7 @@ class DSHandlerDSM22 implements DSHandler {
 		return BOUNDARY;
 	}
 	
-	public byte[] generateMultipart(Uri uriP) throws Exception {
+	public byte[] generateMultipart(Uri uriP, String shared) throws Exception {
 		if (uriP.getPath() != null) {
 			// Create the multipart
 			MultipartBuilder builder = new MultipartBuilder(BOUNDARY, DEBUG);
@@ -707,4 +707,13 @@ class DSHandlerDSM22 implements DSHandler {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#getOriginalLink(com.bigpupdev .synodroid.common.data.Task)
+	 */
+	public String buildOriginalFileString(int taskid) throws Exception {
+		QueryBuilder getOriginal = new QueryBuilder().add("action", "torrent").add("id", "" + taskid).add("_rn", "" + System.currentTimeMillis());
+		return getOriginal.toString();
+	}
 }

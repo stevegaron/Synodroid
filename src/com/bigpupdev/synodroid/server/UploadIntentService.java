@@ -30,6 +30,7 @@ public class UploadIntentService extends IntentService{
 	public static String DEBUG = "DEBUG";
 	public static String DSM_VERSION = "DSM_VERSION";
 	public static String COOKIES = "COOKIES";
+	public static String DIRECTORY = "DIRECTORY";
 	public static String PATH = "PATH";
 	private int UL_ID = 43;
 	
@@ -69,6 +70,7 @@ public class UploadIntentService extends IntentService{
 	protected void onHandleIntent(Intent intent) {
 		String dsm_version = intent.getStringExtra(DSM_VERSION);
 		String cookie = intent.getStringExtra(COOKIES);
+		String shared = intent.getStringExtra(DIRECTORY);
 		Uri uri = Uri.parse(intent.getStringExtra(URL));
 		String path = intent.getStringExtra(PATH);
 		boolean dbg = intent.getBooleanExtra(DEBUG, false);
@@ -82,7 +84,7 @@ public class UploadIntentService extends IntentService{
 		String url = dsm.getDSHandler().getMultipartUri();
 		byte[] content = null;
 		try {
-			content = dsm.getDSHandler().generateMultipart(uri);
+			content = dsm.getDSHandler().generateMultipart(uri, shared);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

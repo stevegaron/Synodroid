@@ -21,6 +21,7 @@ import android.widget.RemoteViews;
 
 public class ServiceHelper {
 	private static int ERROR_ID = 13;
+	private static int INFO_ID = 14;
 	
 	public static Notification getNotificationProgress(IntentService self, String text, int curProgress, int ID, int icon){
 		final Notification notification = new Notification(R.drawable.status_icon, text, System
@@ -73,6 +74,23 @@ public class ServiceHelper {
                 Context.NOTIFICATION_SERVICE);
         
         notificationManager.notify(ERROR_ID, notification);
+	}
+	
+	public static void showNotificationInfo(IntentService self, String action, String text, int icon){
+		final Notification notification = new Notification(R.drawable.status_icon, text, System
+                .currentTimeMillis());
+		notification.flags = notification.flags | Notification.FLAG_AUTO_CANCEL;
+        notification.contentView = new RemoteViews(self.getApplicationContext().getPackageName(), R.layout.notification_error);
+        notification.contentView.setImageViewResource(R.id.status_icon, icon);
+        notification.contentView.setTextViewText(R.id.status_text, action);
+        notification.contentView.setTextViewText(R.id.status_cancel, text);
+        Intent pending = new Intent(self, HomeActivity.class);
+        pending.putExtra("com.bigpupdev.synodroid.notifyId", ERROR_ID);
+        notification.contentIntent = PendingIntent.getActivity(self, 1, pending, 0);
+        final NotificationManager notificationManager = (NotificationManager) self.getApplicationContext().getSystemService(
+                Context.NOTIFICATION_SERVICE);
+        
+        notificationManager.notify(INFO_ID, notification);
 	}
 	
 	public static HttpURLConnection createConnection(String uriP, String requestP, String methodP, boolean dbg, String cookie, String url) throws MalformedURLException, IOException {
