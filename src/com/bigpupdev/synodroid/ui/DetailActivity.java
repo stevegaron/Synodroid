@@ -625,7 +625,7 @@ public class DetailActivity extends BaseActivity{
 				files.updateEmptyValues(getString(R.string.empty_file_list_wrong_type), false);
 			}
 			if (!task.status.equals(details.status) && files != null && (task.isTorrent || task.isNZB)){
-				if (details.status.equals(TaskStatus.TASK_DOWNLOADING.name())) {
+				if (details != null && details.status != null && details.status.equals(TaskStatus.TASK_DOWNLOADING.name())) {
 					files.updateEmptyValues(getString(R.string.empty_list_loading), true);
 					app.executeAsynchronousAction(main, new GetFilesAction(task), false);
 				}
@@ -633,6 +633,7 @@ public class DetailActivity extends BaseActivity{
 					files.updateEmptyValues(getString(R.string.empty_file_list), false);
 					files.resetList();
 				}
+			
 			}
 			task.status = details.status;
 			task.isTorrent = details.isTorrent;
