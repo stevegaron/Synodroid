@@ -31,6 +31,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -82,6 +84,13 @@ public class Synodroid extends Application {
 		if (currentServer != null) currentServer.setDebugLvl(DEBUG);
 	}
 
+	public boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null;
+	}
+	
 	/**
 	 * Set the current server. An attempt to connect to the server is only done if this is different server
 	 * 

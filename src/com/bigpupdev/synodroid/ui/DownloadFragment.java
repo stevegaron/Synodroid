@@ -433,6 +433,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		if (!connectDialogOpened && a != null) {
 			final Synodroid app = (Synodroid) a.getApplication();
 			if (app != null){
+				if (!app.isNetworkAvailable())
+					return;
+				
 				final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), app.DEBUG);
 				// If at least one server
 				if (servers.size() != 0) {
