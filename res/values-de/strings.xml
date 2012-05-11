@@ -375,6 +375,6 @@
 <string name="update_search_engine">Suchengine updaten</string>
 <string name="update_search_engine_toast">Die neueste Version der Suchengine wird heruntergeladen.</string>
     
-<string name="selected">ausgewählt(en)</string>
+<string name="selected">ausgewählt</string>
 <string name="upload_failed">Upload der Dateien auf dem NAS gescheitert. Wiederholen ...</string>
 </resources>
