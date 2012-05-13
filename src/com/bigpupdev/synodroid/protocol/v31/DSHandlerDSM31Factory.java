@@ -81,7 +81,13 @@ public class DSHandlerDSM31Factory extends DSMHandlerFactory {
 		}
 		else{
 			server.setConnected(true);
-			result = dsHandler.getSharedDirectory();
+			try{
+				server.setDsmVersion(this.getVersionFromServer(server), false);
+			}
+			catch (Exception e){
+				if (DEBUG) Log.e(Synodroid.DS_TAG, "Error while trying to guess DSM version.", e);
+			}
+			result = server.getDSMHandlerFactory().getDSHandler().getSharedDirectory();
 			if (result.equals("")){
 				return false;
 			}

@@ -16,6 +16,8 @@
  */
 package com.bigpupdev.synodroid.protocol;
 
+import org.json.JSONObject;
+
 import com.bigpupdev.synodroid.server.SynoServer;
 
 import com.bigpupdev.synodroid.data.DSMVersion;
@@ -30,6 +32,7 @@ import com.bigpupdev.synodroid.protocol.v40.DSHandlerDSM40Factory;
  * @author Eric Taix (eric.taix at gmail.com)
  */
 public abstract class DSMHandlerFactory {
+	protected String INITDATA_URI = "/webman/initdata.cgi";
 
 	/**
 	 * Private constructor: no need to instanciate
@@ -61,6 +64,39 @@ public abstract class DSMHandlerFactory {
 		}
 		return result;
 	}
+	
+	
+	protected DSMVersion getVersionFromServer(SynoServer serverP) throws Exception{
+		int version = 0;
+		// If we are logged on
+		if (serverP.isConnected()) {
+			// Execute
+			JSONObject json = null;
+			synchronized (serverP) {
+				json = serverP.sendJSONRequest(INITDATA_URI, "", "GET");
+			}
+			if (json != null){
+				version = Integer.parseInt(json.getJSONObject("Session").getString("version"));
+				if (version < 1553){
+					// DSM 3.0
+					return DSMVersion.VERSION2_2;
+				}
+				else if (version < 1869){
+					// DSM 3.1
+					return DSMVersion.VERSION3_1;
+				}
+				else if (version < 2166){
+					// DSM 3.2
+					return DSMVersion.VERSION3_2;
+				}
+				else if (version >= 2166){
+					// DSM 4.0
+					return DSMVersion.VERSION4_0;
+				}
+			}
+		}
+		throw new Exception("Invalid version!");
+	} 
 
 	/**
 	 * Connect to a SynoServer. This method MUST be called prior to any other methods.

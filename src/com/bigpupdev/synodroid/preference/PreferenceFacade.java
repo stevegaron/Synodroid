@@ -154,7 +154,7 @@ public class PreferenceFacade {
 					if (vers == null) {
 						vers = DSMVersion.VERSION2_2;
 					}
-					server.setDsmVersion(vers);
+					server.setDsmVersion(vers, true);
 					// Sort informations
 					String sortAttr = sharedPreferencesP.getString("sort", "task_id");
 					boolean asc = sharedPreferencesP.getBoolean("asc", true);

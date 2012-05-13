@@ -525,9 +525,10 @@ public class SynoServer {
 	 * @param dsmVersion
 	 *            the dsmVersion to set
 	 */
-	synchronized public void setDsmVersion(DSMVersion dsmVersion) {
+	synchronized public void setDsmVersion(DSMVersion dsmVersion, boolean reconnect) {
 		this.dsmVersion = dsmVersion;
-		connected = false;
+		if (reconnect)
+			connected = false;
 		if (DEBUG) Log.d(Synodroid.DS_TAG, "DSM Handler updated.");
 		// Create the appropriated factory
 		dsmFactory = DSMHandlerFactory.getFactory(dsmVersion, this, DEBUG);
