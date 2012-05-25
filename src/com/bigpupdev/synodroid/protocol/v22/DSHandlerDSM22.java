@@ -21,6 +21,7 @@ import com.bigpupdev.synodroid.utils.Utils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskContainer;
@@ -722,4 +723,14 @@ class DSHandlerDSM22 implements DSHandler {
 		QueryBuilder getOriginal = new QueryBuilder().add("action", "torrent").add("id", "" + taskid).add("_rn", "" + System.currentTimeMillis());
 		return getOriginal.toString();
 	}
+	
+	public List<SearchEngine> getSearchEngines() throws Exception {
+		throw new Exception("Unsupported");
+	}
+	
+	public void setSearchEngines(List<SearchEngine> seList) throws Exception {
+		throw new Exception("Unsupported");
+	}
+	
 }
+

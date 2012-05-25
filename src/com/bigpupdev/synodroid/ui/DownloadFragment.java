@@ -18,9 +18,11 @@ import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
+import com.bigpupdev.synodroid.action.SetSearchEngines;
 import com.bigpupdev.synodroid.action.SetShared;
 import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
+import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 import com.bigpupdev.synodroid.data.Task;
@@ -277,6 +279,54 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					dialog.dismiss();
 					Synodroid app = (Synodroid) a.getApplication();
 					app.executeAsynchronousAction(DownloadFragment.this, new SetShared(null, dirNames[item]), true);
+				}
+			});
+
+			AlertDialog alert = builder.create();
+			try {
+				alert.show();
+			} catch (BadTokenException e) {
+				// Unable to show dialog probably because intent has been closed. Ignoring...
+			}
+		}
+		// Shared directories have been retrieved
+		else if (msg.what == ResponseHandler.MSG_SE_LIST_RETRIEVED) {
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received search engine listing message.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			List<SearchEngine> seList = (List<SearchEngine>) msg.obj;
+			final CharSequence[] seNames = new CharSequence[seList.size()];
+			final boolean[] seSelection = new boolean[seList.size()];
+			for (int iLoop = 0; iLoop < seList.size(); iLoop++) {
+				SearchEngine se = seList.get(iLoop);
+				seNames[iLoop] = se.name;
+				seSelection[iLoop] = se.enabled;
+			}
+			AlertDialog.Builder builder = new AlertDialog.Builder(a);
+			builder.setTitle(getString(R.string.search_engine_title));
+			builder.setMultiChoiceItems(seNames, seSelection, new DialogInterface.OnMultiChoiceClickListener() {
+				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+					seSelection[which] = isChecked;
+				}
+			});
+			builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					List<SearchEngine> newList = new ArrayList<SearchEngine>();
+					for (int iLoop = 0; iLoop < seNames.length; iLoop++) {
+						SearchEngine se = new SearchEngine();
+						se.name = (String) seNames[iLoop];
+						se.enabled = seSelection[iLoop];
+						newList.add(se);
+					}
+					dialog.dismiss();
+					Synodroid app = (Synodroid) a.getApplication();
+					app.executeAsynchronousAction(DownloadFragment.this, new SetSearchEngines(newList), true);
+				}
+			});
+			builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
 				}
 			});
 

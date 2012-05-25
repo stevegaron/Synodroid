@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskContainer;
@@ -47,6 +48,8 @@ class DSHandlerDSM40 implements DSHandler {
 	// DownloadManager constant declaration
 	private static final String DM_URI_NEW = "/webman/3rdparty/DownloadStation/dlm/downloadman.cgi";
 	private static final String TORRENT_INFO = "/webman/3rdparty/DownloadStation/dlm/torrent_info.cgi";
+	private static final String INITDATA_URI = "/webman/initdata.cgi";
+	private static final String USER_SETTINGS = "/webman/usersettings.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
 	
 	/* The Synology's server */
@@ -836,5 +839,46 @@ class DSHandlerDSM40 implements DSHandler {
 	public String buildOriginalFileString(int taskid) throws Exception {
 		QueryBuilder getOriginal = new QueryBuilder().add("action", "torrent").add("id", "" + taskid).add("_rn", "" + System.currentTimeMillis());
 		return getOriginal.toString();
+	}
+	
+	public List<SearchEngine> getSearchEngines() throws Exception {
+		List<SearchEngine> seList = new ArrayList<SearchEngine>();
+		// If we are logged on
+		if (server.isConnected()) {
+			// Execute
+			JSONObject json = null;
+			synchronized (server) {
+				json = server.sendJSONRequest(INITDATA_URI, "", "GET");
+			}
+			if (json != null){
+				JSONArray jsonArray = json.getJSONObject("UserSettings").getJSONObject("SYNO.SDS.DownloadStation.Application").getJSONArray("btsearchplugins");
+				for (int i = 0; i < jsonArray.length(); i++){
+					SearchEngine se = new SearchEngine();
+					se.enabled = ((JSONObject) jsonArray.get(i)).getBoolean("enable");
+					se.name = ((JSONObject) jsonArray.get(i)).getString("name");
+					seList.add(se);
+				}
+			
+			}
+		}
+		return seList;
+	}
+
+	public void setSearchEngines(List<SearchEngine> seList) throws Exception {
+		JSONArray jArr = new JSONArray();
+		// If we are logged on
+		if (server.isConnected()) {
+			for (int i = 0; i < seList.size(); i++){
+				SearchEngine se = seList.get(i);
+				jArr.put(new JSONObject().put("enable", se.enabled).put("name", se.name));
+			}
+			
+			QueryBuilder qBuilder = new QueryBuilder().add("action", "apply").add("data", new JSONObject().put("SYNO.SDS.DownloadStation.Application", new JSONObject().put("btsearchplugins", jArr)).toString());
+			
+			// Execute
+			synchronized (server) {
+				server.sendJSONRequest(USER_SETTINGS, qBuilder.toString(), "POST");
+			}
+		}
 	}
 }

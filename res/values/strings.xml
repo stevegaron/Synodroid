@@ -379,4 +379,10 @@
 <string name="selected">selected</string>
 
 <string name="upload_failed">Upload of the files to the NAS failed. Retry...</string>
+
+
+<string name="action_se_get">Retrieving Search Engine list...</string>
+<string name="menu_searchengine">Edit search engines</string>
+<string name="search_engine_title">Search Engine Selection</string>
+<string name="action_set_searchengine">Saving Search Engine settings...</string>
 </resources>
