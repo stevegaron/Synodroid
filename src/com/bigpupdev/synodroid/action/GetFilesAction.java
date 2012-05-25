@@ -19,11 +19,13 @@ package com.bigpupdev.synodroid.action;
 import java.util.List;
 
 import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.ui.DownloadFragment;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
 
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskFile;
+import com.bigpupdev.synodroid.data.TaskFilesContainer;
 
 /**
  * Retrieve task's files
@@ -34,6 +36,7 @@ public class GetFilesAction implements SynoAction {
 
 	// The torrent to resume
 	private Task task;
+	private int LIMIT_PAR_REQUEST = 25;
 
 	public GetFilesAction(Task taskP) {
 		task = taskP;
@@ -45,8 +48,22 @@ public class GetFilesAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds.TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		List<TaskFile> files = serverP.getDSMHandlerFactory().getDSHandler().getFiles(task);
-		serverP.fireMessage(handlerP, ResponseHandler.MSG_DETAILS_FILES_RETRIEVED, files);
+		int start = 0;
+		TaskFilesContainer container = serverP.getDSMHandlerFactory().getDSHandler().getFiles(task, start, LIMIT_PAR_REQUEST);
+		int total = container.getTotalFiles();
+		if (total > LIMIT_PAR_REQUEST) {
+			int nbLoop = (total - 1) / 25;
+			for (int iLoop = 0; iLoop < nbLoop; iLoop++) {
+				start += LIMIT_PAR_REQUEST;
+				// Retrieve other taks part
+				TaskFilesContainer secondaryContainer = serverP.getDSMHandlerFactory().getDSHandler().getFiles(task, start, LIMIT_PAR_REQUEST);
+				List<TaskFile> tasks = secondaryContainer.getTasks();
+				// Add them to the main container
+				container.getTasks().addAll(tasks);
+			}
+		}
+		serverP.fireMessage(handlerP, DownloadFragment.MSG_DETAILS_FILES_RETRIEVED, container.getTasks());
+		
 	}
 
 	/*

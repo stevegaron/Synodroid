@@ -26,6 +26,7 @@ import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskContainer;
 import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskFile;
+import com.bigpupdev.synodroid.data.TaskFilesContainer;
 import com.bigpupdev.synodroid.data.TaskProperties;
 import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.protocol.DSHandler;
@@ -243,11 +244,13 @@ class DSHandlerDSM22 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#getFiles(com.bigpupdev.synodroid .common.data.Task)
 	 */
-	public List<TaskFile> getFiles(Task taskP) throws Exception {
+	public TaskFilesContainer getFiles(Task taskP, int start, int limit) throws Exception {
 		ArrayList<TaskFile> result = new ArrayList<TaskFile>();
+		TaskFilesContainer container = new TaskFilesContainer(result);
+		
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder getAllRequest = new QueryBuilder().add("action", "getfilelist").add("taskid", "" + taskP.taskId);
+			QueryBuilder getAllRequest = new QueryBuilder().add("action", "getfilelist").add("taskid", "" + taskP.taskId).add("start", ""+ start).add("limit", ""+limit);
 			// Execute
 			JSONObject json = null;
 			synchronized (server) {
@@ -257,6 +260,9 @@ class DSHandlerDSM22 implements DSHandler {
 			// If request succeded
 			if (success) {
 				JSONArray array = json.getJSONArray("items");
+				int totalFiles = json.getInt("total");
+				container.setTotalFiles(totalFiles);
+				
 				for (int iLoop = 0; iLoop < array.length(); iLoop++) {
 					JSONObject obj = array.getJSONObject(iLoop);
 					// Create the file
@@ -272,7 +278,7 @@ class DSHandlerDSM22 implements DSHandler {
 				throw new DSMException(R.string.err_file_list);
 			}
 		}
-		return result;
+		return container;
 	}
 
 	/*

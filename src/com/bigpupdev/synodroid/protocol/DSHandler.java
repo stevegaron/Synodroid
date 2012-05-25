@@ -15,6 +15,7 @@ import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskContainer;
 import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskFile;
+import com.bigpupdev.synodroid.data.TaskFilesContainer;
 import com.bigpupdev.synodroid.data.TaskProperties;
 
 import android.net.Uri;
@@ -102,7 +103,7 @@ public interface DSHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<TaskFile> getFiles(final Task taskP) throws Exception;
+	public TaskFilesContainer getFiles(final Task taskP, int start, int limit) throws Exception;
 
 	/**
 	 * Get Properties of a task
