@@ -311,6 +311,9 @@ public class SearchFragment extends SynodroidFragment {
 			}
 		}
 		
+		if (ret.size() == 0){
+			return null;
+		}
 		return ret;
 	}
 
@@ -333,8 +336,8 @@ public class SearchFragment extends SynodroidFragment {
 			}
 			catch (Exception ex){/*DO NOTHING*/}
 			
-            if (getSupportedSites() != null) {
-				if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
+			if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
+				if (getSupportedSites() != null) {
 					String searchKeywords = intent.getStringExtra(SearchManager.QUERY);
 					lastSearch = searchKeywords;
 					if (!searchKeywords.equals("")) {
@@ -347,36 +350,36 @@ public class SearchFragment extends SynodroidFragment {
 						resList.setVisibility(TextView.GONE);
 					}
 				}
-				else{
+				else {
 					try{
-						if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: This was an old intent. Skipping it...");
+						if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
 					}
 					catch (Exception ex){/*DO NOTHING*/}
-				}
-				//Mark intent as already processed
-				intent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-				a.setIntent(intent);
-
-			} else {
-				try{
-					if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
-				}
-				catch (Exception ex){/*DO NOTHING*/}
-				
-	            AlertDialog.Builder builder = new AlertDialog.Builder(a);
-				builder.setMessage(R.string.err_provider_missing);
-				builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
+					
+		            AlertDialog.Builder builder = new AlertDialog.Builder(a);
+					builder.setMessage(R.string.err_provider_missing);
+					builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
+					AlertDialog errorDialog = builder.create();
+					try {
+						errorDialog.show();
+					} catch (BadTokenException e) {
+						// Unable to show dialog probably because intent has been closed. Ignoring...
 					}
-				});
-				AlertDialog errorDialog = builder.create();
-				try {
-					errorDialog.show();
-				} catch (BadTokenException e) {
-					// Unable to show dialog probably because intent has been closed. Ignoring...
 				}
 			}
+			else{
+				try{
+					if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: This was an old intent. Skipping it...");
+				}
+				catch (Exception ex){/*DO NOTHING*/}
+			}
+			//Mark intent as already processed
+			intent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+			a.setIntent(intent);
 
 		}
 		else if (intent.getBooleanExtra("start_search", false)){

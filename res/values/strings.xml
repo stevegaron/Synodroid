@@ -255,7 +255,7 @@
 <string name="installTorrentSearchAlternate">Alternate download</string>
 <string name="logo_search">Torrent Search</string>
 <string name="dialog_message_confirm_add">Are you sure you would like to start downloading that file?</string>
-<string name="provider_missing">Search provider not installed, click the button bellow to install it.\n\n Note: You will have to restart synodroid app to enable search after installing search provider...</string>
+<string name="provider_missing">No search provider installed. You can either upgrade your NAS to DSM 3.2+ or install an alternate search provider by clicking the button bellow.\n\n Note: You will have to restart synodroid app to enable search after installing alternate search provider...</string>
 <string name="searching">Searching...\n\n</string>
 <string name="no_results">No results found.\n\n</string>
 <string name="sites">Available sites:\n</string>
@@ -269,7 +269,7 @@
 <string name="wizard_no_server_found">No server could be found on the network. Check your connection and try again.</string>
 <string name="err_nomarket">Android market is not installed on your device.\n\nContact the developers to get a copy of Transdroid search.</string>
 <string name="err_nobrowser">Android browser is not installed on your device.\n\nContact the developers to get a copy of Transdroid search.</string>
-<string name="err_provider_missing">Transdroid torrent search is not installed on your device.\n\nFollow the instructions on the search tab to install it.</string>
+<string name="err_provider_missing">No search provider are installed on your device.\n\nFollow the instructions on this page to install one.</string>
 <string name="help">Help</string>
 
 <string name="label_usewifi">Connect from wifi</string>
