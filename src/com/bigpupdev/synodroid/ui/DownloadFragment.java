@@ -433,7 +433,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	 */
 	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated) {
 		SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, false);
+		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, true);
 		
 		final Activity a = getActivity();
 		if (!connectDialogOpened && a != null) {

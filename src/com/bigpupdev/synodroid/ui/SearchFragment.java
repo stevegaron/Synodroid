@@ -102,8 +102,8 @@ public class SearchFragment extends SynodroidFragment {
 		SpinnerSort.setAdapter(AdapterSort);
 
 		SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "");
-		String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "");
+		String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "DSM Search");
+		String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders");
 
 		int lastOrder = 0;
 		int lastSource = 0;
@@ -401,8 +401,8 @@ public class SearchFragment extends SynodroidFragment {
 		protected Cursor doInBackground(String... params) {
 			try {
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "");
-				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "");
+				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "DSM Search");
+				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders");
 				if (pref_src.equals("DSM Search")){
 					Synodroid app = (Synodroid) getActivity().getApplication();
 					

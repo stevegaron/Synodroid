@@ -79,7 +79,7 @@ public class UploadIntentService extends IntentService{
 		String path = intent.getStringExtra(PATH);
 		boolean dbg = intent.getBooleanExtra(DEBUG, false);
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, false);
+		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, true);
 		
 		DSMVersion vers = DSMVersion.titleOf(dsm_version);
 		if (vers == null) {

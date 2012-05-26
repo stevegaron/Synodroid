@@ -61,7 +61,7 @@ public class Synodroid extends Application {
 	public void onCreate() {
 		super.onCreate();
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		DEBUG = preferences.getBoolean(PREFERENCE_DEBUG_LOG, false) == true;	
+		DEBUG = preferences.getBoolean(PREFERENCE_DEBUG_LOG, false);	
 	}
 
 	/*
