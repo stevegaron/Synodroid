@@ -18,7 +18,7 @@ package com.bigpupdev.synodroid.data;
 
 import java.io.Serializable;
 
-import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
 
 /**
  * A simple data container for a torrent. This class is used to display 'general' information about a torrent file.<br/>
@@ -30,7 +30,7 @@ public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// The server from which is torrent is retrieved
-	public transient SynoServer server;
+	public transient SimpleSynoServer server;
 
 	// The unique ID of the torrent
 	public int taskId;

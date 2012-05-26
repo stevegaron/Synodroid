@@ -15,7 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
+import com.bigpupdev.synodroid.utils.SearchResult;
+import com.bigpupdev.synodroid.utils.SortOrder;
 import com.bigpupdev.synodroid.utils.Utils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +54,7 @@ class DSHandlerDSM31 implements DSHandler {
 	private static final String BOUNDARY = "-----------7dabb2d41348";
 	
 	/* The Synology's server */
-	private SynoServer server;
+	private SimpleSynoServer server;
 	private boolean DEBUG;
 
 	/**
@@ -60,7 +62,7 @@ class DSHandlerDSM31 implements DSHandler {
 	 * 
 	 * @param serverP
 	 */
-	public DSHandlerDSM31(SynoServer serverP, boolean debug) {
+	public DSHandlerDSM31(SimpleSynoServer serverP, boolean debug) {
 		server = serverP;
 		DEBUG = debug;
 	}
@@ -849,8 +851,8 @@ class DSHandlerDSM31 implements DSHandler {
 		throw new Exception("Unsupported");
 	}
 
-	@Override
-	public String getSearchUrl() throws Exception {
+	public List<SearchResult> search(String term, SortOrder order, int start,
+			int limit) throws Exception {
 		throw new Exception("Unsupported");
 	}
 }

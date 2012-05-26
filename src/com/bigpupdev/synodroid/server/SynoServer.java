@@ -50,7 +50,7 @@ import android.util.Log;
  * 
  * @author Eric Taix (eric.taix at gmail.com)
  */
-public class SynoServer {
+public class SynoServer extends SimpleSynoServer{
 	
 	// The nickname of the server
 	private String nickname = "";

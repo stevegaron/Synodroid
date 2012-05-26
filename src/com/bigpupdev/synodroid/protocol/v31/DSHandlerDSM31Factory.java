@@ -17,7 +17,7 @@
 package com.bigpupdev.synodroid.protocol.v31;
 
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
 import org.json.JSONObject;
 
 import com.bigpupdev.synodroid.protocol.DSHandler;
@@ -43,7 +43,7 @@ public class DSHandlerDSM31Factory extends DSMHandlerFactory {
 	private static final String LOGIN_RESULT_SUCCESS = "success";
 
 	// The Synology's server
-	private SynoServer server;
+	private SimpleSynoServer server;
 	// Download station handler
 	private DSHandler dsHandler;
 	private boolean DEBUG;
@@ -55,7 +55,7 @@ public class DSHandlerDSM31Factory extends DSMHandlerFactory {
 	 * @param serverP
 	 *            The synology server
 	 */
-	public DSHandlerDSM31Factory(SynoServer serverP, boolean debug, boolean autoDetectP) {
+	public DSHandlerDSM31Factory(SimpleSynoServer serverP, boolean debug, boolean autoDetectP) {
 		server = serverP;
 		dsHandler = new DSHandlerDSM31(serverP, debug);
 		DEBUG = debug;

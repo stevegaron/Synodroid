@@ -18,6 +18,8 @@ import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskFile;
 import com.bigpupdev.synodroid.data.TaskFilesContainer;
 import com.bigpupdev.synodroid.data.TaskProperties;
+import com.bigpupdev.synodroid.utils.SearchResult;
+import com.bigpupdev.synodroid.utils.SortOrder;
 
 import android.net.Uri;
 
@@ -183,6 +185,7 @@ public interface DSHandler {
 	
 	public List<SearchEngine> getSearchEngines() throws Exception;
 	public void setSearchEngines(List<SearchEngine> seList) throws Exception;
-	public String getSearchUrl() throws Exception;
+
+	public List<SearchResult> search(String term, SortOrder order, int start, int limit) throws Exception;
 	
 }

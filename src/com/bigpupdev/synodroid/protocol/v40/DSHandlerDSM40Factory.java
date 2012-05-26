@@ -17,7 +17,7 @@
 package com.bigpupdev.synodroid.protocol.v40;
 
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
 import org.json.JSONObject;
 
 import com.bigpupdev.synodroid.protocol.DSHandler;
@@ -43,7 +43,7 @@ public class DSHandlerDSM40Factory extends DSMHandlerFactory {
 	private static final String LOGIN_RESULT_SUCCESS = "success";
 
 	// The Synology's server
-	private SynoServer server;
+	private SimpleSynoServer server;
 	// Download station handler
 	private DSHandler dsHandler;
 	private boolean DEBUG;
@@ -55,7 +55,7 @@ public class DSHandlerDSM40Factory extends DSMHandlerFactory {
 	 * @param serverP
 	 *            The synology server
 	 */
-	public DSHandlerDSM40Factory(SynoServer serverP, boolean debug, boolean autoDetectP) {
+	public DSHandlerDSM40Factory(SimpleSynoServer serverP, boolean debug, boolean autoDetectP) {
 		server = serverP;
 		dsHandler = new DSHandlerDSM40(serverP, debug);
 		DEBUG = debug;
@@ -65,7 +65,7 @@ public class DSHandlerDSM40Factory extends DSMHandlerFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.bigpupdev.synodroid.common.protocol.DSMHandlerFactory#connect(com.bigpupdev .synodroid.common.SynoServer)
+	 * @see com.bigpupdev.synodroid.common.protocol.DSMHandlerFactory#connect(com.bigpupdev .synodroid.common.SimpleSynoServer)
 	 */
 	@Override
 	public boolean connect() throws Exception {

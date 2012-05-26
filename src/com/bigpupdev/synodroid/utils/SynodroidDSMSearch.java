@@ -1,32 +1,13 @@
 package com.bigpupdev.synodroid.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.data.DSMVersion;
-import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
-import com.bigpupdev.synodroid.protocol.QueryBuilder;
-import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
-import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
 
-import android.app.Activity;
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -37,172 +18,10 @@ public class SynodroidDSMSearch extends ContentProvider {
 	public static final String PROVIDER_NAME = "com.bigpupdev.synodroid.utils.SynodroidDSMSearch";
 	public static final String CONTENT_URI = "content://" + PROVIDER_NAME + "/search/";
 	public static final String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
-	private static final String PREFERENCE_GENERAL = "general_cat";
-	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	
 	private static final int SEARCH_TERM = 1;
-	private static final int MAX_LOOP = 4;
 	
-	static {
-		SSLContext sc;
-		try {
-			sc = SSLContext.getInstance("TLS");
-			sc.init(null, new TrustManager[] { new AcceptAllTrustManager() }, new SecureRandom());
-			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-			HttpsURLConnection.setDefaultHostnameVerifier(new AcceptAllHostNameVerifier());
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	public JSONObject sendJSONRequest(String url, String requestP, String methodP, ServerParam param) throws Exception {
-		HttpURLConnection con = null;
-		OutputStreamWriter wr = null;
-		BufferedReader br = null;
-		StringBuffer sb = null;
-		try {
 
-			// For some reason in Gingerbread I often get a response code of -1.
-			// Here I retry for a maximum of MAX_RETRY to send the request and it usually succeed at the second try...
-			int retry = 0;
-			int MAX_RETRY = 2;
-			while (retry <= MAX_RETRY) {
-				try{
-					// Create the connection
-					con = ServiceHelper.createConnection(url, requestP, methodP, param.getDbg(), param.getCookie(), param.getUrl());
-					// Add the parameters
-					wr = new OutputStreamWriter(con.getOutputStream());
-					wr.write(requestP);
-					// Send the request
-					wr.flush();
-					wr.close();
-	
-					// Now read the reponse and build a string with it
-					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-					sb = new StringBuffer();
-					String line;
-					while ((line = br.readLine()) != null) {
-						sb.append(line);
-					}
-					br.close();
-					// Verify is response if not -1, otherwise take reason from the header
-					if (con.getResponseCode() == -1) {
-						retry++;
-						if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Response code is -1 (retry: " + retry + ")");
-					} else {
-						if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Response is: " + sb.toString());
-						JSONObject respJSO = new JSONObject(sb.toString());
-						return respJSO;
-					}
-				}catch (Exception e){
-					if (param.getDbg()) Log.e(Synodroid.DS_TAG, "DSMSearch: Caught exception while contacting the server, retying...", e);
-					retry ++;
-				}
-				finally{
-					con.disconnect();
-				}
-				
-			}
-			throw new Exception("Failed to read response from server. Please reconnect!");
-		}
-		// Special for SSL Handshake failure
-		catch (IOException ioex) {
-			if (param.getDbg()) Log.e(Synodroid.DS_TAG, "DSMSearch: Unexpected error", ioex);
-			String msg = ioex.getMessage();
-			if (msg != null && msg.indexOf("SSL handshake failure") != -1) {
-				// Don't need to translate: the opposite message (HTTP on a SSL port) is in english and come from the server
-				throw new Exception("SSL handshake failure.\n\nVerify if you don't speak HTTPS to a standard server port.\n");
-			} else {
-				throw ioex;
-			}
-		}
-		// Unexpected exception
-		catch (Exception ex) {
-			if (param.getDbg()) Log.e(Synodroid.DS_TAG, "DSMSearch: Unexpected error", ex);
-			throw ex;
-		}
-		// Finally close everything
-		finally {
-			if (con != null) {
-				con.disconnect();
-			}
-			wr = null;
-			br = null;
-			sb = null;
-			con = null;
-		}
-	}
-	
-	private List<SearchResult> search(String query, SortOrder order, ServerParam param) throws Exception{
-		List<SearchResult> results = new ArrayList<SearchResult>();
-		SharedPreferences preferences = getContext().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, false);
-		
-		DSMVersion vers = DSMVersion.titleOf(param.getDSMVersion());
-		if (vers == null) {
-			vers = DSMVersion.VERSION2_2;
-		}
-		
-		if (vers.greaterThen(DSMVersion.VERSION3_1)){
-			
-			DSMHandlerFactory dsm = DSMHandlerFactory.getFactory(vers, null, param.getDbg(), autoDetect);
-			
-			String url = dsm.getDSHandler().getSearchUrl();
-			QueryBuilder builder = new QueryBuilder().add("action", "search").add("query", query);
-			JSONObject json = null;
-			json = sendJSONRequest(url, builder.toString(), "GET", param);
-			if (json != null){
-				if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Search query '"+query+"' queued for searching on the NAS.");
-				if (json.getBoolean("success") && json.getBoolean("running")){
-					String taskid = json.getString("taskid");
-					boolean stop = false;
-					QueryBuilder rBuilder = new QueryBuilder().add("start", String.valueOf(param.getStart())).add("limit", String.valueOf(param.getLimit())).add("action", "query").add("dir", "DESC").add("sort", order.equals(SortOrder.BySeeders)?"seeds":"date").add("taskid", taskid).add("categories", "1").add("category", "_allcat_");
-					int loop = 0;
-					while(!stop){
-						json = sendJSONRequest(url, rBuilder.toString(), "GET", param);
-						if (json != null ){
-							if ( json.getBoolean("success") ){
-								JSONArray items = new JSONArray();
-								boolean running = false;
-								
-								try{ items = json.getJSONArray("items");}
-								catch (Exception e){/*Do Nothing*/}
-								
-								try{ running = json.getBoolean("running");}
-								catch (Exception e){/*Do Nothing*/}
-								
-								if ( !running || items.length() >= param.getLimit() || loop == MAX_LOOP){
-									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Found "+items.length()+" results from the search.");
-									for (int i = 0; i < items.length(); i++){
-										JSONObject item = items.getJSONObject(i);
-										SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
-										results.add(sr);
-									}
-									stop = true;
-								}
-								else{
-									loop ++;
-									Thread.sleep(5000);
-									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
-								}
-							}
-							else{
-								loop ++;
-								Thread.sleep(5000);
-								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Success == False; Waiting 5 seconds for more results...");
-							}
-						}
-						else{
-							stop = true;
-							if (param.getDbg()) Log.w(Synodroid.DS_TAG, "DSMSearch: Search failed !!");
-						}
-					}
-				}
-			}
-		}
-		
-		return results;
-	}
 	
     // Static intialization of the URI matcher
     private static final UriMatcher uriMatcher;
@@ -241,24 +60,28 @@ public class SynodroidDSMSearch extends ContentProvider {
 		MatrixCursor cursor = new MatrixCursor(COLS);
 		String term = "";
 		ServerParam param = new ServerParam(selectionArgs);
-		SortOrder order = SortOrder.BySeeders; // Use BySeeders as default
-		if (uriMatcher.match(uri) == SEARCH_TERM) {
-            term = uri.getPathSegments().get(1);
-		}
-		if (sortOrder != null) {
-            order = SortOrder.fromCode(sortOrder);
-            if (order == null) {
-                    throw new RuntimeException(sortOrder + " is not a valid sort order. " + 
-                            "Only BySeeders and Combined are supported.");
-            }
-		}
+		SimpleSynoServer server = new SimpleSynoServer();
 		
-		if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
-        
-		if (!term.equals("")) {
-			// Perform the actual search
-            try {
-                    List<SearchResult> results = search(term, order, param);
+		server.setParams(param);
+		if (server.getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+    		SortOrder order = SortOrder.BySeeders; // Use BySeeders as default
+			if (uriMatcher.match(uri) == SEARCH_TERM) {
+	            term = uri.getPathSegments().get(1);
+			}
+			if (sortOrder != null) {
+	            order = SortOrder.fromCode(sortOrder);
+	            if (order == null) {
+	                    throw new RuntimeException(sortOrder + " is not a valid sort order. " + 
+	                            "Only BySeeders and Combined are supported.");
+	            }
+			}
+			
+			if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
+	        
+			if (!term.equals("")) {
+				// Perform the actual search
+	            try {
+            		List<SearchResult> results = server.getDSMHandlerFactory().getDSHandler().search(term, order, param.getStart(), param.getLimit());
                     // Return the results as MatrixCursor
                     for (SearchResult result : results) {
                             Object[] values = new Object[8];
@@ -272,12 +95,13 @@ public class SynodroidDSMSearch extends ContentProvider {
                             values[7] = result.getLeechers();
                             cursor.addRow(values);
                     }
-            } catch (Exception e) {
+	            } catch (Exception e) {
                     // Log the error and stack trace, but also throw an explicit run-time exception for clarity 
             		if (param.getDbg())Log.e(Synodroid.DS_TAG, "DSMSearch: Search provider error", e);
-                    throw new RuntimeException(e.toString());
-            }
-
+	                throw new RuntimeException(e.toString());
+	            }
+	
+			}
 		}
 		// Register the content URI for changes (although update() isn't supported)
         //cursor.setNotificationUri(getContext().getContentResolver(), uri);

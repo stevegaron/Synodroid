@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
 
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.protocol.v22.DSHandlerDSM22Factory;
@@ -48,7 +48,7 @@ public abstract class DSMHandlerFactory {
 	 * 
 	 * @return
 	 */
-	public final static DSMHandlerFactory getFactory(DSMVersion versionP, SynoServer serverP, boolean debug, boolean autoDetect) {
+	public final static DSMHandlerFactory getFactory(DSMVersion versionP, SimpleSynoServer serverP, boolean debug, boolean autoDetect) {
 		DSMHandlerFactory result = null;
 		// Depending on DSM version
 		switch (versionP) {
@@ -69,7 +69,7 @@ public abstract class DSMHandlerFactory {
 	}
 	
 	
-	protected DSMVersion getVersionFromServer(SynoServer serverP, boolean autoDetect, boolean debug) throws Exception{
+	protected DSMVersion getVersionFromServer(SimpleSynoServer serverP, boolean autoDetect, boolean debug) throws Exception{
 		int version = 0;
 		// If we are logged on
 		if (serverP.isConnected() && autoDetect) {

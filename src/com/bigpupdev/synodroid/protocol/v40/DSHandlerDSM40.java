@@ -15,7 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.server.SimpleSynoServer;
+import com.bigpupdev.synodroid.utils.SearchResult;
+import com.bigpupdev.synodroid.utils.SortOrder;
 import com.bigpupdev.synodroid.utils.Utils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,9 +54,10 @@ class DSHandlerDSM40 implements DSHandler {
 	private static final String USER_SETTINGS = "/webman/usersettings.cgi";
 	private static final String SEARCH_URI = "/webman/3rdparty/modules/DownloadStation/dlm/btsearch.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
+	private static final int MAX_LOOP = 4;
 	
 	/* The Synology's server */
-	private SynoServer server;
+	private SimpleSynoServer server;
 	private boolean DEBUG;
 
 	/**
@@ -62,7 +65,7 @@ class DSHandlerDSM40 implements DSHandler {
 	 * 
 	 * @param serverP
 	 */
-	public DSHandlerDSM40(SynoServer serverP, boolean debug) {
+	public DSHandlerDSM40(SimpleSynoServer serverP, boolean debug) {
 		server = serverP;
 		DEBUG = debug;
 	}
@@ -882,7 +885,72 @@ class DSHandlerDSM40 implements DSHandler {
 		}
 	}
 
-	public String getSearchUrl() throws Exception {
-		return SEARCH_URI;
+	public List<SearchResult> search(String query, SortOrder order, int start, int limit) throws Exception{
+		List<SearchResult> results = new ArrayList<SearchResult>();
+		List<SearchEngine> seList = getSearchEngines();
+		
+		String plugins = "";
+		for (SearchEngine se : seList){
+			if (se.enabled){
+				if (!plugins.equals("")){
+					plugins += ",";
+				}
+				plugins += se.name;
+			}
+		}
+		
+		QueryBuilder builder = new QueryBuilder().add("action", "search").add("query", query).add("plugins", plugins);
+		JSONObject json = null;
+		json = server.sendJSONRequest(SEARCH_URI, builder.toString(), "GET");
+		if (json != null){
+			if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Search query '"+query+"' queued for searching on the NAS.");
+			if (json.getBoolean("success") && json.getBoolean("running")){
+				String taskid = json.getString("taskid");
+				boolean stop = false;
+				QueryBuilder rBuilder = new QueryBuilder().add("start", String.valueOf(start)).add("limit", String.valueOf(limit)).add("action", "query").add("dir", "DESC").add("sort", order.equals(SortOrder.BySeeders)?"seeds":"date").add("taskid", taskid).add("categories", "1").add("category", "_allcat_");
+				int loop = 0;
+				while(!stop){
+					json = server.sendJSONRequest(SEARCH_URI, rBuilder.toString(), "GET");
+					if (json != null ){
+						if ( json.getBoolean("success") ){
+							JSONArray items = new JSONArray();
+							boolean running = false;
+							
+							try{ items = json.getJSONArray("items");}
+							catch (Exception e){/*Do Nothing*/}
+							
+							try{ running = json.getBoolean("running");}
+							catch (Exception e){/*Do Nothing*/}
+							
+							if ( !running || items.length() >= limit || loop == MAX_LOOP){
+								if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Found "+items.length()+" results from the search.");
+								for (int i = 0; i < items.length(); i++){
+									JSONObject item = items.getJSONObject(i);
+									SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
+									results.add(sr);
+								}
+								stop = true;
+							}
+							else{
+								loop ++;
+								Thread.sleep(5000);
+								if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
+							}
+						}
+						else{
+							loop ++;
+							Thread.sleep(5000);
+							if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Success == False; Waiting 5 seconds for more results...");
+						}
+					}
+					else{
+						stop = true;
+						if (server.DEBUG) Log.w(Synodroid.DS_TAG, "DSMSearch: Search failed !!");
+					}
+				}
+			}
+		}
+	
+		return results;
 	}
 }
