@@ -25,12 +25,6 @@
         android:orderInCategory="1" 
         android:showAsAction="never" ></item>
     
-    <item android:id="@+id/menu_search_engine"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="@string/menu_searchengine"
-        android:orderInCategory="1" 
-        android:showAsAction="never"></item>
-    
     <item android:showAsAction="never" 
         android:orderInCategory="1" 
         android:id="@+id/menu_preferences" 

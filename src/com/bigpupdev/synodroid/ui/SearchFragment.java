@@ -37,7 +37,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
+import com.bigpupdev.synodroid.action.SetSearchEngines;
 import com.bigpupdev.synodroid.data.DSMVersion;
+import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.utils.SearchViewBinder;
 import com.bigpupdev.synodroid.utils.SynodroidDSMSearch;
@@ -466,6 +468,56 @@ public class SearchFragment extends SynodroidFragment {
 		if (msg.what == ResponseHandler.MSG_TASK_DL_WAIT){
 			Toast toast = Toast.makeText(getActivity(), getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
 			toast.show();
+		}
+		else if (msg.what == ResponseHandler.MSG_SE_LIST_RETRIEVED) {
+			final Activity a = getActivity();
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received search engine listing message.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			@SuppressWarnings("unchecked")
+			List<SearchEngine> seList = (List<SearchEngine>) msg.obj;
+			final CharSequence[] seNames = new CharSequence[seList.size()];
+			final boolean[] seSelection = new boolean[seList.size()];
+			for (int iLoop = 0; iLoop < seList.size(); iLoop++) {
+				SearchEngine se = seList.get(iLoop);
+				seNames[iLoop] = se.name;
+				seSelection[iLoop] = se.enabled;
+			}
+			AlertDialog.Builder builder = new AlertDialog.Builder(a);
+			builder.setTitle(getString(R.string.search_engine_title));
+			builder.setMultiChoiceItems(seNames, seSelection, new DialogInterface.OnMultiChoiceClickListener() {
+				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+					seSelection[which] = isChecked;
+				}
+			});
+			builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					List<SearchEngine> newList = new ArrayList<SearchEngine>();
+					for (int iLoop = 0; iLoop < seNames.length; iLoop++) {
+						SearchEngine se = new SearchEngine();
+						se.name = (String) seNames[iLoop];
+						se.enabled = seSelection[iLoop];
+						newList.add(se);
+					}
+					dialog.dismiss();final Activity a = getActivity();
+					
+					Synodroid app = (Synodroid) a.getApplication();
+					app.executeAsynchronousAction(SearchFragment.this, new SetSearchEngines(newList), true);
+				}
+			});
+			builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+
+			AlertDialog alert = builder.create();
+			try {
+				alert.show();
+			} catch (BadTokenException e) {
+				// Unable to show dialog probably because intent has been closed. Ignoring...
+			}
 		}
 	}
 }

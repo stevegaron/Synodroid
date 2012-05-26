@@ -35,13 +35,6 @@
         android:showAsAction="ifRoom" 
         android:menuCategory="system"></item>
     
-    <item android:id="@+id/menu_search_engine"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="@string/menu_searchengine"
-        android:orderInCategory="1" 
-        android:showAsAction="ifRoom" 
-        android:menuCategory="system"></item>
-    
     <item android:showAsAction="ifRoom" 
         android:menuCategory="system" 
         android:orderInCategory="1" 

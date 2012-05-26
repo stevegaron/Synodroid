@@ -373,7 +373,7 @@
   
 <string name="tasks">task(s)</string>
 <string name="magnet">Magnet links only work with DSM 3.2 and up...</string>
-<string name="update_search_engine">Update search engine</string>
+<string name="update_search_engine">Update alternate search engine</string>
 <string name="update_search_engine_toast">Downloading latest search engine version.</string>
     
 <string name="selected">selected</string>
@@ -383,7 +383,7 @@
 
 <string name="action_se_get">Retrieving Search Engine list...</string>
 <string name="menu_searchengine">Edit search engines</string>
-<string name="search_engine_title">Search Engine Selection</string>
+<string name="search_engine_title">DSM Search - Plugin Selection</string>
 <string name="action_set_searchengine">Saving Search Engine settings...</string>
 <string name="auto_DSM">Autodetect DSM Version</string>
 <string name="hint_auto_DSM">DSM version will be auto detected when connecting to the NAS</string>

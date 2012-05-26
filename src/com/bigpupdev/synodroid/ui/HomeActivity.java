@@ -7,7 +7,6 @@ import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.ClearAllTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
-import com.bigpupdev.synodroid.action.GetSearchEngineAction;
 import com.bigpupdev.synodroid.action.ResumeAllAction;
 import com.bigpupdev.synodroid.action.StopAllAction;
 import com.bigpupdev.synodroid.adapter.TaskAdapter;
@@ -303,23 +302,6 @@ public class HomeActivity extends BaseActivity {
 			catch (Exception e){
 				try{
 					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call get share when download fragment hidden.");
-				}catch (Exception ex){/*DO NOTHING*/}
-			}
-		}
-		else if (item.getItemId() == R.id.menu_search_engine){
-			try{
-				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu get search engine list selected.");
-			}catch (Exception ex){/*DO NOTHING*/}
-        	
-            Synodroid app = (Synodroid) getApplication();
-			FragmentManager fm = getSupportFragmentManager();
-	        try{
-	        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-	        	app.executeAsynchronousAction(fragment_download, new GetSearchEngineAction(), false);
-	        }
-			catch (Exception e){
-				try{
-					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call get search engine list when download fragment hidden.");
 				}catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
