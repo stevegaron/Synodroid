@@ -88,14 +88,14 @@ public class SynodroidDSMSearch extends ContentProvider {
 					// Verify is response if not -1, otherwise take reason from the header
 					if (con.getResponseCode() == -1) {
 						retry++;
-						if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+						if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Response code is -1 (retry: " + retry + ")");
 					} else {
-						if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
+						if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Response is: " + sb.toString());
 						JSONObject respJSO = new JSONObject(sb.toString());
 						return respJSO;
 					}
 				}catch (Exception e){
-					if (param.getDbg()) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
+					if (param.getDbg()) Log.e(Synodroid.DS_TAG, "DSMSearch: Caught exception while contacting the server, retying...", e);
 					retry ++;
 				}
 				finally{
@@ -107,7 +107,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 		}
 		// Special for SSL Handshake failure
 		catch (IOException ioex) {
-			if (param.getDbg()) Log.e(Synodroid.DS_TAG, "Unexpected error", ioex);
+			if (param.getDbg()) Log.e(Synodroid.DS_TAG, "DSMSearch: Unexpected error", ioex);
 			String msg = ioex.getMessage();
 			if (msg != null && msg.indexOf("SSL handshake failure") != -1) {
 				// Don't need to translate: the opposite message (HTTP on a SSL port) is in english and come from the server
@@ -118,7 +118,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 		}
 		// Unexpected exception
 		catch (Exception ex) {
-			if (param.getDbg()) Log.e(Synodroid.DS_TAG, "Unexpected error", ex);
+			if (param.getDbg()) Log.e(Synodroid.DS_TAG, "DSMSearch: Unexpected error", ex);
 			throw ex;
 		}
 		// Finally close everything
@@ -152,7 +152,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 			JSONObject json = null;
 			json = sendJSONRequest(url, builder.toString(), "GET", param);
 			if (json != null){
-				if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Search query '"+query+"' queued for searching on the NAS.");
+				if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Search query '"+query+"' queued for searching on the NAS.");
 				if (json.getBoolean("success") && json.getBoolean("running")){
 					String taskid = json.getString("taskid");
 					boolean stop = false;
@@ -172,7 +172,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 								catch (Exception e){/*Do Nothing*/}
 								
 								if ( !running || items.length() >= param.getLimit() || loop == MAX_LOOP){
-									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Found "+items.length()+" results from the search.");
+									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Found "+items.length()+" results from the search.");
 									for (int i = 0; i < items.length(); i++){
 										JSONObject item = items.getJSONObject(i);
 										SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
@@ -183,18 +183,18 @@ public class SynodroidDSMSearch extends ContentProvider {
 								else{
 									loop ++;
 									Thread.sleep(5000);
-									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
+									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
 								}
 							}
 							else{
 								loop ++;
 								Thread.sleep(5000);
-								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Success == False; Waiting 5 seconds for more results...");
+								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Success == False; Waiting 5 seconds for more results...");
 							}
 						}
 						else{
 							stop = true;
-							if (param.getDbg()) Log.w(Synodroid.DS_TAG, "Search failed !!");
+							if (param.getDbg()) Log.w(Synodroid.DS_TAG, "DSMSearch: Search failed !!");
 						}
 					}
 				}
@@ -253,7 +253,7 @@ public class SynodroidDSMSearch extends ContentProvider {
             }
 		}
 		
-		if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSM Search engine query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
+		if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
         
 		if (!term.equals("")) {
 			// Perform the actual search
@@ -274,7 +274,7 @@ public class SynodroidDSMSearch extends ContentProvider {
                     }
             } catch (Exception e) {
                     // Log the error and stack trace, but also throw an explicit run-time exception for clarity 
-            		if (param.getDbg())Log.e(Synodroid.DS_TAG, "Search provider error", e);
+            		if (param.getDbg())Log.e(Synodroid.DS_TAG, "DSMSearch: Search provider error", e);
                     throw new RuntimeException(e.toString());
             }
 

@@ -318,8 +318,8 @@ public class SearchFragment extends SynodroidFragment {
 	 * @see android.app.Activity#onResume()
 	 */
 	@Override
-	public void onStart() {
-		super.onStart();
+	public void onResume() {
+		super.onResume();
 		
 		Activity a = this.getActivity();
 		Intent intent = a.getIntent();
@@ -344,6 +344,12 @@ public class SearchFragment extends SynodroidFragment {
 						emptyText.setVisibility(TextView.VISIBLE);
 						resList.setVisibility(TextView.GONE);
 					}
+				}
+				else{
+					try{
+						if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: This was an old intent. Skipping it...");
+					}
+					catch (Exception ex){/*DO NOTHING*/}
 				}
 				//Mark intent as already processed
 				intent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);

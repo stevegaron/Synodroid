@@ -579,6 +579,12 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				// Not from history -> process intent
 				connectToServer = handleIntent(intent);
 			}
+			else{
+				try{
+					if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: This was an old intent. Skipping it...");
+				}
+				catch (Exception ex){/*DO NOTHING*/}
+			}
 		} 
 		
 		// PREVENT INTENT REUSE: We mark the intent so from now on, the program
