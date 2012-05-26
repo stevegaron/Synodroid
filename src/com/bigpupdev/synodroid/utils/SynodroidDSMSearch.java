@@ -161,20 +161,35 @@ public class SynodroidDSMSearch extends ContentProvider {
 					while(!stop){
 						json = sendJSONRequest(url, rBuilder.toString(), "GET", param);
 						if (json != null ){
-							if ( json.getBoolean("success") && ( !json.getBoolean("running") || loop == MAX_LOOP )){
-								JSONArray items = json.getJSONArray("items");
-								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Found "+items.length()+" results from the search.");
-								for (int i = 0; i < items.length(); i++){
-									JSONObject item = items.getJSONObject(i);
-									SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
-									results.add(sr);
+							if ( json.getBoolean("success") ){
+								JSONArray items = new JSONArray();
+								boolean running = false;
+								
+								try{ items = json.getJSONArray("items");}
+								catch (Exception e){/*Do Nothing*/}
+								
+								try{ running = json.getBoolean("running");}
+								catch (Exception e){/*Do Nothing*/}
+								
+								if ( !running || items.length() >= param.getLimit() || loop == MAX_LOOP){
+									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Found "+items.length()+" results from the search.");
+									for (int i = 0; i < items.length(); i++){
+										JSONObject item = items.getJSONObject(i);
+										SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
+										results.add(sr);
+									}
+									stop = true;
 								}
-								stop = true;
+								else{
+									loop ++;
+									Thread.sleep(5000);
+									if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
+								}
 							}
 							else{
 								loop ++;
 								Thread.sleep(5000);
-								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Search result incomplete, waiting 5 seconds for more results...");
+								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Success == False; Waiting 5 seconds for more results...");
 							}
 						}
 						else{
@@ -265,7 +280,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 
 		}
 		// Register the content URI for changes (although update() isn't supported)
-        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        //cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
 	}
 

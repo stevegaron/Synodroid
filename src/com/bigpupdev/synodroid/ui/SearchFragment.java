@@ -188,15 +188,21 @@ public class SearchFragment extends SynodroidFragment {
 				}
 			});
 		}
-	
+		
+		SpinnerSource.setSelection(lastSource);
+		SpinnerSort.setSelection(lastOrder);
+
 		SpinnerSource.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				String source = ((TextView) arg1).getText().toString();
 				SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
-				if (!lastSearch.equals("")) {
-					new TorrentSearchTask().execute(lastSearch);
+				if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, source))){
+					preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
+					if (!lastSearch.equals("")) {
+						new TorrentSearchTask().execute(lastSearch);
+					}
 				}
+				
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -206,9 +212,11 @@ public class SearchFragment extends SynodroidFragment {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				String order = ((TextView) arg1).getText().toString();
 				SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
-				if (!lastSearch.equals("")) {
-					new TorrentSearchTask().execute(lastSearch);
+				if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, order))){
+					preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
+					if (!lastSearch.equals("")) {
+						new TorrentSearchTask().execute(lastSearch);
+					}
 				}
 			}
 
@@ -216,9 +224,6 @@ public class SearchFragment extends SynodroidFragment {
 			}
 		});
 
-		SpinnerSource.setSelection(lastSource);
-		SpinnerSort.setSelection(lastOrder);
-		
 		resList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				final RelativeLayout rl = (RelativeLayout) arg1;
@@ -313,11 +318,11 @@ public class SearchFragment extends SynodroidFragment {
 	 * @see android.app.Activity#onResume()
 	 */
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onStart() {
+		super.onStart();
 		
-		Intent intent = this.getActivity().getIntent();
 		Activity a = this.getActivity();
+		Intent intent = a.getIntent();
 		String action = intent.getAction();
 		
 		if (Intent.ACTION_SEARCH.equals(action)) {
@@ -328,18 +333,22 @@ public class SearchFragment extends SynodroidFragment {
 			
             if (getSupportedSites() != null) {
 				if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
+					String searchKeywords = intent.getStringExtra(SearchManager.QUERY);
+					lastSearch = searchKeywords;
+					if (!searchKeywords.equals("")) {
+						new TorrentSearchTask().execute(searchKeywords);
+						SearchRecentSuggestions suggestions = new SearchRecentSuggestions(a, SynodroidSearchSuggestion.AUTHORITY, SynodroidSearchSuggestion.MODE);
+						suggestions.saveRecentQuery(searchKeywords, null);
+					} else {
+						emptyText.setText(R.string.no_keyword);
+						emptyText.setVisibility(TextView.VISIBLE);
+						resList.setVisibility(TextView.GONE);
+					}
 				}
-				String searchKeywords = intent.getStringExtra(SearchManager.QUERY);
-				lastSearch = searchKeywords;
-				if (!searchKeywords.equals("")) {
-					new TorrentSearchTask().execute(searchKeywords);
-					SearchRecentSuggestions suggestions = new SearchRecentSuggestions(a, SynodroidSearchSuggestion.AUTHORITY, SynodroidSearchSuggestion.MODE);
-					suggestions.saveRecentQuery(searchKeywords, null);
-				} else {
-					emptyText.setText(R.string.no_keyword);
-					emptyText.setVisibility(TextView.VISIBLE);
-					resList.setVisibility(TextView.GONE);
-				}
+				//Mark intent as already processed
+				intent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+				a.setIntent(intent);
+
 			} else {
 				try{
 					if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
