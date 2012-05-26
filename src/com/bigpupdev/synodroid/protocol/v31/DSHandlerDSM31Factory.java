@@ -47,17 +47,19 @@ public class DSHandlerDSM31Factory extends DSMHandlerFactory {
 	// Download station handler
 	private DSHandler dsHandler;
 	private boolean DEBUG;
-
+	private boolean autoDetect;
+	
 	/**
 	 * Constructor for the DSM 3.1 handler
 	 * 
 	 * @param serverP
 	 *            The synology server
 	 */
-	public DSHandlerDSM31Factory(SynoServer serverP, boolean debug) {
+	public DSHandlerDSM31Factory(SynoServer serverP, boolean debug, boolean autoDetectP) {
 		server = serverP;
 		dsHandler = new DSHandlerDSM31(serverP, debug);
 		DEBUG = debug;
+		autoDetect = autoDetectP;
 	}
 
 	/*
@@ -82,7 +84,7 @@ public class DSHandlerDSM31Factory extends DSMHandlerFactory {
 		else{
 			server.setConnected(true);
 			try{
-				server.setDsmVersion(this.getVersionFromServer(server), false);
+				server.setDsmVersion(this.getVersionFromServer(server, autoDetect, DEBUG), false);
 			}
 			catch (Exception e){
 				if (DEBUG) Log.e(Synodroid.DS_TAG, "Error while trying to guess DSM version.", e);
@@ -100,7 +102,7 @@ public class DSHandlerDSM31Factory extends DSMHandlerFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.bigpupdev.synodroid.common.protocol.DSMHandlerFactory#getDSHandler()
+	 * @see com.bigpupdev.synodroid.common.protocol.DSMHandlerFactory#SynoServer serverP, boolean debuggetDSHandler()
 	 */
 	@Override
 	public DSHandler getDSHandler() {

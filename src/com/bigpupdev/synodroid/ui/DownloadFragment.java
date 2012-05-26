@@ -44,6 +44,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.net.Uri;
@@ -71,6 +72,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * @author eric.taix at gmail.com
  */
 public class DownloadFragment extends SynodroidFragment implements OnCheckedChangeListener{
+	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	
 	// The connection dialog ID
 	private static final int CONNECTION_DIALOG_ID = 1;
@@ -479,6 +482,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	 * Show the dialog to connect to a server
 	 */
 	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated) {
+		SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, false);
+		
 		final Activity a = getActivity();
 		if (!connectDialogOpened && a != null) {
 			final Synodroid app = (Synodroid) a.getApplication();
@@ -486,7 +492,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				if (!app.isNetworkAvailable())
 					return;
 				
-				final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), app.DEBUG);
+				final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), app.DEBUG, autoDetect);
 				// If at least one server
 				if (servers.size() != 0) {
 					// If more than 1 server OR if we don't want to autoconnect then

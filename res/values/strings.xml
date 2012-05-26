@@ -385,4 +385,7 @@
 <string name="menu_searchengine">Edit search engines</string>
 <string name="search_engine_title">Search Engine Selection</string>
 <string name="action_set_searchengine">Saving Search Engine settings...</string>
+<string name="auto_DSM">Autodetect DSM Version</string>
+<string name="hint_auto_DSM">DSM version will be auto detected when connecting to the NAS.</string>
+
 </resources>

@@ -81,6 +81,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_DEBUG_LOG = "general_cat.debug_logging";
+	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	// Store the current max server id
 	private int maxServerId = 0;
 	// The dynamic servers category
@@ -157,6 +158,23 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 				} else {
 					preferences.edit().putBoolean(PREFERENCE_FULLSCREEN, false).commit();
 					getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				}
+				return true;
+			}
+		});
+		
+		final CheckBoxPreference autoDSM = new CheckBoxPreference(this);
+		autoDSM.setKey(PREFERENCE_AUTO_DSM);
+		autoDSM.setTitle(R.string.auto_DSM);
+		autoDSM.setSummary(R.string.hint_auto_DSM);
+		generalCategory.addPreference(autoDSM);
+		autoDSM.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+				if (newValue.toString().equals("true")) {
+					preferences.edit().putBoolean(PREFERENCE_AUTO_DSM, true).commit();
+				} else {
+					preferences.edit().putBoolean(PREFERENCE_AUTO_DSM, false).commit();
 				}
 				return true;
 			}

@@ -14,9 +14,11 @@ import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
 import com.bigpupdev.synodroid.utils.ServiceHelper;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.app.Notification;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 public class DownloadOriginalIntentService extends IntentService{
@@ -26,6 +28,9 @@ public class DownloadOriginalIntentService extends IntentService{
 	public static String COOKIES = "COOKIES";
 	public static String PATH = "PATH";
 	public static String ORIGINAL_LINK = "ORIGINAL_LINK";
+	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
+	
 	private int DOL_ID = 44;
 	
 	int progress = 0;
@@ -56,13 +61,14 @@ public class DownloadOriginalIntentService extends IntentService{
 		String cookie = intent.getStringExtra(COOKIES);
 		String path = intent.getStringExtra(PATH);
 		boolean dbg = intent.getBooleanExtra(DEBUG, false);
-		
+		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, false);
 		
 		DSMVersion vers = DSMVersion.titleOf(dsm_version);
 		if (vers == null) {
 			vers = DSMVersion.VERSION2_2;
 		}
-		DSMHandlerFactory dsm = DSMHandlerFactory.getFactory(vers, null, dbg);
+		DSMHandlerFactory dsm = DSMHandlerFactory.getFactory(vers, null, dbg, autoDetect);
 		
 		String url = dsm.getDSHandler().getMultipartUri();
 		String content = null;

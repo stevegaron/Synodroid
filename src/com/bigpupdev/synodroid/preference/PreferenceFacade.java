@@ -131,7 +131,8 @@ public class PreferenceFacade {
 	/**
 	 * Load all servers from the shared preference
 	 */
-	public static ArrayList<SynoServer> loadServers(Context contextP, final SharedPreferences sharedPreferencesP, boolean debug) {
+	public static ArrayList<SynoServer> loadServers(Context contextP, final SharedPreferences sharedPreferencesP, boolean debug, final boolean autoDetect) {
+		
 		// Determine the current network access
 		WifiManager wifiMgr = (WifiManager) contextP.getSystemService(Context.WIFI_SERVICE);
 		boolean wifiOn = wifiMgr.isWifiEnabled();
@@ -148,7 +149,7 @@ public class PreferenceFacade {
 					SynoServerConnection loc = SynoServerConnection.createFromProperties(true, propertiesP, DEBUG);
 					SynoServerConnection pub = SynoServerConnection.createFromProperties(false, propertiesP, DEBUG);
 
-					SynoServer server = new SynoServer(propertiesP.getProperty(PreferenceFacade.NICKNAME_SUFFIX), loc, pub, propertiesP.getProperty(PreferenceFacade.USER_SUFFIX), propertiesP.getProperty(PreferenceFacade.PASSWORD_SUFFIX), DEBUG);
+					SynoServer server = new SynoServer(propertiesP.getProperty(PreferenceFacade.NICKNAME_SUFFIX), loc, pub, propertiesP.getProperty(PreferenceFacade.USER_SUFFIX), propertiesP.getProperty(PreferenceFacade.PASSWORD_SUFFIX), DEBUG, autoDetect);
 					// DSM version
 					DSMVersion vers = DSMVersion.titleOf(propertiesP.getProperty(PreferenceFacade.DSM_SUFFIX));
 					if (vers == null) {

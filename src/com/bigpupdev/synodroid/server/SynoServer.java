@@ -51,7 +51,7 @@ import android.util.Log;
  * @author Eric Taix (eric.taix at gmail.com)
  */
 public class SynoServer {
-
+	
 	// The nickname of the server
 	private String nickname = "";
 	// The version of DSM
@@ -96,6 +96,7 @@ public class SynoServer {
 
 	private String lasterror;
 	private boolean DEBUG;
+	private boolean autoDetect;
 
 	HashMap<String, String> map = new HashMap<String, String>();
 
@@ -131,15 +132,17 @@ public class SynoServer {
 	/**
 	 * Constructor which set all server's informations. No connection are made when calling the constructor.
 	 */
-	public SynoServer(String nicknameP, SynoServerConnection localConP, SynoServerConnection publicConnP, String userP, String passwordP, boolean debug) {
+	public SynoServer(String nicknameP, SynoServerConnection localConP, SynoServerConnection publicConnP, String userP, String passwordP, boolean debug, boolean autoDetectP) {
 		nickname = nicknameP;
 		localConnection = localConP;
 		publicConnection = publicConnP;
 		user = userP;
 		password = passwordP;
 		DEBUG = debug;
+		autoDetect = autoDetectP;
+		
 		// Create the appropriated factory
-		dsmFactory = DSMHandlerFactory.getFactory(dsmVersion, this, DEBUG);
+		dsmFactory = DSMHandlerFactory.getFactory(dsmVersion, this, DEBUG, autoDetect);
 		map = ErrorMap.initMap();
 	}
 
@@ -526,12 +529,14 @@ public class SynoServer {
 	 *            the dsmVersion to set
 	 */
 	synchronized public void setDsmVersion(DSMVersion dsmVersion, boolean reconnect) {
-		this.dsmVersion = dsmVersion;
-		if (reconnect)
-			connected = false;
-		if (DEBUG) Log.d(Synodroid.DS_TAG, "DSM Handler set to: "+ dsmVersion.getTitle());
-		// Create the appropriated factory
-		dsmFactory = DSMHandlerFactory.getFactory(dsmVersion, this, DEBUG);
+		if (reconnect) connected = false;
+		
+		if (!this.dsmVersion.equals(dsmVersion)){
+			if (DEBUG) Log.d(Synodroid.DS_TAG, "DSM Handler switching from "+this.dsmVersion.getTitle()+" to "+ dsmVersion.getTitle());
+			this.dsmVersion = dsmVersion;
+			// Create the appropriated factory
+			dsmFactory = DSMHandlerFactory.getFactory(dsmVersion, this, DEBUG, autoDetect);
+		}
 	}
 
 	/**

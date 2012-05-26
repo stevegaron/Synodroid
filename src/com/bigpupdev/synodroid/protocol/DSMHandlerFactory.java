@@ -18,6 +18,9 @@ package com.bigpupdev.synodroid.protocol;
 
 import org.json.JSONObject;
 
+import android.util.Log;
+
+import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.server.SynoServer;
 
 import com.bigpupdev.synodroid.data.DSMVersion;
@@ -45,31 +48,32 @@ public abstract class DSMHandlerFactory {
 	 * 
 	 * @return
 	 */
-	public final static DSMHandlerFactory getFactory(DSMVersion versionP, SynoServer serverP, boolean debug) {
+	public final static DSMHandlerFactory getFactory(DSMVersion versionP, SynoServer serverP, boolean debug, boolean autoDetect) {
 		DSMHandlerFactory result = null;
 		// Depending on DSM version
 		switch (versionP) {
 		case VERSION2_2:
-			return new DSHandlerDSM22Factory(serverP, debug);
+			return new DSHandlerDSM22Factory(serverP, debug, autoDetect);
 		case VERSION2_3:
-			return new DSHandlerDSM22Factory(serverP, debug);
+			return new DSHandlerDSM22Factory(serverP, debug, autoDetect);
 		case VERSION3_0:
-			return new DSHandlerDSM22Factory(serverP, debug);
+			return new DSHandlerDSM22Factory(serverP, debug, autoDetect);
 		case VERSION3_1:
-			return new DSHandlerDSM31Factory(serverP, debug);
+			return new DSHandlerDSM31Factory(serverP, debug, autoDetect);
 		case VERSION3_2:
-			return new DSHandlerDSM32Factory(serverP, debug);
+			return new DSHandlerDSM32Factory(serverP, debug, autoDetect);
 		case VERSION4_0:
-			return new DSHandlerDSM40Factory(serverP, debug);
+			return new DSHandlerDSM40Factory(serverP, debug, autoDetect);
 		}
 		return result;
 	}
 	
 	
-	protected DSMVersion getVersionFromServer(SynoServer serverP) throws Exception{
+	protected DSMVersion getVersionFromServer(SynoServer serverP, boolean autoDetect, boolean debug) throws Exception{
 		int version = 0;
 		// If we are logged on
-		if (serverP.isConnected()) {
+		if (serverP.isConnected() && autoDetect) {
+			if (debug) Log.d(Synodroid.DS_TAG, "Starting server auto-detection...");
 			// Execute
 			JSONObject json = null;
 			synchronized (serverP) {
@@ -77,8 +81,9 @@ public abstract class DSMHandlerFactory {
 			}
 			if (json != null){
 				version = Integer.parseInt(json.getJSONObject("Session").getString("version"));
+				if (debug) Log.d(Synodroid.DS_TAG, "Found version: "+version);
 				if (version < 1553){
-					// DSM 3.0
+					// DSM 2.2
 					return DSMVersion.VERSION2_2;
 				}
 				else if (version < 1869){
@@ -95,7 +100,8 @@ public abstract class DSMHandlerFactory {
 				}
 			}
 		}
-		throw new Exception("Invalid version!");
+		if (debug) Log.d(Synodroid.DS_TAG, "Skipping server auto-detection, will use previous DSM version.");
+		return serverP.getDsmVersion();
 	} 
 
 	/**

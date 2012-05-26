@@ -23,8 +23,10 @@ import com.bigpupdev.synodroid.protocol.QueryBuilder;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
 
+import android.app.Activity;
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -35,9 +37,11 @@ public class SynodroidDSMSearch extends ContentProvider {
 	public static final String PROVIDER_NAME = "com.bigpupdev.synodroid.utils.SynodroidDSMSearch";
 	public static final String CONTENT_URI = "content://" + PROVIDER_NAME + "/search/";
 	public static final String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
+	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	
 	private static final int SEARCH_TERM = 1;
-	private static final int MAX_LOOP = 5;
+	private static final int MAX_LOOP = 4;
 	
 	static {
 		SSLContext sc;
@@ -131,20 +135,24 @@ public class SynodroidDSMSearch extends ContentProvider {
 	
 	private List<SearchResult> search(String query, SortOrder order, ServerParam param) throws Exception{
 		List<SearchResult> results = new ArrayList<SearchResult>();
+		SharedPreferences preferences = getContext().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, false);
 		
 		DSMVersion vers = DSMVersion.titleOf(param.getDSMVersion());
 		if (vers == null) {
 			vers = DSMVersion.VERSION2_2;
 		}
-		if (vers.greaterThen(DSMVersion.VERSION3_1)){
 		
-			DSMHandlerFactory dsm = DSMHandlerFactory.getFactory(vers, null, param.getDbg());
+		if (vers.greaterThen(DSMVersion.VERSION3_1)){
+			
+			DSMHandlerFactory dsm = DSMHandlerFactory.getFactory(vers, null, param.getDbg(), autoDetect);
 			
 			String url = dsm.getDSHandler().getSearchUrl();
 			QueryBuilder builder = new QueryBuilder().add("action", "search").add("query", query);
 			JSONObject json = null;
 			json = sendJSONRequest(url, builder.toString(), "GET", param);
 			if (json != null){
+				if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Search query '"+query+"' queued for searching on the NAS.");
 				if (json.getBoolean("success") && json.getBoolean("running")){
 					String taskid = json.getString("taskid");
 					boolean stop = false;
@@ -155,6 +163,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 						if (json != null ){
 							if ( json.getBoolean("success") && ( !json.getBoolean("running") || loop == MAX_LOOP )){
 								JSONArray items = json.getJSONArray("items");
+								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Found "+items.length()+" results from the search.");
 								for (int i = 0; i < items.length(); i++){
 									JSONObject item = items.getJSONObject(i);
 									SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
@@ -164,11 +173,13 @@ public class SynodroidDSMSearch extends ContentProvider {
 							}
 							else{
 								loop ++;
-								Thread.sleep(2000);
+								Thread.sleep(5000);
+								if (param.getDbg()) Log.d(Synodroid.DS_TAG, "Search result incomplete, waiting 5 seconds for more results...");
 							}
 						}
 						else{
 							stop = true;
+							if (param.getDbg()) Log.w(Synodroid.DS_TAG, "Search failed !!");
 						}
 					}
 				}
@@ -227,12 +238,10 @@ public class SynodroidDSMSearch extends ContentProvider {
             }
 		}
 		
-		Log.d(Synodroid.DS_TAG, 
-                "Term: '" + term + "' Param: " + param.toString() + " Order: " + order.toString());
+		if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSM Search engine query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
         
 		if (!term.equals("")) {
-
-            // Perform the actual search
+			// Perform the actual search
             try {
                     List<SearchResult> results = search(term, order, param);
                     // Return the results as MatrixCursor
@@ -250,7 +259,7 @@ public class SynodroidDSMSearch extends ContentProvider {
                     }
             } catch (Exception e) {
                     // Log the error and stack trace, but also throw an explicit run-time exception for clarity 
-                    Log.e(Synodroid.DS_TAG, "Search provider error", e);
+            		if (param.getDbg())Log.e(Synodroid.DS_TAG, "Search provider error", e);
                     throw new RuntimeException(e.toString());
             }
 
