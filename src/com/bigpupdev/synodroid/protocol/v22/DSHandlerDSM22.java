@@ -731,6 +731,11 @@ class DSHandlerDSM22 implements DSHandler {
 	public void setSearchEngines(List<SearchEngine> seList) throws Exception {
 		throw new Exception("Unsupported");
 	}
+
+	@Override
+	public String getSearchUrl() throws Exception {
+		throw new Exception("Unsupported");
+	}
 	
 }
 

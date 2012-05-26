@@ -50,6 +50,7 @@ class DSHandlerDSM32 implements DSHandler {
 	private static final String TORRENT_INFO = "/webman/modules/DownloadStation/dlm/torrent_info.cgi";
 	private static final String INITDATA_URI = "/webman/initdata.cgi";
 	private static final String USER_SETTINGS = "/webman/usersettings.cgi";
+	private static final String SEARCH_URI = "/webman/modules/DownloadStation/dlm/btsearch.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
 	
 	/* The Synology's server */
@@ -868,8 +869,7 @@ class DSHandlerDSM32 implements DSHandler {
 		JSONArray jArr = new JSONArray();
 		// If we are logged on
 		if (server.isConnected()) {
-			for (int i = 0; i < seList.size(); i++){
-				SearchEngine se = seList.get(i);
+			for (SearchEngine se : seList){
 				jArr.put(new JSONObject().put("enable", se.enabled).put("name", se.name));
 			}
 			
@@ -880,5 +880,9 @@ class DSHandlerDSM32 implements DSHandler {
 				server.sendJSONRequest(USER_SETTINGS, qBuilder.toString(), "POST");
 			}
 		}
+	}
+
+	public String getSearchUrl() throws Exception {
+		return SEARCH_URI;
 	}
 }

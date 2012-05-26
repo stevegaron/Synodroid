@@ -183,5 +183,6 @@ public interface DSHandler {
 	
 	public List<SearchEngine> getSearchEngines() throws Exception;
 	public void setSearchEngines(List<SearchEngine> seList) throws Exception;
-
+	public String getSearchUrl() throws Exception;
+	
 }

@@ -1,5 +1,8 @@
 package com.bigpupdev.synodroid.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,8 +37,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.utils.SearchViewBinder;
+import com.bigpupdev.synodroid.utils.SynodroidDSMSearch;
 import com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion;
 
 public class SearchFragment extends SynodroidFragment {
@@ -110,19 +115,17 @@ public class SearchFragment extends SynodroidFragment {
 
 		// Gather the supported torrent sites
 		StringBuilder s = new StringBuilder();
-		Cursor sites = getSupportedSites();
+		List<Object[]> sites = getSupportedSites();
 		if (sites != null) {
-			if (sites.moveToFirst()) {
+			for (Object[] site :sites){
 				int i = 0;
-				do {
-					s.append(sites.getString(1));
-					s.append("\n");
-					if (pref_src.equals(sites.getString(1))) {
-						lastSource = i;
-					}
-					AdapterSource.add(sites.getString(1));
-					i++;
-				} while (sites.moveToNext());
+				s.append((String) site[1]);
+				s.append("\n");
+				if (pref_src.equals((String) site[1])) {
+					lastSource = i;
+				}
+				AdapterSource.add((String) site[1]);
+				i++;
 			}
 			emptyText.setText(getString(R.string.sites) + "\n" + s.toString());
 			btnInstall.setVisibility(Button.GONE);
@@ -271,12 +274,37 @@ public class SearchFragment extends SynodroidFragment {
 		return searchContent;
 	}
 	
-	private Cursor getSupportedSites() {
+	private List<Object[]> getSupportedSites() {
 		// Create the URI of the TorrentSitesProvider
 		String uriString = "content://org.transdroid.search.torrentsitesprovider/sites";
 		Uri uri = Uri.parse(uriString);
 		// Then query all torrent sites (no selection nor projection nor sort):
-		return getActivity().managedQuery(uri, null, null, null, null);
+		Cursor sites =  getActivity().managedQuery(uri, null, null, null, null);
+		Synodroid app = (Synodroid) getActivity().getApplication();
+		List<Object[]> ret = new ArrayList<Object[]>();
+		
+		if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+			Object[] values = new Object[4];
+            values[0] = 11223344;
+            values[1] = "DSM Search";
+            values[2] = "DSM Search";
+            values[3] = null;
+            ret.add(values);
+		}
+		if (sites != null){
+			if (sites.moveToFirst()) {
+				do {
+					Object[] values = new Object[4];
+		            values[0] = sites.getInt(0);
+		            values[1] = sites.getString(1);
+		            values[2] = sites.getString(2);
+		            values[3] = sites.getString(3);
+					ret.add(values);
+				} while (sites.moveToNext());
+			}
+		}
+		
+		return ret;
 	}
 
 	/*
@@ -352,15 +380,25 @@ public class SearchFragment extends SynodroidFragment {
 		@Override
 		protected Cursor doInBackground(String... params) {
 			try {
-				// Create the URI of the TorrentProvider
-				String uriString = "content://org.transdroid.search.torrentsearchprovider/search/" + params[0];
-				Uri uri = Uri.parse(uriString);
-				// Then query for this specific record (no selection nor projection nor sort):
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "");
 				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "");
-
-				return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { pref_src }, pref_order);
+				if (pref_src.equals("DSM Search")){
+					Synodroid app = (Synodroid) getActivity().getApplication();
+					
+					return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, pref_order);
+				
+				}
+				else{
+					// Create the URI of the TorrentProvider
+					String uriString = "content://org.transdroid.search.torrentsearchprovider/search/" + params[0];
+					Uri uri = Uri.parse(uriString);
+					// Then query for this specific record (no selection nor projection nor sort):
+					
+					return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { pref_src }, pref_order);
+				}
+				
+				
 			} catch (Exception e) {
 				return null;
 			}
