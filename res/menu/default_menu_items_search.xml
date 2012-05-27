@@ -4,7 +4,8 @@
     <item android:id="@+id/menu_search_engine"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/menu_searchengine"
-        android:orderInCategory="0" 
-        android:showAsAction="ifRoom|withText" android:visible="false"/>
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom|withText" 
+        android:menuCategory="system"/>
 </menu>
 
