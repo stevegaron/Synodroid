@@ -10,6 +10,7 @@ package com.bigpupdev.synodroid.protocol;
 
 import java.util.List;
 
+import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.Task;
@@ -182,6 +183,8 @@ public interface DSHandler {
 	 * @throws Exception
 	 */
 	public void stopAll(List<Task> taskP) throws Exception;
+	
+	public List<Folder> getDirectoryListing(String srcPath) throws Exception;
 	
 	public List<SearchEngine> getSearchEngines() throws Exception;
 	public void setSearchEngines(List<SearchEngine> seList) throws Exception;

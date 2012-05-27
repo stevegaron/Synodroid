@@ -23,6 +23,7 @@ import com.bigpupdev.synodroid.utils.Utils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.Task;
@@ -736,6 +737,11 @@ class DSHandlerDSM22 implements DSHandler {
 
 	public List<SearchResult> search(String term, SortOrder order, int start,
 			int limit) throws Exception {
+		throw new Exception("Unsupported");
+	}
+
+	@Override
+	public List<Folder> getDirectoryListing(String srcPath) throws Exception {
 		throw new Exception("Unsupported");
 	}
 	

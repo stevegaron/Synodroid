@@ -78,22 +78,6 @@
         </Spinner>
 
         <TextView
-            android:id="@+id/TextView06"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:text="@string/destination"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </TextView>
-
-        <Spinner
-            android:id="@+id/destination"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/destination_array" >
-        </Spinner>
-
-        <TextView
             android:id="@+id/TextView01"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

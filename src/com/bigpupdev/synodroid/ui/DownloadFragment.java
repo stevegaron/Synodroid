@@ -18,10 +18,13 @@ import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
+import com.bigpupdev.synodroid.action.GetDirectoryListShares;
 import com.bigpupdev.synodroid.action.SetShared;
 import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
+import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.SharedDirectory;
+import com.bigpupdev.synodroid.data.SharedFolderSelection;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskContainer;
@@ -263,26 +266,66 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received shared directory listing message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			List<SharedDirectory> newDirs = (List<SharedDirectory>) msg.obj;
-			final String[] dirNames = new String[newDirs.size()];
-			int selected = -1;
-			for (int iLoop = 0; iLoop < newDirs.size(); iLoop++) {
-				SharedDirectory sharedDir = newDirs.get(iLoop);
-				dirNames[iLoop] = sharedDir.name;
-				if (sharedDir.isCurrent) {
-					selected = iLoop;
-				}
-			}
 			AlertDialog.Builder builder = new AlertDialog.Builder(a);
-			builder.setTitle(getString(R.string.shared_dir_title));
-			builder.setSingleChoiceItems(dirNames, selected, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int item) {
-					dialog.dismiss();
-					Synodroid app = (Synodroid) a.getApplication();
-					app.executeAsynchronousAction(DownloadFragment.this, new SetShared(null, dirNames[item]), true);
+			
+			if (((Synodroid)a.getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+				final SharedFolderSelection sf = (SharedFolderSelection) msg.obj;
+				final String[] dirNames = new String[sf.childrens.size()];
+				final String[] dirIDs = new String[sf.childrens.size()];
+				for (int iLoop = 0; iLoop < sf.childrens.size(); iLoop++) {
+					Folder sharedDir = sf.childrens.get(iLoop);
+					dirNames[iLoop] = sharedDir.name;
+					dirIDs[iLoop] = sharedDir.id;
+					
 				}
-			});
+				builder.setTitle(getString(R.string.shared_dir_title)+":\n"+sf.name);
+				builder.setItems(dirNames, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						dialog.dismiss();
+						Synodroid app = (Synodroid) a.getApplication();
+						app.executeAsynchronousAction(DownloadFragment.this, new GetDirectoryListShares(dirIDs[item]), true);
+					}
+				});
+				builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						dialog.dismiss();
+					}
+				});
+				if (!sf.name.equals("/")){
+					builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int item) {
+							dialog.dismiss();
+							Synodroid app = (Synodroid) a.getApplication();
+							app.executeAsynchronousAction(DownloadFragment.this, new SetShared(null, sf.name), true);
+						}
+					});	
+				}
+				
 
+			}
+			else{
+				List<SharedDirectory> newDirs = (List<SharedDirectory>) msg.obj;
+				final String[] dirNames = new String[newDirs.size()];
+				int selected = -1;
+				for (int iLoop = 0; iLoop < newDirs.size(); iLoop++) {
+					SharedDirectory sharedDir = newDirs.get(iLoop);
+					dirNames[iLoop] = sharedDir.name;
+					if (sharedDir.isCurrent) {
+						selected = iLoop;
+					}
+				}
+				builder.setTitle(getString(R.string.shared_dir_title));
+				builder.setSingleChoiceItems(dirNames, selected, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						dialog.dismiss();
+						Synodroid app = (Synodroid) a.getApplication();
+						app.executeAsynchronousAction(DownloadFragment.this, new SetShared(null, dirNames[item]), true);
+					}
+				});
+
+				
+			}
+			
 			AlertDialog alert = builder.create();
 			try {
 				alert.show();

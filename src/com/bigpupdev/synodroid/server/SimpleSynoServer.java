@@ -27,6 +27,8 @@ import com.bigpupdev.synodroid.protocol.MultipartBuilder;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
 import com.bigpupdev.synodroid.utils.ServerParam;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.bigpupdev.synodroid.data.DSMVersion;
@@ -97,7 +99,17 @@ public class SimpleSynoServer {
 		return dsmVersion;
 	}
 
+	public String getUrl(){
+		return url;
+	}
 	
+	public void setCookie(String cookieP){
+		cookies = cookieP;
+	}
+	
+	public String getCookies(){
+		return cookies;
+	}
 	/**
 	 * Create a connection and add all required cookies information
 	 * 
@@ -108,13 +120,13 @@ public class SimpleSynoServer {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	private HttpURLConnection createConnection(String uriP, String requestP, String methodP, boolean log) throws MalformedURLException, IOException {
+	protected HttpURLConnection createConnection(String uriP, String requestP, String methodP, boolean log) throws MalformedURLException, IOException {
 		// Prepare the connection
-		HttpURLConnection con = (HttpURLConnection) new URL(url + Uri.encode(uriP, "/")).openConnection();
+		HttpURLConnection con = (HttpURLConnection) new URL(getUrl() + Uri.encode(uriP, "/")).openConnection();
 
 		// Add cookies if exist
 		if (cookies != null) {
-			con.addRequestProperty("Cookie", cookies);
+			con.addRequestProperty("Cookie", getCookies());
 			if (DEBUG) Log.d(Synodroid.DS_TAG, "Added cookie: " + cookies);
 		}
 		con.setDoOutput(true);
@@ -150,7 +162,121 @@ public class SimpleSynoServer {
 		return sendJSONRequest(uriP, requestP, methodP, true);	
 	}
 	
-		
+	/**
+	 * Send a request to the server.
+	 * 
+	 * @param uriP
+	 *            The part of the URI ie: /webman/doit.cgi
+	 * @param requestP
+	 *            The query in the form 'param1=foo&param2=yes'
+	 * @param methodP
+	 *            The method to send this request
+	 * @return A JSONArray containing the response of the server
+	 * @throws DSMException
+	 */
+	public JSONArray sendJSONRequestArray(String uriP, String requestP, String methodP) throws Exception {
+		return sendJSONRequestArray(uriP, requestP, methodP, true);	
+	}
+	
+	/**
+	 * Send a request to the server.
+	 * 
+	 * @param uriP
+	 *            The part of the URI ie: /webman/doit.cgi
+	 * @param requestP
+	 *            The query in the form 'param1=foo&param2=yes'
+	 * @param methodP
+	 *            The method to send this request
+	 * @return A JSONObject containing the response of the server
+	 * @throws DSMException
+	 */
+	public JSONArray sendJSONRequestArray(String uriP, String requestP, String methodP, boolean log) throws Exception {
+		HttpURLConnection con = null;
+		OutputStreamWriter wr = null;
+		BufferedReader br = null;
+		StringBuffer sb = null;
+		try {
+
+			// For some reason in Gingerbread I often get a response code of -1.
+			// Here I retry for a maximum of MAX_RETRY to send the request and it usually succeed at the second try...
+			int retry = 0;
+			int MAX_RETRY = 2;
+			while (retry <= MAX_RETRY) {
+				try{
+					// Create the connection
+					con = createConnection(uriP, requestP, methodP, log);
+					// Add the parameters
+					wr = new OutputStreamWriter(con.getOutputStream());
+					wr.write(requestP);
+					// Send the request
+					wr.flush();
+					wr.close();
+	
+					// Try to retrieve the session cookie
+					String newCookie = con.getHeaderField("set-cookie");
+					if (newCookie != null) {
+						synchronized (this){
+							setCookie(newCookie);
+						}
+						if (DEBUG) Log.d(Synodroid.DS_TAG, "Retreived cookies: " + cookies);
+					}
+					
+					// Now read the reponse and build a string with it
+					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+					sb = new StringBuffer();
+					String line;
+					while ((line = br.readLine()) != null) {
+						sb.append(line);
+					}
+					br.close();
+					// Verify is response if not -1, otherwise take reason from the header
+					if (con.getResponseCode() == -1) {
+						retry++;
+						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+					} else {
+						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
+						JSONArray respJSO = new JSONArray(sb.toString());
+						return respJSO;
+					}
+				}catch (Exception e){
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
+					retry ++;
+				}
+				finally{
+					con.disconnect();
+				}
+				
+			}
+			throw new Exception("Failed to read response from server. Please reconnect!");
+		}
+		// Special for SSL Handshake failure
+		catch (IOException ioex) {
+			if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", ioex);
+			String msg = ioex.getMessage();
+			if (msg != null && msg.indexOf("SSL handshake failure") != -1) {
+				// Don't need to translate: the opposite message (HTTP on a SSL port) is in english and come from the server
+				throw new Exception("SSL handshake failure.\n\nVerify if you don't speak HTTPS to a standard server port.\n");
+			} else {
+				throw ioex;
+			}
+		}
+		// Unexpected exception
+		catch (Exception ex) {
+			if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", ex);
+			throw ex;
+		}
+		// Finally close everything
+		finally {
+			if (con != null) {
+				con.disconnect();
+			}
+			wr = null;
+			br = null;
+			sb = null;
+			con = null;
+		}
+	}
+	
 	/**
 	 * Send a request to the server.
 	 * 
@@ -189,7 +315,7 @@ public class SimpleSynoServer {
 					String newCookie = con.getHeaderField("set-cookie");
 					if (newCookie != null) {
 						synchronized (this){
-							cookies = newCookie;
+							setCookie(newCookie);
 						}
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Retreived cookies: " + cookies);
 					}

@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.Task;
@@ -53,6 +54,7 @@ class DSHandlerDSM32 implements DSHandler {
 	private static final String INITDATA_URI = "/webman/initdata.cgi";
 	private static final String USER_SETTINGS = "/webman/usersettings.cgi";
 	private static final String SEARCH_URI = "/webman/modules/DownloadStation/dlm/btsearch.cgi";
+	private static final String FILE_URI = "/webman/modules/FileBrowser/file_share.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
 	private static final int MAX_LOOP = 4;
 	
@@ -761,13 +763,20 @@ class DSHandlerDSM32 implements DSHandler {
 	public void setSharedDirectory(Task taskP, String directoryP) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder setShared = new QueryBuilder().add("action", "shareset").add("share", directoryP);
 			if (taskP != null) {
-				setShared.add("taskid", "" + taskP.taskId);
-			}
-			// Execute
-			synchronized (server) {
-				server.sendJSONRequest(DM_URI_NEW, setShared.toString(), "POST");
+				QueryBuilder setShared = new QueryBuilder().add("action", "set_destination").add("task_ids", "[" + taskP.taskId + "]").add("destination", directoryP);
+				
+				// Execute
+				synchronized (server) {
+					server.sendJSONRequest(TORRENT_INFO, setShared.toString(), "POST");
+				}
+			}else{
+				QueryBuilder setShared = new QueryBuilder().add("action", "shareset").add("share", directoryP);
+				
+				// Execute
+				synchronized (server) {
+					server.sendJSONRequest(DM_URI_NEW, setShared.toString(), "POST");
+				}
 			}
 		}
 	}
@@ -952,5 +961,46 @@ class DSHandlerDSM32 implements DSHandler {
 		}
 	
 		return results;
+	}
+
+	/*	Template
+	** 	action:getshares
+	**	caldavignore:
+	**	node:remote/music/music/2004
+	**	*/
+	
+	public List<Folder> getDirectoryListing(String srcPath) throws Exception {
+		List<Folder> result = new ArrayList<Folder>();
+		String backPath = null;
+		if (!srcPath.equals("fm_root")){
+			backPath = srcPath.substring(0, srcPath.lastIndexOf("/"));
+			if (backPath.equals("remote")){
+				backPath = "fm_root";
+			}
+		}	
+		// If we are logged on
+		if (server.isConnected()) {
+			QueryBuilder getDirectory = new QueryBuilder().add("action", "getshares").add("node", srcPath);
+			// Execute
+			JSONArray json;
+			synchronized (server) {
+				try{
+					json = server.sendJSONRequestArray(FILE_URI, getDirectory.toString(), "GET");	
+				}
+				catch (Exception e){
+					Log.e(Synodroid.DS_TAG, "Directory Listing: Cannot go further in the directory.", e);
+					json = new JSONArray();
+				}
+				
+			}
+			if (backPath != null)
+				result.add(new Folder(backPath, "..", backPath));
+			for (int i=0; i<json.length(); i++){
+				if (!json.getJSONObject(i).getString("right").equals("RO")){
+					result.add(new Folder(json.getJSONObject(i).getString("id"), json.getJSONObject(i).getString("text"), json.getJSONObject(i).getString("spath")));
+				}
+			}
+		}
+		return result;
 	}
 }

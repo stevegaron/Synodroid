@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.data.SharedDirectory;
 import com.bigpupdev.synodroid.data.Task;
@@ -759,13 +760,20 @@ class DSHandlerDSM31 implements DSHandler {
 	public void setSharedDirectory(Task taskP, String directoryP) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder setShared = new QueryBuilder().add("action", "shareset").add("share", directoryP);
 			if (taskP != null) {
-				setShared.add("taskid", "" + taskP.taskId);
-			}
-			// Execute
-			synchronized (server) {
-				server.sendJSONRequest(DM_URI_NEW, setShared.toString(), "POST");
+				QueryBuilder setShared = new QueryBuilder().add("action", "set_destination").add("task_ids", "[" + taskP.taskId + "]").add("destination", directoryP);
+				
+				// Execute
+				synchronized (server) {
+					server.sendJSONRequest(TORRENT_INFO, setShared.toString(), "POST");
+				}
+			}else{
+				QueryBuilder setShared = new QueryBuilder().add("action", "shareset").add("share", directoryP);
+				
+				// Execute
+				synchronized (server) {
+					server.sendJSONRequest(DM_URI_NEW, setShared.toString(), "POST");
+				}
 			}
 		}
 	}
@@ -853,6 +861,10 @@ class DSHandlerDSM31 implements DSHandler {
 
 	public List<SearchResult> search(String term, SortOrder order, int start,
 			int limit) throws Exception {
+		throw new Exception("Unsupported");
+	}
+
+	public List<Folder> getDirectoryListing(String srcPath) throws Exception {
 		throw new Exception("Unsupported");
 	}
 }

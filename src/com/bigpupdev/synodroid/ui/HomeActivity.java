@@ -7,9 +7,11 @@ import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.ClearAllTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
+import com.bigpupdev.synodroid.action.GetDirectoryListShares;
 import com.bigpupdev.synodroid.action.ResumeAllAction;
 import com.bigpupdev.synodroid.action.StopAllAction;
 import com.bigpupdev.synodroid.adapter.TaskAdapter;
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
@@ -297,7 +299,12 @@ public class HomeActivity extends BaseActivity {
 			FragmentManager fm = getSupportFragmentManager();
 	        try{
 	        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-	        	app.executeAsynchronousAction(fragment_download, new EnumShareAction(), false);
+	        	if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+	        		app.executeAsynchronousAction(fragment_download, new GetDirectoryListShares(null), false);
+	        	}
+	        	else{
+	        		app.executeAsynchronousAction(fragment_download, new EnumShareAction(), false);
+	        	}
 	        }
 			catch (Exception e){
 				try{

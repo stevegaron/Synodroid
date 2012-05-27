@@ -11,10 +11,12 @@ import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.DeleteTaskAction;
 import com.bigpupdev.synodroid.action.DownloadOriginalLinkAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
+import com.bigpupdev.synodroid.action.GetDirectoryListShares;
 import com.bigpupdev.synodroid.action.GetFilesAction;
 import com.bigpupdev.synodroid.action.GetTaskPropertiesAction;
 import com.bigpupdev.synodroid.action.PauseTaskAction;
 import com.bigpupdev.synodroid.action.ResumeTaskAction;
+import com.bigpupdev.synodroid.action.SetShared;
 import com.bigpupdev.synodroid.action.UpdateFilesAction;
 import com.bigpupdev.synodroid.action.UpdateTaskAction;
 import com.bigpupdev.synodroid.action.UpdateTaskPropertiesAction;
@@ -25,8 +27,10 @@ import com.bigpupdev.synodroid.adapter.DetailAction;
 import com.bigpupdev.synodroid.adapter.DetailProgress;
 import com.bigpupdev.synodroid.adapter.DetailText;
 import com.bigpupdev.synodroid.data.DSMVersion;
+import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.OriginalFile;
 import com.bigpupdev.synodroid.data.SharedDirectory;
+import com.bigpupdev.synodroid.data.SharedFolderSelection;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskFile;
@@ -63,7 +67,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -91,7 +95,6 @@ public class DetailActivity extends BaseActivity{
 	private String destination;
 
 	private int[] priorities;
-	private String[] destinations;
 
 	// Flag to know of the user changed seeding parameters
 	private boolean seedingChanged = false;
@@ -105,6 +108,7 @@ public class DetailActivity extends BaseActivity{
 	private static final int MENU_RETRY = 5;
 	private static final int MENU_CLEAR = 6;
 	private static final int MENU_PARAMETERS = 7;
+	private static final int MENU_DESTINATION = 8;
 	private static final int TASK_PARAMETERS_DIALOG = 3;
 	private static final int TASK_PROPERTIES_DIALOG = 4;
 	
@@ -432,7 +436,6 @@ public class DetailActivity extends BaseActivity{
 			final EditText ul_rateP = (EditText) dialog.findViewById(R.id.ul_rate);
 			final EditText dl_rateP = (EditText) dialog.findViewById(R.id.dl_rate);
 			final EditText max_peersP = (EditText) dialog.findViewById(R.id.max_peers);
-			final Spinner destinationP = (Spinner) dialog.findViewById(R.id.destination);
 			final Spinner priorityP = (Spinner) dialog.findViewById(R.id.priority);
 			ul_rateP.setText("" + ul_rate);
 			dl_rateP.setText("" + dl_rate);
@@ -458,18 +461,6 @@ public class DetailActivity extends BaseActivity{
 				}
 			}
 			priorityP.setSelection(position);
-
-			// Try to find the right value
-			position = 0;
-			ArrayAdapter<String> sa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, destinations);
-			sa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			for (int iLoop = 0; iLoop < destinations.length; iLoop++) {
-				if (destinations[iLoop] == destination) {
-					position = iLoop;
-				}
-			}
-			destinationP.setAdapter(sa);
-			destinationP.setSelection(position);
 			break;
 		}
 	}
@@ -520,7 +511,6 @@ public class DetailActivity extends BaseActivity{
 			final EditText ul_rateP = (EditText) containerP.findViewById(R.id.ul_rate);
 			final EditText dl_rateP = (EditText) containerP.findViewById(R.id.dl_rate);
 			final EditText max_peersP = (EditText) containerP.findViewById(R.id.max_peers);
-			final Spinner destinationP = (Spinner) containerP.findViewById(R.id.destination);
 			final Spinner priorityP = (Spinner) containerP.findViewById(R.id.priority);
 			final Spinner seedTimeP = (Spinner) containerP.findViewById(R.id.seedingTime);
 			// Create the dialog
@@ -533,7 +523,6 @@ public class DetailActivity extends BaseActivity{
 						ul_rate = Integer.parseInt(ul_rateP.getText().toString());
 						dl_rate = Integer.parseInt(dl_rateP.getText().toString());
 						max_peers = Integer.parseInt(max_peersP.getText().toString());
-						destination = destinations[destinationP.getSelectedItemPosition()];
 						priority = priorities[priorityP.getSelectedItemPosition()];
 
 						int seedR = Integer.parseInt(seedRatioP.getText().toString());
@@ -559,8 +548,8 @@ public class DetailActivity extends BaseActivity{
 	
 	@SuppressWarnings("unchecked")
 	public void handleMessage(Message msgP) {
-		Synodroid app = (Synodroid) getApplication();
-		DetailMain main = (DetailMain) mAdapter.getItem(MAIN_ITEM);
+		final Synodroid app = (Synodroid) getApplication();
+		final DetailMain main = (DetailMain) mAdapter.getItem(MAIN_ITEM);
 		DetailFiles files = (DetailFiles)mAdapter.getItem(FILE_ITEM);
 		try{
 			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "DetailActivity: Message received with ID = "+ msgP.what);
@@ -595,24 +584,76 @@ public class DetailActivity extends BaseActivity{
 
 			try {
 				showDialog(TASK_PROPERTIES_DIALOG);
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 			break;
 		case ResponseHandler.MSG_SHARED_DIRECTORIES_RETRIEVED:
 			try{
-				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Receive share directory listing message.");
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Received shared directory listing message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			List<SharedDirectory> newDirs = (List<SharedDirectory>) msgP.obj;
-			destinations = new String[newDirs.size()];
-			for (int iLoop = 0; iLoop < newDirs.size(); iLoop++) {
-				SharedDirectory sharedDir = newDirs.get(iLoop);
-				destinations[iLoop] = sharedDir.name;
-				if (sharedDir.isCurrent) {
-					destination = sharedDir.name;
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			
+			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+				final SharedFolderSelection sf = (SharedFolderSelection) msgP.obj;
+				final String[] dirNames = new String[sf.childrens.size()];
+				final String[] dirIDs = new String[sf.childrens.size()];
+				for (int iLoop = 0; iLoop < sf.childrens.size(); iLoop++) {
+					Folder sharedDir = sf.childrens.get(iLoop);
+					dirNames[iLoop] = sharedDir.name;
+					dirIDs[iLoop] = sharedDir.id;
+					
 				}
+				builder.setTitle(getString(R.string.shared_dir_title)+":\n"+sf.name);
+				builder.setItems(dirNames, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						dialog.dismiss();
+						app.executeAsynchronousAction(main, new GetDirectoryListShares(dirIDs[item]), true);
+					}
+				});
+				builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						dialog.dismiss();
+					}
+				});
+				if (!sf.name.equals("/")){
+					builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int item) {
+							dialog.dismiss();
+							app.executeAsynchronousAction(main, new SetShared(task, sf.name), true);
+						}
+					});	
+				}
+				
+
 			}
-			app.executeAsynchronousAction(main, new GetTaskPropertiesAction(task), false, false);
+			else{
+				List<SharedDirectory> newDirs = (List<SharedDirectory>) msgP.obj;
+				final String[] dirNames = new String[newDirs.size()];
+				int selected = -1;
+				for (int iLoop = 0; iLoop < newDirs.size(); iLoop++) {
+					SharedDirectory sharedDir = newDirs.get(iLoop);
+					dirNames[iLoop] = sharedDir.name;
+					if (sharedDir.isCurrent) {
+						selected = iLoop;
+					}
+				}
+				builder.setTitle(getString(R.string.shared_dir_title));
+				builder.setSingleChoiceItems(dirNames, selected, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						dialog.dismiss();
+						app.executeAsynchronousAction(main, new SetShared(task, dirNames[item]), true);
+					}
+				});
+
+				
+			}
+			
+			AlertDialog alert = builder.create();
+			try {
+				alert.show();
+			} catch (BadTokenException e) {
+				// Unable to show dialog probably because intent has been closed. Ignoring...
+			}
 			break;
 		// Details updated
 		case ResponseHandler.MSG_DETAILS_RETRIEVED:
@@ -643,7 +684,7 @@ public class DetailActivity extends BaseActivity{
 				((DetailTransfer)mAdapter.getItem(TRANSFER_ITEM)).transAdapter.updateDetails(buildTransferDetails(details));
 			}
 			getIntent().putExtra("com.bigpupdev.synodroid.ds.Details", task);
-			
+			destination = details.destination;
 			setStatus(details.getStatus());
 			updateActionBarTitle(details.fileName);
 			menuHelperInvalidate();
@@ -758,6 +799,9 @@ public class DetailActivity extends BaseActivity{
 				menu.add(0, MENU_PARAMETERS, 0, getString(R.string.task_parameters)).setIcon(android.R.drawable.ic_menu_preferences).setEnabled(false);
 			}
 		}
+		if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
+			menu.add(0, MENU_DESTINATION, 0, getString(R.string.destination)).setIcon(android.R.drawable.ic_menu_share).setEnabled(true);
+		}
 		return super.onPrepareOptionsMenu(menu);
 	}
 	
@@ -804,8 +848,8 @@ public class DetailActivity extends BaseActivity{
 				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu task properties selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			if (app.getServer().getDsmVersion() == DSMVersion.VERSION3_1 || app.getServer().getDsmVersion() == DSMVersion.VERSION3_2 || app.getServer().getDsmVersion() == DSMVersion.VERSION4_0) {
-				app.executeAsynchronousAction(main, new EnumShareAction(), false, false);
+			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)) {
+				app.executeAsynchronousAction(main, new GetTaskPropertiesAction(task), false, false);
 			} else {
 				try {
 					showDialog(TASK_PARAMETERS_DIALOG);
@@ -813,6 +857,19 @@ public class DetailActivity extends BaseActivity{
 					// Dialog failed to display. Probably already displayed. Ignore!
 				}
 			}
+			return true;
+		}
+		else if (item.getItemId() == MENU_DESTINATION){
+			try{
+				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu destination selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+        		app.executeAsynchronousAction(main, new GetDirectoryListShares("remote/"+destination), false);
+        	}
+        	else{
+        		app.executeAsynchronousAction(main, new EnumShareAction(), false);
+        	}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -848,7 +905,7 @@ public class DetailActivity extends BaseActivity{
 		}
 
 		if (server != null) {
-			if (server.getDsmVersion() == DSMVersion.VERSION3_1 || server.getDsmVersion() == DSMVersion.VERSION3_2 || app.getServer().getDsmVersion() == DSMVersion.VERSION4_0) {
+			if (server.getDsmVersion().greaterThen(DSMVersion.VERSION3_0)) {
 				if (files != null && files.fileAdapter != null){
 					modifiedTaskFiles = files.fileAdapter.getModifiedTaskList();
 				}
