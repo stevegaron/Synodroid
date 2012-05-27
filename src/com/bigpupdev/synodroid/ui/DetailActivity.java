@@ -800,7 +800,7 @@ public class DetailActivity extends BaseActivity{
 			}
 		}
 		if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
-			menu.add(0, MENU_DESTINATION, 0, getString(R.string.destination)).setIcon(android.R.drawable.ic_menu_share).setEnabled(true);
+			menu.add(0, MENU_DESTINATION, 0, getString(R.string.menu_destination)).setIcon(android.R.drawable.ic_menu_share).setEnabled(true);
 		}
 		return super.onPrepareOptionsMenu(menu);
 	}
