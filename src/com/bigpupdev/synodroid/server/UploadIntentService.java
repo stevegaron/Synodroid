@@ -2,6 +2,7 @@ package com.bigpupdev.synodroid.server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.security.SecureRandom;
 
@@ -92,8 +93,7 @@ public class UploadIntentService extends IntentService{
 		try {
 			content = dsm.getDSHandler().generateMultipart(uri, shared);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			if (dbg) Log.e(Synodroid.DS_TAG, "UploadIntentService: Error while building multipart.", e1);
 		}
 		
 		if (content != null){
@@ -113,23 +113,32 @@ public class UploadIntentService extends IntentService{
 						conn.setFixedLengthStreamingMode(content.length);
 						
 						// Write the multipart
-						int offset = 0;
-						int size = 1024;
-						int lenBytes = Math.min(size, content.length);
-						long lastUpdate = 0;
-						while (content.length > offset){
-							lenBytes = Math.min(content.length-offset, size);
-							conn.getOutputStream().write(content, offset, lenBytes);
-							offset += lenBytes;
-							progress = (int) ((float) offset / (float )content.length * 100);
-							if (((lastUpdate + 250) < System.currentTimeMillis()) || offset == content.length){
-								lastUpdate = System.currentTimeMillis();
-				                ServiceHelper.updateProgress(this, notification, progress, UL_ID);
+						OutputStream out = null;
+						try{
+							out = conn.getOutputStream();
+							int offset = 0;
+							int size = 1024;
+							int lenBytes = Math.min(size, content.length);
+							long lastUpdate = 0;
+							while (content.length > offset){
+								lenBytes = Math.min(content.length-offset, size);
+								out.write(content, offset, lenBytes);
+								offset += lenBytes;
+								progress = (int) ((float) offset / (float )content.length * 100);
+								if (((lastUpdate + 250) < System.currentTimeMillis()) || offset == content.length){
+									lastUpdate = System.currentTimeMillis();
+					                ServiceHelper.updateProgress(this, notification, progress, UL_ID);
+								}
+				                conn.getOutputStream().flush();
+								   
 							}
-			                conn.getOutputStream().flush();
-							   
 						}
-						conn.getOutputStream().close();
+						finally{
+							if (out != null) {
+								out.close();
+							}
+							out = null;
+						}
 						
 						// Now read the reponse and build a string with it
 						BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));

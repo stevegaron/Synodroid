@@ -48,8 +48,6 @@ public class SynoServer extends SimpleSynoServer{
 	
 	// The nickname of the server
 	private String nickname = "";
-	// The version of DSM
-	private DSMVersion dsmVersion = DSMVersion.VERSION2_2;
 	// Local connection through WIFI
 	private SynoServerConnection localConnection;
 	// Public connection
@@ -75,13 +73,9 @@ public class SynoServer extends SimpleSynoServer{
 	private boolean stop;
 	// Flag to pause the thread until it is interrupted
 	private boolean pause;
-	// The DSM protocol handler
-	private DSMHandlerFactory dsmFactory;
 	// The data's collector thread
 	private Thread collector;
-	// Cookies
-	private String cookies;
-
+	
 	// Flag to know is the server has been interrupted while sleeping
 	private boolean interrupted;
 
@@ -89,9 +83,7 @@ public class SynoServer extends SimpleSynoServer{
 	private ResponseHandler handler;
 
 	private String lasterror;
-	private boolean DEBUG;
-	private boolean autoDetect;
-
+	
 	HashMap<String, String> map = new HashMap<String, String>();
 
 	/**
@@ -108,20 +100,6 @@ public class SynoServer extends SimpleSynoServer{
 			ex.printStackTrace();
 		}
 	}
-
-	/**
-	 * A new SynoServer with no informations
-	 */
-	/*public SynoServer() {
-		initMap();
-		connected = false;
-		stop = false;
-		pause = false;
-		interrupted = false;
-		ascending = true;
-		sortAttribute = "task_id";
-		DEBUG = false;
-	}*/
 
 	/**
 	 * Constructor which set all server's informations. No connection are made when calling the constructor.

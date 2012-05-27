@@ -44,11 +44,11 @@ import android.util.Log;
  */
 public class SimpleSynoServer {
 	public boolean DEBUG = false;
-	private String cookies = "";
-	private DSMHandlerFactory dsmFactory; 
-	private DSMVersion dsmVersion;
-	private boolean autoDetect = false;
-	private String url;
+	protected String cookies = "";
+	protected DSMHandlerFactory dsmFactory; 
+	protected DSMVersion dsmVersion = DSMVersion.VERSION2_2;
+	protected boolean autoDetect = false;
+	protected String url;
 	
 	/**
 	 * Static intialization of the SSL factory to accept each certificate, even if a certificate is self signed

@@ -122,7 +122,7 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 			uri = Uri.fromFile(file);
 		} catch (Exception e) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Download Error: " + e);
+				if (((Synodroid)a.getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "Download Error.", e);
 			}catch (Exception ex){/*DO NOTHING*/}
 			try{
 				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Letting the NAS do the heavy lifting...");
