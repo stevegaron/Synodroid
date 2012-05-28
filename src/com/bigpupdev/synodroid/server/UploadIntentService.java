@@ -129,7 +129,7 @@ public class UploadIntentService extends IntentService{
 									lastUpdate = System.currentTimeMillis();
 					                ServiceHelper.updateProgress(this, notification, progress, UL_ID);
 								}
-				                conn.getOutputStream().flush();
+								out.flush();
 								   
 							}
 						}
