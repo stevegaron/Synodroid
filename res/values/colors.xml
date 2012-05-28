@@ -18,24 +18,6 @@
 
     <color name="body_text_1">#ff909090</color>
     <color name="body_text_2">#99909090</color>
-    <color name="body_text_disabled">#66909090</color>
-
-    <color name="body_text_1_inverse">#ff000000</color>
-    <color name="body_text_2_inverse">#99000000</color>
-
-    <color name="accent_1">#FFFFFFFF</color>
-    <color name="hyperlink">#ffff549f</color>
-    <color name="background_1">#ff000000</color>
-
-    <color name="whats_on_separator">#4d000000</color>
-
-    <color name="all_track_color">#ff222222</color>
-
-    <color name="block_column_1">#ff0fabff</color>
-    <color name="block_column_2">#ffdf1831</color>
-    <color name="block_column_3">#ff009939</color>
-    
-    <color name="background_not_selected">#FF000000</color>
-    <color name="background_selected">#18FFFFFF</color>
-    
+   
+   	<color name="accent_1">#FFFFFFFF</color>
 </resources>
