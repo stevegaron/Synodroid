@@ -963,12 +963,6 @@ class DSHandlerDSM32 implements DSHandler {
 		return results;
 	}
 
-	/*	Template
-	** 	action:getshares
-	**	caldavignore:
-	**	node:remote/music/music/2004
-	**	*/
-	
 	public List<Folder> getDirectoryListing(String srcPath) throws Exception {
 		List<Folder> result = new ArrayList<Folder>();
 		String backPath = null;

@@ -54,6 +54,7 @@ class DSHandlerDSM40 implements DSHandler {
 	private static final String INITDATA_URI = "/webman/initdata.cgi";
 	private static final String USER_SETTINGS = "/webman/usersettings.cgi";
 	private static final String SEARCH_URI = "/webman/3rdparty/modules/DownloadStation/dlm/btsearch.cgi";
+	private static final String FILE_URI = "/webman/modules/FileBrowser/file_share.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
 	private static final int MAX_LOOP = 4;
 	
@@ -963,7 +964,37 @@ class DSHandlerDSM40 implements DSHandler {
 	}
 
 	public List<Folder> getDirectoryListing(String srcPath) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Folder> result = new ArrayList<Folder>();
+		String backPath = null;
+		if (!srcPath.equals("fm_root")){
+			backPath = srcPath.substring(0, srcPath.lastIndexOf("/"));
+			if (backPath.equals("remote")){
+				backPath = "fm_root";
+			}
+		}	
+		// If we are logged on
+		if (server.isConnected()) {
+			QueryBuilder getDirectory = new QueryBuilder().add("action", "getshares").add("node", srcPath);
+			// Execute
+			JSONArray json;
+			synchronized (server) {
+				try{
+					json = server.sendJSONRequestArray(FILE_URI, getDirectory.toString(), "GET");	
+				}
+				catch (Exception e){
+					Log.e(Synodroid.DS_TAG, "Directory Listing: Cannot go further in the directory.", e);
+					json = new JSONArray();
+				}
+				
+			}
+			if (backPath != null)
+				result.add(new Folder(backPath, "..", backPath));
+			for (int i=0; i<json.length(); i++){
+				if (!json.getJSONObject(i).getString("right").equals("RO")){
+					result.add(new Folder(json.getJSONObject(i).getString("id"), json.getJSONObject(i).getString("text"), json.getJSONObject(i).getString("spath")));
+				}
+			}
+		}
+		return result;
 	}
 }
