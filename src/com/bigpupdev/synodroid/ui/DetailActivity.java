@@ -591,7 +591,7 @@ public class DetailActivity extends BaseActivity{
 				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Received shared directory listing message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
 			
 			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
 				final SharedFolderSelection sf = (SharedFolderSelection) msgP.obj;
@@ -715,7 +715,7 @@ public class DetailActivity extends BaseActivity{
 				OutputStream os = new FileOutputStream(file);
 				os.write(rawData.toString().getBytes());
 				os.close();
-				Toast toast = Toast.makeText(this, getString(R.string.action_download_original_saved), Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(DetailActivity.this, getString(R.string.action_download_original_saved), Toast.LENGTH_SHORT);
 				toast.show();
 			} catch (Exception e) {
 				// Unable to create file, likely because external storage is
@@ -723,7 +723,7 @@ public class DetailActivity extends BaseActivity{
 				try{
 					if (((Synodroid)getApplication()).DEBUG) Log.w(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
 				}catch (Exception ex){/*DO NOTHING*/}
-				Toast toast = Toast.makeText(this, getString(R.string.action_download_original_failed), Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(DetailActivity.this, getString(R.string.action_download_original_failed), Toast.LENGTH_LONG);
 				toast.show();
 			}
 			break;

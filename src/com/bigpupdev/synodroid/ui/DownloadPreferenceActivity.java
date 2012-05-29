@@ -392,7 +392,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 				servsTitle[iLoop] = servers.get(iLoop).title;
 			}
 			// Create the dialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			AlertDialog.Builder builder = new AlertDialog.Builder(DownloadPreferenceActivity.this);
 			builder.setTitle(getString(R.string.menu_delete_server));
 			builder.setMultiChoiceItems(servsTitle, null, new OnMultiChoiceClickListener() {
 				// Change delete state
@@ -806,7 +806,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadPreferenceActivity: No server where found by the wizard.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			AlertDialog.Builder builder = new AlertDialog.Builder(DownloadPreferenceActivity.this);
 			builder.setTitle(R.string.dialog_title_information).setMessage(R.string.wizard_no_server_found).setCancelable(false).setPositiveButton(R.string.button_ok, null).create().show();
 		}
 	}
