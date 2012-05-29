@@ -198,7 +198,7 @@ public class SearchFragment extends SynodroidFragment {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				String source = ((TextView) arg1).getText().toString();
 				SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, source))){
+				if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, "DSM Search"))){
 					preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
 					if (!lastSearch.equals("")) {
 						new TorrentSearchTask().execute(lastSearch);
@@ -214,7 +214,7 @@ public class SearchFragment extends SynodroidFragment {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				String order = ((TextView) arg1).getText().toString();
 				SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, order))){
+				if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders"))){
 					preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
 					if (!lastSearch.equals("")) {
 						new TorrentSearchTask().execute(lastSearch);
