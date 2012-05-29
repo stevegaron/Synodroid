@@ -339,7 +339,12 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			Synodroid app = (Synodroid) a.getApplication();
-			app.executeAsynchronousAction(this, new EnumShareAction(), false);
+			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+        		app.executeAsynchronousAction(this, new GetDirectoryListShares("fm_root"), false);
+        	}
+        	else{
+        		app.executeAsynchronousAction(this, new EnumShareAction(), false);
+        	}
 		}
 	}
 

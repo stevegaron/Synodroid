@@ -29,6 +29,7 @@ import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
 import com.bigpupdev.synodroid.utils.ServerParam;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bigpupdev.synodroid.data.DSMVersion;
@@ -235,7 +236,13 @@ public class SimpleSynoServer {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 					} else {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
-						JSONArray respJSO = new JSONArray(sb.toString());
+						JSONArray respJSO = null;
+						try{
+							respJSO = new JSONArray(sb.toString());
+						}
+						catch (JSONException je){
+							respJSO = new JSONArray();
+						}
 						return respJSO;
 					}
 				}catch (Exception e){
@@ -334,7 +341,13 @@ public class SimpleSynoServer {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 					} else {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
-						JSONObject respJSO = new JSONObject(sb.toString());
+						JSONObject respJSO = null;
+						try{
+							respJSO = new JSONObject(sb.toString());
+						}
+						catch (JSONException je){
+							respJSO = new JSONObject();
+						}
 						return respJSO;
 					}
 				}catch (Exception e){

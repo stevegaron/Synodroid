@@ -53,7 +53,7 @@ class DSHandlerDSM40 implements DSHandler {
 	private static final String TORRENT_INFO = "/webman/3rdparty/DownloadStation/dlm/torrent_info.cgi";
 	private static final String INITDATA_URI = "/webman/initdata.cgi";
 	private static final String USER_SETTINGS = "/webman/usersettings.cgi";
-	private static final String SEARCH_URI = "/webman/3rdparty/modules/DownloadStation/dlm/btsearch.cgi";
+	private static final String SEARCH_URI = "/webman/3rdparty/DownloadStation/dlm/btsearch.cgi";
 	private static final String FILE_URI = "/webman/modules/FileBrowser/file_share.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
 	private static final int MAX_LOOP = 4;
@@ -864,7 +864,13 @@ class DSHandlerDSM40 implements DSHandler {
 				json = server.sendJSONRequest(INITDATA_URI, "", "GET");
 			}
 			if (json != null){
-				JSONArray jsonArray = json.getJSONObject("UserSettings").getJSONObject("SYNO.SDS.DownloadStation.Application").getJSONArray("btsearchplugins");
+				JSONArray jsonArray = null;
+				try{
+					jsonArray = json.getJSONObject("UserSettings").getJSONObject("SYNO.SDS.DownloadStation.Application").getJSONArray("btsearchplugins");
+				}
+				catch (Exception e){
+					jsonArray = new JSONArray();
+				}
 				for (int i = 0; i < jsonArray.length(); i++){
 					SearchEngine se = new SearchEngine();
 					se.enabled = ((JSONObject) jsonArray.get(i)).getBoolean("enable");
