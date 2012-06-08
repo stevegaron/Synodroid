@@ -42,7 +42,7 @@ public class ResumeTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds.TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		serverP.getDSMHandlerFactory().getDSHandler().resume(task);
+		serverP.getDSMHandlerFactory().getDSHandler().resume(""+task.taskId);
 	}
 
 	/*

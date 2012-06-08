@@ -19,6 +19,7 @@ import com.bigpupdev.synodroid.ui.DownloadFragment;
 import com.bigpupdev.synodroid.ui.SearchFragment;
 import com.bigpupdev.synodroid.R;
 
+import com.bigpupdev.synodroid.action.DeleteMultipleTaskAction;
 import com.bigpupdev.synodroid.action.DeleteTaskAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
@@ -243,7 +244,8 @@ public class Synodroid extends Application {
 				}).create();
 				// d.setOwnerActivity(this); // why can't the builder do this?
 				d.show();
-			} else if (actionP instanceof DeleteTaskAction) {
+			}
+			else if (actionP instanceof DeleteTaskAction) {
 				currentServer.setRecurrentAction(fragmentP, null);
 				currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);
 				fragmentP.finish();
@@ -303,6 +305,16 @@ public class Synodroid extends Application {
 				// d.setOwnerActivity(this); // why can't the builder do this?
 				d.show();
 			}
+			else if (actionP instanceof DeleteMultipleTaskAction) {
+				Activity a = fragmentP.getActivity();
+				Dialog d = new AlertDialog.Builder(a).setTitle(R.string.delete_multiple).setMessage(R.string.dialog_multiple_confirm).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);
+					}
+				}).create();
+				// d.setOwnerActivity(this); // why can't the builder do this?
+				d.show();
+			} 
 			// Ok no problem do it
 			else {
 				currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);

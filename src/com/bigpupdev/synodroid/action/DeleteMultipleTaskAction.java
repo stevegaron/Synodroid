@@ -16,6 +16,8 @@
  */
 package com.bigpupdev.synodroid.action;
 
+import java.util.List;
+
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
@@ -27,13 +29,21 @@ import com.bigpupdev.synodroid.data.Task;
  * 
  * @author Eric Taix (eric.taix at gmail dot com)
  */
-public class DeleteTaskAction implements SynoAction {
+public class DeleteMultipleTaskAction implements SynoAction {
 
 	// The task to resume
-	private Task task;
+	private List<Task> tasks;
+	private String taskids;
 
-	public DeleteTaskAction(Task taskP) {
-		task = taskP;
+	public DeleteMultipleTaskAction(List<Task> tasksP) {
+		tasks = tasksP;
+		taskids = "";
+		for (Task task : tasks) {
+			if (!taskids.equals("")){
+				taskids += ":";
+			}
+			taskids += ""+task.taskId;
+		}
 	}
 
 	/*
@@ -42,7 +52,7 @@ public class DeleteTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds.TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		serverP.getDSMHandlerFactory().getDSHandler().delete(task.getStrID());
+		serverP.getDSMHandlerFactory().getDSHandler().delete(taskids);
 	}
 
 	/*
@@ -51,10 +61,7 @@ public class DeleteTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#getName()
 	 */
 	public String getName() {
-		if (task.taskId == -1) {
-			return "Removing all completed tasks...";
-		}
-		return "Removing task " + task.taskId;
+		return "Removing task " + taskids;
 	}
 
 	/*
@@ -63,10 +70,7 @@ public class DeleteTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#getToastId()
 	 */
 	public int getToastId() {
-		if (task.taskId == -1) {
-			return R.string.action_clearall;
-		}
-		return R.string.action_deleting;
+		return R.string.action_deleting_multiple;
 	}
 
 	/*
@@ -84,7 +88,7 @@ public class DeleteTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#getTask()
 	 */
 	public Task getTask() {
-		return task;
+		return null;
 	}
 
 }

@@ -48,7 +48,7 @@ public interface DSHandler {
 	 * @param taskP
 	 * @throws DSMException
 	 */
-	public void stop(final Task taskP) throws Exception;
+	public void stop(String taskids) throws Exception;
 
 	/**
 	 * Resume a torrent
@@ -56,7 +56,7 @@ public interface DSHandler {
 	 * @param torrentP
 	 * @throws DSMException
 	 */
-	public void resume(final Task taskP) throws Exception;
+	public void resume(String taskids) throws Exception;
 
 	/**
 	 * delete a torrent
@@ -64,7 +64,7 @@ public interface DSHandler {
 	 * @param torrentP
 	 * @throws DSMException
 	 */
-	public void delete(final Task taskP) throws Exception;
+	public void delete(String taskids) throws Exception;
 
 	/**
 	 * Clear all finished tasks

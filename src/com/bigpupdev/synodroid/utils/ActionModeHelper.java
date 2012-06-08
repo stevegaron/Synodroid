@@ -1,5 +1,8 @@
 package com.bigpupdev.synodroid.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -8,9 +11,10 @@ import android.view.MenuItem;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.action.DeleteTaskAction;
-import com.bigpupdev.synodroid.action.PauseTaskAction;
-import com.bigpupdev.synodroid.action.ResumeTaskAction;
+import com.bigpupdev.synodroid.action.DeleteMultipleTaskAction;
+import com.bigpupdev.synodroid.action.PauseMultipleTaskAction;
+import com.bigpupdev.synodroid.action.ResumeMultipleTaskAction;
+import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
 
 public class ActionModeHelper {
@@ -50,14 +54,17 @@ public class ActionModeHelper {
 
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
         	Synodroid app = (Synodroid) mCurrentFragment.getActivity().getApplication();
-			switch (menuItem.getItemId()) {
-                case R.id.menu_pause:
+        	List<Task> t_list= new ArrayList<Task>();
+        	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
+        		t_list.add(mCurrentFragment.checked_tasks.get(i));
+        	}
+        	
+        	switch (menuItem.getItemId()) {
+				case R.id.menu_pause:
                 	try{
                 		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode pause clicked.");
                 	}catch (Exception ex){/*DO NOTHING*/}
-                	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
-                		app.executeAction(mCurrentFragment, new PauseTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
-                	}
+                	app.executeAction(mCurrentFragment, new PauseMultipleTaskAction(t_list), false);
                 	actionMode.finish();
                 	app.forceRefresh();
                     return true;
@@ -65,9 +72,7 @@ public class ActionModeHelper {
                 	try{
                 		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode clear clicked.");
                 	}catch (Exception ex){/*DO NOTHING*/}
-                	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
-                		app.executeAction(mCurrentFragment, new DeleteTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
-                	}
+                	app.executeAction(mCurrentFragment, new DeleteMultipleTaskAction(t_list), false);
                 	actionMode.finish();
                 	app.forceRefresh();
                     return true;
@@ -75,9 +80,7 @@ public class ActionModeHelper {
                 	try{
                 		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode resume clicked.");
                 	}catch (Exception ex){/*DO NOTHING*/}
-                	for ( int i = mCurrentFragment.checked_tasks.size() -1 ; i >= 0 ; i--){
-                		app.executeAction(mCurrentFragment, new ResumeTaskAction(mCurrentFragment.checked_tasks.get(i)), false);
-                	}
+                	app.executeAction(mCurrentFragment, new ResumeMultipleTaskAction(t_list), false);
                 	actionMode.finish();
                 	app.forceRefresh();
                     return true;

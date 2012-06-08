@@ -120,4 +120,8 @@ public class Task implements Serializable {
 
 		return taskStat;
 	}
+	
+	public String getStrID(){
+		return ""+taskId;
+	}
 }

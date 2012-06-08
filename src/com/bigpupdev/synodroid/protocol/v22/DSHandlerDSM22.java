@@ -148,17 +148,17 @@ class DSHandlerDSM22 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#delete(com.bigpupdev.synodroid .common.data.Task)
 	 */
-	public void delete(Task taskP) throws Exception {
+	public void delete(String taskids) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
 			try {
-				QueryBuilder getAllRequest = new QueryBuilder().add("action", "delete").add("idList", "" + taskP.taskId);
+				QueryBuilder getAllRequest = new QueryBuilder().add("action", "delete").add("idList", taskids);
 				// Execute
 				synchronized (server) {
 					server.sendJSONRequest(DM_URI, getAllRequest.toString(), "GET");
 				}
 			} catch (Exception e) {
-				if (DEBUG) Log.e(Synodroid.DS_TAG, "Not expected exception occured while deleting id:" + taskP.taskId, e);
+				if (DEBUG) Log.e(Synodroid.DS_TAG, "Not expected exception occured while deleting id:" + taskids, e);
 				throw e;
 			}
 		}
@@ -190,10 +190,10 @@ class DSHandlerDSM22 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#resume(com.bigpupdev.synodroid .common.data.Task)
 	 */
-	public void resume(Task taskP) throws Exception {
+	public void resume(String taskids) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder getAllRequest = new QueryBuilder().add("action", "resume").add("idList", "" + taskP.taskId);
+			QueryBuilder getAllRequest = new QueryBuilder().add("action", "resume").add("idList", taskids);
 			// Execute
 			synchronized (server) {
 				server.sendJSONRequest(DM_URI, getAllRequest.toString(), "GET");
@@ -207,11 +207,16 @@ class DSHandlerDSM22 implements DSHandler {
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#resumeAll(List<com.bigpupdev. synodroid. common.data.Task>)
 	 */
 	public void resumeAll(List<Task> taskP) throws Exception {
+		String taskids = "";
 		for (Task task : taskP) {
 			if (task.status.equals(TaskStatus.TASK_PAUSED.toString())) {
-				resume(task);
+				if (!taskids.equals("")){
+					taskids += ":";
+				}
+				taskids += ""+task.taskId;
 			}
 		}
+		resume(taskids);
 	}
 
 	/*
@@ -219,10 +224,10 @@ class DSHandlerDSM22 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#stop(com.bigpupdev.synodroid. common.data.Task)
 	 */
-	public void stop(Task taskP) throws Exception {
+	public void stop(String taskids) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder getAllRequest = new QueryBuilder().add("action", "stop").add("idList", "" + taskP.taskId);
+			QueryBuilder getAllRequest = new QueryBuilder().add("action", "stop").add("idList", taskids);
 			// Execute
 			synchronized (server) {
 				server.sendJSONRequest(DM_URI, getAllRequest.toString(), "GET");
@@ -236,11 +241,16 @@ class DSHandlerDSM22 implements DSHandler {
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#stopAll(List<com.bigpupdev.synodroid . common.data.Task>)
 	 */
 	public void stopAll(List<Task> taskP) throws Exception {
+		String taskids = "";
 		for (Task task : taskP) {
 			if (task.status.equals(TaskStatus.TASK_DOWNLOADING.toString()) || task.status.equals(TaskStatus.TASK_PRE_SEEDING.toString()) || task.status.equals(TaskStatus.TASK_SEEDING.toString()) || task.status.equals(TaskStatus.TASK_HASH_CHECKING.toString()) || task.status.equals(TaskStatus.TASK_WAITING.toString())) {
-				stop(task);
+				if (!taskids.equals("")){
+					taskids += ":";
+				}
+				taskids += ""+task.taskId;
 			}
 		}
+		stop(taskids);
 	}
 
 	/*
