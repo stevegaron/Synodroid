@@ -52,7 +52,7 @@
 
 <string name="button_cancel">Cancel</string>
 <string name="label_dsm_version">Disk Station Manager</string>
-<string name="hint_dsm_version">&quot;Set you DSM's version&quot;</string>
+<string name="hint_dsm_version">&quot;Set your DSM's version&quot;</string>
 <string name="title_preference">Preferences</string>
 <string name="label_autorefresh">Auto refresh</string>
 <string name="hint_autorefresh_on">Auto resfresh is enabled</string>
@@ -392,5 +392,7 @@
 <string name="action_deleting_multiple">&quot;Removing selected tasks...%s&quot;</string>
 <string name="action_pausing_multiple">&quot;Pausing selected tasks...%s&quot;</string>
 <string name="action_resuming_multiple">&quot;Resuming selected tasks...%s&quot;</string>
+<string name="file_not_found">Failed to get access to one of the features. This is most likely due to a wrong DSM version selected. Use DSM autodetection in the settings...</string>
+<string name="failed_response">Failed to read response from server. Please reconnect!</string>
 
 </resources>

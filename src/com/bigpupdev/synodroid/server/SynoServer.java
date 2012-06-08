@@ -9,6 +9,8 @@
 package com.bigpupdev.synodroid.server;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -29,6 +31,7 @@ import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
+import com.bigpupdev.synodroid.utils.GenericException;
 import com.bigpupdev.synodroid.R;
 
 import com.bigpupdev.synodroid.action.AddTaskAction;
@@ -367,15 +370,27 @@ public class SynoServer extends SimpleSynoServer{
 		else if (dsmExP.getRootException() != null) {
 			if (dsmExP.getRootException() instanceof SocketException) {
 				msg = handlerP.getString(R.string.connect_nohost);
-			} else if (dsmExP.getRootException() instanceof SSLException) {
+			} 
+			else if (dsmExP.getRootException() instanceof SSLException) {
 				try {
 					msg = MessageFormat.format(handlerP.getString(R.string.connect_ssl_error), new Object[] { dsmExP.getCause().getMessage() });
 				} catch (Exception e) {
 					msg = handlerP.getString(R.string.port_mismatch);
 				}
-			} else if (dsmExP.getRootException() instanceof SocketTimeoutException) {
+			} 
+			else if (dsmExP.getRootException() instanceof EOFException) {
+				msg = handlerP.getString(R.string.port_mismatch);
+			} 
+			else if (dsmExP.getRootException() instanceof GenericException) {
+				msg = handlerP.getString(R.string.failed_response);
+			} 
+			else if (dsmExP.getRootException() instanceof SocketTimeoutException) {
 				msg = handlerP.getString(R.string.connect_nohost);
-			} else {
+			} 
+			else if (dsmExP.getRootException() instanceof FileNotFoundException) {
+				msg = handlerP.getString(R.string.file_not_found);
+			} 
+			else {
 				String m = dsmExP.getRootException().getMessage();
 				if (m != null) {
 					msg = m;

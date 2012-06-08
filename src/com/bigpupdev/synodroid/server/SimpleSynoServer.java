@@ -9,15 +9,19 @@
 package com.bigpupdev.synodroid.server;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.net.URL;
 import java.security.SecureRandom;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.TrustManager;
 
 import com.bigpupdev.synodroid.Synodroid;
@@ -26,6 +30,7 @@ import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
 import com.bigpupdev.synodroid.protocol.MultipartBuilder;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
+import com.bigpupdev.synodroid.utils.GenericException;
 import com.bigpupdev.synodroid.utils.ServerParam;
 
 import org.json.JSONArray;
@@ -196,6 +201,7 @@ public class SimpleSynoServer {
 		OutputStreamWriter wr = null;
 		BufferedReader br = null;
 		StringBuffer sb = null;
+		Exception last_exception = null;
 		try {
 
 			// For some reason in Gingerbread I often get a response code of -1.
@@ -245,43 +251,48 @@ public class SimpleSynoServer {
 						}
 						return respJSO;
 					}
-				}catch (Exception e){
+				}
+				catch (EOFException e){
+					if (DEBUG) Log.w(Synodroid.DS_TAG, "Caught EOFException while contacting the server, retying...");
+					retry ++;
+					last_exception = e;
+				}
+				catch (SocketException e){
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught SocketException while contacting the server, stopping...");
+					throw e;
+				}
+				catch (SSLHandshakeException e) {
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught SSLHandshakeException while contacting the server, stopping...");
+					throw e;
+				}
+				catch (FileNotFoundException e){
+					String msg = e.getMessage();
+					if (DEBUG) Log.w(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version...");
+					throw e;
+				}
+				catch (Exception e){
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
 					retry ++;
+					last_exception = e;
 				}
 				finally{
 					con.disconnect();
 				}
 				
 			}
-			throw new Exception("Failed to read response from server. Please reconnect!");
+			if (last_exception != null) throw last_exception;
+			throw new GenericException();
 		}
-		// Special for SSL Handshake failure
-		catch (IOException ioex) {
-			if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", ioex);
-			String msg = ioex.getMessage();
-			if (msg != null && msg.indexOf("SSL handshake failure") != -1) {
-				// Don't need to translate: the opposite message (HTTP on a SSL port) is in english and come from the server
-				throw new Exception("SSL handshake failure.\n\nVerify if you don't speak HTTPS to a standard server port.\n");
-			} else {
-				throw ioex;
-			}
-		}
-		// Unexpected exception
-		catch (Exception ex) {
-			if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", ex);
-			throw ex;
-		}
-		// Finally close everything
 		finally {
-			if (con != null) {
-				con.disconnect();
-			}
 			wr = null;
 			br = null;
 			sb = null;
 			con = null;
 		}
+	}
+	
+	public JSONObject sendJSONRequest(String uriP, String requestP, String methodP, boolean log) throws Exception {
+		return sendJSONRequest(uriP, requestP, methodP, log, 2);
 	}
 	
 	/**
@@ -296,17 +307,17 @@ public class SimpleSynoServer {
 	 * @return A JSONObject containing the response of the server
 	 * @throws DSMException
 	 */
-	public JSONObject sendJSONRequest(String uriP, String requestP, String methodP, boolean log) throws Exception {
+	public JSONObject sendJSONRequest(String uriP, String requestP, String methodP, boolean log, int MAX_RETRY) throws Exception {
 		HttpURLConnection con = null;
 		OutputStreamWriter wr = null;
 		BufferedReader br = null;
 		StringBuffer sb = null;
+		Exception last_exception = null;
 		try {
 
 			// For some reason in Gingerbread I often get a response code of -1.
 			// Here I retry for a maximum of MAX_RETRY to send the request and it usually succeed at the second try...
 			int retry = 0;
-			int MAX_RETRY = 2;
 			while (retry <= MAX_RETRY) {
 				try{
 					// Create the connection
@@ -338,6 +349,7 @@ public class SimpleSynoServer {
 					// Verify is response if not -1, otherwise take reason from the header
 					if (con.getResponseCode() == -1) {
 						retry++;
+						last_exception = null;
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 					} else {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
@@ -350,38 +362,40 @@ public class SimpleSynoServer {
 						}
 						return respJSO;
 					}
-				}catch (Exception e){
+				}
+				catch (EOFException e){
+					if (DEBUG) Log.w(Synodroid.DS_TAG, "Caught EOFException while contacting the server, retying...");
+					retry ++;
+					last_exception = e;
+				}
+				catch (SocketException e){
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught SocketException while contacting the server, stopping...");
+					throw e;
+				}
+				catch (SSLHandshakeException e) {
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught SSLHandshakeException while contacting the server, stopping...");
+					throw e;
+				}
+				catch (FileNotFoundException e){
+					String msg = e.getMessage();
+					if (DEBUG) Log.w(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version...");
+					throw e;
+				}
+				catch (Exception e){
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
 					retry ++;
+					last_exception = e;
 				}
 				finally{
 					con.disconnect();
 				}
 				
 			}
-			throw new Exception("Failed to read response from server. Please reconnect!");
-		}
-		// Special for SSL Handshake failure
-		catch (IOException ioex) {
-			if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", ioex);
-			String msg = ioex.getMessage();
-			if (msg != null && msg.indexOf("SSL handshake failure") != -1) {
-				// Don't need to translate: the opposite message (HTTP on a SSL port) is in english and come from the server
-				throw new Exception("SSL handshake failure.\n\nVerify if you don't speak HTTPS to a standard server port.\n");
-			} else {
-				throw ioex;
-			}
-		}
-		// Unexpected exception
-		catch (Exception ex) {
-			if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", ex);
-			throw ex;
+			if (last_exception != null) throw last_exception;
+			throw new GenericException();
 		}
 		// Finally close everything
 		finally {
-			if (con != null) {
-				con.disconnect();
-			}
 			wr = null;
 			br = null;
 			sb = null;
@@ -397,6 +411,7 @@ public class SimpleSynoServer {
 		JSONObject respJSO = null;
 		int retry = 0;
 		int MAX_RETRY = 2;
+		Exception last_exception = null;
 		try {
 			while (retry <= MAX_RETRY) {
 				try {
@@ -425,19 +440,40 @@ public class SimpleSynoServer {
 						respJSO = new JSONObject(sb.toString());
 						return respJSO;
 					}
-				} catch (Exception e) {
+				} 
+				catch (EOFException e){
+					if (DEBUG) Log.w(Synodroid.DS_TAG, "Caught EOFException while contacting the server, retying...");
+					retry ++;
+					last_exception = e;
+				}
+				catch (SocketException e){
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught SocketException while contacting the server, stopping...");
+					throw e;
+				}
+				catch (SSLHandshakeException e) {
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught SSLHandshakeException while contacting the server, stopping...");
+					throw e;
+				}
+				catch (FileNotFoundException e){
+					String msg = e.getMessage();
+					if (DEBUG) Log.w(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version...");
+					throw e;
+				}
+				catch (Exception e){
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Caught exception while contacting the server, retying...", e);
 					retry ++;
+					last_exception = e;
+				}
+				finally{
+					conn.disconnect();
 				}
 			}
 		}
 		finally {
-			if (conn != null) {
-				conn.disconnect();
-			}
 			conn = null;
 		}
-		throw new Exception("Failed to read response from server. Please reconnect!");
+		if (last_exception != null) throw last_exception;
+		throw new GenericException();
 	}
 
 	

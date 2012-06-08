@@ -73,7 +73,7 @@ public class DSHandlerDSM22Factory extends DSMHandlerFactory {
 		String reason = null;
 		String pass = server.getPassword();
 		QueryBuilder builder = new QueryBuilder().add(LOGIN_USERNAME_KEY, server.getUser()).add(LOGIN_PASSWORD_KEY, pass);
-		JSONObject respJSO = server.sendJSONRequest(LOGIN_URI, builder.toString(), "POST", false);
+		JSONObject respJSO = server.sendJSONRequest(LOGIN_URI, builder.toString(), "POST", false, 0);
 		if (DEBUG) Log.d(Synodroid.DS_TAG, "JSON response is:" + respJSO);
 		result = respJSO.getString(LOGIN_RESULT_KEY);
 		// If no success or not login success
