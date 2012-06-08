@@ -386,7 +386,7 @@
 <string name="search_engine_title">DSM Search - Selection des plugins</string>
 <string name="action_set_searchengine">Sauvegarde des paramètres de recherche...</string>
 <string name="auto_DSM">Autodetection de la version de DSM</string>
-<string name="hint_auto_DSM">La version de DSM sera auto-détecté L\'orsque synodroid ce connect au NAS</string>
+<string name="hint_auto_DSM">La version de DSM sera auto-détecté L\'orsque synodroid ce connecte au NAS</string>
 <string name="delete_multiple">Suppression de plusieur tâches...</string>
 <string name="dialog_multiple_confirm">&quot;Les tâches non terminés seront supprimées. Etes-vous sur de vouloir continuer?&quot;</string>
 <string name="action_deleting_multiple">&quot;Supression des tâches sélectionées...%s&quot;</string>
