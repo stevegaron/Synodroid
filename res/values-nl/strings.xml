@@ -258,7 +258,7 @@
 <string name="installTorrentSearchAlternate">Alternatieve downloaden</string>
 <string name="logo_search">Torrents zoeken</string>
 <string name="dialog_message_confirm_add">Weet u zeker dat u dit bestand wilt downloaden?</string>
-<string name="provider_missing">Zoekmachine niet geïnstalleerd, klik op de onderstaande knop om een zoekmachine te installeren.\n\n Let op! U moet Synodroid opnieuw opstarten om de zoekmachine in te schakelen.</string>
+<string name="provider_missing">Er is geen zoekmachine geïnstalleerd. Je kan je NAS updaten naar DSM 3.2+ of een zoekmachine installeren door op de onderstaande knop te klikken.\n\n Let op: Je zal Synodroid moeten herstarten om de zoekmachine te kunnen gebruiken...</string>
 <string name="searching">Zoeken...\n\n</string>
 <string name="no_results">Geen resultaten gevonden.\n\n</string>
 <string name="sites">Beschikbare websites:\n</string>
@@ -272,7 +272,7 @@
 <string name="wizard_no_server_found">Er is geen server op het netwerk gevonden. Controleer uw connectie en probeer het opnieuw.</string>
 <string name="err_nomarket">Android market is niet geïnstalleerd op dit apparaat.\n\nNeem contact op met de ontwikkelaars voor een kopie van Transdroid search.</string>
 <string name="err_nobrowser">Android browser is niet geïnstalleerd op dit apparaat.\n\nNeem contact op met de ontwikkelaars voor een kopie van Transdroid search.</string>
-<string name="err_provider_missing">Transdroid torrent search is niet geïnstalleerd op uw apparaat.\n\nVolg de instrusties op de zoek-tab om het te installeren.</string>
+<string name="err_provider_missing">Er is geen zoekmachine geïnstalleerd.\n\nVolg de instructies op deze pagina om er een te installeren.</string>
 <string name="help">Help</string>
 
 <string name="label_usewifi">Verbinden vanaf wifi</string>
@@ -379,4 +379,20 @@
     
 <string name="selected">geselecteerd</string>
 <string name="upload_failed">Upload van de bestanden naar de NAS is mislukt. Opnieuw ...</string>
+
+
+<string name="action_se_get">Zoekmachines ophalen...</string>
+<string name="menu_searchengine">Bewerk zoekmachines</string>
+<string name="search_engine_title">DSM Zoeken - Plugin Selectie</string>
+<string name="action_set_searchengine">Instellingen van zoekmachine opslaan...</string>
+<string name="auto_DSM">Automatisch DSM Versie herkennen</string>
+<string name="hint_auto_DSM">DSM versie wordt automatisch herkend bij het verbinden naar de NAS</string>
+<string name="delete_multiple">Wissen van meerdere taken</string>
+<string name="dialog_multiple_confirm">&quot;Onbeëindigde taken zullen worden beëindigd. Weet u zeker dat u verder wilt gaan?&quot;</string>
+<string name="action_deleting_multiple">&quot;Geselecteerde taken verwijderen...%s&quot;</string>
+<string name="action_pausing_multiple">&quot;Geselecteerde taken pauseren...%s&quot;</string>
+<string name="action_resuming_multiple">&quot;Geselecteerde taken hervatten...%s&quot;</string>
+<string name="file_not_found">Mislukt om toegang te krijgen tot een van de services. Dit kan komen door een verkeerd geselecteerde DSM versie. U kunt auto-herkenning aanzetten in de instellingen om de DSM versie automatisch vast te stellen...</string>
+<string name="failed_response">Mislukt om het antwoord van de server te verwerken. Maak opnieuw verbinding!</string>
+
 </resources>
