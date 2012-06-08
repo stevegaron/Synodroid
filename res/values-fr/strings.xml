@@ -271,7 +271,7 @@
 <string name="wizard_no_server_found">Aucun serveur n\'a pu être trouvé sur le réseau. Vérifiez votre connexion et essayez à nouveau.</string>
 <string name="err_nomarket">Android market n\'est pas installé sur votre appareil.\n\nContactez le développeur pour avoir une version de Transdroid Search.</string>
 <string name="err_nobrowser">Android Browser n\'est pas installé sur votre appareil.\n\nContactez le développeur pour avoir une version de Transdroid Search.</string>
-<string name="err_provider_missing">Aucun moteur de recherche n\'est pas installé sur votre appareil.\n\nSuivez les instructions sur cette page pour en installer un.</string>
+<string name="err_provider_missing">Aucun moteur de recherche n\'est installé sur votre appareil.\n\nSuivez les instructions sur cette page pour en installer un.</string>
 <string name="help">Aide</string>
 
 <string name="label_usewifi">Connexion depuis un réseau local</string>
