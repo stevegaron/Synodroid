@@ -267,7 +267,7 @@ public class SimpleSynoServer {
 				}
 				catch (FileNotFoundException e){
 					String msg = e.getMessage();
-					if (DEBUG) Log.w(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version...");
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version, stopping...");
 					throw e;
 				}
 				catch (Exception e){
@@ -378,7 +378,7 @@ public class SimpleSynoServer {
 				}
 				catch (FileNotFoundException e){
 					String msg = e.getMessage();
-					if (DEBUG) Log.w(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version...");
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version, stopping...");
 					throw e;
 				}
 				catch (Exception e){
@@ -456,7 +456,7 @@ public class SimpleSynoServer {
 				}
 				catch (FileNotFoundException e){
 					String msg = e.getMessage();
-					if (DEBUG) Log.w(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version...");
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Could not find file "+msg+"\nProbably wrong DSM version, stopping...");
 					throw e;
 				}
 				catch (Exception e){
