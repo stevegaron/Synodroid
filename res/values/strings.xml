@@ -388,7 +388,7 @@
 <string name="auto_DSM">Autodetect DSM Version</string>
 <string name="hint_auto_DSM">DSM version will be auto detected when connecting to the NAS</string>
 <string name="delete_multiple">Clearing multiple tasks</string>
-<string name="dialog_multiple_confirm">&quot;Unfinished tasks will be ternimated. Are you sure you want to continue?&quot;</string>
+<string name="dialog_multiple_confirm">&quot;Unfinished tasks will be terminated. Are you sure you want to continue?&quot;</string>
 <string name="action_deleting_multiple">&quot;Removing selected tasks...%s&quot;</string>
 <string name="action_pausing_multiple">&quot;Pausing selected tasks...%s&quot;</string>
 <string name="action_resuming_multiple">&quot;Resuming selected tasks...%s&quot;</string>
