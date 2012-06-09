@@ -15,7 +15,6 @@ import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
-import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.ui.DownloadPreferenceActivity;
 
 import android.app.Activity;
@@ -245,16 +244,9 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	if (UIUtils.isHoneycomb()){
-    		getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
-            getMenuInflater().inflate(R.menu.default_menu_items, menu);
-            getMenuInflater().inflate(R.menu.download_menu_items, menu);
-    	}
-    	else{
-    		getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
-            getMenuInflater().inflate(R.menu.download_menu_items, menu);
-            getMenuInflater().inflate(R.menu.default_menu_items, menu);
-    	}
+    	getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
+        getMenuInflater().inflate(R.menu.default_menu_items, menu);
+        getMenuInflater().inflate(R.menu.download_menu_items, menu);
     	super.onCreateOptionsMenu(menu);
         return true;
     }
