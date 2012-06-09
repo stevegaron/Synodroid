@@ -33,26 +33,12 @@
     	android:layout_height="fill_parent" 
     	android:isScrollContainer="true" 
     	android:layout_below="@+id/resList">
-		<Button android:layout_width="wrap_content" 
-			android:id="@+id/btnTorSearchInstAlternate" 
-			android:text="@string/installTorrentSearchAlternate" 
-			android:layout_height="wrap_content" 
-			android:layout_centerHorizontal="true"
-			android:layout_alignParentBottom="true"/>
-		<Button 
-			android:text="@string/installTorrentSearch" 
-			android:id="@+id/btnTorSearchInst" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-			android:layout_centerHorizontal="true"
-			android:layout_above="@+id/btnTorSearchInstAlternate"/>
 		<ScrollView
 		    android:id="@+id/empty_scroll"
 		    android:layout_below="@id/resList" 
 			android:layout_width="fill_parent"
 		    android:isScrollContainer="true"
-		    android:layout_height="fill_parent"
-			android:layout_above="@+id/btnTorSearchInst">
+		    android:layout_height="fill_parent">
 			<TextView 
 				android:id="@+id/empty" 
 				android:layout_width="fill_parent" 	

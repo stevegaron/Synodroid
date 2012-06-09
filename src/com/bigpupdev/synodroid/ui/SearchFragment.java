@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager.BadTokenException;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
@@ -50,15 +49,11 @@ public class SearchFragment extends SynodroidFragment {
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_SEARCH_SOURCE = "general_cat.search_source";
 	private static final String PREFERENCE_SEARCH_ORDER = "general_cat.search_order";
-	private static final String TORRENT_SEARCH_URL_DL = "http://transdroid.org/latest-search";
-	private static final String TORRENT_SEARCH_URL_DL_MARKET = "market://details?id=org.transdroid.search";
 	
 	private final String[] from = new String[] { "NAME", "SIZE", "ADDED", "LEECHERS", "SEEDERS", "TORRENTURL" };
 	private final int[] to = new int[] { R.id.result_title, R.id.result_size, R.id.result_date, R.id.result_leechers, R.id.result_seeds, R.id.result_url };
 	private TextView emptyText;
-	private Button btnInstall;
-	private Button btnAlternate;
-
+	
 	private Spinner SpinnerSource, SpinnerSort;
 	private ArrayAdapter<CharSequence> AdapterSource, AdapterSort;
 
@@ -88,9 +83,6 @@ public class SearchFragment extends SynodroidFragment {
 
 		emptyText = (TextView) searchContent.findViewById(R.id.empty);
 
-		btnInstall = (Button) searchContent.findViewById(R.id.btnTorSearchInst);
-		btnAlternate = (Button) searchContent.findViewById(R.id.btnTorSearchInstAlternate);
-		
 		SpinnerSource = (Spinner) searchContent.findViewById(R.id.srcSpinner);
 		SpinnerSort = (Spinner) searchContent.findViewById(R.id.sortSpinner);
 
@@ -131,8 +123,6 @@ public class SearchFragment extends SynodroidFragment {
 				i++;
 			}
 			emptyText.setText(getString(R.string.sites) + "\n" + s.toString());
-			btnInstall.setVisibility(Button.GONE);
-			btnAlternate.setVisibility(Button.GONE);
 			resList.setVisibility(ListView.GONE);
 
 		} else {
@@ -140,56 +130,6 @@ public class SearchFragment extends SynodroidFragment {
 			SpinnerSource.setVisibility(Spinner.GONE);
 			resList.setVisibility(ListView.GONE);
 			emptyText.setText(R.string.provider_missing);
-			btnInstall.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					Intent goToMarket = null;
-					goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse(TORRENT_SEARCH_URL_DL_MARKET));
-					try {
-						startActivity(goToMarket);
-					} catch (Exception e) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(a);
-						// By default the message is "Error Unknown"
-						builder.setMessage(R.string.err_nomarket);
-						builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-						AlertDialog errorDialog = builder.create();
-						try {
-							errorDialog.show();
-						} catch (BadTokenException ex) {
-							// Unable to show dialog probably because intent has been closed. Ignoring...
-						}
-					}
-
-				}
-			});
-			btnAlternate.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					Intent goToMarket = null;
-					goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse(TORRENT_SEARCH_URL_DL));
-					try {
-						startActivity(goToMarket);
-					} catch (Exception e) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(a);
-						// By default the message is "Error Unknown"
-						builder.setMessage(R.string.err_nobrowser);
-						builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-						AlertDialog errorDialog = builder.create();
-						try {
-							errorDialog.show();
-						} catch (BadTokenException ex) {
-							// Unable to show dialog probably because intent has been closed. Ignoring...
-						}
-					}
-
-				}
-			});
 		}
 		
 		SpinnerSource.setSelection(lastSource);
@@ -357,20 +297,6 @@ public class SearchFragment extends SynodroidFragment {
 						if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchFragment: No providers available to handle intent.");
 					}
 					catch (Exception ex){/*DO NOTHING*/}
-					
-		            AlertDialog.Builder builder = new AlertDialog.Builder(a);
-					builder.setMessage(R.string.err_provider_missing);
-					builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.cancel();
-						}
-					});
-					AlertDialog errorDialog = builder.create();
-					try {
-						errorDialog.show();
-					} catch (BadTokenException e) {
-						// Unable to show dialog probably because intent has been closed. Ignoring...
-					}
 				}
 			}
 			else{

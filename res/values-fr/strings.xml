@@ -257,7 +257,7 @@
 <string name="installTorrentSearchAlternate">Téléchargement alternatif pour Torrent Search</string>
 <string name="logo_search">Recherche de torrent</string>
 <string name="dialog_message_confirm_add">Etes-vous sûr de vouloir commencer le téléchargement de ce fichier?</string>
-<string name="provider_missing">Aucun moteur de recherche n\'est installé. Vous pouvez soit installer une version de DSM supérieure a 3.2 ou installer le moteur de recherche alternatif en appuyant sur le buton plus bas.\n\n Note: Vous devez redémarrer Synodroid après l\'installation du moteur de recherche alternatif pour activer la recherche.</string>
+<string name="provider_missing">Aucun moteur de recherche n\'est installé. Vous pouvez soit installer une version de DSM supérieure a 3.2 ou installer le moteur de recherche alternatif en appuyant sur le menu de mise-à-jour du moteur de recherche.\n\n Note: Vous devez redémarrer Synodroid après l\'installation du moteur de recherche alternatif pour activer la recherche.</string>
 <string name="searching">Recherche en cours...\n\n</string>
 <string name="no_results">Aucun résultat.\n\n</string>
 <string name="sites">Sites disponibles:\n</string>
@@ -374,7 +374,7 @@
    
 <string name="tasks">tâche(s)</string>
 <string name="magnet">Les liens Magnet ne fonctionnent seulement qu\'avec DSM 3.2 et plus...</string>
-<string name="update_search_engine">Mise-à-Jour du moteur de recherche</string>
+<string name="update_search_engine">Mise-à-jour du moteur de recherche</string>
 <string name="update_search_engine_toast">Téléchargement de la dernière version du moteur de recherche.</string>
     
 <string name="selected">sélectionné(s)</string>
@@ -382,8 +382,8 @@
 <string name="upload_failed">L\'envoi du fichier vers la NAS n\'a pas fonctionné. Réessayez...</string>
 
 <string name="action_se_get">Récupération de la list des moteurs de recherche...</string>
-<string name="menu_searchengine">Modifier le moteur de recherche</string>
-<string name="search_engine_title">DSM Search - Selection des plugins</string>
+<string name="menu_searchengine">Sélection de plugins pour DSM search</string>
+<string name="search_engine_title">DSM Search - Sélection des plugins</string>
 <string name="action_set_searchengine">Sauvegarde des paramètres de recherche...</string>
 <string name="auto_DSM">Autodetection de la version de DSM</string>
 <string name="hint_auto_DSM">La version de DSM sera auto-détecté L\'orsque synodroid ce connecte au NAS</string>

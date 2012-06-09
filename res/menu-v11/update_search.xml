@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_search_engine"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:title="@string/menu_searchengine"
+    <item android:id="@+id/menu_update"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/update_search_engine"
         android:orderInCategory="0" 
         android:showAsAction="never"></item>
 </menu>
+
