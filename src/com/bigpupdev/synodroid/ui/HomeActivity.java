@@ -49,6 +49,7 @@ public class HomeActivity extends BaseActivity {
 	private static final String PREFERENCE_AUTO_CREATENOW = "auto.createnow";
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
 	
 	private static final int CONNECTION_DIALOG_ID = 1;
 	public static final int NO_SERVER_DIALOG_ID = 2;
@@ -233,6 +234,16 @@ public class HomeActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_home);
         getActivityHelper().setupActionBar(getString(R.string.app_name), true);
+        
+        SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+    	if (preferences.getBoolean(PREFERENCE_SHOW_GET_STARTED, true)) {
+	    	// Starting new intent
+    		preferences.edit().putBoolean(PREFERENCE_SHOW_GET_STARTED, false).commit();
+    		
+    		Intent next = new Intent();
+    		next.setClass(HomeActivity.this, GetStartedActivity.class);
+    		startActivity(next);
+    	}
     }
 
 

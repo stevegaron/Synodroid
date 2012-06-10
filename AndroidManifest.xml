@@ -192,6 +192,17 @@
         <category android:name="android.intent.category.DEFAULT"></category>
       </intent-filter>
     </activity>
+    <activity 
+	 	 android:name=".ui.GetStartedActivity"
+	 	 android:theme="@style/Theme.Synodroid.Home"
+	 	 android:configChanges="orientation|keyboardHidden|screenSize"
+	 	 android:launchMode="singleTop">
+	 	 <item name="android:windowActionBar">false</item>
+	 	 <intent-filter>
+	 	 	<action android:name="android.intent.action.VIEW"></action>
+	 	   	<category android:name="android.intent.category.DEFAULT"></category>
+	 	 </intent-filter>
+ 	 </activity>	
     
     <service
         android:name=".server.DownloadIntentService"

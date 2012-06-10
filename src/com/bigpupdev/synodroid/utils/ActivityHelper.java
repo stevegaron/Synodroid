@@ -199,7 +199,7 @@ public class ActivityHelper {
      */
     public void setActionBarTitle(CharSequence title, boolean is_secure) {
         ViewGroup actionBar = getActionBarCompat();
-        if (actionBar == null) {
+        if (actionBar == null || title.equals("")) {
             return;
         }
 

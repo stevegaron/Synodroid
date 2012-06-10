@@ -3,28 +3,26 @@ package com.bigpupdev.synodroid.ui;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.utils.CirclePageIndicator;
 import com.bigpupdev.synodroid.utils.ViewPagerIndicator;
 
-public class AboutActivity extends BaseActivity{
+public class GetStartedActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	
 	MyAdapter mAdapter;
     ViewPager mPager;
-    ViewPagerIndicator mIndicator;
+    CirclePageIndicator mIndicator;
     
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -39,12 +37,12 @@ public class AboutActivity extends BaseActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_get_started);
         mAdapter = new MyAdapter(getSupportFragmentManager(), 6, this);
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         // Find the indicator from the layout
-        mIndicator = (ViewPagerIndicator)findViewById(R.id.indicator);
+        mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
         
         // Set the indicator as the pageChangeListener
         mPager.setOnPageChangeListener(mIndicator);
@@ -53,19 +51,8 @@ public class AboutActivity extends BaseActivity{
         // * What page do we start on.
         // * How many pages are there in total
         // * A callback to get page titles
-        mIndicator.init(0, mAdapter.getCount(), mAdapter);
-		Resources res = getResources();
-		Drawable prev = res.getDrawable(R.drawable.indicator_prev_arrow);
-		Drawable next = res.getDrawable(R.drawable.indicator_next_arrow);
-		mIndicator.setFocusedTextColor(new int[]{255, 255, 255});
-		mIndicator.setUnfocusedTextColor(new int[]{120, 120, 120});
-		
-		// Set images for previous and next arrows.
-		mIndicator.setArrows(prev, next);
-		
-		mIndicator.setOnClickListener(new OnIndicatorClickListener());
-
-		getActivityHelper().setupActionBar(getString(R.string.menu_about), false);
+        mIndicator.setViewPager(mPager);
+		getActivityHelper().setupActionBar(getString(R.string.welcome), false);
 	}
 	
 	@Override
@@ -103,9 +90,9 @@ public class AboutActivity extends BaseActivity{
 	
 	public static class MyAdapter extends FragmentPagerAdapter implements ViewPagerIndicator.PageInfoProvider{
 		int mItemsNum;
-		private AboutActivity mCurActivity;
+		public GetStartedActivity mCurActivity;
 		
-		public MyAdapter(FragmentManager pFm, int pItemNum, AboutActivity pCurActivity) {
+		public MyAdapter(FragmentManager pFm, int pItemNum, GetStartedActivity pCurActivity) {
 			super(pFm);
 			mItemsNum = pItemNum;
 			mCurActivity = pCurActivity;
@@ -118,51 +105,25 @@ public class AboutActivity extends BaseActivity{
 
         @Override
         public Fragment getItem(int position) {
-			switch (position){
-				case 0:
-					return new AboutFragment();
-				case 1:
-					return new SynologyInfoFragment();
-				case 2:
-					return new AddServerFragment();
-				case 3:
-					return new AddDownloadFragment();
-				case 4:
-					return new SearchEngineFragment();
-				default:
-					return new UpgradeProFragment();
+        	switch (position){
+        		case 0:
+        			return new GetStartedFragment();
+        		case 1:
+        			return new SynologyInfoFragment();
+        		case 2:
+        			return new AddServerFragment();
+        		case 3:
+        			return new AddDownloadFragment();
+        		case 4:
+        			return new SearchEngineFragment();
+        		default:
+        			return new UpgradeProFragment();
         	}
         }
 
-        public String getTitle(int pos){
-        	switch (pos){
-        	case 0:
-        		return mCurActivity.getString(R.string.tab_about);
-    		case 1:
-    			return mCurActivity.getString(R.string.tab_synology);
-    		case 2:
-    			return mCurActivity.getString(R.string.tab_server);
-    		case 3:
-    			return mCurActivity.getString(R.string.tab_download);
-    		case 4:
-    			return mCurActivity.getString(R.string.tab_search);
-    		default:
-    			return mCurActivity.getString(R.string.tab_pro);
-        	}
+		@Override
+		public String getTitle(int pos) {
+			return "";
 		}
-
-    }
-	
-	class OnIndicatorClickListener implements ViewPagerIndicator.OnClickListener{
-		public void onCurrentClicked(View v) {}
-		
-		public void onNextClicked(View v) {
-			mPager.setCurrentItem(Math.min(mAdapter.getCount() - 1, mIndicator.getCurrentPosition() + 1));
-		}
-
-		public void onPreviousClicked(View v) {
-			mPager.setCurrentItem(Math.max(0, mIndicator.getCurrentPosition() - 1));
-		}
-    	
     }
 }

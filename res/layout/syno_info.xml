@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_scroll"
+    android:layout_width="fill_parent"
+    android:layout_margin="5dip"
+	android:layout_height="fill_parent"
+    android:isScrollContainer="true"
+    tools:ignore="HardcodedText" >
+
+	<LinearLayout
+	    android:id="@+id/LinearLayout03"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	
+		<TextView
+		     android:id="@+id/syno_info_title"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:layout_marginLeft="5dip"
+		     android:layout_marginRight="5dip"
+		     android:layout_marginTop="20dip"
+		     android:layout_marginBottom="20dip"
+		     android:text="@string/syno_info_title"
+		     android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		<TextView
+		    android:id="@+id/TextView01"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginLeft="20dip"
+		    android:text="@string/syno_info_t1" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/TextView08"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginLeft="20dip"
+		    android:text="@string/syno_info_t2" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/syno_main_web"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="20dip"
+		    android:text="www.synology.com" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/TextView03"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginLeft="20dip"
+		    android:text="@string/syno_info_t3" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/syno_buy_web"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="20dip"
+		    android:layout_marginBottom="20dip"
+		    android:text="http://www.synology.com/support/wheretobuy.php" >
+		</TextView>
+	</LinearLayout>
+</ScrollView>

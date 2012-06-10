@@ -3,17 +3,13 @@
     android:id="@+id/detail_root"
     android:orientation="vertical" 
     android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:background="@android:color/black">
-	<include layout="@layout/actionbar" />
+    android:layout_height="fill_parent">
 	
-	<com.bigpupdev.synodroid.utils.ViewPagerIndicator 
+	<com.bigpupdev.synodroid.utils.CirclePageIndicator 
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ff101010"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp" /> 
+            android:padding="10dp" /> 
     <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"

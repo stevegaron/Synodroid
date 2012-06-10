@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent"
+    android:layout_margin="5dip"
+	android:layout_height="wrap_content"
+    android:orientation="vertical" >
+	<ScrollView 
+	    android:id="@+id/about_scroll"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+        android:layout_above="@+id/btn_skip"
+        android:isScrollContainer="true"
+	    tools:ignore="HardcodedText" >
+	    <LinearLayout
+	        android:id="@+id/LinearLayout02"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+	        <TextView
+	            android:id="@+id/gs_title"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="5dip"
+	            android:layout_marginRight="5dip"
+	            android:layout_marginTop="20dip"
+	            android:layout_marginBottom="20dip"
+	            android:text="@string/get_started"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <TextView
+	            android:id="@+id/gs_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="20dip"
+	            android:layout_marginLeft="20dip"
+	            android:text="@string/get_started_text"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+	        
+	        <TextView
+	            android:id="@+id/gs_text_2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="20dip"
+	            android:layout_marginLeft="20dip"
+	            android:text="@string/get_started_text_2"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+	    </LinearLayout>
+	</ScrollView>
+	<Button
+	    android:id="@+id/btn_skip"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="fill_horizontal"
+	    android:layout_alignParentBottom="true"
+        android:paddingBottom="5dip"
+	    android:paddingLeft="30dip"
+	    android:paddingRight="30dip"
+	    android:paddingTop="5dip"
+	    android:text="@string/skip" />
+</RelativeLayout>
