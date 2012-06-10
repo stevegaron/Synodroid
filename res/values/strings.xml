@@ -427,7 +427,7 @@
 <string name="search_engine_st2">DSM Search Engine (Pro only)</string>
 <string name="search_engine_t3">Synodroid Pro provides access to the Synology DSM Search engine. Searches done using DSM Search are send to multiple search engines at the same time, not just one like Transdroid Torrent Search. You can manage the search engines to be used when you do a search.</string>
 
-<string name="upgrade_title">Thanks for upgrading to Pro</string>
+<string name="upgrade_title">Thanks for Upgrading to Pro</string>
 <string name="upgrade_t1">Synodroid Pro contains a lot of features that are really useful and make it a worthy upgrade. This is the list of feature that you got from upgrading:</string>
 
 <string name="upgrade_st1">1. Add Download Dialog</string>
