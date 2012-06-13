@@ -381,7 +381,7 @@
     
 <string name="upload_failed">L\'envoi du fichier vers la NAS n\'a pas fonctionné. Réessayez...</string>
 
-<string name="action_se_get">Récupération de la list des moteurs de recherche...</string>
+<string name="action_se_get">Récupération de la liste des moteurs de recherche...</string>
 <string name="menu_searchengine">Sélection de plugins pour DSM search</string>
 <string name="search_engine_title">DSM Search - Sélection des plugins</string>
 <string name="action_set_searchengine">Sauvegarde des paramètres de recherche...</string>
@@ -394,4 +394,62 @@
 <string name="action_resuming_multiple">&quot;Reprise des tâches sélectionées...%s&quot;</string>
 <string name="file_not_found">Échec d\'acces à une des fonctionalités du serveur. Il est probable que vous utilisiez la mauvaise version de DSM. Utilisez la fonction d\'autodetection de DSM dans les paramêtres...</string>
 <string name="failed_response">Échec de lecture de la réponse du serveur. Reconectez-vous!</string>
+
+
+<string name="welcome">Bienvenue à Synodroid!</string>
+<string name="get_started">Tutoriel Synodroid</string>
+<string name="get_started_text">Regardez les differentes pages de ce tutoriel pour obtenir plus d\'information à propos des multiples fonctions de cette applicaiton.</string>
+<string name="get_started_text_2">NOTE: Le tutoriel sera toujours disponible dans la page À Propos (Menu -> À Propos). Vous devriez lire ce tutoriel au moins une fois, vous pouriez y apprendre quelque chose.</string>
+<string name="skip">Sauter le tutoriel</string>
+<string name="syno_info_title">Contrôlez votre NAS</string>
+<string name="syno_info_t1">Synodroid à été créé pour contrôler la fonctionalitée de téléchargement du NAS Synology. Si vous n\'en avez pas un, cette application n\'est pas pour vous.</string>
+<string name="syno_info_t2">Si vous avez besoin de plus d\'information à propos des produits de Synology aller voir leur site web:</string>
+<string name="syno_info_t3">Si vous voulez vous procurer un NAS Synology, vous pouvez trouver l\'information à l\'endroit suivant:</string>
+<string name="add_server_title">Ajout de serveurs</string>
+<string name="add_server_t1">Il y a deux (2) façon d\'ajouter des connections à un serveur Synology. Les deux sont situés dans les paramêtres de l\'application (pesez menu, paramêtre).</string>
+<string name="add_server_st1">Détection de Serveur</string>
+<string name="add_server_t2">La Détection de Serveur exige d\'avoir le Wifi activé et connecté sur le réseau sans-fil ou ce trouve votre NAS. Synodroid essayera the détecter votre NAS sur le réseau et vous affichera une fenêtre avec tout les NAS qui ont été trouvé et vous laissera les configurer correctement.</string>
+<string name="add_server_st2">Ajout de Serveur</string>
+<string name="add_server_t3">L\'Ajout de Serveur est pour être utilisé lorsque la détection de serveur n\'a pas fonctionnée ou lorsque le wifi est désactivé. Cette fonctionalité vous permet de configurer manuellement tous les paramêtres de connection au serveur.</string>
+<string name="add_dl_title">Ajout de Téléchargement à votre Serveur</string>
+<string name="add_dl_t1">Synodroid vous permet d\'ajouter des tâches de téléchargement à votre NAS. Il y a plusieur façon d\'ajouter un téléchargement, en voici quelques unes:</string>
+<string name="add_dl_st1">Pesé d\'un Lien dans le Fureteur</string>
+<string name="add_dl_t2">À partir du fureteur Android, lorsque vous pesez sur un lien d\'un fichier .torrent ou .nzb, Synodroid vous permettera d\'ajouter ce fichier à la liste de fichier à téléchargé sur votre NAS.</string>
+<string name="add_dl_st2">Fonctionalité de Partage Android</string>
+<string name="add_dl_t3">À partir de n\'importe quel application installée sur votre téléphone/tablette (fureteur, gestionaire de fichier, etc...), si vous partager un lien (n\'importe quel sorte de lien, pas seulement les .torrent/.nzb), Synodroid sera dans la liste des applications que vous pouvez utiliser.</string>
+<string name="add_dl_st3">Sélection de Fichier</string>
+<string name="add_dl_t4">À partir de n\'importe quel gestionaire de fichiers ou bien même à partir de l\'application de téléchargement officiel Android, si vous pesez sur un fichier .torrent ou .nzb celui-ci sera transféré a Synodroid pour ajouter à vos téléchargements.</string>
+<string name="add_dl_st4">Fenêtre d\'Ajout de Téléchargement (Pro seulement)</string>
+<string name="add_dl_t5">À partir de la page principale de Synodroid, le menu d\'ajout de téléchargement vous permet de taper ou de coller un lien pour qu\'il soit ensuite téléchargé par votre NAS. </string>
+<string name="add_dl_t6">Ceci est une des multiples fonctionalités exclusive à Synodroid Pro!</string>
+<string name="search_engine_t">Moteurs de Recherche</string>
+<string name="search_engine_t1">Synodroid inclus deux moteurs de recherche. L\'un utilise une application externe (transdroid torrent search) et l\'autre la fonctionalité de recherche de votre NAS (DSM Search).</string>
+<string name="search_engine_st1">Transdroid Torrent Search</string>
+<string name="search_engine_t2">Transdroid Torrent Searchpermet d\'ajouter la fonctionalité de recherche à toutes les versions de DSM. Pour l\'utiliser, vous devez installer la version la plus récente. Un lien vers la mise-à-jour du moteur de recherche alternatif est disponible dans le menu de la page de recherche. En utilisant ce moteur de recherche, vous pouvez choisir le site avec lequel vous voulez effectuer la recherche ainsi que l\'ordre dans lequel les résultats vont être affichés.</string>
+<string name="search_engine_st2">Moteur de Recherche DSM (Pro seulement)</string>
+<string name="search_engine_t3">Synodroid Pro vous donne accès au moteur de recherche de votre NAS. Les recherches faites à travers ce moteur de recherche sont envoyé à plusieur sites en même temps au lieu d\'un seul. Vous pouvez aussi choisir les liste de sites que vous voulez utiliser pour la recherche.</string>
+<string name="search_engine_t4">Ceci est une des multiples fonctionalités exclusive à Synodroid Pro!</string>
+<string name="upgrade_st1">1. Fenêtre d\'Ajout de Téléchargement</string>
+<string name="upgrade_t2">La Fenêtre d\'Ajout de Téléchargement vous permet de tapez/coller un lien que vous voulez téléchargé avec votre NAS.</string>
+<string name="upgrade_st2">2. Téléchargement des Fichiers dans un Sous-Dossier</string>
+<string name="upgrade_t3">Synodroid Pro vous permet de définir la destination de votre téléchargement vers n\'importe quel dossier sur votre NAS, pas seulement vers les point de partage.</string>
+<string name="upgrade_st3">3. Actions sur Plusieurs Téléchargements</string>
+<string name="upgrade_t4">Synodroid Pro vous permet d\'effectuer des actions sur plusieur téléchargment à la fois en selectionant ces ficher dans la list de téléchargement. (Seulement pour Android 3.x et 4.x. Bientôt disponible sur Android 1.x et 2.x)</string>
+<string name="upgrade_st4">4. Moteur de Recherche DSM</string>
+<string name="upgrade_t5">L\'intégration avec le moteur de recherche de votre NAS est une fonction disponible dans Synodroid Pro. Ceci vous permet de faire une recherche sur plusieur moteurs de recherche en même temps et de configurer la liste de site ou vous voulez que la recherche soit effectuée.</string>
+<string name="upgrade_st5">5. Apercu du Torrent avant le Téléchargement</string>
+<string name="upgrade_t6">Synodroid Pro vous donne un apercu du torrent comprenant le nom complet du fichier à télécharger lorsque vous pesez sur un des résultat de la recherche.</string>
+<string name="upgrade_st6">6. Auto-Détection de la Version DSM</string>
+<string name="upgrade_t7">Synodroid Pro peut automatiquement détecter quel version de DSM vous avez d\'installer sur votre NAS et ajuster votre configuration en conséquence. Cela veut dire que vous n\'aurez pas à changer votre configuration DSM à chaque fois que vous appliquer une mise-à-jour à votre NAS.</string>
+<string name="upgrade_st7">Mettre à Jour Maintenant</string>
+<string name="upgrade_play">Synodroid Pro offre plusieur fonctionalitées exclusive et de nouvelles fonctionalitées exclusive sont à venir. Procurez-vous Synodroid Pro maintenant pendant que le prix est toujours très bas...</string>
+<string name="tutorial_done">Fin du tutoriel</string>
+<string name="tab_synology">Synology</string>
+<string name="tab_server">ServeUr</string>
+<string name="tab_download">Téléchargement</string>
+<string name="tab_search">Recherche</string>
+<string name="tab_pro">Pro</string>
+<string name="upgrade_title">Merci d\'avoir Mis-à-Niveau vers Pro</string>
+<string name="upgrade_t1">Synodroid Pro contient plusieur fonctionalités exclusive très pratique. Voici la liste des principales fonctionalités que vous avez reçu avec Synodroid Pro:</string>
+
 </resources>
