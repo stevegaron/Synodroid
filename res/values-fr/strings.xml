@@ -405,7 +405,7 @@
 <string name="syno_info_t1">Synodroid à été créé pour contrôler la fonctionalitée de téléchargement du NAS Synology. Si vous n\'en avez pas un, cette application n\'est pas pour vous.</string>
 <string name="syno_info_t2">Si vous avez besoin de plus d\'information à propos des produits de Synology aller voir leur site web:</string>
 <string name="syno_info_t3">Si vous voulez vous procurer un NAS Synology, vous pouvez trouver l\'information à l\'endroit suivant:</string>
-<string name="add_server_title">Ajout de serveurs</string>
+<string name="add_server_title">Ajout de Serveurs</string>
 <string name="add_server_t1">Il y a deux (2) façon d\'ajouter des connections à un serveur Synology. Les deux sont situés dans les paramêtres de l\'application (pesez menu, paramêtre).</string>
 <string name="add_server_st1">Détection de Serveur</string>
 <string name="add_server_t2">La Détection de Serveur exige d\'avoir le Wifi activé et connecté sur le réseau sans-fil ou ce trouve votre NAS. Synodroid essayera the détecter votre NAS sur le réseau et vous affichera une fenêtre avec tout les NAS qui ont été trouvé et vous laissera les configurer correctement.</string>

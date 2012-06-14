@@ -255,7 +255,6 @@
 <string name="installTorrentSearchAlternate">Alternativer Download für Torrent Search</string><string name="installTorrentSearch">Installieren Sie Transdroid Torrent Search</string>
 <string name="logo_search">Torrentsuche</string>
 <string name="dialog_message_confirm_add">Sind Sie sicher, dass Sie diese Datei herunterladen möchten?</string>
-<string name="provider_missing">Der Suchanbieter ist nicht installiert, drücken Sie den Button um ihn zu installieren.\n\n Info: Sie müssen Synodroid nach der Installation neu starten um die Suche zu aktivieren.</string>
 <string name="searching">Suche...\n\n</string>
 <string name="no_results">Keine Ergebnisse gefunden.\n\n</string>
 <string name="sites">Verfügbare sites:\n</string>
@@ -268,7 +267,6 @@
 <string name="wizard_selectdsm_title">Wählen Sie eine DSM version</string>
 <string name="wizard_no_server_found">Es konnte kein Server im Netzwerk gefunden werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.</string>
 <string name="err_nomarket">Der Android Market ist nicht auf Ihrem Gerät installiert.\n\nKontaktieren Sie die Entwickler, um eine Kopie von Transdroid Torrent Search zu bekommen.</string><string name="err_nobrowser">Der Android Browser ist nicht auf Ihrem Gerät installiert.\n\nKontaktieren Sie die Entwickler, um eine Kopie von Transdroid Torrent Search zu bekommen.</string>
-<string name="err_provider_missing">Transdroid Torrent Search ist nicht installiert.\n\nFolgen Sie den Anweisungen im Suchen-Tab um es zu installieren.</string>
 <string name="help">Hilfe</string>
 
 <string name="label_usewifi">Über WLAN verbinden</string>
@@ -372,9 +370,81 @@
 
 <string name="tasks">Aufgabe(n)</string>
 <string name="magnet">Magnet Links funktionieren nur ab DSM 3.2 aufwärts...</string>
-<string name="update_search_engine">Suchengine updaten</string>
 <string name="update_search_engine_toast">Die neueste Version der Suchengine wird heruntergeladen.</string>
     
 <string name="selected">ausgewählt</string>
 <string name="upload_failed">Upload der Dateien auf dem NAS gescheitert. Wiederholen ...</string>
+
+<string name="provider_missing">Es sind keine Suchanbieter installiert. Sie können entweder Ihr NAS auf DSM 3.2+ upgraden oder einen alternativen Suchanbieter installieren indem sie den Button unten klicken. Sie müssen danach Synodroid neustarten um den alternativen Suchanbieter zu aktivieren.</string>
+<string name="err_provider_missing">Es sind keine Suchanbieter installiert.\n\nBitte folgen sie der Anleitung auf dieser Seite um einen Suchanbieter zu installieren.</string>
+<string name="update_search_engine">Update der alternativen Suchengine</string>
+<string name="action_se_get">Empfange Liste der Suchengines</string>
+<string name="menu_searchengine">Suchengines bearbeiten</string>
+<string name="search_engine_title">DSM Suche - Auswahl der Plugins</string>
+<string name="action_set_searchengine">Speichere Einstellungen der Suchengine</string>
+<string name="auto_DSM">Automatische DSM-Version</string>
+<string name="hint_auto_DSM">Die DSM-Version wird automatisch erkannt, wenn sie sich mit ihrem NAS verbinden</string>
+<string name="delete_multiple">Lösche mehrere Aufgaben</string>
+<string name="dialog_multiple_confirm">Aufgaben, die nicht beendet wurden werden abgebrochen. Möchten sie fortfahren?</string>
+<string name="action_deleting_multiple">Entferne gewählte Aufgaben... %s</string>
+<string name="action_pausing_multiple">Pausiere gewählte Aufgaben... %s</string>
+<string name="action_resuming_multiple">Nehme gewählte Aufgaben wieder auf... %s</string>
+<string name="file_not_found">Auf eines der Features konnte nicht zugegriffen werden. Das liegt wahrscheinlich daran, dass sie eine falsche DSM-Version angegeben haben. Wählen sie "Automatische DSM-Version" in den Einstellungen.</string>
+<string name="failed_response">Die Antwort konnte nicht vom Server gelesen werden. Bitte verbinden sie sich erneut!</string>
+<string name="welcome">Willkommen bei Synodroid!</string>
+<string name="get_started">Synodroid Tutorial</string>
+<string name="get_started_text">Blättern Sie durch die Seiten dieses Tutorials um mehr Informationen über die vielen Features dieser Anwendung zu bekommen.</string>
+<string name="get_started_text_2">Info: Das Tutorial ist immer über die "Über" Seite erreichbar (Menü -> Über). Sie sollten es wenigstens einmal lesen, Sie könnten etwas neues entdecken.</string>
+<string name="skip">Tutorial überspringen</string>
+<string name="syno_info_title">Steuerung des NAS</string>
+<string name="syno_info_t1">Synodroid wurde erstellt, um die Download Station eines Synology NAS (Network Attached Storage) zu steuern. Wenn Sie kein solches Gerät haben ist diese App nichts für Sie.</string>
+<string name="syno_info_t2">Wenn Sie mehr Informationen über die Produkte von Synology haben möchten besuchen sie deren Website:</string>
+<string name="syno_info_t3">Wenn Sie sich ein Synology NAS kaufen möchten finden sie Händlerinformationen auf der folgenden Seite:</string>
+<string name="add_server_title">NAS-Verbindungen hinzufügen</string>
+<string name="add_server_t1">Es gibt zwei (2) Möglichkeiten eine Verbindung zu ihrem NAS aufzubauen. Beide finden sie in den Einstellungen dieser App (Drücken sie Menü -> Einstellungen auf der Startseite).</string>
+<string name="add_server_st1">Assistent zur Suche nach einem Server</string>
+<string name="add_server_t2">Dieser Assistent erfordert eine aktive WLAN-Verbindung in das selbe Netz mit dem auch ihr NAS verbunden ist. Synodroid wird versuchen das NAS in Ihrem Netzwerk zu finden und ihnen eine Auswahl der gefundenen DiskStations anzeigen. Nach der Auswahl einer DiskStation können Sie weitere Einstellungen vornehmen</string>
+<string name="add_server_st2">Assistent zum Hinzufügen eines neuen Servers</string>
+<string name="add_server_t3">Dieser Assistent kann genutzt werden, wenn keine DiskStation mit der automatischen Suche gefunden werden konnte oder Sie nicht mit dem richtigen WLAN verbunden sind. Er erlaubt Ihnen alle Einstellungen für die Verbindung selbst festzulegen.</string>
+<string name="add_dl_title">Downloads zum NAS hinzufügen</string>
+<string name="add_dl_t1">Synodroid erlaubt es Ihnen Downloads von Ihrem NAS ausführen zu lassen. Dafür gibt es mehrere Möglichkeiten, hier sind einige:</string>
+<string name="add_dl_st1">Direkte Linkauswahl im Browser</string>
+<string name="add_dl_t2">Wenn Sie in Ihrem Browser auf einen Link zu einer .torrent oder .nzb Datei klicken wird Synodroid die Option anbieten diese Datei auf ihrem NAS herunterzuladen.</string>
+<string name="add_dl_st2">Teilen-Funktion des Systems</string>
+<string name="add_dl_t3">In jeder Anwendung auf ihrem Telefon, die das Teilen von Links unterstützt (nicht nur .torrent oder .nzb) können Sie den Link durch einen Klick auf "Teilen" an Synodroid weitergeben.</string>
+<string name="add_dl_st3">Dateiauswahl</string>
+<string name="add_dl_t4">Jeder gute Dateimanager und auch der androideigene Downloadmanager wird nach der Auswahl einer .torrent oder .nzb Datei eine Auswahl von Programmen anzeigen, in der auch Synodroid enthalten ist.</string>
+<string name="add_dl_st4">Dialog zum Hinzufügen eines Downloads (nur Pro-Version)</string>
+<string name="add_dl_t5">Drücken Sie einfach Menü -> Download hinzufügen auf der Startseite von Synodroid und fügen Sie den Link ein, den Sie herunterladen möchten.</string>
+<string name="add_dl_t6">Das ist eines der vielen Features, die nur in Synodroid Pro verfügbar sind!</string>
+<string name="search_engine_t">Suchengines</string>
+<string name="search_engine_t1">Synodroid beinhaltet zwei unterschiedliche Suchengines. Eine nutzt eine externe Anwendung (Transdroid Torrentsuche), die Andere nutzt direkt die Suchengines ihrer Diskstation.</string>
+<string name="search_engine_st1">Transdroid Torrentsuche</string>
+<string name="search_engine_t2">Die Transdroid Torrentsuche bietet eine Suche für alle DSM-Versionen an. Um sie zu benutzen müssen Sie sie zuerst installieren. Einen Link zur aktuellen Version finden sie im Menü der Suchseite. Wenn Sie diese Suchengine benutzen können Sie wählen, von welcher Seite sie Torrentinformationen beziehen möchten und wie die Ergebnisse sortiert sein sollen.</string>
+<string name="search_engine_st2">DSM Suchengine (nur Pro)</string>
+<string name="search_engine_t3">Synodroid Pro erlaubt den Zugriff auf die integrierte Suchfunktion Ihrer DiskStation. Suchen, die über die integrierte Suche ausgeführt werden werden direkt an mehrere Suchmaschinen geschickt, die benutzten Suchmaschinen können in den Einstellungen ausgewählt werden.</string>
+<string name="search_engine_t4">perhaps you should just use the same string here in all the places :) (Translation:"Dies ist eine der vielen Funktionen die nur in Synodroid Pro verfügbar sind!")</string>
+<string name="upgrade_st1">1. Dialog zum Hinzufügen von Downloads</string>
+<string name="upgrade_t2">Der Dialog zum Hinzufügen von Downloads ist eine praktische Funktion, das Sie eine Adresse eintippen oder einfügen lässt um das Ziel auf ihrem NAS herunterzuladen.</string>
+<string name="upgrade_st2">2. Herunterladen in Unterordner</string>
+<string name="upgrade_t3">Synodroid Pro erlaubt Ihnen jeden Ordner auf ihrer Diskstation als Downloadziel auszuwählen, nicht nur die gemeinsamen Ordner.</string>
+<string name="upgrade_st3">3. Aktionen für mehrere Aufgaben</string>
+<string name="upgrade_t4">Synodroid Pro erlaubt es die gleiche Aktion für mehrere Aufgaben gleichzeitig auszuführen indem Sie sie in der Liste auswählen. (Nur für Android 3.x und 4.x. 1.x und 2.x sind in Entwicklung)</string>
+<string name="upgrade_st4">4. Synology DSM Suchengine</string>
+<string name="upgrade_t5">Die Integration der nativen DSM Suchengine ist nur in der Pro-Version von Synodroid verfügbar. Sie erlaubt Ihnen mehrere Seiten gleichzeitig zu durchsuchen und die Liste der durchsuchten Seiten einzustellen.</string>
+<string name="upgrade_st5">5. Torrent-Vorschau vor dem Download</string>
+<string name="upgrade_t6">Synodroid Pro zeigt ihnen für jeden aus der Suche gestarteten Torrentdownload die Details inklusive des vollen Dateinamens.</string>
+<string name="upgrade_st6">6. Automatische Erkennung der DSM-Version</string>
+<string name="upgrade_t7">Synodroid Pro kann die DSM-Version Ihrer Diskstation automatisch erkennen und die Konfiguration entsprechend vornehmen. So müssen Sie Ihre DSM-Version nicht jedes Mal anpassen, wenn Sie Ihr NAS geupdated haben.</string>
+<string name="upgrade_st7">Upgraden Sie jetzt</string>
+<string name="upgrade_play">Synodroid Pro bietet gegenüber der kostenlosen Version viele neue Funktionen. Viele Weitere werden in der nahen Zukunft dazu kommen. Kaufen sie Synodroid Pro jetzt, so lange es noch günstig ist...</string>
+<string name="tutorial_done">Tutorial beenden</string>
+<string name="tab_synology">Synology</string>
+<string name="tab_server">Server</string>
+<string name="tab_download">Download</string>
+<string name="tab_search">Suche</string>
+<string name="tab_pro">Pro</string>
+<string name="upgrade_title">Danke für Ihr Upgrade zur Pro-Version</string>
+<string name="upgrade_t1">Synodroid Pro enthält einige Features, die sehr nützlich sind und ein Upgrade rechtfertigen. Diese Features bekommen Sie nur in der Pro-Version:</string>
+
 </resources>
