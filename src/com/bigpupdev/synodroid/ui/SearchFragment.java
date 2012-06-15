@@ -112,8 +112,8 @@ public class SearchFragment extends SynodroidFragment {
 		StringBuilder s = new StringBuilder();
 		List<Object[]> sites = getSupportedSites();
 		if (sites != null) {
+			int i = 0;
 			for (Object[] site :sites){
-				int i = 0;
 				s.append((String) site[1]);
 				s.append("\n");
 				if (pref_src.equals((String) site[1])) {
@@ -125,10 +125,10 @@ public class SearchFragment extends SynodroidFragment {
 			emptyText.setText(getString(R.string.sites) + "\n" + s.toString());
 			resList.setVisibility(ListView.GONE);
 			
-			final String default_site = SpinnerSource.getSelectedItem().toString();
-
 			SpinnerSource.setSelection(lastSource);
 			SpinnerSort.setSelection(lastOrder);
+
+			final String default_site = SpinnerSource.getSelectedItem().toString();
 
 			SpinnerSource.setOnItemSelectedListener(new OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
