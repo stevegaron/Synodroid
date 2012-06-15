@@ -95,8 +95,8 @@ public class SearchFragment extends SynodroidFragment {
 		SpinnerSort.setAdapter(AdapterSort);
 
 		SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "DSM Search");
-		String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders");
+		String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "");
+		String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "");
 
 		int lastOrder = 0;
 		int lastSource = 0;
@@ -124,6 +124,97 @@ public class SearchFragment extends SynodroidFragment {
 			}
 			emptyText.setText(getString(R.string.sites) + "\n" + s.toString());
 			resList.setVisibility(ListView.GONE);
+			
+			final String default_site = SpinnerSource.getSelectedItem().toString();
+
+			SpinnerSource.setSelection(lastSource);
+			SpinnerSort.setSelection(lastOrder);
+
+			SpinnerSource.setOnItemSelectedListener(new OnItemSelectedListener() {
+				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					String source = ((TextView) arg1).getText().toString();
+					SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+					if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, default_site))){
+						preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
+						if (!lastSearch.equals("")) {
+							new TorrentSearchTask().execute(lastSearch);
+						}
+					}
+					
+				}
+
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+			
+			SpinnerSort.setOnItemSelectedListener(new OnItemSelectedListener() {
+				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					String order = ((TextView) arg1).getText().toString();
+					SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+					if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders"))){
+						preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
+						if (!lastSearch.equals("")) {
+							new TorrentSearchTask().execute(lastSearch);
+						}
+					}
+				}
+
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+			
+			resList.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					final RelativeLayout rl = (RelativeLayout) arg1;
+					TextView itemValue = (TextView) rl.findViewById(R.id.result_title);
+					TextView itemSize = (TextView) rl.findViewById(R.id.result_size);
+					TextView itemSeed = (TextView) rl.findViewById(R.id.result_seeds);
+					TextView itemLeech = (TextView) rl.findViewById(R.id.result_leechers);
+					TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
+					
+					LayoutInflater inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					View layout = (View) inflater.inflate(R.layout.search_dialog, null);
+					
+					final TextView msgView = (TextView) layout.findViewById(R.id.msg);
+					final TextView tView = (TextView) layout.findViewById(R.id.title);
+					final TextView sView = (TextView) layout.findViewById(R.id.size);
+					final TextView seedView = (TextView) layout.findViewById(R.id.seed);
+					final TextView leechView = (TextView) layout.findViewById(R.id.leech);
+					final TextView dateView = (TextView) layout.findViewById(R.id.date);
+					
+					tView.setText(itemValue.getText());
+					sView.setText(itemSize.getText());
+					seedView.setText(itemSeed.getText());
+					leechView.setText(itemLeech.getText());
+					dateView.setText(itemDate.getText());
+					msgView.setText(getString(R.string.dialog_message_confirm_add));
+					
+					Dialog d = new AlertDialog.Builder(a)
+						.setTitle(R.string.dialog_title_confirm)
+						.setView(layout)
+						.setNegativeButton(android.R.string.no, null)
+						.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							TextView tv = (TextView) rl.findViewById(R.id.result_url);
+							
+							Uri uri = Uri.parse(tv.getText().toString());
+							AddTaskAction addTask = new AddTaskAction(uri, true, true);
+							Synodroid app = (Synodroid) getActivity().getApplication();
+							app.executeAction(SearchFragment.this, addTask, true);
+							
+						}
+					}).create();
+					try {
+						d.show();
+					} catch (BadTokenException e) {
+						try{
+							if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: " + e.getMessage());
+						}
+						catch (Exception ex){/*DO NOTHING*/}
+						// Unable to show dialog probably because intent has been closed. Ignoring...
+					}
+				}
+			});
 
 		} else {
 			SpinnerSort.setVisibility(Spinner.GONE);
@@ -132,93 +223,6 @@ public class SearchFragment extends SynodroidFragment {
 			emptyText.setText(R.string.provider_missing);
 		}
 		
-		SpinnerSource.setSelection(lastSource);
-		SpinnerSort.setSelection(lastOrder);
-
-		SpinnerSource.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				String source = ((TextView) arg1).getText().toString();
-				SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, "DSM Search"))){
-					preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
-					if (!lastSearch.equals("")) {
-						new TorrentSearchTask().execute(lastSearch);
-					}
-				}
-				
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
-		SpinnerSort.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				String order = ((TextView) arg1).getText().toString();
-				SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders"))){
-					preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
-					if (!lastSearch.equals("")) {
-						new TorrentSearchTask().execute(lastSearch);
-					}
-				}
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
-
-		resList.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				final RelativeLayout rl = (RelativeLayout) arg1;
-				TextView itemValue = (TextView) rl.findViewById(R.id.result_title);
-				TextView itemSize = (TextView) rl.findViewById(R.id.result_size);
-				TextView itemSeed = (TextView) rl.findViewById(R.id.result_seeds);
-				TextView itemLeech = (TextView) rl.findViewById(R.id.result_leechers);
-				TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
-				
-				LayoutInflater inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				View layout = (View) inflater.inflate(R.layout.search_dialog, null);
-				
-				final TextView msgView = (TextView) layout.findViewById(R.id.msg);
-				final TextView tView = (TextView) layout.findViewById(R.id.title);
-				final TextView sView = (TextView) layout.findViewById(R.id.size);
-				final TextView seedView = (TextView) layout.findViewById(R.id.seed);
-				final TextView leechView = (TextView) layout.findViewById(R.id.leech);
-				final TextView dateView = (TextView) layout.findViewById(R.id.date);
-				
-				tView.setText(itemValue.getText());
-				sView.setText(itemSize.getText());
-				seedView.setText(itemSeed.getText());
-				leechView.setText(itemLeech.getText());
-				dateView.setText(itemDate.getText());
-				msgView.setText(getString(R.string.dialog_message_confirm_add));
-				
-				Dialog d = new AlertDialog.Builder(a)
-					.setTitle(R.string.dialog_title_confirm)
-					.setView(layout)
-					.setNegativeButton(android.R.string.no, null)
-					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						TextView tv = (TextView) rl.findViewById(R.id.result_url);
-						
-						Uri uri = Uri.parse(tv.getText().toString());
-						AddTaskAction addTask = new AddTaskAction(uri, true, true);
-						Synodroid app = (Synodroid) getActivity().getApplication();
-						app.executeAction(SearchFragment.this, addTask, true);
-						
-					}
-				}).create();
-				try {
-					d.show();
-				} catch (BadTokenException e) {
-					try{
-						if (((Synodroid)getActivity().getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchFragment: " + e.getMessage());
-					}
-					catch (Exception ex){/*DO NOTHING*/}
-					// Unable to show dialog probably because intent has been closed. Ignoring...
-				}
-			}
-		});
 		return searchContent;
 	}
 	
@@ -236,7 +240,7 @@ public class SearchFragment extends SynodroidFragment {
 			Object[] values = new Object[4];
             values[0] = 11223344;
             values[1] = "DSM Search";
-            values[2] = "DSM Search";
+            values[2] = "DSM Proprietary Search Engine";
             values[3] = null;
             ret.add(values);
 		}
@@ -329,8 +333,8 @@ public class SearchFragment extends SynodroidFragment {
 		protected Cursor doInBackground(String... params) {
 			try {
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, "DSM Search");
-				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders");
+				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
+				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
 				if (pref_src.equals("DSM Search")){
 					Synodroid app = (Synodroid) getActivity().getApplication();
 					
