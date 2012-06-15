@@ -19,6 +19,7 @@ import com.bigpupdev.synodroid.utils.ViewPagerIndicator;
 public class GetStartedActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
 	
 	MyAdapter mAdapter;
     ViewPager mPager;
@@ -75,7 +76,7 @@ public class GetStartedActivity extends BaseActivity{
 	protected void onResume() {
 		super.onResume();
 		try{
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Resuming about activity.");
+			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"GetStartedActivity: Resuming about activity.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Check for fullscreen
@@ -86,6 +87,8 @@ public class GetStartedActivity extends BaseActivity{
 		} else {
 			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		}
+		
+		preferences.edit().putBoolean(PREFERENCE_SHOW_GET_STARTED, false).commit();
 	}
 	
 	public static class MyAdapter extends FragmentPagerAdapter implements ViewPagerIndicator.PageInfoProvider{

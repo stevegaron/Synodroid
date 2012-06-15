@@ -75,6 +75,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class DownloadFragment extends SynodroidFragment implements OnCheckedChangeListener{
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
+	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
 	
 	// The connection dialog ID
 	private static final int CONNECTION_DIALOG_ID = 1;
@@ -559,6 +560,16 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public void onResume() {
 		super.onResume();
 		final Activity a = getActivity();
+		
+		SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		if (preferences.getBoolean(PREFERENCE_SHOW_GET_STARTED, true)){
+			return;
+		}
+		if (!EulaHelper.hasAcceptedEula(a)) {
+			EulaHelper.showEula(false, a);
+			return;
+		}
+		 	 
 		/**
 		 * Intents are driving me insane.
 		 * 
