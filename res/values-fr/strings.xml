@@ -442,7 +442,7 @@
 <string name="upgrade_st6">6. Auto-Détection de la Version DSM</string>
 <string name="upgrade_t7">Synodroid Pro peut automatiquement détecter quel version de DSM vous avez d\'installer sur votre NAS et ajuster votre configuration en conséquence. Cela veut dire que vous n\'aurez pas à changer votre configuration DSM à chaque fois que vous appliquer une mise-à-jour à votre NAS.</string>
 <string name="upgrade_st7">Mettre à Jour Maintenant</string>
-<string name="upgrade_play">Synodroid Pro offre plusieur fonctionalitées exclusive et bien d'autre sont à venir. Procurez-vous Synodroid Pro maintenant pendant que le prix est toujours très bas...</string>
+<string name="upgrade_play">Synodroid Pro offre plusieur fonctionalitées exclusive et bien d\'autre sont à venir. Procurez-vous Synodroid Pro maintenant pendant que le prix est toujours très bas...</string>
 <string name="tutorial_done">Fin du tutoriel</string>
 <string name="tab_synology">Synology</string>
 <string name="tab_server">Serveur</string>
