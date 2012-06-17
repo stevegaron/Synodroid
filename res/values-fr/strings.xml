@@ -385,7 +385,7 @@
 <string name="menu_searchengine">Sélection de plugins pour DSM search</string>
 <string name="search_engine_title">DSM Search - Sélection des plugins</string>
 <string name="action_set_searchengine">Sauvegarde des paramètres de recherche...</string>
-<string name="auto_DSM">Autodetection de la version de DSM</string>
+<string name="auto_DSM">Auto-détection de version DSM</string>
 <string name="hint_auto_DSM">La version de DSM sera auto-détecté L\'orsque synodroid ce connecte au NAS</string>
 <string name="delete_multiple">Suppression de plusieur tâches...</string>
 <string name="dialog_multiple_confirm">&quot;Les tâches non terminés seront supprimées. Etes-vous sur de vouloir continuer?&quot;</string>
@@ -428,7 +428,7 @@
 <string name="search_engine_t2">Transdroid Torrent Searchpermet d\'ajouter la fonctionalité de recherche à toutes les versions de DSM. Pour l\'utiliser, vous devez installer la version la plus récente. Un lien vers la mise-à-jour du moteur de recherche alternatif est disponible dans le menu de la page de recherche. En utilisant ce moteur de recherche, vous pouvez choisir le site avec lequel vous voulez effectuer la recherche ainsi que l\'ordre dans lequel les résultats vont être affichés.</string>
 <string name="search_engine_st2">Moteur de Recherche DSM (Pro seulement)</string>
 <string name="search_engine_t3">Synodroid Pro vous donne accès au moteur de recherche de votre NAS. Les recherches faites à travers ce moteur de recherche sont envoyé à plusieur sites en même temps au lieu d\'un seul. Vous pouvez aussi choisir les différents sites que vous voulez utiliser pour la recherche.</string>
-<string name="search_engine_t4">Ceci est une des multiples fonctionalités exclusive à Synodroid Pro!</string>
+<string name="search_engine_t4">Ceci est une des multiples fonctionalitées exclusive à Synodroid Pro!</string>
 <string name="upgrade_st1">1. Fenêtre d\'Ajout de Téléchargement</string>
 <string name="upgrade_t2">La Fenêtre d\'Ajout de Téléchargement vous permet de tapez/coller un lien que vous voulez téléchargé avec votre NAS.</string>
 <string name="upgrade_st2">2. Téléchargement des Fichiers dans un Sous-Dossier</string>
@@ -436,7 +436,7 @@
 <string name="upgrade_st3">3. Actions sur Plusieurs Téléchargements</string>
 <string name="upgrade_t4">Synodroid Pro vous permet d\'effectuer des actions sur plusieur téléchargment à la fois en selectionant ces fichers dans la liste de téléchargement. (Seulement pour Android 3.x et 4.x. Bientôt disponible sur Android 1.x et 2.x)</string>
 <string name="upgrade_st4">4. Moteur de Recherche DSM</string>
-<string name="upgrade_t5">L\'intégration avec le moteur de recherche de votre NAS est une fonction disponible dans Synodroid Pro. Ceci vous permet de faire une recherche sur plusieur moteurs de recherche en même temps et de configurer la liste de site que vous voulez que vous voulez utiliser pour la recherche.</string>
+<string name="upgrade_t5">L\'intégration avec le moteur de recherche de votre NAS est une fonction disponible dans Synodroid Pro. Ceci vous permet de faire une recherche sur plusieur moteurs de recherche en même temps et de configurer la liste de site que vous voulez utiliser pour la recherche.</string>
 <string name="upgrade_st5">5. Apercu du Torrent avant le Téléchargement</string>
 <string name="upgrade_t6">Synodroid Pro vous donne un apercu du torrent comprenant le nom complet du fichier à télécharger lorsque vous pesez sur un des résultat de la recherche.</string>
 <string name="upgrade_st6">6. Auto-Détection de la Version DSM</string>
