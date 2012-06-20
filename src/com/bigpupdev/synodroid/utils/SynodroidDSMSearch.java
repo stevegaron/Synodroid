@@ -90,7 +90,7 @@ public class SynodroidDSMSearch extends ContentProvider {
                             values[2] = result.getTorrentUrl();
                             values[3] = result.getDetailsUrl();
                             values[4] = result.getSize();
-                            values[5] = result.getAddedDate() != null? result.getAddedDate().getTime(): -1;
+                            values[5] = result.getAddedDate();
                             values[6] = result.getSeeds();
                             values[7] = result.getLeechers();
                             cursor.addRow(values);

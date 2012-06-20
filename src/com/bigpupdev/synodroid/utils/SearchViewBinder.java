@@ -10,13 +10,15 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 public class SearchViewBinder implements ViewBinder{
 
 	public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-		// TODO Auto-generated method stub
-		if (columnIndex == cursor.getColumnIndex("ADDED")){
-			Long milliseconds = cursor.getLong(5);
-			Date d = new Date(milliseconds);
-			((TextView)view).setText(d.toLocaleString());
-			return true;
+		try{
+			if (columnIndex == cursor.getColumnIndex("ADDED")){
+				Long milliseconds = cursor.getLong(5);
+				Date d = new Date(milliseconds);
+				((TextView)view).setText(d.toLocaleString());
+				return true;
+			}
 		}
+		catch (Exception e){}
 		return false;
 	}
 }
