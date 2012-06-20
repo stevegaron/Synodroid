@@ -37,7 +37,7 @@ public class SearchActivity extends BaseActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.default_menu_items, menu);
 		try{
-			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
 				getMenuInflater().inflate(R.menu.default_menu_items_search, menu);	
 			}	
 		}

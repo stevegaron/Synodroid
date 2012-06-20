@@ -295,7 +295,7 @@ public class HomeActivity extends BaseActivity {
 			FragmentManager fm = getSupportFragmentManager();
 	        try{
 	        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-	        	if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+	        	if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
 	        		app.executeAsynchronousAction(fragment_download, new GetDirectoryListShares(null), false);
 	        	}
 	        	else{

@@ -66,7 +66,7 @@ public class AddTaskAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#execute(com.bigpupdev.synodroid.ds .DownloadActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_1)){
 			//new TorrentDownloadAndAdd((Fragment)handlerP).execute(uri.toString());
 			Activity a = ((Fragment)handlerP).getActivity();
 			Intent msgIntent = new Intent(a, DownloadIntentService.class);
@@ -83,7 +83,7 @@ public class AddTaskAction implements SynoAction {
 				Activity a = ((Fragment)handlerP).getActivity();
 				Intent msgIntent = new Intent(a, UploadIntentService.class);
 				msgIntent.putExtra(UploadIntentService.URL, uri.toString());
-				if (serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+				if (serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_1)){
 					msgIntent.putExtra(UploadIntentService.DIRECTORY, "");
 				}
 				else{
@@ -99,7 +99,7 @@ public class AddTaskAction implements SynoAction {
 	}
 	
 	public void checkToast(SynoServer serverP){
-		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+		if (use_safe && serverP.getDsmVersion().smallerThen(DSMVersion.VERSION3_1)){
 			toast = false;
 		}
 	}

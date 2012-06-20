@@ -63,7 +63,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 		SimpleSynoServer server = new SimpleSynoServer();
 		
 		server.setParams(param);
-		if (server.getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+		if (server.getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
     		SortOrder order = SortOrder.BySeeders; // Use BySeeders as default
 			if (uriMatcher.match(uri) == SEARCH_TERM) {
 	            term = uri.getPathSegments().get(1);

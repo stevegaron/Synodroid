@@ -34,7 +34,7 @@ public class GetSearchEngineAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds.TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		if (serverP.getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+		if (serverP.getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
 			List<SearchEngine> se = serverP.getDSMHandlerFactory().getDSHandler().getSearchEngines();
 			serverP.fireMessage(handlerP, ResponseHandler.MSG_SE_LIST_RETRIEVED, se);
 		}

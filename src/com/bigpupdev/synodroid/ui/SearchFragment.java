@@ -236,7 +236,7 @@ public class SearchFragment extends SynodroidFragment {
 		List<Object[]> ret = new ArrayList<Object[]>();
 		SynoServer server = app.getServer();
 		
-		if (server != null && app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+		if (server != null && app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
 			Object[] values = new Object[4];
             values[0] = 11223344;
             values[1] = "DSM Search";

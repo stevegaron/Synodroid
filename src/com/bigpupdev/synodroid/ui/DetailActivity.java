@@ -593,7 +593,7 @@ public class DetailActivity extends BaseActivity{
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
 			
-			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
 				final SharedFolderSelection sf = (SharedFolderSelection) msgP.obj;
 				final String[] dirNames = new String[sf.childrens.size()];
 				final String[] dirIDs = new String[sf.childrens.size()];
@@ -864,7 +864,7 @@ public class DetailActivity extends BaseActivity{
 				if (app.DEBUG) Log.d(Synodroid.DS_TAG,"DetailActivity: Menu destination selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_1)){
+			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
         		app.executeAsynchronousAction(main, new GetDirectoryListShares("remote/"+destination), false);
         	}
         	else{
