@@ -38,7 +38,7 @@ public class SearchResult {
         	temp = format.parse(added).toLocaleString();
         }
         catch (ParseException e){
-        	temp = added;
+        	temp = added.replace("&nbsp;", " ");
         }
         this.added = temp;
         this.seeds = seeds;
