@@ -38,7 +38,6 @@ import com.bigpupdev.synodroid.adapter.ActionAdapter;
 import com.bigpupdev.synodroid.adapter.TaskAdapter;
 import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
-import com.bigpupdev.synodroid.utils.UIUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -376,10 +375,8 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		
 		super.onCreateView(inflater, container, savedInstanceState);
 		
-		if (UIUtils.isHoneycomb()){
-			mCurrentActionMode = new ActionModeHelper();
-		}
-
+		mCurrentActionMode = ((BaseActivity) getActivity()).getActionModeHelper();
+		
 		RelativeLayout downloadContent = (RelativeLayout) inflater.inflate(R.layout.download_list, null, false);
 		taskView = (ListView) downloadContent.findViewById(android.R.id.list);
 		totalUpView = (TextView) downloadContent.findViewById(R.id.id_total_upload);
@@ -688,85 +685,81 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public List<Integer> checked_tasks_id = new ArrayList<Integer>();
 	
 	public void resetChecked(){
-		if (UIUtils.isHoneycomb()){
-			try{
-				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
-			}catch (Exception ex){/*DO NOTHING*/}
-			
-			checked_tasks = new ArrayList<Task>();
-			checked_tasks_id = new ArrayList<Integer>();
-			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
-			taskAdapter.clearTasksSelection();
-		}
+		try{
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
+		}catch (Exception ex){/*DO NOTHING*/}
+		
+		checked_tasks = new ArrayList<Task>();
+		checked_tasks_id = new ArrayList<Integer>();
+		TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
+		taskAdapter.clearTasksSelection();
+	
 	}
 	
 	public void validateChecked(ArrayList<Integer> currentTasks){
-		if (UIUtils.isHoneycomb()){
-			try{
-				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
-			}catch (Exception ex){/*DO NOTHING*/}
-			
-			List<Integer> toDel = new ArrayList<Integer>();
-			
-			for (Integer i : checked_tasks_id) {
-				if (!currentTasks.contains(i)){
-					toDel.add(checked_tasks_id.indexOf(i));
-				}
-			}
-			Collections.sort(toDel, Collections.reverseOrder());
-			
-			for (Integer pos : toDel){
-				try{
-					checked_tasks.remove(pos.intValue());
-				}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
-				try{
-					checked_tasks_id.remove(pos.intValue());
-				}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
-			}
-			
-			if (checked_tasks_id.size() == 0){
-				mCurrentActionMode.stopActionMode();
-			}
-			else{
-				String selected = getActivity().getString(R.string.selected);
-				mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
+		try{
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
+		}catch (Exception ex){/*DO NOTHING*/}
+		
+		List<Integer> toDel = new ArrayList<Integer>();
+		
+		for (Integer i : checked_tasks_id) {
+			if (!currentTasks.contains(i)){
+				toDel.add(checked_tasks_id.indexOf(i));
 			}
 		}
-	}
-	
-	public void onCheckedChanged(CompoundButton button, boolean check) {
-		if (UIUtils.isHoneycomb()){
-			Task t = (Task)button.getTag();
-			if (check){
-				if (checked_tasks_id.contains(t.taskId)) return;
-				t.selected = true;
-				
-				try{
-					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Task id "+t.taskId+" checked.");
-				}catch (Exception ex){/*DO NOTHING*/}
-				
-				mCurrentActionMode.startActionMode(this);
-				checked_tasks.add(t);
-				checked_tasks_id.add(t.taskId);
-			}
-			else{
-				if (!checked_tasks_id.contains(t.taskId)) return;
-				t.selected = false;
-				
-				try{
-					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Task id "+t.taskId+" unchecked.");
-				}catch (Exception ex){/*DO NOTHING*/}
-
-				checked_tasks.remove(t);
-				checked_tasks_id.remove(checked_tasks_id.indexOf(t.taskId));
-				if (checked_tasks_id.size() == 0){
-					if (!mCurrentActionMode.terminating){
-						mCurrentActionMode.stopActionMode();
-					}
-				}
-			}
+		Collections.sort(toDel, Collections.reverseOrder());
+		
+		for (Integer pos : toDel){
+			try{
+				checked_tasks.remove(pos.intValue());
+			}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
+			try{
+				checked_tasks_id.remove(pos.intValue());
+			}catch (IndexOutOfBoundsException e){ /*IGNORE*/}
+		}
+		
+		if (checked_tasks_id.size() == 0){
+			mCurrentActionMode.stopActionMode();
+		}
+		else{
 			String selected = getActivity().getString(R.string.selected);
 			mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
 		}
 	}
+	
+	public void onCheckedChanged(CompoundButton button, boolean check) {
+		Task t = (Task)button.getTag();
+		if (check){
+			if (checked_tasks_id.contains(t.taskId)) return;
+			t.selected = true;
+			
+			try{
+				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Task id "+t.taskId+" checked.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			mCurrentActionMode.startActionMode(this);
+			checked_tasks.add(t);
+			checked_tasks_id.add(t.taskId);
+		}
+		else{
+			if (!checked_tasks_id.contains(t.taskId)) return;
+			t.selected = false;
+			
+			try{
+				if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Task id "+t.taskId+" unchecked.");
+			}catch (Exception ex){/*DO NOTHING*/}
+
+			checked_tasks.remove(t);
+			checked_tasks_id.remove(checked_tasks_id.indexOf(t.taskId));
+			if (checked_tasks_id.size() == 0){
+				if (!mCurrentActionMode.terminating){
+					mCurrentActionMode.stopActionMode();
+				}
+			}
+		}
+		String selected = getActivity().getString(R.string.selected);
+		mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
+	}
+	
 }

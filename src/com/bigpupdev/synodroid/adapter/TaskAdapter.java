@@ -27,7 +27,6 @@ import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
 import com.bigpupdev.synodroid.R;
-import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.utils.Utils;
 
 import android.app.Activity;
@@ -226,15 +225,13 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		    vh.torrentRates = (TextView) view.findViewById(R.id.id_torrent_speed);
 			vh.torrentETA = (TextView) view.findViewById(R.id.id_torrent_eta);
 			
-		    if (UIUtils.isHoneycomb()){ 
-		    	View parent = view.findViewById(R.id.id_parent_view_template);
-				final CheckBox checkbox = (CheckBox) view.findViewById(R.id.id_torrent_cb);
-				parent.setOnClickListener(new OnClickListener(){
-					public void onClick(View arg0) {
-						checkbox.performClick();
-					}});
-		    }
-		    view.setTag(vh);
+	     	View parent = view.findViewById(R.id.id_parent_view_template);
+			final CheckBox checkbox = (CheckBox) view.findViewById(R.id.id_torrent_cb);
+			parent.setOnClickListener(new OnClickListener(){
+				public void onClick(View arg0) {
+					checkbox.performClick();
+				}});
+			view.setTag(vh);
 		}
 		
 		try{
@@ -254,14 +251,9 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	 */
 	private void bindView(View viewP, final Task taskP) {
 		ViewHolder vh = (ViewHolder) viewP.getTag();
-		if (UIUtils.isHoneycomb()){
-			vh.cb.setOnCheckedChangeListener(fragment);
-			vh.cb.setTag(taskP);
-			vh.cb.setChecked(taskP.selected);
-		}
-		else{
-			vh.cb.setVisibility(View.GONE);
-		}
+		vh.cb.setOnCheckedChangeListener(fragment);
+		vh.cb.setTag(taskP);
+		vh.cb.setChecked(taskP.selected);
 		
 		// Torrent's status icon
 		IconFacade.bindTorrentStatus(c, vh.image, taskP);

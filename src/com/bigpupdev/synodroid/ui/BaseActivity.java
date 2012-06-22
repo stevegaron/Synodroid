@@ -16,6 +16,7 @@
 
 package com.bigpupdev.synodroid.ui;
 
+import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
 
 import android.content.Intent;
@@ -34,6 +35,7 @@ import android.view.MenuItem;
  */
 public abstract class BaseActivity extends FragmentActivity {
     final ActivityHelper mActivityHelper = ActivityHelper.createInstance(this);
+    final ActionModeHelper mActionModeHelper = ActionModeHelper.createInstance();
 	    
     @Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -66,10 +68,16 @@ public abstract class BaseActivity extends FragmentActivity {
     /**
      * Returns the {@link ActivityHelper} object associated with this activity.
      */
-    protected ActivityHelper getActivityHelper() {
+    public ActivityHelper getActivityHelper() {
         return mActivityHelper;
     }
-
+    
+    /**
+     * Returns the {@link ActivityHelper} object associated with this activity.
+     */
+    public ActionModeHelper getActionModeHelper() {
+        return mActionModeHelper;
+    }
     /**
      * Takes a given intent and either starts a new activity to handle it (the default behavior),
      * or creates/updates a fragment (in the case of a multi-pane activity) that can handle the
