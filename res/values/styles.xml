@@ -119,6 +119,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:contentDescription">@string/description_logo</item>
         <item name="android:src">@drawable/actionbar_compat_logo</item>
+        <item name="android:background">@drawable/actionmode_compat_button</item>
     </style>
     
     <style name="ActionModeCompatLogo">
@@ -129,6 +130,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:contentDescription">@string/description_logo</item>
         <item name="android:src">@drawable/actionmode_compat_logo</item>
+        <item name="android:background">@drawable/actionmode_compat_button</item>
     </style>
     
     <style name="ActionBarCompatText">

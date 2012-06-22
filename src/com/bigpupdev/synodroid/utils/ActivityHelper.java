@@ -77,11 +77,13 @@ public class ActivityHelper {
         //ActionMode menus
         ViewGroup actionMode = (ViewGroup) mActivity.findViewById(R.id.actionmode_compat);
     	
-        SimpleMenu actionMenu = new SimpleMenu(mActivity);
-        mActivity.getMenuInflater().inflate(R.menu.action_mode_menu, actionMenu);
-        for (int i = 0; i < actionMenu.size(); i++) {
-            MenuItem item = actionMenu.getItem(i);
-            addActionButtonCompatFromMenuItem(actionMode, item, null);
+        if (actionMode != null){
+	        SimpleMenu actionMenu = new SimpleMenu(mActivity);
+	        mActivity.getMenuInflater().inflate(R.menu.action_mode_menu, actionMenu);
+	        for (int i = 0; i < actionMenu.size(); i++) {
+	            MenuItem item = actionMenu.getItem(i);
+	            addActionButtonCompatFromMenuItem(actionMode, item, null);
+	        }
         }
     }
 
@@ -147,9 +149,9 @@ public class ActivityHelper {
             return;
         }
 
-        TextView titleText = (TextView) actionBar.findViewById(R.id.actionbar_compat_text);
-        if (titleText != null) {
-            titleText.setOnClickListener(ocl);
+        ImageButton logo = (ImageButton) actionBar.findViewById(R.id.actionbar_compat_logo);
+        if (logo != null) {
+        	logo.setOnClickListener(ocl);
         }
     }
     
