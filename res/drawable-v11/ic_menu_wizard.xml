@@ -13,12 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<resources>
-    <color name="actionbar_text">#ffe0e0e0</color>
-	<color name="actionmode_text">#A0e0e0e0</color>
-    
-    <color name="body_text_1">#ff909090</color>
-    <color name="body_text_2">#99909090</color>
-   
-   	<color name="accent_1">#FFFFFFFF</color>
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true"
+        android:drawable="@drawable/ic_menu_wizard_enabled" />
+    <item android:state_enabled="false"
+        android:drawable="@drawable/ic_menu_wizard_disabled" />
+</selector>

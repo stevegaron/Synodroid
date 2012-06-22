@@ -44,7 +44,9 @@
         <item name="actionbarCompatSeparatorStyle">@style/ActionBarCompatSeparator</item>
         <item name="actionbarCompatLogoStyle">@style/ActionBarCompatLogo</item>
         <item name="actionbarCompatTextStyle">@style/ActionBarCompatText</item>
-        <item name="actionbarCompatHttpsStyle">@style/ActionBarCompatHttps</item>
+        <item name="actionmodeCompatButtonStyle">@style/ActionModeCompatButton</item>
+        <item name="actionmodeCompatLogoStyle">@style/ActionModeCompatLogo</item>
+        <item name="actionmodeCompatTextStyle">@style/ActionModeCompatText</item>
     </style>
 
     <!-- Start with the Holographic Light theme -->
@@ -57,6 +59,15 @@
         <item name="android:layout_height">@dimen/actionbar_compat_height</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/actionbar_compat_background</item>
+    </style>
+	
+	<style name="ActionModeCompat">
+        <item name="android:id">@id/actionmode_compat</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/actionbar_compat_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/actionmode_compat_background</item>
+        <item name="android:visibility">gone</item>
     </style>
 	
 	<style name="DelimiterHorizontal">
@@ -83,6 +94,13 @@
         <item name="android:background">@drawable/actionbar_compat_button</item>
     </style>
 
+	<style name="ActionModeCompatButton">
+        <item name="android:layout_width">@dimen/actionbar_compat_height</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">@drawable/actionmode_compat_button</item>
+    </style>
+    
     <style name="ActionBarCompatProgressIndicator" parent="android:style/Widget.ProgressBar.Small">
         <item name="android:indeterminate">true</item>
     </style>
@@ -103,16 +121,16 @@
         <item name="android:src">@drawable/actionbar_compat_logo</item>
     </style>
     
-    <style name="ActionBarCompatHttps">
-        <item name="android:id">@id/actionbar_compat_secure</item>
+    <style name="ActionModeCompatLogo">
+        <item name="android:id">@id/actionmode_compat_logo</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:clickable">false</item>
+        <item name="android:scaleType">center</item>
         <item name="android:contentDescription">@string/description_logo</item>
-        <item name="android:src">@drawable/icon_https</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:src">@drawable/actionmode_compat_logo</item>
     </style>
-
+    
     <style name="ActionBarCompatText">
         <item name="android:id">@id/actionbar_compat_text</item>
         <item name="android:layout_width">0dp</item>
@@ -128,6 +146,20 @@
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">0.00001</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    
+    <style name="ActionModeCompatText">
+        <item name="android:id">@id/actionmode_compat_text</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textColor">@color/actionmode_text</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>

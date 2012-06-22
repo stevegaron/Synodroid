@@ -207,19 +207,19 @@
     <service
         android:name=".server.DownloadIntentService"
         android:enabled="true"
-        android:icon="@drawable/icon_phone"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
     </service>
     <service
         android:name=".server.DownloadOriginalIntentService"
         android:enabled="true"
-        android:icon="@drawable/icon_phone"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
     </service>
     <service
         android:name=".server.UploadIntentService"
         android:enabled="true"
-        android:icon="@drawable/icon_phone"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
     </service>
     

@@ -25,6 +25,9 @@
         <attr name="actionbarCompatHttpsStyle" format="reference" />
         <attr name="textHeaderMaxLines" format="integer" />
         <attr name="trackAbstractMaxLines" format="integer" />
+        <attr name="actionmodeCompatButtonStyle" format="reference"/>
+        <attr name="actionmodeCompatLogoStyle" format="reference"/>
+        <attr name="actionmodeCompatTextStyle" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="BlocksLayout">

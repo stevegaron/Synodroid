@@ -32,7 +32,7 @@
         android:title="@string/title_preference" />
     
     <item android:id="@+id/menu_add"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/ic_menu_add_download"
         android:title="@string/menu_add"
         android:orderInCategory="0" 
         android:showAsAction="ifRoom"></item>

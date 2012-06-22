@@ -182,16 +182,6 @@ public class ActivityHelper {
         titleText.setLayoutParams(springLayoutParams);
         titleText.setText(title);
         actionBarCompat.addView(titleText);
-        
-        if (is_home){
-        	LinearLayout.LayoutParams httpsLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        	httpsLayoutParams.gravity = 0x10;
-        	
-        	ImageView sec = new ImageView(mActivity, null, R.attr.actionbarCompatHttpsStyle);
-        	sec.setVisibility(View.GONE);
-        	sec.setLayoutParams(httpsLayoutParams);
-        	actionBarCompat.addView(sec);
-        }
     }
 
     /**
@@ -208,9 +198,9 @@ public class ActivityHelper {
             titleText.setText(title);
         }
         
-        ImageView sec = (ImageView) actionBar.findViewById(R.id.actionbar_compat_secure);
+        ImageButton sec = (ImageButton) actionBar.findViewById(R.id.actionbar_compat_logo);
         if (sec != null) {
-        	sec.setVisibility(is_secure ? View.VISIBLE : View.GONE);
+        	sec.setImageResource(is_secure ? R.drawable.actionbar_compat_logo_https : R.drawable.actionbar_compat_logo);
         }
         
     }
