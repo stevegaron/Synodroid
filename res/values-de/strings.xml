@@ -375,7 +375,7 @@
 <string name="selected">ausgewählt</string>
 <string name="upload_failed">Upload der Dateien auf dem NAS gescheitert. Wiederholen ...</string>
 
-<string name="provider_missing">Es sind keine Suchanbieter installiert. Sie können entweder Ihr NAS auf DSM 3.2+ upgraden oder einen alternativen Suchanbieter installieren indem sie den Button unten klicken. Sie müssen danach Synodroid neustarten um den alternativen Suchanbieter zu aktivieren.</string>
+<string name="provider_missing">Es sind keine Suchanbieter installiert. Sie können entweder Ihr NAS auf DSM 3.1+ upgraden oder einen alternativen Suchanbieter installieren indem sie den Button unten klicken. Sie müssen danach Synodroid neustarten um den alternativen Suchanbieter zu aktivieren.</string>
 <string name="err_provider_missing">Es sind keine Suchanbieter installiert.\n\nBitte folgen sie der Anleitung auf dieser Seite um einen Suchanbieter zu installieren.</string>
 <string name="update_search_engine">Update der alternativen Suchengine</string>
 <string name="action_se_get">Empfange Liste der Suchengines</string>

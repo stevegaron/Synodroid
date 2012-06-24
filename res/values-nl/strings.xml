@@ -393,7 +393,7 @@
 <string name="file_not_found">Mislukt om toegang te krijgen tot een van de services. Dit kan komen door een verkeerd geselecteerde DSM versie. U kunt auto-herkenning aanzetten in de instellingen om de DSM versie automatisch vast te stellen...</string>
 <string name="failed_response">Mislukt om het antwoord van de server te verwerken. Maak opnieuw verbinding!</string>
 
-<string name="provider_missing">Er is geen zoekmachine geïnstalleerd. Je kan je NAS updaten naar DSM 3.2+ of een zoekmachine installeren door op de onderstaande knop te klikken.\n\n Let op: Je zal Synodroid moeten herstarten om de zoekmachine te kunnen gebruiken...</string>
+<string name="provider_missing">Er is geen zoekmachine geïnstalleerd. Je kan je NAS updaten naar DSM 3.1+ of een zoekmachine installeren door op de onderstaande knop te klikken.\n\n Let op: Je zal Synodroid moeten herstarten om de zoekmachine te kunnen gebruiken...</string>
 <string name="err_provider_missing">Er is geen zoekmachine geïnstalleerd.\n\nVolg de instructies op deze pagina om er een te installeren.</string>
 <string name="welcome">Welkom bij Synodroid Pro!</string>
 <string name="get_started">Synodroid Tutorial</string>

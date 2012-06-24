@@ -257,7 +257,7 @@
 <string name="installTorrentSearchAlternate">Téléchargement alternatif pour Torrent Search</string>
 <string name="logo_search">Recherche de torrent</string>
 <string name="dialog_message_confirm_add">Etes-vous sûr de vouloir commencer le téléchargement de ce fichier?</string>
-<string name="provider_missing">Aucun moteur de recherche n\'est installé. Vous pouvez soit installer une version de DSM supérieure a 3.2 ou installer le moteur de recherche alternatif en appuyant sur le menu de mise-à-jour du moteur de recherche.\n\n Note: Vous devez redémarrer Synodroid après l\'installation du moteur de recherche alternatif pour activer la recherche.</string>
+<string name="provider_missing">Aucun moteur de recherche n\'est installé. Vous pouvez soit installer une version de DSM supérieure a 3.1 ou installer le moteur de recherche alternatif en appuyant sur le menu de mise-à-jour du moteur de recherche.\n\n Note: Vous devez redémarrer Synodroid après l\'installation du moteur de recherche alternatif pour activer la recherche.</string>
 <string name="searching">Recherche en cours...\n\n</string>
 <string name="no_results">Aucun résultat.\n\n</string>
 <string name="sites">Sites disponibles:\n</string>

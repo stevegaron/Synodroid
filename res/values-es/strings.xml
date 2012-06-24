@@ -376,7 +376,7 @@
 <string name="selected">seleccionado(s)</string>
 <string name="upload_failed">Carga de los archivos en el NAS no. Vuelva a intentar ...</string>
 
-<string name="provider_missing">No hay proveedores de búsqueda instalados.Puedes actualizar tu NAS a DSM 3.2+ o instalar un proveedor alternativo pulsando en el botón inferior.\n\n Nota: Tendrás que reiniciar synodroid para habilitar la búsqueda después de instalar el proveedor de búsqueda alternativo...</string>
+<string name="provider_missing">No hay proveedores de búsqueda instalados.Puedes actualizar tu NAS a DSM 3.1+ o instalar un proveedor alternativo pulsando en el botón inferior.\n\n Nota: Tendrás que reiniciar synodroid para habilitar la búsqueda después de instalar el proveedor de búsqueda alternativo...</string>
 <string name="err_provider_missing">No hay proveedores de búsqueda instalados en tu dispositivo.\n\nSigue las instrucciones en esta página para instalar uno.</string>
 <string name="update_search_engine">Actualizar el motor de búsqueda alternativo</string>
 <string name="action_se_get">Actualizando lista de proveedores de búsqueda...</string>
