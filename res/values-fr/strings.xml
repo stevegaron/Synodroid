@@ -373,7 +373,7 @@
 <string name="gplus_title">Page Google+ de Synodroid</string>
    
 <string name="tasks">tâche(s)</string>
-<string name="magnet">Les liens Magnet ne fonctionnent seulement qu\'avec DSM 3.2 et plus...</string>
+<string name="magnet">Les liens Magnet ne fonctionnent seulement qu\'avec DSM 3.1 et plus...</string>
 <string name="update_search_engine">Mise-à-jour du moteur de recherche</string>
 <string name="update_search_engine_toast">Téléchargement de la dernière version du moteur de recherche.</string>
     
@@ -434,7 +434,7 @@
 <string name="upgrade_st2">2. Téléchargement des Fichiers dans un Sous-Dossier</string>
 <string name="upgrade_t3">Synodroid Pro vous permet de définir la destination de votre téléchargement vers n\'importe quel dossier sur votre NAS, pas seulement vers les points de partage.</string>
 <string name="upgrade_st3">3. Actions sur Plusieurs Téléchargements</string>
-<string name="upgrade_t4">Synodroid Pro vous permet d\'effectuer des actions sur plusieur téléchargment à la fois en selectionant ces fichers dans la liste de téléchargement. (Seulement pour Android 3.x et 4.x. Bientôt disponible sur Android 1.x et 2.x)</string>
+<string name="upgrade_t4">Synodroid Pro vous permet d\'effectuer des actions sur plusieur téléchargment à la fois en selectionant ces fichers dans la liste de téléchargement.</string>
 <string name="upgrade_st4">4. Moteur de Recherche DSM</string>
 <string name="upgrade_t5">L\'intégration avec le moteur de recherche de votre NAS est une fonction disponible dans Synodroid Pro. Ceci vous permet de faire une recherche sur plusieur moteurs de recherche en même temps et de configurer la liste de site que vous voulez utiliser pour la recherche.</string>
 <string name="upgrade_st5">5. Apercu du Torrent avant le Téléchargement</string>

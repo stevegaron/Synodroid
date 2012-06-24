@@ -369,7 +369,7 @@
 <string name="gplus_title">Synodroid Google+ Seite</string>
 
 <string name="tasks">Aufgabe(n)</string>
-<string name="magnet">Magnet Links funktionieren nur ab DSM 3.2 aufwärts...</string>
+<string name="magnet">Magnet Links funktionieren nur ab DSM 3.1 aufwärts...</string>
 <string name="update_search_engine_toast">Die neueste Version der Suchengine wird heruntergeladen.</string>
     
 <string name="selected">ausgewählt</string>
@@ -429,7 +429,7 @@
 <string name="upgrade_st2">2. Herunterladen in Unterordner</string>
 <string name="upgrade_t3">Synodroid Pro erlaubt Ihnen jeden Ordner auf ihrer Diskstation als Downloadziel auszuwählen, nicht nur die gemeinsamen Ordner.</string>
 <string name="upgrade_st3">3. Aktionen für mehrere Aufgaben</string>
-<string name="upgrade_t4">Synodroid Pro erlaubt es die gleiche Aktion für mehrere Aufgaben gleichzeitig auszuführen indem Sie sie in der Liste auswählen. (Nur für Android 3.x und 4.x. 1.x und 2.x sind in Entwicklung)</string>
+<string name="upgrade_t4">Synodroid Pro erlaubt es die gleiche Aktion für mehrere Aufgaben gleichzeitig auszuführen indem Sie sie in der Liste auswählen.</string>
 <string name="upgrade_st4">4. Synology DSM Suchengine</string>
 <string name="upgrade_t5">Die Integration der nativen DSM Suchengine ist nur in der Pro-Version von Synodroid verfügbar. Sie erlaubt Ihnen mehrere Seiten gleichzeitig zu durchsuchen und die Liste der durchsuchten Seiten einzustellen.</string>
 <string name="upgrade_st5">5. Torrent-Vorschau vor dem Download</string>

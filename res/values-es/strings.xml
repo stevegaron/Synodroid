@@ -370,7 +370,7 @@
 <string name="gplus_title">Página de Synodroid en Google+</string>
     
 <string name="tasks">tarea(s)</string>
-<string name="magnet">Los enlaces Magnet sólo funcionan con DSM 3.2 o superior...</string>
+<string name="magnet">Los enlaces Magnet sólo funcionan con DSM 3.1 o superior...</string>
 <string name="update_search_engine_toast">Descargar últimas versiones de los motores de búsqueda.</string>
 
 <string name="selected">seleccionado(s)</string>
@@ -432,7 +432,7 @@
 <string name="upgrade_st2">2. Destino de la descarga a una sub-carpeta</string>
 <string name="upgrade_t3">Synodroid Pro te permite configurar el destino de la descarga a cualquier carpeta en tu NAS, no sólo a los directorios compartidos.</string>
 <string name="upgrade_st3">3. Acción sobre múltiples archivos</string>
-<string name="upgrade_t4">Synodroid Pro te permite realizar acciones sobre múltiples archivos al mismo tiempo seleccionando cualquier archivo de la lista descargas. (Sólo para Android 3.x y 4.x. Pronto para Android 1.x y 2.x.)</string>
+<string name="upgrade_t4">Synodroid Pro te permite realizar acciones sobre múltiples archivos al mismo tiempo seleccionando cualquier archivo de la lista descargas.</string>
 <string name="upgrade_st4">4. Motor de búsqueda de Synology DSM</string>
 <string name="upgrade_t5">Integración con el motor de búsqueda del DSM de Synology. Te permite buscar en multiples sitios a la vez y gestionar la lista de sitios de búsqueda.</string>
 <string name="upgrade_st5">5. Previsualizar Torrent antes de descagar</string>

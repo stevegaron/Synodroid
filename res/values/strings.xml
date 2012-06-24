@@ -372,7 +372,7 @@
 <string name="gplus_title">Synodroid Google+ Page</string>
   
 <string name="tasks">task(s)</string>
-<string name="magnet">Magnet links only work with DSM 3.2 and up...</string>
+<string name="magnet">Magnet links only work with DSM 3.1 and up...</string>
 <string name="update_search_engine">Update alternate search provider</string>
 <string name="update_search_engine_toast">Downloading latest search provider version.</string>
     
@@ -435,7 +435,7 @@
 <string name="upgrade_st2">2. Download Destination to Sub-Folder</string>
 <string name="upgrade_t3">Synodroid Pro allows you to set the destination for your download to any folder on your NAS, not just the shared directories.</string>
 <string name="upgrade_st3">3. Action on Multiple Files</string>
-<string name="upgrade_t4">Synodroid Pro allows you to make actions on multiple files at the same time by selecting any file from the download list. (Only for Android 3.x and 4.x. Coming to Android 1.x and 2.x soon.)</string>
+<string name="upgrade_t4">Synodroid Pro allows you to make actions on multiple files at the same time by selecting any file from the download list.</string>
 <string name="upgrade_st4">4. Synology DSM Search Engine</string>
 <string name="upgrade_t5">Integration with Synology\'s DSM Search engine is a feature accessible in Synodroid Pro. It also allows you to search on multiple site at the same time and to manage the list of site to search from.</string>
 <string name="upgrade_st5">5. Preview Torrent Before Download</string>
