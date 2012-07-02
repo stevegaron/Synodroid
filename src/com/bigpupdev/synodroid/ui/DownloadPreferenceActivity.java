@@ -629,8 +629,14 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 			connectionCategory.addPreference(useWifi);
 
 			List<WifiConfiguration> wifis = wifiMgr.getConfiguredNetworks();
-			String[] wifiSSIDs = new String[wifis.size()];
-			for (int iLoop = 0; iLoop < wifis.size(); iLoop++) {
+			int w_size = 0;
+			try{
+				w_size = wifis.size();
+			}
+			catch (NullPointerException e){}
+			
+			String[] wifiSSIDs = new String[w_size];
+			for (int iLoop = 0; iLoop < w_size; iLoop++) {
 				String ssid = wifis.get(iLoop).SSID;
 				if (ssid != null) {
 					if (ssid.startsWith("\"") && ssid.endsWith("\"")) {

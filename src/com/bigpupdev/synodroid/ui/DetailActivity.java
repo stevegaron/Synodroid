@@ -792,10 +792,14 @@ public class DetailActivity extends BaseActivity{
 				break;
 			}
 		}
-        if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
-			menu.add(0, MENU_DESTINATION, 0, getString(R.string.menu_destination)).setIcon(android.R.drawable.ic_menu_share).setEnabled(true);
-		}
-		if (task.isTorrent) {
+        
+        try{
+        	if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
+        		menu.add(0, MENU_DESTINATION, 0, getString(R.string.menu_destination)).setIcon(android.R.drawable.ic_menu_share).setEnabled(true);
+        	}
+        }catch (NullPointerException e){/*No need to catch the exception*/}
+		
+        if (task.isTorrent) {
 			if (task.getStatus() == TaskStatus.TASK_DOWNLOADING || task.getStatus() == TaskStatus.TASK_SEEDING) {
 				menu.add(0, MENU_PARAMETERS, 0, getString(R.string.task_parameters)).setIcon(android.R.drawable.ic_menu_preferences).setEnabled(true);
 			} else {
