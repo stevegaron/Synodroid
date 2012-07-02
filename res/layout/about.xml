@@ -143,17 +143,6 @@
 	            android:gravity="center_vertical"
 	            android:text="@string/email"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
-            
-            <Button
-                android:id="@+id/id_eula_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dip"
-	            android:paddingBottom="5dip"
-                android:paddingLeft="30dip"
-                android:paddingRight="30dip"
-                android:paddingTop="3dip"
-                android:text="@string/eula_view" />
         </LinearLayout>
     </LinearLayout>
 

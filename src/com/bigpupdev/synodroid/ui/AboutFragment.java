@@ -14,12 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager.BadTokenException;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.utils.EulaHelper;
 
 public class AboutFragment extends Fragment{
 	@Override
@@ -41,18 +39,6 @@ public class AboutFragment extends Fragment{
 		
 		final FragmentActivity aboutActivity = this.getActivity();
 		View about = inflater.inflate(R.layout.about, null, false);
-		Button eulaBtn = (Button) about.findViewById(R.id.id_eula_view);
-		eulaBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// Diplay the EULA
-				try {
-					EulaHelper.showEula(true, aboutActivity);
-				} catch (BadTokenException e) {
-					// Unable to show dialog probably because intent has been closed. Ignoring...
-				}
-			}
-		});
-
 		String vn = "" + getString(R.string.app_name);
 		try {
 			PackageInfo pi = aboutActivity.getPackageManager().getPackageInfo(aboutActivity.getPackageName(), 0);
