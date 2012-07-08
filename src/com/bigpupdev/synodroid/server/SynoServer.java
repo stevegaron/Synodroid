@@ -195,7 +195,9 @@ public class SynoServer extends SimpleSynoServer{
 									// If the thread is paused
 									if (pause) {
 										silentMode = true;
-										wait();
+										synchronized (this){
+											wait();
+										}
 									}
 									
 								}
