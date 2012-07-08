@@ -17,6 +17,7 @@
 package com.bigpupdev.synodroid.wizard;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -106,9 +107,10 @@ public class DiscoveringThread extends Thread {
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
 				NetworkInterface intf = en.nextElement();
+				
 				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
 					InetAddress inetAddress = enumIpAddr.nextElement();
-					if (!inetAddress.isLoopbackAddress()) {
+					if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
 						return inetAddress;
 					}
 				}
