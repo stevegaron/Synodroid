@@ -194,6 +194,16 @@
       </intent-filter>
     </activity>
     <activity 
+      android:name=".ui.DebugActivity"
+      android:theme="@style/Theme.Synodroid.Home"
+      android:configChanges="orientation|keyboardHidden|screenSize"
+      android:launchMode="singleTop">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+      </intent-filter>
+    </activity>
+    <activity 
 	 	 android:name=".ui.GetStartedActivity"
 	 	 android:theme="@style/Theme.Synodroid.Home"
 	 	 android:configChanges="orientation|keyboardHidden|screenSize"

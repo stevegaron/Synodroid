@@ -7,12 +7,6 @@
  */
 package com.bigpupdev.synodroid.ui;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -47,12 +41,10 @@ import android.content.DialogInterface.OnDismissListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -66,7 +58,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.view.WindowManager.BadTokenException;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
@@ -230,7 +221,9 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		sendDebugLogs.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			public boolean onPreferenceClick(Preference arg0) {
-				sendDebugLogs();
+				Intent next = new Intent();
+				next.setClass(DownloadPreferenceActivity.this, DebugActivity.class);
+				startActivity(next);
 				return false;
 			}
 
@@ -249,80 +242,6 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
         	getActivityHelper().setupSubActivity();
         }
     }
-	
-	private void sendDebugLogs () {
-		Process mLogcatProc = null;
-		BufferedReader reader = null;
-		try {
-		        mLogcatProc = Runtime.getRuntime().exec(new String[]
-		                {"logcat", "-d", Synodroid.DS_TAG+":V *:S" });
-
-		        reader = new BufferedReader(new InputStreamReader(mLogcatProc.getInputStream()));
-
-		        String line;
-		        final StringBuilder log = new StringBuilder();
-		        String separator = System.getProperty("line.separator"); 
-
-		        while ((line = reader.readLine()) != null) {
-		                log.append(line);
-		                log.append(separator);
-		        }
-		        
-		        String logs = log.toString();
-		        
-		        if (!logs.equals("")){
-			        File out_path = Environment.getExternalStorageDirectory();
-					out_path = new File(out_path, "Android/data/com.bigpupdev.synodroid/cache/");
-					File file = new File(out_path, "debug_log.txt");
-					try {
-						// Make sure the Pictures directory exists.
-						out_path.mkdirs();
-						OutputStream os = new FileOutputStream(file);
-						os.write(logs.getBytes());
-						os.close();
-						try {
-							final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-							emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "synodroid@gmail.com" });
-							emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Synodroid Professional - Debug log");
-							emailIntent.setType("plain/text");
-							emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getAbsolutePath()));
-							startActivity(emailIntent);
-						} catch (Exception e) {
-							AlertDialog.Builder builder = new AlertDialog.Builder(this);
-							builder.setMessage(R.string.err_noemail);
-							builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int id) {
-									dialog.cancel();
-								}
-							});
-							AlertDialog errorDialog = builder.create();
-							try {
-								errorDialog.show();
-							} catch (BadTokenException ex) {
-								// Unable to show dialog probably because intent has been closed. Ignoring...
-							}
-						}
-					} catch (Exception e) {
-						// Unable to create file, likely because external storage is
-						// not currently mounted.
-						try{
-							Log.e(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
-						}catch (Exception ex){/*DO NOTHING*/}
-					}
-		        }
-		        else{
-		        	
-		        }
-		}
-		catch (IOException e){}
-		finally{
-		        if (reader != null)
-		                try{
-		                        reader.close();
-		                }
-		                catch (IOException e){}
-		}
-	}
 	
 	private void clearSearchHistory() {
 		SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SynodroidSearchSuggestion.AUTHORITY, SynodroidSearchSuggestion.MODE);

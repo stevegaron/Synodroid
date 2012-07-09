@@ -450,7 +450,9 @@
 <string name="tab_pro">Pro</string>
 
 <string name="title_cat_debug">Debugging</string>
-<string name="send_debug_logs">Send Debug Logs</string>
-
+<string name="send_debug_logs">View/Send debug logs</string>
+<string name="title_debug_logs">Synodroid Logs Preview</string>
+<string name="btn_send">Send</string>
+<string name="no_logs">No logs have been generated for your application yet. Turn on debugging and do some actions with the applicaiton until you can reproduce the problem before sending the logs...</string>
 
 </resources>
