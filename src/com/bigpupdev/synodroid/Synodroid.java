@@ -45,10 +45,10 @@ import android.util.Log;
  */
 public class Synodroid extends Application {
 
-	private static final String PREFERENCE_GENERAL = "general_cat";
-	private static final String PREFERENCE_DEBUG_LOG = "general_cat.debug_logging";
+	private static final String PREFERENCE_DEBUG = "debug_cat";
+	private static final String PREFERENCE_DEBUG_LOG = "debug_cat.debug_logging";
 	
-	public static final String DS_TAG = "Synodroid DS";
+	public static final String DS_TAG = "Synodroid";
 	public boolean DEBUG;
 	// The current server
 	private SynoServer currentServer = null;
@@ -61,7 +61,7 @@ public class Synodroid extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		SharedPreferences preferences = getSharedPreferences(PREFERENCE_DEBUG, Activity.MODE_PRIVATE);
 		DEBUG = preferences.getBoolean(PREFERENCE_DEBUG_LOG, false);	
 	}
 

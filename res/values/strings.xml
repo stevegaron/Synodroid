@@ -449,5 +449,8 @@
 <string name="tab_search">Search</string>
 <string name="tab_pro">Pro</string>
 
+<string name="title_cat_debug">Debugging</string>
+<string name="send_debug_logs">Send Debug Logs</string>
+
 
 </resources>
