@@ -63,6 +63,8 @@ public abstract class DSMHandlerFactory {
 			return new DSHandlerDSM32Factory(serverP, debug, autoDetect);
 		case VERSION4_0:
 			return new DSHandlerDSM40Factory(serverP, debug, autoDetect);
+		case VERSION4_1:
+			return new DSHandlerDSM40Factory(serverP, debug, autoDetect);
 		}
 		return result;
 	}
