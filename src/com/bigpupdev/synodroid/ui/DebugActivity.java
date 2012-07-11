@@ -16,6 +16,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,8 @@ public class DebugActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	
+	private String html = null;
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// ignore orientation change
@@ -42,20 +45,20 @@ public class DebugActivity extends BaseActivity{
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
+		super.onCreate(savedInstanceState);        
+		final String logs = generateDebugLogs();
+        
         setContentView(R.layout.activity_debug);
         TextView tv_logs = (TextView)findViewById(R.id.tv_logs);
         Button btn_send = (Button)findViewById(R.id.SendButton);
         Button btn_cancel = (Button)findViewById(R.id.cancelButton);
         
-        final String logs = generateDebugLogs();
         if (logs == null){
         	tv_logs.setText(getString(R.string.no_logs));
         	btn_send.setEnabled(false);
         }
         else{
-        	tv_logs.setText(logs);
+        	tv_logs.setText(Html.fromHtml(html));
         }
         
         btn_send.setOnClickListener(new OnClickListener (){
@@ -102,13 +105,30 @@ public class DebugActivity extends BaseActivity{
 
 		        String line;
 		        final StringBuilder log = new StringBuilder();
+		        final StringBuilder sb_html = new StringBuilder();
 		        String separator = System.getProperty("line.separator"); 
 
 		        while ((line = reader.readLine()) != null) {
+		        		if (line.startsWith("W/")){
+		        			sb_html.append("<font color=\"#FFA000\">");
+		        		}
+		        		else if (line.startsWith("E/")){
+		        			sb_html.append("<font color=\"#FF0000\">");
+		        		}
+		        		else if (line.startsWith("V/")){
+		        			sb_html.append("<font color=\"#777777\">");
+		        		}
+		        		sb_html.append(line);
+		        		if (line.startsWith("W/")||line.startsWith("E/")||line.startsWith("V/")){
+		        			sb_html.append("</font>");
+		        		}
+		        		sb_html.append("<br/>");
+	        		
 		                log.append(line);
 		                log.append(separator);
 		        }
 		        
+		        html = sb_html.toString();
 		        return log.toString();
 		        
 		        
