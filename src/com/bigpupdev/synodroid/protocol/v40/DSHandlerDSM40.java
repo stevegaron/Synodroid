@@ -800,7 +800,7 @@ class DSHandlerDSM40 implements DSHandler {
 		String result = null;
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder getShared = new QueryBuilder().add("action", "shareget");
+			QueryBuilder getShared = new QueryBuilder().add("action", "infoget");
 			// Execute
 			JSONObject json;
 			synchronized (server) {
