@@ -53,7 +53,7 @@ public class DebugActivity extends BaseActivity{
         Button btn_send = (Button)findViewById(R.id.SendButton);
         Button btn_cancel = (Button)findViewById(R.id.cancelButton);
         
-        if (logs == null){
+        if (logs == null || logs.equals("")){
         	tv_logs.setText(getString(R.string.no_logs));
         	btn_send.setEnabled(false);
         }
