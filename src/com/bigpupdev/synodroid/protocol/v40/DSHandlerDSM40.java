@@ -9,6 +9,7 @@
 package com.bigpupdev.synodroid.protocol.v40;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -800,12 +801,24 @@ class DSHandlerDSM40 implements DSHandler {
 		String result = null;
 		// If we are logged on
 		if (server.isConnected()) {
-			QueryBuilder getShared = new QueryBuilder().add("action", "infoget");
+			QueryBuilder getShared = new QueryBuilder().add("action", "shareget");
+			//Fallback interface for DSM 4.1
+			QueryBuilder infoGet = new QueryBuilder().add("action", "infoget");
+			
 			// Execute
 			JSONObject json;
-			synchronized (server) {
-				json = server.sendJSONRequest(DM_URI_NEW, getShared.toString(), "GET");
+			
+			try{
+				synchronized (server) {
+					json = server.sendJSONRequest(DM_URI_NEW, getShared.toString(), "GET");
+				}
+			} catch (FileNotFoundException e){
+				if (server.DEBUG) Log.w(Synodroid.DS_TAG, "DSHandlerDSM40: shareget action unavailable. Fallback to infoget action...");
+				synchronized (server) {
+					json = server.sendJSONRequest(DM_URI_NEW, infoGet.toString(), "GET");
+				}
 			}
+			
 			boolean success = json.getBoolean("success");
 			// If request succeded
 			if (success) {
