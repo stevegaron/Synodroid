@@ -41,7 +41,7 @@ public class GetStartedFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"GetStartedFragment: Creating Get Started fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"GetStartedFragment: Creating Get Started fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		final FragmentActivity gsActivity = this.getActivity();

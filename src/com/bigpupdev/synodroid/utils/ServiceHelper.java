@@ -100,14 +100,14 @@ public class ServiceHelper {
 		// Add cookies if exist
 		if (cookie != null) {
 			con.addRequestProperty("Cookie", cookie);
-			if (dbg) Log.d(Synodroid.DS_TAG, "Added cookie: " + cookie);
+			if (dbg) Log.v(Synodroid.DS_TAG, "Added cookie to request: " + cookie);
 		}
 		con.setDoOutput(true);
 		con.setDoInput(true);
 		con.setUseCaches(false);
 		con.setRequestMethod(methodP);
 		con.setConnectTimeout(20000);
-		if (dbg) Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
+		if (dbg) Log.i(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
 		return con;
 	}
 }

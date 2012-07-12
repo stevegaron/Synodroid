@@ -67,7 +67,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
         	switch (menuItem.getItemId()) {
 				case R.id.menu_pause:
                 	try{
-                		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode pause clicked.");
+                		if (app.DEBUG) Log.v(Synodroid.DS_TAG, "ActionModeHelper: Action Mode pause clicked.");
                 	}catch (Exception ex){/*DO NOTHING*/}
                 	app.executeAction(mCurrentFragment, new PauseMultipleTaskAction(t_list), false);
                 	actionMode.finish();
@@ -75,7 +75,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
                     return true;
                 case R.id.menu_clear:
                 	try{
-                		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode clear clicked.");
+                		if (app.DEBUG) Log.v(Synodroid.DS_TAG, "ActionModeHelper: Action Mode clear clicked.");
                 	}catch (Exception ex){/*DO NOTHING*/}
                 	app.executeAction(mCurrentFragment, new DeleteMultipleTaskAction(t_list), false);
                 	actionMode.finish();
@@ -83,7 +83,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
                     return true;
                 case R.id.menu_resume:
                 	try{
-                		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode resume clicked.");
+                		if (app.DEBUG) Log.v(Synodroid.DS_TAG, "ActionModeHelper: Action Mode resume clicked.");
                 	}catch (Exception ex){/*DO NOTHING*/}
                 	app.executeAction(mCurrentFragment, new ResumeMultipleTaskAction(t_list), false);
                 	actionMode.finish();

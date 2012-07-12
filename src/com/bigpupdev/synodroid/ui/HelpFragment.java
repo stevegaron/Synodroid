@@ -49,7 +49,7 @@ public class HelpFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HelpFragment: Creating help fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HelpFragment: Creating help fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		final FragmentActivity helpActivity = this.getActivity();

@@ -74,7 +74,7 @@ public abstract class DSMHandlerFactory {
 		int version = 0;
 		// If we are logged on
 		if (serverP.isConnected() && autoDetect) {
-			if (debug) Log.d(Synodroid.DS_TAG, "Starting server auto-detection...");
+			if (debug) Log.v(Synodroid.DS_TAG, "Starting server auto-detection...");
 			// Execute
 			JSONObject json = null;
 			synchronized (serverP) {
@@ -82,7 +82,7 @@ public abstract class DSMHandlerFactory {
 			}
 			if (json != null){
 				version = Integer.parseInt(json.getJSONObject("Session").getString("version"));
-				if (debug) Log.d(Synodroid.DS_TAG, "Found version: "+version);
+				if (debug) Log.i(Synodroid.DS_TAG, "Found version: "+version);
 				if (version < 1553){
 					// DSM 2.2
 					return DSMVersion.VERSION2_2;
@@ -101,7 +101,7 @@ public abstract class DSMHandlerFactory {
 				}
 			}
 		}
-		if (debug) Log.d(Synodroid.DS_TAG, "Skipping server auto-detection, will use previous DSM version.");
+		if (debug) Log.v(Synodroid.DS_TAG, "Skipping server auto-detection, will use previous DSM version.");
 		return serverP.getDsmVersion();
 	} 
 

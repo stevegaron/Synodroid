@@ -151,7 +151,7 @@ public class UploadIntentService extends IntentService{
 			
 						if (conn.getResponseCode() == -1) {
 							retry++;
-							if (dbg) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+							if (dbg) Log.e(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 						} else {
 							if (dbg) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
 							respJSO = new JSONObject(sb.toString());

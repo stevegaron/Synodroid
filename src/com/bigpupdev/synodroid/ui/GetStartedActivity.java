@@ -76,7 +76,7 @@ public class GetStartedActivity extends BaseActivity{
 	protected void onResume() {
 		super.onResume();
 		try{
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"GetStartedActivity: Resuming about activity.");
+			if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"GetStartedActivity: Resuming about activity.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Check for fullscreen

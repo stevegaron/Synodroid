@@ -66,10 +66,10 @@ public class DownloadIntentService extends IntentService{
 
 			long startTime = System.currentTimeMillis();
 			try{
-				if (dbg) Log.d(Synodroid.DS_TAG, "DownloadIntentService: Downloading " + uri + " to temp folder...");
+				if (dbg) Log.v(Synodroid.DS_TAG, "DownloadIntentService: Downloading " + uri + " to temp folder...");
 			}catch (Exception ex){/*DO NOTHING*/}
 			try{
-				if (dbg) Log.d(Synodroid.DS_TAG, "DownloadIntentService: Temp file destination: " + file.getAbsolutePath());
+				if (dbg) Log.v(Synodroid.DS_TAG, "DownloadIntentService: Temp file destination: " + file.getAbsolutePath());
 			}catch (Exception ex){/*DO NOTHING*/}
 			/* Open a connection to that URL. */
 			HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
@@ -109,7 +109,7 @@ public class DownloadIntentService extends IntentService{
 			fos.close();
 			
 			try{
-				if (dbg) Log.d(Synodroid.DS_TAG, "DownloadIntentService: Download completed. Elapsed time: " + ((System.currentTimeMillis() - startTime) / 1000) + " sec(s)");
+				if (dbg) Log.v(Synodroid.DS_TAG, "DownloadIntentService: Download completed. Elapsed time: " + ((System.currentTimeMillis() - startTime) / 1000) + " sec(s)");
 			}catch (Exception ex){/*DO NOTHING*/}
 			uri = Uri.fromFile(file).toString();
 		} catch (Exception e) {

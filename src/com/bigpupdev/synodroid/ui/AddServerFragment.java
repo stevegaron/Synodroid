@@ -39,7 +39,7 @@ public class AddServerFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AddServerFragment: Creating Add Server fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"AddServerFragment: Creating Add Server fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		View AddSrv = inflater.inflate(R.layout.add_server, null, false);

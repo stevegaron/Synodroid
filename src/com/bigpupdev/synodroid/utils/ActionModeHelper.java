@@ -62,7 +62,7 @@ public class ActionModeHelper{
         View.OnClickListener clearClickListener = new View.OnClickListener() {
             public void onClick(View view) {
             	try{
-            		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode clear clicked.");
+            		if (app.DEBUG) Log.v(Synodroid.DS_TAG, "ActionModeHelper: Action Mode clear clicked.");
             	}catch (Exception ex){/*DO NOTHING*/}
             	app.executeAction(mCurrentFragment, new DeleteMultipleTaskAction(countSelected()), false);
             	stopActionMode();
@@ -72,7 +72,7 @@ public class ActionModeHelper{
         View.OnClickListener resumeClickListener = new View.OnClickListener() {
             public void onClick(View view) {
             	try{
-            		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode resume clicked.");
+            		if (app.DEBUG) Log.v(Synodroid.DS_TAG, "ActionModeHelper: Action Mode resume clicked.");
             	}catch (Exception ex){/*DO NOTHING*/}
             	app.executeAction(mCurrentFragment, new ResumeMultipleTaskAction(countSelected()), false);
             	stopActionMode();
@@ -82,7 +82,7 @@ public class ActionModeHelper{
         View.OnClickListener pauseClickListener = new View.OnClickListener() {
             public void onClick(View view) {
             	try{
-            		if (app.DEBUG) Log.d(Synodroid.DS_TAG, "ActionModeHelper: Action Mode pause clicked.");
+            		if (app.DEBUG) Log.v(Synodroid.DS_TAG, "ActionModeHelper: Action Mode pause clicked.");
             	}catch (Exception ex){/*DO NOTHING*/}
             	app.executeAction(mCurrentFragment, new PauseMultipleTaskAction(countSelected()), false);
             	stopActionMode();

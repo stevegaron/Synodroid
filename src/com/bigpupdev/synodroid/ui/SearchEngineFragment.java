@@ -39,7 +39,7 @@ public class SearchEngineFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SearchEngineFragment: Creating Search Engine fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchEngineFragment: Creating Search Engine fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		View se = inflater.inflate(R.layout.search_engine, null, false);

@@ -39,7 +39,7 @@ public class AddDownloadFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AddDownloadFragment: Creating Add Download fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"AddDownloadFragment: Creating Add Download fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		View addDL = inflater.inflate(R.layout.add_dl, null, false);

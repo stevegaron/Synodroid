@@ -47,7 +47,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 				// According to the message
 				switch (msgP.what) {
 				case MSG_OPERATION_PENDING:
-					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received operation pending message.");
+					if (app != null && app.DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received operation pending message.");
 					if (a instanceof HomeActivity){
 						((HomeActivity) a).updateRefreshStatus(true);
 					}
@@ -56,7 +56,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 					}
 					break;
 				case MSG_TOAST:
-					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
+					if (app != null && app.DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
 					final String text = (String) msgP.obj;
 					Runnable runnable = new Runnable() {
 						public void run() {
@@ -67,7 +67,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 					a.runOnUiThread(runnable);
 					break;
 				default:
-					if (app != null && app.DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Received default message.");
+					if (app != null && app.DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received default message.");
 					if (a instanceof HomeActivity){
 						((HomeActivity) a).updateRefreshStatus(false);
 					}

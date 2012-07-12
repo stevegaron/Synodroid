@@ -115,10 +115,10 @@ public class Synodroid extends Application {
 		boolean wifiOn = wifiMgr.isWifiEnabled();
 		if (DEBUG){
 			if (wifiOn){
-				Log.d(Synodroid.DS_TAG, "Synodroid: Wifi is: ENABLED.");	
+				Log.v(Synodroid.DS_TAG, "Synodroid: Wifi is: ENABLED.");	
 			}
 			else{
-				Log.d(Synodroid.DS_TAG, "Synodroid: Wifi is: DISABLED.");
+				Log.v(Synodroid.DS_TAG, "Synodroid: Wifi is: DISABLED.");
 			}
 		}
 		
@@ -127,27 +127,27 @@ public class Synodroid extends Application {
 		
 		if (DEBUG){
 			if (wifiConnected){
-				Log.d(Synodroid.DS_TAG, "Synodroid: Wifi is: CONNECTED.");
+				Log.v(Synodroid.DS_TAG, "Synodroid: Wifi is: CONNECTED.");
 			}
 			else{
-				Log.d(Synodroid.DS_TAG, "Synodroid: Wifi is: DISCONNECTED.");
+				Log.v(Synodroid.DS_TAG, "Synodroid: Wifi is: DISCONNECTED.");
 			}
 		}
 		// If we are connected to a WIFI network, verify if SSID match
 		boolean pub = true;
 		String cur_ssid = currentWifi.getSSID();
 		if (wifiConnected && cur_ssid != null) {
-			if (DEBUG) Log.d(Synodroid.DS_TAG, "Synodroid: Wifi current SSID is: '" + cur_ssid+"'");
+			if (DEBUG) Log.v(Synodroid.DS_TAG, "Synodroid: Wifi current SSID is: '" + cur_ssid+"'");
 			SynoServerConnection sc = currentServer.getLocalConnection();
 			if (sc != null) {
 				List<String> ssids = sc.wifiSSID;
 				if (ssids != null) {
-					if (DEBUG) Log.d(Synodroid.DS_TAG, "Synodroid: Local connection has an SSID list! Checking to find the right SSID...");
+					if (DEBUG) Log.v(Synodroid.DS_TAG, "Synodroid: Local connection has an SSID list! Checking to find the right SSID...");
 					for (String ssid : ssids) {
-						if (DEBUG) Log.d(Synodroid.DS_TAG, "Synodroid: Comparing '"+ssid+"' with '" + cur_ssid+"' ...");
+						if (DEBUG) Log.v(Synodroid.DS_TAG, "Synodroid: Comparing '"+ssid+"' with '" + cur_ssid+"' ...");
 						if (cur_ssid.equals(ssid)) {
 							pub = false;
-							if (DEBUG) Log.d(Synodroid.DS_TAG, "Synodroid: SSIDs are equal! Connecting using local connection...");
+							if (DEBUG) Log.v(Synodroid.DS_TAG, "Synodroid: SSIDs are equal! Connecting using local connection...");
 							break;
 						}
 					}

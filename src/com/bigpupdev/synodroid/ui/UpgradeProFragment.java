@@ -41,7 +41,7 @@ public class UpgradeProFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AddDownloadFragment: Creating Add Download fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"AddDownloadFragment: Creating Add Download fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		View upg = inflater.inflate(R.layout.upgrade_pro, null, false);

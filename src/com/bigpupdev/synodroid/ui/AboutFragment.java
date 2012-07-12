@@ -34,7 +34,7 @@ public class AboutFragment extends Fragment{
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Creating about fragment.");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"AboutActivity: Creating about fragment.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		final FragmentActivity aboutActivity = this.getActivity();

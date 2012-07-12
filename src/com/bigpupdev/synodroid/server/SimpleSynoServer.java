@@ -133,7 +133,7 @@ public class SimpleSynoServer {
 		// Add cookies if exist
 		if (cookies != null) {
 			con.addRequestProperty("Cookie", getCookies());
-			if (DEBUG) Log.d(Synodroid.DS_TAG, "Added cookie: " + cookies);
+			if (DEBUG) Log.v(Synodroid.DS_TAG, "Added cookie to request: " + cookies);
 		}
 		con.setDoOutput(true);
 		con.setDoInput(true);
@@ -142,10 +142,10 @@ public class SimpleSynoServer {
 		con.setConnectTimeout(20000);
 		if (DEBUG) {
 			if (log){
-				Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
+				Log.i(Synodroid.DS_TAG, methodP + ": " + uriP + "?" + requestP);
 			}
 			else{
-				Log.d(Synodroid.DS_TAG, methodP + ": " + uriP + " (hidden request)");
+				Log.i(Synodroid.DS_TAG, methodP + ": " + uriP + " (hidden request)");
 			}
 		}
 		return con;
@@ -225,7 +225,7 @@ public class SimpleSynoServer {
 						synchronized (this){
 							setCookie(newCookie);
 						}
-						if (DEBUG) Log.d(Synodroid.DS_TAG, "Retreived cookies: " + cookies);
+						if (DEBUG) Log.v(Synodroid.DS_TAG, "Retreived cookies: " + cookies);
 					}
 					
 					// Now read the reponse and build a string with it
@@ -239,7 +239,7 @@ public class SimpleSynoServer {
 					// Verify is response if not -1, otherwise take reason from the header
 					if (con.getResponseCode() == -1) {
 						retry++;
-						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+						if (DEBUG) Log.w(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 					} else {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
 						JSONArray respJSO = null;
@@ -335,7 +335,7 @@ public class SimpleSynoServer {
 						synchronized (this){
 							setCookie(newCookie);
 						}
-						if (DEBUG) Log.d(Synodroid.DS_TAG, "Retreived cookies: " + cookies);
+						if (DEBUG) Log.v(Synodroid.DS_TAG, "Retreived cookies: " + cookies);
 					}
 					
 					// Now read the reponse and build a string with it
@@ -350,7 +350,7 @@ public class SimpleSynoServer {
 					if (con.getResponseCode() == -1) {
 						retry++;
 						last_exception = null;
-						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+						if (DEBUG) Log.w(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 					} else {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
 						JSONObject respJSO = null;
@@ -434,7 +434,7 @@ public class SimpleSynoServer {
 		
 					if (conn.getResponseCode() == -1) {
 						retry++;
-						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
+						if (DEBUG) Log.w(Synodroid.DS_TAG, "Response code is -1 (retry: " + retry + ")");
 					} else {
 						if (DEBUG) Log.d(Synodroid.DS_TAG, "Response is: " + sb.toString());
 						respJSO = new JSONObject(sb.toString());

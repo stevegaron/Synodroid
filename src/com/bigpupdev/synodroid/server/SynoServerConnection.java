@@ -88,7 +88,7 @@ public class SynoServerConnection {
 				}
 			}
 		} catch (Exception ex) {
-			if (debug) Log.d(Synodroid.DS_TAG, "An exception occured while loading " + (local ? "local" : "public") + " connection", ex);
+			if (debug) Log.e(Synodroid.DS_TAG, "An exception occured while loading " + (local ? "local" : "public") + " connection", ex);
 		}
 		return result;
 	}

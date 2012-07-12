@@ -112,7 +112,7 @@ public class AboutActivity extends BaseActivity{
 	protected void onResume() {
 		super.onResume();
 		try{
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"AboutActivity: Resuming about activity.");
+			if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"AboutActivity: Resuming about activity.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Check for fullscreen

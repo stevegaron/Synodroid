@@ -114,7 +114,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	
 	private void killDialog(int ID){
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Closing dialog box ID: "+ID);
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Closing dialog box ID: "+ID);
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Dissmiss the connection dialog
@@ -143,7 +143,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		}
 		else if (msg.what == ResponseHandler.MSG_TASKS_UPDATED) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received task updated message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received task updated message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			TaskContainer container = (TaskContainer) msg.obj;
@@ -164,7 +164,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// Update a task's detail
 		else if (msg.what == ResponseHandler.MSG_DETAILS_RETRIEVED) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received detail retrieve message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received detail retrieve message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			TaskDetail details = (TaskDetail) msg.obj;
@@ -175,7 +175,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// An error message
 		else if (msg.what == ResponseHandler.MSG_ERROR) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received error message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.w(Synodroid.DS_TAG,"DownloadFragment: Received error message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			// Change the title
@@ -215,7 +215,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// Connection is done
 		else if (msg.what == ResponseHandler.MSG_CONNECTED) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received connected to server message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received connected to server message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			final SynoServer server = ((Synodroid) a.getApplication()).getServer();
@@ -234,7 +234,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// Connecting to the server
 		else if (msg.what == ResponseHandler.MSG_CONNECTING) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received connecting message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received connecting message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			// Clear the prevous task list
@@ -251,7 +251,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// Show task's details
 		else if (msg.what == ResponseHandler.MSG_SHOW_DETAILS) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received show single task detail message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received show single task detail message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			// Starting new intent
@@ -263,7 +263,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// Shared directories have been retrieved
 		else if (msg.what == ResponseHandler.MSG_SHARED_DIRECTORIES_RETRIEVED) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received shared directory listing message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received shared directory listing message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(a);
@@ -335,7 +335,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		}
 		else if (msg.what == ResponseHandler.MSG_SHARED_NOT_SET) {
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Received no shared folder set message.");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received no shared folder set message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			Synodroid app = (Synodroid) a.getApplication();
@@ -366,7 +366,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Creating download fragment.");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Creating download fragment.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		if (savedInstanceState != null){
@@ -417,7 +417,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			
 			if (action.equals(Intent.ACTION_VIEW)) {
 				try{
-					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: New action_view intent recieved.");
+					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: New action_view intent recieved.");
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				uri = intentP.getData();
@@ -448,7 +448,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}	
 			} else if (action.equals(Intent.ACTION_SEND)) {
 				try{
-					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: New action_send intent recieved.");
+					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: New action_send intent recieved.");
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				String uriString = (String) intentP.getExtras().get(Intent.EXTRA_TEXT);
@@ -463,7 +463,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// If uri is not null
 			if (uri != null) {
 				try{
-					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Processing intent...");
+					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Processing intent...");
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				AddTaskAction addTask = new AddTaskAction(uri, out_url, use_safe);
@@ -587,7 +587,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			}
 			else{
 				try{
-					if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: This was an old intent. Skipping it...");
+					if (((Synodroid)a.getApplication()).DEBUG) Log.i(Synodroid.DS_TAG,"DownloadFragment: This was an old intent. Skipping it...");
 				}
 				catch (Exception ex){/*DO NOTHING*/}
 			}
@@ -686,7 +686,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	
 	public void resetChecked(){
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Resetting check selection.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		checked_tasks = new ArrayList<Task>();
@@ -698,7 +698,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	
 	public void validateChecked(ArrayList<Integer> currentTasks){
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Validating checked items.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		List<Integer> toDel = new ArrayList<Integer>();

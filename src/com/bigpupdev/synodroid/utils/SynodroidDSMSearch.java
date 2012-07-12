@@ -76,7 +76,7 @@ public class SynodroidDSMSearch extends ContentProvider {
 	            }
 			}
 			
-			if (param.getDbg()) Log.d(Synodroid.DS_TAG, "DSMSearch: Query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
+			if (param.getDbg()) Log.i(Synodroid.DS_TAG, "DSMSearch: Query received. Term: '" + term + "' -- Params: " + param.toString() + " -- Order: " + order.toString());
 	        
 			if (!term.equals("")) {
 				// Perform the actual search

@@ -83,10 +83,10 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 
 			long startTime = System.currentTimeMillis();
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Downloading " + uri.toString() + " to temp folder...");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG, "Downloading " + uri.toString() + " to temp folder...");
 			}catch (Exception ex){/*DO NOTHING*/}
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Temp file destination: " + file.getAbsolutePath());
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG, "Temp file destination: " + file.getAbsolutePath());
 			}catch (Exception ex){/*DO NOTHING*/}
 			/* Open a connection to that URL. */
 			HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
@@ -117,7 +117,7 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 			fos.write(baf.toByteArray());
 			fos.close();
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Download completed. Elapsed time: " + ((System.currentTimeMillis() - startTime) / 1000) + " sec(s)");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG, "Download completed. Elapsed time: " + ((System.currentTimeMillis() - startTime) / 1000) + " sec(s)");
 			}catch (Exception ex){/*DO NOTHING*/}
 			uri = Uri.fromFile(file);
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class TorrentDownloadAndAdd extends AsyncTask<String, Void, Uri> {
 				if (((Synodroid)a.getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "Download Error.", e);
 			}catch (Exception ex){/*DO NOTHING*/}
 			try{
-				if (((Synodroid)a.getApplication()).DEBUG) Log.d(Synodroid.DS_TAG, "Letting the NAS do the heavy lifting...");
+				if (((Synodroid)a.getApplication()).DEBUG) Log.i(Synodroid.DS_TAG, "Letting the NAS do the heavy lifting...");
 			}catch (Exception ex){/*DO NOTHING*/}
 		}
 		return uri;

@@ -57,7 +57,7 @@ public class DetailFiles extends SynodroidFragment {
 	
 	public void resetList(){
 		try{
-			if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailFiles: Reseting file list.");
+			if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DetailFiles: Reseting file list.");
 		}
 		catch (Exception ex){/*DO NOTHING*/}
 		
@@ -93,7 +93,7 @@ public class DetailFiles extends SynodroidFragment {
 		super.onCreateView(inflater, container, savedInstanceState);
 		a = this.getActivity();
 		try{
-			if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DetailFiles: Creating file list fragment.");
+			if (((Synodroid)((DetailActivity)a).getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DetailFiles: Creating file list fragment.");
 		}
 		catch (Exception ex){/*DO NOTHING*/}
 		

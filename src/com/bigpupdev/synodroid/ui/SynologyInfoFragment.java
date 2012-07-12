@@ -42,7 +42,7 @@ public class SynologyInfoFragment extends Fragment {
             Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynologyInfoFragment: Creating Synology Info fragment");
+			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SynologyInfoFragment: Creating Synology Info fragment");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		View help = inflater.inflate(R.layout.syno_info, null, false);

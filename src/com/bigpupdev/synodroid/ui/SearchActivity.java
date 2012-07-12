@@ -76,7 +76,7 @@ public class SearchActivity extends BaseActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_search){
         	try{
-        		if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
         	
             startSearch(null, false, null, false);
@@ -88,7 +88,7 @@ public class SearchActivity extends BaseActivity{
         }
 		else if (item.getItemId() == R.id.menu_search_engine){
 			try{
-				if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"HomeActivity: Menu get search engine list selected.");
+				if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu get search engine list selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
         	
             Synodroid app = (Synodroid) getApplication();

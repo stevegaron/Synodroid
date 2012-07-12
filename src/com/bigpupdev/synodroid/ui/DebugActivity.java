@@ -109,6 +109,9 @@ public class DebugActivity extends BaseActivity{
 		        String separator = System.getProperty("line.separator"); 
 
 		        while ((line = reader.readLine()) != null) {
+		        		if (line.startsWith("----")){
+		        			continue;
+		        		}
 		        		if (line.startsWith("W/")){
 		        			sb_html.append("<font color=\"#FFA000\">");
 		        		}
@@ -118,8 +121,11 @@ public class DebugActivity extends BaseActivity{
 		        		else if (line.startsWith("V/")){
 		        			sb_html.append("<font color=\"#777777\">");
 		        		}
+		        		else if (line.startsWith("I/")){
+		        			sb_html.append("<font color=\"#00FF00\">");
+		        		}
 		        		sb_html.append(line);
-		        		if (line.startsWith("W/")||line.startsWith("E/")||line.startsWith("V/")){
+		        		if (line.startsWith("W/")||line.startsWith("E/")||line.startsWith("V/")||line.startsWith("I/")){
 		        			sb_html.append("</font>");
 		        		}
 		        		sb_html.append("<br/>");
@@ -194,7 +200,7 @@ public class DebugActivity extends BaseActivity{
 	protected void onResume() {
 		super.onResume();
 		try{
-			if (((Synodroid)getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"DebugActivity: Resuming debug activity.");
+			if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DebugActivity: Resuming debug activity.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		// Check for fullscreen
