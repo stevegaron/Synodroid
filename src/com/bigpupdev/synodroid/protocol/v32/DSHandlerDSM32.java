@@ -922,7 +922,7 @@ class DSHandlerDSM32 implements DSHandler {
 		JSONObject json = null;
 		json = server.sendJSONRequest(SEARCH_URI, builder.toString(), "GET");
 		if (json != null){
-			if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Search query '"+query+"' queued for searching on the NAS.");
+			if (server.DEBUG) Log.v(Synodroid.DS_TAG, "DSMSearch: Search query '"+query+"' queued for searching on the NAS.");
 			if (json.getBoolean("success") && json.getBoolean("running")){
 				String taskid = json.getString("taskid");
 				boolean stop = false;
@@ -942,7 +942,7 @@ class DSHandlerDSM32 implements DSHandler {
 							catch (Exception e){/*Do Nothing*/}
 							
 							if ( !running || items.length() >= limit || loop == MAX_LOOP){
-								if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Found "+items.length()+" results from the search.");
+								if (server.DEBUG) Log.i(Synodroid.DS_TAG, "DSMSearch: Found "+items.length()+" results from the search.");
 								for (int i = 0; i < items.length(); i++){
 									JSONObject item = items.getJSONObject(i);
 									SearchResult sr = new SearchResult(item.getInt("id"), item.getString("title"), item.getString("dlurl"), item.getString("page"), item.getString("size"), item.getString("date"), item.getInt("seeds"), item.getInt("leechs"));
@@ -953,13 +953,13 @@ class DSHandlerDSM32 implements DSHandler {
 							else{
 								loop ++;
 								Thread.sleep(5000);
-								if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
+								if (server.DEBUG) Log.v(Synodroid.DS_TAG, "DSMSearch: Still running, not enough results and didn't reach max loop. Waiting 5 seconds for more results...");
 							}
 						}
 						else{
 							loop ++;
 							Thread.sleep(5000);
-							if (server.DEBUG) Log.d(Synodroid.DS_TAG, "DSMSearch: Success == False; Waiting 5 seconds for more results...");
+							if (server.DEBUG) Log.v(Synodroid.DS_TAG, "DSMSearch: Success == False; Waiting 5 seconds for more results...");
 						}
 					}
 					else{

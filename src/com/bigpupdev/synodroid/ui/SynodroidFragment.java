@@ -143,7 +143,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 	 */
 	public void showError(String msgP, DialogInterface.OnClickListener listenerP) {
 		try{
-			if (((Synodroid)SynodroidFragment.this.getActivity().getApplication()).DEBUG) Log.d(Synodroid.DS_TAG,"SynodroidFragment: Showing error message.");
+			if (((Synodroid)SynodroidFragment.this.getActivity().getApplication()).DEBUG) Log.w(Synodroid.DS_TAG,"SynodroidFragment: Showing error message.");
 		}catch (Exception ex){/*DO NOTHING*/}
 		try {
 			errorDialog.setMessage(msgP);
