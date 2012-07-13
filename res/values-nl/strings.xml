@@ -451,4 +451,10 @@
 <string name="upgrade_title">Bedankt voor het upgraden naar Pro</string>
 <string name="upgrade_t1">Synodroid Pro heeft een aantal functies in zich die de moeite waard zijn om te upgraden naar Pro. Pro functies zijn:</string>
 
+<string name="title_cat_debug">Onderzoeken</string>
+<string name="send_debug_logs">Bekijk/Verzend logboeken</string>
+<string name="title_debug_logs">Synodroid logboek voorvertoning</string>
+<string name="btn_send">Verstuur</string>
+<string name="no_logs">Er zijn nog geen gebeurtenissen opgenomen in de logboeken. Zet Onderzoeken aan en verstuur de gebeurtenis door de fout opnieuw te simuleren en de logboeken de versturen...</string>
+
 </resources>

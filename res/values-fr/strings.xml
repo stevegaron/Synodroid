@@ -452,4 +452,10 @@
 <string name="upgrade_title">Merci d\'utiliser la version Pro</string>
 <string name="upgrade_t1">Synodroid Pro contient plusieur fonctionalités exclusive très pratique. Voici la liste des principales fonctionalités que vous avez reçu avec Synodroid Pro:</string>
 
+<string name="title_cat_debug">Débogage</string>
+<string name="send_debug_logs">Voir/Envoyer les journaux de débogage</string>
+<string name="title_debug_logs">Aperçu des journaux Synodroid</string>
+<string name="btn_send">Envoyer</string>
+<string name="no_logs">Il n\'y a pas de journaux de générés pour votre application en ce moment. Activer le débogage et faites des actions avec l\'application jusqu\'à ce que vous puissiez reproduire le problème. Vous pourrez ensuite envoyer les logs...</string>
+
 </resources>
