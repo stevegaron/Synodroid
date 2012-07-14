@@ -27,15 +27,15 @@ import android.os.Build;
 public class UIUtils {
 
 	public static boolean isHoneycomb() {
-        // Can use static final constants like HONEYCOMB, declared in later versions
-        // of the OS since they are inlined at compile time. This is guaranteed behavior.
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
 
 	public static boolean isICS() {
-        // Can use static final constants like HONEYCOMB, declared in later versions
-        // of the OS since they are inlined at compile time. This is guaranteed behavior.
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+    }
+	
+	public static boolean isJB() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
     public static boolean isTablet(Context context) {

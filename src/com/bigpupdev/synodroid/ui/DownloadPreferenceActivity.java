@@ -215,19 +215,21 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 			}
 		});
 
-		final Preference sendDebugLogs = new Preference(this);
-		sendDebugLogs.setTitle(R.string.send_debug_logs);
-		debugPreference.addPreference(sendDebugLogs);
-		sendDebugLogs.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			public boolean onPreferenceClick(Preference arg0) {
-				Intent next = new Intent();
-				next.setClass(DownloadPreferenceActivity.this, DebugActivity.class);
-				startActivity(next);
-				return false;
-			}
-
-		});
+		if (UIUtils.isJB()){
+			final Preference sendDebugLogs = new Preference(this);
+			sendDebugLogs.setTitle(R.string.send_debug_logs);
+			debugPreference.addPreference(sendDebugLogs);
+			sendDebugLogs.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+	
+				public boolean onPreferenceClick(Preference arg0) {
+					Intent next = new Intent();
+					next.setClass(DownloadPreferenceActivity.this, DebugActivity.class);
+					startActivity(next);
+					return false;
+				}
+	
+			});
+		}
 		
 		// The dynamic servers category
 		serversCategory = (PreferenceCategory) prefScreen.getPreferenceManager().findPreference("servers_cat");
