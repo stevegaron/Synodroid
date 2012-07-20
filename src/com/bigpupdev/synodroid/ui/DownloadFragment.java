@@ -75,6 +75,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
+	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
+	private static final String PREFERENCE_SERVER = "servers_cat";
+	
 	
 	// The connection dialog ID
 	private static final int CONNECTION_DIALOG_ID = 1;
@@ -478,8 +481,10 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	 * Show the dialog to connect to a server
 	 */
 	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated) {
-		SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		boolean autoDetect = preferences.getBoolean(PREFERENCE_AUTO_DSM, true);
+		SharedPreferences generalPref = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		SharedPreferences serverPref = getActivity().getSharedPreferences(PREFERENCE_SERVER, Activity.MODE_PRIVATE);
+		boolean autoDetect = generalPref.getBoolean(PREFERENCE_AUTO_DSM, true);
+		String defaultSrv = serverPref.getString(PREFERENCE_DEF_SRV, "0");
 		
 		final Activity a = getActivity();
 		if (!connectDialogOpened && a != null) {
@@ -494,34 +499,43 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					// If more than 1 server OR if we don't want to autoconnect then
 					// show the dialog
 					if (servers.size() > 1 || !autoConnectIfOnlyOneServerP) {
-						connectDialogOpened = true;
+						boolean skip = false;
 						String[] serversTitle = new String[servers.size()];
 						for (int iLoop = 0; iLoop < servers.size(); iLoop++) {
 							SynoServer s = servers.get(iLoop);
 							serversTitle[iLoop] = s.getNickname();
-						}
-						AlertDialog.Builder builder = new AlertDialog.Builder(a);
-						builder.setTitle(getString(R.string.menu_connect));
-						// When the user select a server
-						builder.setItems(serversTitle, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int item) {
-								SynoServer server = servers.get(item);
-								// Change the server
-								app.connectServer(DownloadFragment.this, server, actionQueueP, automated);
-								dialog.dismiss();
+							
+							//Check if default server and connect to it skipping the dialog...
+							if (defaultSrv.equals(s.getID()) && autoConnectIfOnlyOneServerP){
+								app.connectServer(DownloadFragment.this, s, actionQueueP, automated);
+								skip = true;
 							}
-						});
-						AlertDialog connectDialog = builder.create();
-						try {
-							connectDialog.show();
-						} catch (BadTokenException e) {
-							// Unable to show dialog probably because intent has been closed. Ignoring...
 						}
-						connectDialog.setOnDismissListener(new OnDismissListener() {
-							public void onDismiss(DialogInterface dialog) {
-								connectDialogOpened = false;
+						if (!skip){
+							connectDialogOpened = true;
+							AlertDialog.Builder builder = new AlertDialog.Builder(a);
+							builder.setTitle(getString(R.string.menu_connect));
+							// When the user select a server
+							builder.setItems(serversTitle, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int item) {
+									SynoServer server = servers.get(item);
+									// Change the server
+									app.connectServer(DownloadFragment.this, server, actionQueueP, automated);
+									dialog.dismiss();
+								}
+							});
+							AlertDialog connectDialog = builder.create();
+							try {
+								connectDialog.show();
+							} catch (BadTokenException e) {
+								// Unable to show dialog probably because intent has been closed. Ignoring...
 							}
-						});
+							connectDialog.setOnDismissListener(new OnDismissListener() {
+								public void onDismiss(DialogInterface dialog) {
+									connectDialogOpened = false;
+								}
+							});
+						}
 					} else {
 						// Auto connect to the first server
 						if (servers.size() > 0) {

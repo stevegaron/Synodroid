@@ -82,6 +82,9 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	private static final String PREFERENCE_DEBUG = "debug_cat";
 	private static final String PREFERENCE_DEBUG_LOG = "debug_cat.debug_logging";
 	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
+	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
+	private static final String PREFERENCE_SERVER = "servers_cat";
+	
 	// Store the current max server id
 	private int maxServerId = 0;
 	// The dynamic servers category
@@ -236,7 +239,8 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		}
 		
 		// The dynamic servers category
-		serversCategory = (PreferenceCategory) prefScreen.getPreferenceManager().findPreference("servers_cat");
+		serversCategory = (PreferenceCategory) prefScreen.getPreferenceManager().findPreference(PREFERENCE_SERVER);
+		
 		// Load currents servers
 		reloadCurrentServers();
 	}
@@ -255,10 +259,24 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	}
 	
 	private void reloadCurrentServers() {
-		// Load current servers
 		serversCategory.removeAll();
 		maxServerId = 0;
-		PreferenceFacade.processLoadingServers(getPreferenceScreen().getSharedPreferences(), this);
+		
+		//Create default server selection
+		final ListPreferenceWithValue defSrvPref = ListPreferenceWithValue.create(this, PREFERENCE_DEF_SRV, R.string.label_def_srv, R.string.hint_def_srv, null);
+		defSrvPref.setOrder(0);
+		
+		// Load current servers
+		PreferenceFacade.processLoadingServers(getPreferenceScreen().getSharedPreferences(), this, defSrvPref, getString(R.string.srv_always_ask));
+		
+		serversCategory.addPreference(defSrvPref);
+		defSrvPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				SharedPreferences preferences = getSharedPreferences(PREFERENCE_SERVER, Activity.MODE_PRIVATE);
+				preferences.edit().putString(PREFERENCE_DEF_SRV, (String) newValue).commit();
+				return true;
+			}
+		});
 	}
 
 	/*

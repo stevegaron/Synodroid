@@ -51,6 +51,7 @@ public class SynoServer extends SimpleSynoServer{
 	
 	// The nickname of the server
 	private String nickname = "";
+	private String serverID = "";
 	// Local connection through WIFI
 	private SynoServerConnection localConnection;
 	// Public connection
@@ -107,8 +108,9 @@ public class SynoServer extends SimpleSynoServer{
 	/**
 	 * Constructor which set all server's informations. No connection are made when calling the constructor.
 	 */
-	public SynoServer(String nicknameP, SynoServerConnection localConP, SynoServerConnection publicConnP, String userP, String passwordP, boolean debug, boolean autoDetectP) {
+	public SynoServer(String nicknameP, SynoServerConnection localConP, SynoServerConnection publicConnP, String userP, String passwordP, boolean debug, boolean autoDetectP, String ID) {
 		nickname = nicknameP;
+		serverID = ID;
 		localConnection = localConP;
 		publicConnection = publicConnP;
 		user = userP;
@@ -449,6 +451,13 @@ public class SynoServer extends SimpleSynoServer{
 	 */
 	public String getNickname() {
 		return nickname;
+	}
+	
+	/**
+	 * @return the server ID
+	 */
+	public String getID() {
+		return serverID;
 	}
 
 	/**

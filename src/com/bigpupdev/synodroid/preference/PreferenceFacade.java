@@ -9,6 +9,7 @@
 package com.bigpupdev.synodroid.preference;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -52,6 +53,13 @@ public class PreferenceFacade {
 	 * Load servers from the SharedPreference
 	 */
 	public static void processLoadingServers(SharedPreferences sharedPreferencesP, PreferenceProcessor processorP) {
+		processLoadingServers(sharedPreferencesP, processorP, null, null);
+	}
+	
+	public static void processLoadingServers(SharedPreferences sharedPreferencesP, PreferenceProcessor processorP, ListPreferenceWithValue defaultP, String alwaysAsk) {
+		List<String> srvIDs = new ArrayList<String>();
+		List<String> srvNicks = new ArrayList<String>();
+		
 		// Read all preferences
 		Map<String, ?> prefs = sharedPreferencesP.getAll();
 		for (String key : prefs.keySet()) {
@@ -77,6 +85,8 @@ public class PreferenceFacade {
 							loadConnectionProperties(true, props, prefs, id);
 							// Process the current server's item
 							processorP.process(id, SERVER_PREFIX + id, props);
+							srvIDs.add(SERVER_PREFIX + id);
+							srvNicks.add(convert2String(prefs.get(SERVER_PREFIX + id + NICKNAME_SUFFIX)));
 						}
 					}
 				}
@@ -85,6 +95,24 @@ public class PreferenceFacade {
 				}
 			}
 		}
+		
+		//Add to default list
+		if (defaultP != null && alwaysAsk != null){
+			String[] defLabels = new String[srvIDs.size()+1];
+			String[] defValues = new String[srvNicks.size()+1];
+			defLabels[0] = alwaysAsk;
+			defValues[0] = "0";
+			for (int iLoop = 0; iLoop < srvIDs.size(); iLoop++) {
+				defLabels[iLoop+1] = srvNicks.get(iLoop);
+				defValues[iLoop+1] = srvIDs.get(iLoop);
+			}
+			
+			defaultP.setEntries(defLabels);
+			defaultP.setEntryValues(defValues);
+		}
+		
+		
+		
 	}
 
 	/**
@@ -149,7 +177,7 @@ public class PreferenceFacade {
 					SynoServerConnection loc = SynoServerConnection.createFromProperties(true, propertiesP, DEBUG);
 					SynoServerConnection pub = SynoServerConnection.createFromProperties(false, propertiesP, DEBUG);
 
-					SynoServer server = new SynoServer(propertiesP.getProperty(PreferenceFacade.NICKNAME_SUFFIX), loc, pub, propertiesP.getProperty(PreferenceFacade.USER_SUFFIX), propertiesP.getProperty(PreferenceFacade.PASSWORD_SUFFIX), DEBUG, autoDetect);
+					SynoServer server = new SynoServer(propertiesP.getProperty(PreferenceFacade.NICKNAME_SUFFIX), loc, pub, propertiesP.getProperty(PreferenceFacade.USER_SUFFIX), propertiesP.getProperty(PreferenceFacade.PASSWORD_SUFFIX), DEBUG, autoDetect, keyP);
 					// DSM version
 					DSMVersion vers = DSMVersion.titleOf(propertiesP.getProperty(PreferenceFacade.DSM_SUFFIX));
 					if (vers == null) {
