@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_scroll"
+    android:layout_width="fill_parent"
+    android:layout_margin="5dip"
+	android:layout_height="fill_parent"
+    android:isScrollContainer="true"
+    tools:ignore="HardcodedText" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/add_server_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="20dip"
+            android:text="@string/add_server_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/as_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="20dip"
+            android:text="@string/add_server_t1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <TextView
+            android:id="@+id/as_st1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="20dip"
+            android:drawableLeft="@drawable/ic_menu_wizard"
+            android:gravity="center_vertical"
+            android:text="@string/add_server_st1"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+		<TextView
+            android:id="@+id/as_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="20dip"
+            android:text="@string/add_server_t2"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+		<ImageView
+		    android:id="@+id/img_find"
+		    android:layout_width="wrap_content"
+		    android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dip"
+		    android:layout_marginRight="40dip"
+		    android:layout_marginTop="20dip"
+		    android:adjustViewBounds="true"
+		    android:cropToPadding="true"
+		    android:scaleType="fitXY"
+		    android:src="@drawable/screen_add_server_find" />
+        
+        <TextView
+            android:id="@+id/as_st2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="20dip"
+            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:gravity="center_vertical"
+            android:text="@string/add_server_st2"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <TextView
+            android:id="@+id/as_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="20dip"
+            android:text="@string/add_server_t3"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <ImageView
+		    android:id="@+id/img_add"
+		    android:layout_width="wrap_content"
+		    android:layout_height="225dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dip"
+		    android:layout_marginRight="40dip"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginBottom="20dip"
+		    android:adjustViewBounds="true"
+		    android:cropToPadding="true"
+		    android:scaleType="fitXY"
+		    android:src="@drawable/screen_add_server_add" />
+
+    </LinearLayout>
+</ScrollView>
