@@ -163,10 +163,14 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 			}
 		});
 		
+		//Set AUTODSM Default value...
+		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		
 		final CheckBoxPreference autoDSM = new CheckBoxPreference(this);
 		autoDSM.setKey(PREFERENCE_AUTO_DSM);
 		autoDSM.setTitle(R.string.auto_DSM);
 		autoDSM.setSummary(R.string.hint_auto_DSM);
+		autoDSM.setChecked(preferences.getBoolean(PREFERENCE_AUTO_DSM, true));
 		generalCategory.addPreference(autoDSM);
 		autoDSM.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
