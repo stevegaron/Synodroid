@@ -450,10 +450,10 @@
 <string name="upgrade_title">Gracias por actualizar a Pro</string>
 <string name="upgrade_t1">Synodroid Pro ofrece muchas características que son realmente útiles por las que merece la pena pagar. Esta es la lista de características que obtendrás al actualizar a Synodroid Pro:</string>
 
-<string name="title_cat_debug">Depuración</string>
-<string name="send_debug_logs">Ver/Enviar registros de depuración</string>
-<string name="title_debug_logs">Synodroid Preview Registros</string>
+<string name="title_cat_debug">Depurando</string>
+<string name="send_debug_logs">Ver/envíar registros de depuración</string>
+<string name="title_debug_logs">Previsualizar registros de Synodroid</string>
 <string name="btn_send">Enviar</string>
-<string name="no_logs">No hay registros generados para su aplicación en estos momentos. Habilitar la depuración y realizar acciones con la aplicación hasta que se pueda reproducir el problema. A continuación, puede enviar los registros...</string>
+<string name="no_logs">Todavía no se han generado registros. Antes de enviar los registros, enciende la depuración y ejecuta alguna acción con la aplicación hasta que reproduzcas el problema...</string>
 
 </resources>
