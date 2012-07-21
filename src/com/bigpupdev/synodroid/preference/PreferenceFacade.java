@@ -110,9 +110,6 @@ public class PreferenceFacade {
 			defaultP.setEntries(defLabels);
 			defaultP.setEntryValues(defValues);
 		}
-		
-		
-		
 	}
 
 	/**

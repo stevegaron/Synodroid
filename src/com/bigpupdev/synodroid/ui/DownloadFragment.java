@@ -78,7 +78,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
 	private static final String PREFERENCE_SERVER = "servers_cat";
 	
-	
 	// The connection dialog ID
 	private static final int CONNECTION_DIALOG_ID = 1;
 	// No server configured
