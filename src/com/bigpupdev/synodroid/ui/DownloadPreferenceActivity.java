@@ -254,7 +254,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
     }
 	
 	private void clearSearchHistory() {
-		SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SynodroidSearchSuggestion.AUTHORITY, SynodroidSearchSuggestion.MODE);
+		SearchRecentSuggestions suggestions = new SearchRecentSuggestions(DownloadPreferenceActivity.this, SynodroidSearchSuggestion.AUTHORITY, SynodroidSearchSuggestion.MODE);
 		suggestions.clearHistory();
 	}
 	
@@ -263,7 +263,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		maxServerId = 0;
 		
 		//Create default server selection
-		final ListPreferenceWithValue defSrvPref = ListPreferenceWithValue.create(this, PREFERENCE_DEF_SRV, R.string.label_def_srv, R.string.hint_def_srv, null);
+		final ListPreferenceWithValue defSrvPref = ListPreferenceWithValue.create(DownloadPreferenceActivity.this, PREFERENCE_DEF_SRV, R.string.label_def_srv, R.string.hint_def_srv, null);
 		defSrvPref.setOrder(0);
 		
 		// Load current servers
@@ -436,6 +436,9 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 			// When deleting remove from ServerCategory
 			builder.setPositiveButton(getString(R.string.button_delete), new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
+					SharedPreferences serverPref = DownloadPreferenceActivity.this.getSharedPreferences(PREFERENCE_SERVER, Activity.MODE_PRIVATE);
+					String defaultSrv = serverPref.getString(PREFERENCE_DEF_SRV, "0");
+					
 					Editor editor = getPreferenceScreen().getEditor();
 					// Loop on children
 					for (int iLoop = 0; iLoop < serversCategory.getPreferenceCount(); iLoop++) {
@@ -470,14 +473,16 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 								editor.remove(serv.key + PreferenceFacade.SHOWUPLOAD_SUFFIX);
 								editor.remove(serv.key + PreferenceFacade.REFRESHSTATE_SUFFIX);
 								editor.remove(serv.key + PreferenceFacade.REFRESHVALUE_SUFFIX);
+								
+								if (serv.key.equals(defaultSrv)){
+									editor.putString(PREFERENCE_DEF_SRV, "0");
+								}
 							}
 						}
 					}
 					editor.commit();
 					// Reload servers preferences
-					serversCategory.removeAll();
-					maxServerId = 0;
-					PreferenceFacade.processLoadingServers(getPreferenceScreen().getSharedPreferences(), DownloadPreferenceActivity.this);
+					reloadCurrentServers();
 				}
 			});
 			builder.setNegativeButton(getString(R.string.button_cancel), null);
