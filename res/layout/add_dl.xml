@@ -75,15 +75,10 @@
         <ImageView
             android:id="@+id/img_dl2"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dip"
-            android:layout_marginLeft="40dip"
-            android:layout_marginRight="40dip"
             android:layout_marginTop="20dip"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:scaleType="fitXY"
             android:src="@drawable/screen_add_dl_2" />
         
         <TextView
@@ -108,16 +103,11 @@
         <ImageView
 		    android:id="@+id/img_dl3"
 		    android:layout_width="wrap_content"
-		    android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dip"
-		    android:layout_marginRight="40dip"
-		    android:layout_marginTop="20dip"
-		    android:layout_marginBottom="20dip"
-		    android:adjustViewBounds="true"
-		    android:cropToPadding="true"
-		    android:scaleType="fitXY"
-		    android:src="@drawable/screen_add_dl_1" />
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="20dip"
+            android:src="@drawable/screen_add_dl_1" />
         
         <TextView
             android:id="@+id/ad_st4"
@@ -141,16 +131,11 @@
         <ImageView
 		    android:id="@+id/img_dl4"
 		    android:layout_width="wrap_content"
-		    android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dip"
-		    android:layout_marginRight="40dip"
-		    android:layout_marginTop="20dip"
-		    android:layout_marginBottom="20dip"
-		    android:adjustViewBounds="true"
-		    android:cropToPadding="true"
-		    android:scaleType="fitXY"
-		    android:src="@drawable/screen_add_dl_3" />
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="20dip"
+            android:src="@drawable/screen_add_dl_3" />
         
     </LinearLayout>
 </ScrollView>

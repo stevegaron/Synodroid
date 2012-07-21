@@ -57,15 +57,11 @@
 		<ImageView
 		    android:id="@+id/img_find"
 		    android:layout_width="wrap_content"
-		    android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dip"
-		    android:layout_marginRight="40dip"
-		    android:layout_marginTop="20dip"
-		    android:adjustViewBounds="true"
-		    android:cropToPadding="true"
-		    android:scaleType="fitXY"
-		    android:src="@drawable/screen_add_server_find" />
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="20dip"
+            android:src="@drawable/screen_add_server_find" />
         
         <TextView
             android:id="@+id/as_st2"
@@ -90,16 +86,11 @@
         <ImageView
 		    android:id="@+id/img_add"
 		    android:layout_width="wrap_content"
-		    android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dip"
-		    android:layout_marginRight="40dip"
-		    android:layout_marginTop="20dip"
-		    android:layout_marginBottom="20dip"
-		    android:adjustViewBounds="true"
-		    android:cropToPadding="true"
-		    android:scaleType="fitXY"
-		    android:src="@drawable/screen_add_server_add" />
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="20dip"
+            android:src="@drawable/screen_add_server_add" />
 
     </LinearLayout>
 </ScrollView>

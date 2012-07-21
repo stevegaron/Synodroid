@@ -62,16 +62,11 @@
 	        <ImageView
 			    android:id="@+id/img_dl4"
 			    android:layout_width="wrap_content"
-			    android:layout_height="120dp"
+	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
-	            android:layout_marginLeft="40dip"
-			    android:layout_marginRight="40dip"
-			    android:layout_marginTop="20dip"
-			    android:layout_marginBottom="20dip"
-			    android:adjustViewBounds="true"
-			    android:cropToPadding="true"
-			    android:scaleType="fitXY"
-			    android:src="@drawable/screen_add_dl_3" />
+	            android:layout_marginBottom="20dip"
+	            android:layout_marginTop="20dip"
+	            android:src="@drawable/screen_add_dl_3" />
 	        
 	        <TextView
 	            android:id="@+id/upgradest2"
@@ -95,16 +90,11 @@
 	        <ImageView
 			    android:id="@+id/img_dl2"
 			    android:layout_width="wrap_content"
-			    android:layout_height="120dp"
+	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
-	            android:layout_marginLeft="40dip"
-			    android:layout_marginRight="40dip"
-			    android:layout_marginTop="20dip"
-			    android:layout_marginBottom="20dip"
-			    android:adjustViewBounds="true"
-			    android:cropToPadding="true"
-			    android:scaleType="fitXY"
-			    android:src="@drawable/screen_upgrade_1" />
+	            android:layout_marginBottom="20dip"
+	            android:layout_marginTop="20dip"
+	            android:src="@drawable/screen_upgrade_1" />
 	        
 	        <TextView
 	            android:id="@+id/upgradest3"
@@ -128,16 +118,11 @@
 	        <ImageView
 			    android:id="@+id/img_dl3"
 			    android:layout_width="wrap_content"
-			    android:layout_height="165dp"
+	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
-	            android:layout_marginLeft="40dip"
-			    android:layout_marginRight="40dip"
-			    android:layout_marginTop="20dip"
-			    android:layout_marginBottom="20dip"
-			    android:adjustViewBounds="true"
-			    android:cropToPadding="true"
-			    android:scaleType="fitXY"
-			    android:src="@drawable/screen_upgrade_2" />
+	            android:layout_marginBottom="20dip"
+	            android:layout_marginTop="20dip"
+	            android:src="@drawable/screen_upgrade_2" />
 	        
 	        <TextView
 	            android:id="@+id/upgradest4"
@@ -180,16 +165,11 @@
 	        <ImageView
 			    android:id="@+id/img_dl5"
 			    android:layout_width="wrap_content"
-			    android:layout_height="180dp"
+	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
-	            android:layout_marginLeft="40dip"
-			    android:layout_marginRight="40dip"
-			    android:layout_marginTop="20dip"
-			    android:layout_marginBottom="20dip"
-			    android:adjustViewBounds="true"
-			    android:cropToPadding="true"
-			    android:scaleType="fitXY"
-			    android:src="@drawable/screen_search_engine_1" />
+	            android:layout_marginBottom="20dip"
+	            android:layout_marginTop="20dip"
+	            android:src="@drawable/screen_search_engine_1" />
 	        
 	        <TextView
 	            android:id="@+id/upgradest6"
