@@ -456,7 +456,7 @@
 <string name="no_logs">No logs have been generated for your application yet. Turn on debugging and do some actions with the application until you can reproduce the problem before sending the logs...</string>
 
 <string name="label_def_srv">Default Server</string>
-<string name="hint_def_srv">Connect automatically to server</string>
+<string name="hint_def_srv">Connect automatically to this server</string>
 <string name="srv_always_ask">Always ask</string>
 
 
