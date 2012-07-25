@@ -430,21 +430,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					uri = Uri.parse(uri.toString().replace("https://magnet/", "magnet:"));
 				}
 				
-				if (uri.toString().startsWith("magnet")){
-					try{
-						if (((Synodroid)getActivity().getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
-							use_safe = true;
-							out_url = true;
-						}
-						else{
-							Toast toast = Toast.makeText(getActivity(), getText(R.string.magnet), Toast.LENGTH_LONG);
-							toast.show();
-							return false;
-						}
-					}
-					catch (Exception ex){return false;}
-				}
-				else if (!uri.toString().startsWith("file")) {
+				if (!uri.toString().startsWith("file")) {
 					use_safe = true;
 					out_url = true;
 				}	

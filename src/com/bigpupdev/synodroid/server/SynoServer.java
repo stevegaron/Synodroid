@@ -40,6 +40,7 @@ import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 /**
@@ -603,14 +604,20 @@ public class SynoServer extends SimpleSynoServer{
 				} catch (Exception e){}
 				
 				try {
-					// If a Toast must be shown
-					if (actionP.isToastable() && showToast) {
-						int resId = actionP.getToastId();
-						String fileName = (actionP.getTask() != null ? actionP.getTask().fileName : "");
-						String text = handlerP.getString(resId, new Object[] { fileName });
-						fireMessage(handlerP, ResponseHandler.MSG_TOAST, text);
+					if (actionP instanceof AddTaskAction && SynoServer.this.getDsmVersion().smallerThen(DSMVersion.VERSION3_1) && ((AddTaskAction)actionP).getUriString().startsWith("magnet")){
+						if (DEBUG) Log.w(Synodroid.DS_TAG, "Task dismissed. Magnet links only works on DSM 3.1 and up.");
+						fireMessage(handlerP, ResponseHandler.MSG_TOAST, ((Fragment) handlerP).getText(R.string.magnet));
 					}
-					actionP.execute(handlerP, SynoServer.this);
+					else{
+						// If a Toast must be shown
+						if (actionP.isToastable() && showToast) {
+							int resId = actionP.getToastId();
+							String fileName = (actionP.getTask() != null ? actionP.getTask().fileName : "");
+							String text = handlerP.getString(resId, new Object[] { fileName });
+							fireMessage(handlerP, ResponseHandler.MSG_TOAST, text);
+						}
+						actionP.execute(handlerP, SynoServer.this);
+					}
 				} catch (DSMException ex) {
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected DSM error", ex);
 					try{

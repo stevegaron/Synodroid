@@ -140,4 +140,7 @@ public class AddTaskAction implements SynoAction {
 		return toast;
 	}
 
+	public String getUriString(){
+		return uri.toString();
+	}
 }
