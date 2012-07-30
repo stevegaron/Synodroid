@@ -320,11 +320,11 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		final WifiInfo currentWifi = wifiMgr.getConnectionInfo();
 		boolean wifiConnected = (wifiOn && currentWifi.getNetworkId() != -1);
 		if (wifiConnected) {
-			ServerWizard wiz = new ServerWizard(this, wifiMgr.getConnectionInfo().getSSID(), ((Synodroid)getApplication()).DEBUG);
+			ServerWizard wiz = new ServerWizard(DownloadPreferenceActivity.this, wifiMgr.getConnectionInfo().getSSID(), ((Synodroid)getApplication()).DEBUG);
 			wiz.start();
 		}
 		else{
-			AddServerWizard wiz = new AddServerWizard(this, ((Synodroid)getApplication()).DEBUG);
+			AddServerWizard wiz = new AddServerWizard(DownloadPreferenceActivity.this, ((Synodroid)getApplication()).DEBUG);
 			wiz.start();
 		}
 	}
@@ -374,7 +374,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 			final WifiInfo currentWifi = wifiMgr.getConnectionInfo();
 			boolean wifiConnected = (wifiOn && currentWifi.getNetworkId() != -1);
 			if (wifiConnected) {
-				ServerWizard wiz = new ServerWizard(this, wifiMgr.getConnectionInfo().getSSID(), ((Synodroid)getApplication()).DEBUG);
+				ServerWizard wiz = new ServerWizard(DownloadPreferenceActivity.this, wifiMgr.getConnectionInfo().getSSID(), ((Synodroid)getApplication()).DEBUG);
 				wiz.start();
 			}
 			else{
@@ -388,7 +388,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 				if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadPreferenceActivity: Menu add server selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			AddServerWizard wiz = new AddServerWizard(this, ((Synodroid)getApplication()).DEBUG);
+			AddServerWizard wiz = new AddServerWizard(DownloadPreferenceActivity.this, ((Synodroid)getApplication()).DEBUG);
 			wiz.start();
 		// Delete one or more servers
 		}else if (item.getItemId() == R.id.menu_delete) {
