@@ -456,4 +456,15 @@
 <string name="btn_send">Enviar</string>
 <string name="no_logs">Todavía no se han generado registros. Antes de enviar los registros, enciende la depuración y ejecuta alguna acción con la aplicación hasta que reproduzcas el problema...</string>
 
+<string name="label_def_srv">Server de forma predeterminada</string>
+<string name="hint_def_srv">Automáticamente se conecta a ese servidor</string>
+<string name="srv_always_ask">Siempre pida</string>
+
+<string name="upgrade_st8">7. Conexión con el servidor por defecto</string>
+<string name="upgrade_t8">Con Synodroid Pro, cuando se tienen varios servidores configurados, puede elegir un servidor por defecto que Synodroid automáticamente la conexión. Esto evita que Synodroid para hacer que el servidor para conectarse a él cada vez que \ un servidor es más importante que otros.</string>
+
+<string name="log_load">Carga de registros ...</string>
+<string name="pro_only">(Pro)</string>
+<string name="what_new">¿Qué hay de nuevo?</string>
+
 </resources>

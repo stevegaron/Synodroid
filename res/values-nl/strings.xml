@@ -457,4 +457,15 @@
 <string name="btn_send">Verstuur</string>
 <string name="no_logs">Er zijn nog geen gebeurtenissen opgenomen in de logboeken. Zet Onderzoeken aan en verstuur de gebeurtenis door de fout opnieuw te simuleren en de logboeken de versturen...</string>
 
+<string name="label_def_srv">Standaard Server</string>
+<string name="hint_def_srv">Verbind automatisch naar deze server</string>
+<string name="srv_always_ask">Altijd vragen</string>
+
+<string name="upgrade_st8">7. Standaar server connectie</string>
+<string name="upgrade_t8">In Synodroid Pro kan je, als er meerdere servers zijn toegevoegd, een standaard server selecteren om automatisch mee te verbinden. Dit voorkomt dat je niet steeds de gewenste server moet selecteren maar Synodroid direct naar deze standaard server verbindt.</string>
+
+<string name="log_load">Logboeken laden...</string>
+<string name="pro_only">(Alleen Pro)</string>
+<string name="what_new">Wat is er nieuw?</string>
+
 </resources>

@@ -453,4 +453,15 @@
 <string name="btn_send">Verschicken</string>
 <string name="no_logs">Es wurden noch keine Logs erstellt. Aktivieren Sie das Debug-Log in den Einstellungen und versuchen Sie das Problem zu reproduzieren bevor Sie die Logs verschicken.</string>
 
+<string name="label_def_srv">Defaultserver</string>
+<string name="hint_def_srv">Automatisch mit diesem Server verbinden</string>
+<string name="srv_always_ask">Immer fragen</string>
+
+<string name="upgrade_st8">7. Verbindung zum Defaultserver</string>
+<string name="upgrade_t8">Wenn sie in Synodroid Pro mehrere Server konfiguriert haben können sie einen Defaultserver angeben zu dem automatisch eine Verbindung hergestellt wird. Das verhindert, dass Synodroid nach jedem Start fragt zu welchem Server eine Verbindung aufgebaut werden soll.</string>
+
+<string name="log_load">Lade Logs...</string>
+<string name="pro_only">(Nur Pro)</string>
+<string name="what_new">Was gibt\'s neues?</string>
+
 </resources>

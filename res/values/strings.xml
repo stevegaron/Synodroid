@@ -459,6 +459,11 @@
 <string name="hint_def_srv">Connect automatically to this server</string>
 <string name="srv_always_ask">Always ask</string>
 
+<string name="upgrade_st8">7. Default server connection</string>
+<string name="upgrade_t8">In Synodroid Pro, when you have multiple servers configured, you can set a default server that Synodroid will connect to automatically. This prevents Synodroid from asking you every time which server to connect to when one is more important than the others.</string>
 
+<string name="log_load">Loading logs...</string>
+<string name="pro_only">(Pro only)</string>
+<string name="what_new">What\'s new?</string>
 
 </resources>

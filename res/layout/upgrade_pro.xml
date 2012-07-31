@@ -191,6 +191,34 @@
 	            android:text="@string/upgrade_t7"
 	            android:textAppearance="?android:attr/textAppearanceSmall" />
 	        
+	        <TextView
+	            android:id="@+id/upgradest8"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dip"
+	            android:layout_marginTop="20dip"
+	            android:gravity="center_vertical"
+	            android:text="@string/upgrade_st8"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	        <TextView
+	            android:id="@+id/upgradetext_8"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dip"
+	            android:layout_marginTop="20dip"
+	            android:text="@string/upgrade_t8"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+	        
+	        <ImageView
+			    android:id="@+id/img_dl8"
+			    android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_marginBottom="20dip"
+	            android:layout_marginTop="20dip"
+	            android:src="@drawable/screen_pro_7" />
+	        
 	    </LinearLayout>
 	</ScrollView>
 	<Button
