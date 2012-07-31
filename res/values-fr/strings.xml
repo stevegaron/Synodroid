@@ -460,7 +460,7 @@
 
 <string name="label_def_srv">Serveur par Défault</string>
 <string name="hint_def_srv">Se connecte automatiquement à ce serveur</string>
-<string name="srv_always_ask">Demandez toujours</string>
+<string name="srv_always_ask">Toujours demander</string>
 
 <string name="upgrade_st8">7. Connection au Serveur par Défault</string>
 <string name="upgrade_t8">Avec Synodroid Pro, lorsque vous avez plusieurs serveurs de configurés, vous pouvez sélectioner un serveur par défault auquel Synodroid ce connectera automatiquement. Cela prévient Synodroid de demander à quel serveur ce connecter à chaque fois lorsqu\'un serveur est plus important que les autres.</string>
