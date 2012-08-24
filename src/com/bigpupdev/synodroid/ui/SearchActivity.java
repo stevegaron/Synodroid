@@ -4,6 +4,7 @@ import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.GetSearchEngineAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
+import com.bigpupdev.synodroid.utils.ActivityHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
 
 import android.app.Activity;
@@ -35,6 +36,7 @@ public class SearchActivity extends BaseActivity{
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
 		getMenuInflater().inflate(R.menu.default_menu_items, menu);
 		try{
 			if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
@@ -46,6 +48,11 @@ public class SearchActivity extends BaseActivity{
 		
         super.onCreateOptionsMenu(menu);
         return true;
+    }
+	
+    public void updateActionBarTitle(String title){
+    	ActivityHelper ah = getActivityHelper();
+    	if (ah != null) ah.setActionBarTitle(title, false);
     }
 	
 	private void downloadSearchEngine() {
@@ -74,12 +81,28 @@ public class SearchActivity extends BaseActivity{
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_search){
+		if (item.getItemId() == R.id.menu_search){
         	try{
-        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchActivity: Menu search selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
         	
             startSearch(null, false, null, false);
+        }
+		if (item.getItemId() == R.id.menu_refresh){
+			try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchActivity: Menu refresh selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+            FragmentManager fm = getSupportFragmentManager();
+	        try{
+	        	SearchFragment fragment_download = (SearchFragment) fm.findFragmentById(R.id.fragment_search);
+	        	fragment_download.refresh();
+	        }
+			catch (Exception e){
+				try{
+					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchActivity: Tried to refresh search but the fragment is hidden.");
+				}catch (Exception ex){/*DO NOTHING*/}
+			}
         }
         else if (item.getItemId() == R.id.menu_update){
         	downloadSearchEngine();
@@ -88,7 +111,7 @@ public class SearchActivity extends BaseActivity{
         }
 		else if (item.getItemId() == R.id.menu_search_engine){
 			try{
-				if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu get search engine list selected.");
+				if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchActivity: Menu get search engine list selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
         	
             Synodroid app = (Synodroid) getApplication();
@@ -99,7 +122,7 @@ public class SearchActivity extends BaseActivity{
 	        }
 			catch (Exception e){
 				try{
-					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call get search engine list when download fragment hidden.");
+					if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "SearchActivity: App tried to call get search engine list when download fragment hidden.");
 				}catch (Exception ex){/*DO NOTHING*/}
 			}
 		}
@@ -148,5 +171,9 @@ public class SearchActivity extends BaseActivity{
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getActivityHelper().setupSubActivity();
+    }
+	
+	public void updateRefreshStatus(boolean refreshing) {
+        getActivityHelper().setRefreshActionButtonCompatState(refreshing);
     }
 }

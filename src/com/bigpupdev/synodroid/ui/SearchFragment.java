@@ -61,6 +61,8 @@ public class SearchFragment extends SynodroidFragment {
 	private String lastSearch = "";
 	private ListView resList;
 	
+	private TorrentSearchTask curSearchTask;
+	
 	
 	/**
 	 * Activity creation
@@ -128,19 +130,15 @@ public class SearchFragment extends SynodroidFragment {
 			SpinnerSource.setSelection(lastSource);
 			SpinnerSort.setSelection(lastOrder);
 
-			final String default_site = SpinnerSource.getSelectedItem().toString();
-
 			SpinnerSource.setOnItemSelectedListener(new OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					String source = ((TextView) arg1).getText().toString();
 					SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-					if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, default_site))){
-						preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
-						if (!lastSearch.equals("")) {
-							new TorrentSearchTask().execute(lastSearch);
-						}
-					}
+					preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
 					
+					Message msg = new Message();
+					msg.what = MSG_OPERATION_DONE;
+					SearchFragment.this.handleReponse(msg);
 				}
 
 				public void onNothingSelected(AdapterView<?> arg0) {
@@ -151,12 +149,11 @@ public class SearchFragment extends SynodroidFragment {
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					String order = ((TextView) arg1).getText().toString();
 					SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-					if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders"))){
-						preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
-						if (!lastSearch.equals("")) {
-							new TorrentSearchTask().execute(lastSearch);
-						}
-					}
+					preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
+					
+					Message msg = new Message();
+					msg.what = MSG_OPERATION_DONE;
+					SearchFragment.this.handleReponse(msg);
 				}
 
 				public void onNothingSelected(AdapterView<?> arg0) {
@@ -287,7 +284,14 @@ public class SearchFragment extends SynodroidFragment {
 					String searchKeywords = intent.getStringExtra(SearchManager.QUERY);
 					lastSearch = searchKeywords;
 					if (!searchKeywords.equals("")) {
-						new TorrentSearchTask().execute(searchKeywords);
+						try{
+							curSearchTask.cancel(true);
+						}
+						catch (NullPointerException e){
+							//Ignore NPEs
+						}
+						curSearchTask = new TorrentSearchTask();
+						curSearchTask.execute(searchKeywords);
 						SearchRecentSuggestions suggestions = new SearchRecentSuggestions(a, SynodroidSearchSuggestion.AUTHORITY, SynodroidSearchSuggestion.MODE);
 						suggestions.saveRecentQuery(searchKeywords, null);
 					} else {
@@ -318,15 +322,32 @@ public class SearchFragment extends SynodroidFragment {
 			getActivity().onSearchRequested();
 		}
 	}
+
+	public void refresh(){
+		try{
+			curSearchTask.cancel(true);
+		}
+		catch (NullPointerException e){
+			//Ignore NPEs
+		}
+		curSearchTask = new TorrentSearchTask();
+		curSearchTask.execute(lastSearch);
+	}
 	
 	private class TorrentSearchTask extends AsyncTask<String, Void, Cursor> {
 
 		@Override
 		protected void onPreExecute() {
 			emptyText.setVisibility(TextView.VISIBLE);
-			emptyText.setText(getString(R.string.searching) + " " + lastSearch);
+			emptyText.setText(getString(R.string.searching));
 			resList.setVisibility(ListView.GONE);
 			resList.setAdapter(null);
+			
+			((SearchActivity) SearchFragment.this.getActivity()).updateActionBarTitle(lastSearch);
+			
+			Message msg = new Message();
+			msg.what = MSG_OPERATION_PENDING;
+			SearchFragment.this.handleReponse(msg);
 		}
 
 		@Override
@@ -362,12 +383,12 @@ public class SearchFragment extends SynodroidFragment {
 				if (cur == null) {
 					emptyText.setVisibility(TextView.VISIBLE);
 					resList.setVisibility(ListView.GONE);
-					emptyText.setText(getString(R.string.no_results) + " " + lastSearch);
+					emptyText.setText(getString(R.string.no_results));
 				} else {// Show results in the list
 					if (cur.getCount() == 0) {
 						emptyText.setVisibility(TextView.VISIBLE);
 						resList.setVisibility(ListView.GONE);
-						emptyText.setText(getString(R.string.no_results) + " " + lastSearch);
+						emptyText.setText(getString(R.string.no_results));
 					} else {
 						emptyText.setVisibility(TextView.GONE);
 						resList.setVisibility(ListView.VISIBLE);
@@ -383,6 +404,10 @@ public class SearchFragment extends SynodroidFragment {
 				}
 				catch (Exception ex){/*DO NOTHING*/}
 			}
+			
+			Message msg = new Message();
+			msg.what = MSG_OPERATION_DONE;
+			SearchFragment.this.handleReponse(msg);
 		}
 
 	}
