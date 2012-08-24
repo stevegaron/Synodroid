@@ -61,7 +61,7 @@ public class HomeActivity extends BaseActivity {
 		next.setClass(HomeActivity.this, SearchActivity.class);
 		next.putExtra("start_search", true);
 		startActivity(next);
-		return false;
+		return true;
 	}
    
     @Override

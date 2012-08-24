@@ -92,11 +92,6 @@ public class ActivityHelper {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_search:
-                goSearch();
-                return true;
-        }
         return false;
     }
 
@@ -134,13 +129,6 @@ public class ActivityHelper {
         //if (!UIUtils.isHoneycomb()) {
         //    mActivity.overridePendingTransition(R.anim.home_enter, R.anim.home_exit);
         //}
-    }
-
-    /**
-     * Invoke "search" action, triggering a default search.
-     */
-    public void goSearch() {
-        mActivity.startSearch(null, false, Bundle.EMPTY, false);
     }
 
     public void setTitleOnClickListener(OnClickListener ocl){

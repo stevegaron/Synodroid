@@ -7,11 +7,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +44,7 @@ import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SearchEngine;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.utils.SearchResultsOpenHelper;
 import com.bigpupdev.synodroid.utils.SearchViewBinder;
 import com.bigpupdev.synodroid.utils.SynodroidDSMSearch;
 import com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion;
@@ -49,37 +53,57 @@ public class SearchFragment extends SynodroidFragment {
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_SEARCH_SOURCE = "general_cat.search_source";
 	private static final String PREFERENCE_SEARCH_ORDER = "general_cat.search_order";
-	
+
 	private final String[] from = new String[] { "NAME", "SIZE", "ADDED", "LEECHERS", "SEEDERS", "TORRENTURL" };
 	private final int[] to = new int[] { R.id.result_title, R.id.result_size, R.id.result_date, R.id.result_leechers, R.id.result_seeds, R.id.result_url };
 	private TextView emptyText;
-	
+
 	private Spinner SpinnerSource, SpinnerSort;
 	private ArrayAdapter<CharSequence> AdapterSource, AdapterSort;
 
 	private String[] SortOrder = { "Combined", "BySeeders" };
 	private String lastSearch = "";
 	private ListView resList;
-	
+
 	private TorrentSearchTask curSearchTask;
+	private SearchResultsOpenHelper db_helper;
 	
+	private boolean fromCache = false;
+
+	private static final String getCachedQuery = "SELECT "+SearchResultsOpenHelper.CACHE_ID+","+SearchResultsOpenHelper.CACHE_TITLE+","+SearchResultsOpenHelper.CACHE_TURL+","+SearchResultsOpenHelper.CACHE_DURL+","+SearchResultsOpenHelper.CACHE_SIZE+","+SearchResultsOpenHelper.CACHE_ADDED+","+SearchResultsOpenHelper.CACHE_SEED+","+SearchResultsOpenHelper.CACHE_LEECH+" FROM "+ SearchResultsOpenHelper.TABLE_CACHE + " WHERE " +SearchResultsOpenHelper.CACHE_QUERY+ "=? AND "+SearchResultsOpenHelper.CACHE_PROVIDER+ "=? AND "+SearchResultsOpenHelper.CACHE_ORDER+"=?";
+	
+	public String getLastSearch(){
+		return lastSearch;
+	}
+	
+	public String getSourceString(){
+		return SpinnerSource.getSelectedItem().toString();
+	}
+	
+	public String getSortString(){
+		return SpinnerSort.getSelectedItem().toString();
+	}
 	
 	/**
 	 * Activity creation
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+			Bundle savedInstanceState) {
 		final Activity a = getActivity();
 		try{
 			if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchFragment: Creating search fragment.");
 		}catch (Exception ex){/*DO NOTHING*/}
 
-        if (savedInstanceState != null)
+		if (savedInstanceState != null){
 			lastSearch = savedInstanceState.getString("lastSearch");
-		else
+		}
+		else{
 			lastSearch = "";
-		
+		}
+
+		db_helper = new SearchResultsOpenHelper(a);
+
 		RelativeLayout searchContent = (RelativeLayout) inflater.inflate(R.layout.torrent_search, null, false);
 		resList = (ListView) searchContent.findViewById(R.id.resList);
 
@@ -126,40 +150,66 @@ public class SearchFragment extends SynodroidFragment {
 			}
 			emptyText.setText(getString(R.string.sites) + "\n" + s.toString());
 			resList.setVisibility(ListView.GONE);
-			
+
 			SpinnerSource.setSelection(lastSource);
 			SpinnerSort.setSelection(lastOrder);
+
+			final String default_site = SpinnerSource.getSelectedItem().toString();
 
 			SpinnerSource.setOnItemSelectedListener(new OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					String source = ((TextView) arg1).getText().toString();
 					SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-					preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
-					
 					Message msg = new Message();
 					msg.what = MSG_OPERATION_DONE;
 					SearchFragment.this.handleReponse(msg);
+					
+					if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, default_site))){
+						preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
+						if (!lastSearch.equals("")) {
+							try{
+								curSearchTask.cancel(true);
+							}
+							catch (NullPointerException e){
+								//Ignore NPEs
+							}
+							curSearchTask = new TorrentSearchTask();
+							curSearchTask.execute(lastSearch);
+						}
+					}					
 				}
 
 				public void onNothingSelected(AdapterView<?> arg0) {
 				}
 			});
-			
+
 			SpinnerSort.setOnItemSelectedListener(new OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					String order = ((TextView) arg1).getText().toString();
 					SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-					preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
-					
 					Message msg = new Message();
 					msg.what = MSG_OPERATION_DONE;
 					SearchFragment.this.handleReponse(msg);
+					
+					if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders"))){
+						preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
+						if (!lastSearch.equals("")) {
+							try{
+								curSearchTask.cancel(true);
+							}
+							catch (NullPointerException e){
+								//Ignore NPEs
+							}
+							curSearchTask = new TorrentSearchTask();
+							curSearchTask.execute(lastSearch);
+						}
+					}
 				}
 
 				public void onNothingSelected(AdapterView<?> arg0) {
 				}
 			});
-			
+
 			resList.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					final RelativeLayout rl = (RelativeLayout) arg1;
@@ -168,37 +218,37 @@ public class SearchFragment extends SynodroidFragment {
 					TextView itemSeed = (TextView) rl.findViewById(R.id.result_seeds);
 					TextView itemLeech = (TextView) rl.findViewById(R.id.result_leechers);
 					TextView itemDate = (TextView) rl.findViewById(R.id.result_date);
-					
+
 					LayoutInflater inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					View layout = (View) inflater.inflate(R.layout.search_dialog, null);
-					
+
 					final TextView msgView = (TextView) layout.findViewById(R.id.msg);
 					final TextView tView = (TextView) layout.findViewById(R.id.title);
 					final TextView sView = (TextView) layout.findViewById(R.id.size);
 					final TextView seedView = (TextView) layout.findViewById(R.id.seed);
 					final TextView leechView = (TextView) layout.findViewById(R.id.leech);
 					final TextView dateView = (TextView) layout.findViewById(R.id.date);
-					
+
 					tView.setText(itemValue.getText());
 					sView.setText(itemSize.getText());
 					seedView.setText(itemSeed.getText());
 					leechView.setText(itemLeech.getText());
 					dateView.setText(itemDate.getText());
 					msgView.setText(getString(R.string.dialog_message_confirm_add));
-					
+
 					Dialog d = new AlertDialog.Builder(a)
-						.setTitle(R.string.dialog_title_confirm)
-						.setView(layout)
-						.setNegativeButton(android.R.string.no, null)
-						.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					.setTitle(R.string.dialog_title_confirm)
+					.setView(layout)
+					.setNegativeButton(android.R.string.no, null)
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							TextView tv = (TextView) rl.findViewById(R.id.result_url);
-							
+
 							Uri uri = Uri.parse(tv.getText().toString());
 							AddTaskAction addTask = new AddTaskAction(uri, true, true);
 							Synodroid app = (Synodroid) getActivity().getApplication();
 							app.executeAction(SearchFragment.this, addTask, true);
-							
+
 						}
 					}).create();
 					try {
@@ -219,10 +269,10 @@ public class SearchFragment extends SynodroidFragment {
 			resList.setVisibility(ListView.GONE);
 			emptyText.setText(R.string.provider_missing);
 		}
-		
+
 		return searchContent;
 	}
-	
+
 	private List<Object[]> getSupportedSites() {
 		// Create the URI of the TorrentSitesProvider
 		String uriString = "content://org.transdroid.search.torrentsitesprovider/sites";
@@ -232,28 +282,28 @@ public class SearchFragment extends SynodroidFragment {
 		Synodroid app = (Synodroid) getActivity().getApplication();
 		List<Object[]> ret = new ArrayList<Object[]>();
 		SynoServer server = app.getServer();
-		
+
 		if (server != null && app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
 			Object[] values = new Object[4];
-            values[0] = 11223344;
-            values[1] = "DSM Search";
-            values[2] = "DSM Proprietary Search Engine";
-            values[3] = null;
-            ret.add(values);
+			values[0] = 11223344;
+			values[1] = "DSM Search";
+			values[2] = "DSM Proprietary Search Engine";
+			values[3] = null;
+			ret.add(values);
 		}
 		if (sites != null){
 			if (sites.moveToFirst()) {
 				do {
 					Object[] values = new Object[4];
-		            values[0] = sites.getInt(0);
-		            values[1] = sites.getString(1);
-		            values[2] = sites.getString(2);
-		            values[3] = sites.getString(3);
+					values[0] = sites.getInt(0);
+					values[1] = sites.getString(1);
+					values[2] = sites.getString(2);
+					values[3] = sites.getString(3);
 					ret.add(values);
 				} while (sites.moveToNext());
 			}
 		}
-		
+
 		if (ret.size() == 0){
 			return null;
 		}
@@ -268,17 +318,17 @@ public class SearchFragment extends SynodroidFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+
 		Activity a = this.getActivity();
 		Intent intent = a.getIntent();
 		String action = intent.getAction();
-		
+
 		if (Intent.ACTION_SEARCH.equals(action)) {
 			try{
 				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchFragment: New search intent received.");
 			}
 			catch (Exception ex){/*DO NOTHING*/}
-			
+
 			if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
 				if (getSupportedSites() != null) {
 					String searchKeywords = intent.getStringExtra(SearchManager.QUERY);
@@ -333,7 +383,7 @@ public class SearchFragment extends SynodroidFragment {
 		curSearchTask = new TorrentSearchTask();
 		curSearchTask.execute(lastSearch);
 	}
-	
+
 	private class TorrentSearchTask extends AsyncTask<String, Void, Cursor> {
 
 		@Override
@@ -342,9 +392,9 @@ public class SearchFragment extends SynodroidFragment {
 			emptyText.setText(getString(R.string.searching));
 			resList.setVisibility(ListView.GONE);
 			resList.setAdapter(null);
-			
+
 			((SearchActivity) SearchFragment.this.getActivity()).updateActionBarTitle(lastSearch);
-			
+
 			Message msg = new Message();
 			msg.what = MSG_OPERATION_PENDING;
 			SearchFragment.this.handleReponse(msg);
@@ -352,28 +402,59 @@ public class SearchFragment extends SynodroidFragment {
 
 		@Override
 		protected Cursor doInBackground(String... params) {
+			SQLiteDatabase cache = db_helper.getWritableDatabase();
+			
 			try {
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
 				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
-				if (pref_src.equals("DSM Search")){
-					Synodroid app = (Synodroid) getActivity().getApplication();
-					
-					return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, pref_order);
 				
+				Cursor res = cache.rawQuery(getCachedQuery, new String[]{params[0], pref_src, pref_order});
+				
+				if (res.getCount() == 0){
+					fromCache = false;
+					if (pref_src.equals("DSM Search")){
+						Synodroid app = (Synodroid) getActivity().getApplication();
+
+						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, pref_order);
+
+					}
+					else{
+						// Create the URI of the TorrentProvider
+						String uriString = "content://org.transdroid.search.torrentsearchprovider/search/" + params[0];
+						Uri uri = Uri.parse(uriString);
+						// Then query for this specific record (no selection nor projection nor sort):
+
+						return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { pref_src }, pref_order);
+					}
 				}
 				else{
-					// Create the URI of the TorrentProvider
-					String uriString = "content://org.transdroid.search.torrentsearchprovider/search/" + params[0];
-					Uri uri = Uri.parse(uriString);
-					// Then query for this specific record (no selection nor projection nor sort):
+					fromCache = true;
+					String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
+					MatrixCursor cursor = new MatrixCursor(COLS);
+					res.moveToFirst();
+					do {
+						Object[] values = new Object[8];
+                        values[0] = res.getInt(0);
+                        values[1] = res.getString(1);
+                        values[2] = res.getString(2);
+                        values[3] = res.getString(3);
+                        values[4] = res.getString(4);
+                        values[5] = res.getString(5);
+                        values[6] = res.getInt(6);
+                        values[7] = res.getInt(7);
+                        cursor.addRow(values);
+					} while(res.moveToNext());
 					
-					return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { pref_src }, pref_order);
+					return cursor;
 				}
-				
-				
 			} catch (Exception e) {
 				return null;
+			}
+			finally{
+				try{
+					cache.close();
+				}catch (Exception e){}
 			}
 		}
 
@@ -392,6 +473,39 @@ public class SearchFragment extends SynodroidFragment {
 					} else {
 						emptyText.setVisibility(TextView.GONE);
 						resList.setVisibility(ListView.VISIBLE);
+						
+						if (!fromCache){
+							SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+							String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
+							String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
+							SQLiteDatabase cache = db_helper.getWritableDatabase();
+							
+							try{
+								cur.moveToFirst();
+								do {
+									ContentValues values = new ContentValues();
+									values.put(SearchResultsOpenHelper.CACHE_QUERY, lastSearch);
+									values.put(SearchResultsOpenHelper.CACHE_PROVIDER, pref_src);
+									values.put(SearchResultsOpenHelper.CACHE_ORDER, pref_order);
+									values.put(SearchResultsOpenHelper.CACHE_ID, String.valueOf(cur.getInt(0)));
+									values.put(SearchResultsOpenHelper.CACHE_TITLE, cur.getString(1));
+									values.put(SearchResultsOpenHelper.CACHE_TURL, cur.getString(2));
+									values.put(SearchResultsOpenHelper.CACHE_DURL, cur.getString(3));
+									values.put(SearchResultsOpenHelper.CACHE_SIZE, cur.getString(4));
+									values.put(SearchResultsOpenHelper.CACHE_ADDED, cur.getString(5));
+									values.put(SearchResultsOpenHelper.CACHE_SEED, String.valueOf(cur.getInt(6)));
+									values.put(SearchResultsOpenHelper.CACHE_LEECH, String.valueOf(cur.getInt(7)));
+									cache.insert(SearchResultsOpenHelper.TABLE_CACHE,null, values);
+								} while(cur.moveToNext());
+							}
+							finally{
+								try{
+									cache.close();
+								}catch (Exception e){}
+							}
+							
+						}
+						
 						SimpleCursorAdapter cursor = new SimpleCursorAdapter(getActivity(), R.layout.search_row, cur, from, to);
 						cursor.setViewBinder(new SearchViewBinder());
 						resList.setAdapter(cursor);
@@ -404,21 +518,21 @@ public class SearchFragment extends SynodroidFragment {
 				}
 				catch (Exception ex){/*DO NOTHING*/}
 			}
-			
+
 			Message msg = new Message();
 			msg.what = MSG_OPERATION_DONE;
 			SearchFragment.this.handleReponse(msg);
 		}
 
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		// Save UI state changes to the savedInstanceState.
 		// This bundle will be passed to onCreate if the process is
 		// killed and restarted.
 		savedInstanceState.putString("lastSearch", lastSearch);
-		
+
 		// etc.
 		super.onSaveInstanceState(savedInstanceState);
 	}
@@ -434,7 +548,7 @@ public class SearchFragment extends SynodroidFragment {
 			try{
 				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received search engine listing message.");
 			}catch (Exception ex){/*DO NOTHING*/}
-			
+
 			@SuppressWarnings("unchecked")
 			List<SearchEngine> seList = (List<SearchEngine>) msg.obj;
 			final CharSequence[] seNames = new CharSequence[seList.size()];
@@ -461,7 +575,7 @@ public class SearchFragment extends SynodroidFragment {
 						newList.add(se);
 					}
 					dialog.dismiss();final Activity a = getActivity();
-					
+
 					Synodroid app = (Synodroid) a.getApplication();
 					app.executeAsynchronousAction(SearchFragment.this, new SetSearchEngines(newList), true);
 				}

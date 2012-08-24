@@ -6,6 +6,7 @@ import com.bigpupdev.synodroid.action.GetSearchEngineAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
+import com.bigpupdev.synodroid.utils.SearchResultsOpenHelper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 public class SearchActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_SEARCH_SOURCE = "general_cat.search_source";
+	private static final String PREFERENCE_SEARCH_ORDER = "general_cat.search_order";
 	private static final String TORRENT_SEARCH_URL_DL = "http://transdroid.org/latest-search";
 	
 	@Override
@@ -79,6 +83,13 @@ public class SearchActivity extends BaseActivity{
 		 
 	}
 	
+	private void clearDBCache(String query, String provider, String order){
+		SearchResultsOpenHelper db_helper = new SearchResultsOpenHelper(this);
+		SQLiteDatabase cache = db_helper.getWritableDatabase();
+		cache.delete(SearchResultsOpenHelper.TABLE_CACHE, SearchResultsOpenHelper.CACHE_QUERY+"=? AND "+SearchResultsOpenHelper.CACHE_PROVIDER+"=? AND "+SearchResultsOpenHelper.CACHE_ORDER+"=?", new String[]{query, provider, order});
+		cache.close();
+	}
+	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_search){
@@ -86,17 +97,22 @@ public class SearchActivity extends BaseActivity{
         		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchActivity: Menu search selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
         	
-            startSearch(null, false, null, false);
+        	startSearch(null, false, null, false);
         }
 		if (item.getItemId() == R.id.menu_refresh){
 			try{
         		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchActivity: Menu refresh selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
         	
-            FragmentManager fm = getSupportFragmentManager();
+			FragmentManager fm = getSupportFragmentManager();
 	        try{
-	        	SearchFragment fragment_download = (SearchFragment) fm.findFragmentById(R.id.fragment_search);
-	        	fragment_download.refresh();
+	        	SearchFragment fragment_search = (SearchFragment) fm.findFragmentById(R.id.fragment_search);
+	        	fragment_search.refresh();
+	        	SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+	    		String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, fragment_search.getSourceString());
+	    		String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, fragment_search.getSortString());
+
+	        	clearDBCache(fragment_search.getLastSearch(), pref_src, pref_order);
 	        }
 			catch (Exception e){
 				try{
