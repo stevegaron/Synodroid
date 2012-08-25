@@ -2,6 +2,9 @@
 <lint>
     <issue id="ContentDescription" severity="ignore" />
     <issue id="MissingTranslation" severity="warning" />
+    <issue id="NewApi">
+        <ignore path="src/com/bigpupdev/synodroid/utils/ActivityHelperHoneycomb.java" />
+    </issue>
     <issue id="UselessParent">
         <ignore path="res\layout\task_template.xml" />
     </issue>

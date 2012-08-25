@@ -40,6 +40,10 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
         super(activity);
     }
 
+    public void triggerDDNavigationMode(){
+    	mActivity.getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+    }
+    
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
         // Do nothing in onPostCreate. ActivityHelper creates the old action bar, we don't

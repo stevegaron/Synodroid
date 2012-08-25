@@ -20,6 +20,7 @@ import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
 import com.bigpupdev.synodroid.ui.HomeActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,9 +60,8 @@ public class ActivityHelper {
         mActivity = activity;
     }
 
-    public void invalidateOptionMenu(){
-    	
-    }
+    public void triggerDDNavigationMode(){}
+    public void invalidateOptionMenu(){}
     
     public void onPostCreate(Bundle savedInstanceState) {
         // Create the action bar
