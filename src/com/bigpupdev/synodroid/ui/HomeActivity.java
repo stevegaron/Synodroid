@@ -57,11 +57,7 @@ public class HomeActivity extends BaseActivity {
 	//private TagStreamFragment mTagStreamFragment;
     @Override
 	public boolean onSearchRequested() {
-    	Intent next = new Intent();
-		next.setClass(HomeActivity.this, SearchActivity.class);
-		next.putExtra("start_search", true);
-		startActivity(next);
-		return true;
+    	return super.onSearchRequested();
 	}
    
     @Override
@@ -274,10 +270,7 @@ public class HomeActivity extends BaseActivity {
         		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
         	
-        	Intent next = new Intent();
-    		next.setClass(HomeActivity.this, SearchActivity.class);
-    		next.putExtra("start_search", true);
-    		startActivity(next);
+            startSearch(null, false, null, false);
         }
         else if (item.getItemId() == R.id.menu_add){
         	try{
