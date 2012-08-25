@@ -168,11 +168,23 @@ public class HomeActivity extends BaseActivity {
 					FragmentManager fm = getSupportFragmentManager();
 			        try{
 			        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
+			        	Uri uri = Uri.parse(edt.getText().toString());
+			        	
+			        	if (!uri.toString().startsWith("http://") && !uri.toString().startsWith("https://") && !uri.toString().startsWith("ftp://") && !uri.toString().startsWith("file://") && !uri.toString().startsWith("magnet:")){
+							uri = Uri.parse("http://"+uri.toString());
+						}
+			        	if (uri.toString().startsWith("http://magnet/")){
+							uri = Uri.parse(uri.toString().replace("http://magnet/", "magnet:"));
+						}
+						else if (uri.toString().startsWith("https://magnet/")){
+							uri = Uri.parse(uri.toString().replace("https://magnet/", "magnet:"));
+						}
+						
 			        	if (!user.getText().toString().equals("") || !pass.getText().toString().equals("")){
-			        		app.executeAsynchronousAction(fragment_download, new AddPwTaskAction(Uri.parse(edt.getText().toString()), user.getText().toString(), pass.getText().toString(), true, false), true);
+			        		app.executeAsynchronousAction(fragment_download, new AddPwTaskAction(uri, user.getText().toString(), pass.getText().toString(), true, false), true);
 			        	}
 			        	else{
-			        		app.executeAsynchronousAction(fragment_download, new AddTaskAction(Uri.parse(edt.getText().toString()), true, false), true);
+			        		app.executeAsynchronousAction(fragment_download, new AddTaskAction(uri, true, false), true);
 			        	}
 			        }
 					catch (Exception e){
