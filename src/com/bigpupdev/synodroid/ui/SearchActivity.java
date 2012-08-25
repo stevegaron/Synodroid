@@ -107,12 +107,12 @@ public class SearchActivity extends BaseActivity{
 			FragmentManager fm = getSupportFragmentManager();
 	        try{
 	        	SearchFragment fragment_search = (SearchFragment) fm.findFragmentById(R.id.fragment_search);
-	        	fragment_search.refresh();
 	        	SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 	    		String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, fragment_search.getSourceString());
 	    		String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, fragment_search.getSortString());
 
 	        	clearDBCache(fragment_search.getLastSearch(), pref_src, pref_order);
+	        	fragment_search.refresh();
 	        }
 			catch (Exception e){
 				try{
