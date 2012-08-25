@@ -423,10 +423,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				uri = intentP.getData();
-				if (uri.toString().startsWith("//")){
-					uri = Uri.parse("http:"+uri.toString());
-				}
-				
 				if (uri.toString().startsWith("http://magnet/")){
 					uri = Uri.parse(uri.toString().replace("http://magnet/", "magnet:"));
 				}

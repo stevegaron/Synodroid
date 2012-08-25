@@ -245,6 +245,10 @@ public class SearchFragment extends SynodroidFragment {
 							TextView tv = (TextView) rl.findViewById(R.id.result_url);
 
 							Uri uri = Uri.parse(tv.getText().toString());
+							if (uri.toString().startsWith("//")){
+								uri = Uri.parse("http:"+uri.toString());
+							}
+							
 							AddTaskAction addTask = new AddTaskAction(uri, true, true);
 							Synodroid app = (Synodroid) getActivity().getApplication();
 							app.executeAction(SearchFragment.this, addTask, true);
