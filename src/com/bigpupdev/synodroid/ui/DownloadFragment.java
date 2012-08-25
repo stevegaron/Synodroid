@@ -434,7 +434,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					uri = Uri.parse(uri.toString().replace("https://magnet/", "magnet:"));
 				}
 				
-				if (!uri.toString().startsWith("file")) {
+				if (!uri.toString().startsWith("file:")) {
 					use_safe = true;
 					out_url = true;
 				}	
