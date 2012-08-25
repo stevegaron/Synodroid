@@ -91,7 +91,7 @@ public interface DSHandler {
 	 * 
 	 * @param uriP
 	 */
-	public void uploadUrl(final Uri uriP) throws Exception;
+	public void uploadUrl(final Uri uriP, final String uname, final String pass) throws Exception;
 
 	/**
 	 * Get task's raw details

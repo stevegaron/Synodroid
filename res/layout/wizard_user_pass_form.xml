@@ -5,22 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" 
     android:padding="10dp">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/wizard_user_user_label"/>
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/user" 
+        android:hint="@string/wizard_user_user_label"
         android:inputType="text"/>
-    <TextView 
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content" 
-        android:text="@string/wizard_user_password_label"/>
     <EditText 
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:id="@+id/password" 
+        android:hint="@string/wizard_user_password_label"
         android:inputType="textPassword"/>
 </LinearLayout>

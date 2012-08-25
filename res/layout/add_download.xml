@@ -1,21 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="5dip" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_download_url_title" />
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+    	android:layout_margin="5dip" >
+	
+	    <EditText
+	        android:id="@+id/add_url"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+    		android:layout_marginLeft="5dip"
+    		android:hint="@string/add_download_url_title"
+	        android:inputType="textUri" >
+	
+	        <requestFocus />
+	    </EditText>
+	
+	    <RelativeLayout
+	        android:id="@+id/adv_settings"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="5dp" >
 
-    <EditText
-        android:id="@+id/add_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:inputType="textUri">
-        <requestFocus />
-    </EditText>
-</LinearLayout>
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_centerVertical="true"
+	            android:text="@string/adv_settings"
+	            android:textStyle="bold"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	        <ImageView
+	            android:id="@+id/exp_col"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:src="@drawable/ic_expand" />
+
+	    </RelativeLayout>
+	
+	    <LinearLayout
+	        android:id="@+id/credentials"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:orientation="vertical"
+	        android:visibility="gone" >
+	
+	        <EditText
+	            android:id="@+id/username"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" 
+	            android:hint="@string/label_username"
+	            android:inputType="text"/>
+			
+			<EditText
+	            android:id="@+id/pass"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" 
+	            android:hint="@string/label_password"
+	            android:inputType="textPassword"/>
+	   
+	    </LinearLayout>
+	
+	</LinearLayout>
+</ScrollView>

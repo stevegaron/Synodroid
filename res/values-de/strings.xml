@@ -340,7 +340,7 @@
 <string name="tab_main">Download</string>    
 <string name="tab_transfer">Transfer</string>    
 <string name="tab_file">Dateien</string>    
-<string name="add_wizard_srv_name">Servername:</string>
+<string name="add_wizard_srv_name">Servername</string>
 <string-array name="add_wizard_srv_type_array">
 	<item>Nur WLAN</item>
 	<item>Nur Mobilfunk</item>
@@ -348,12 +348,12 @@
 </string-array>
 <string name="add_wizard_srv_sel_title">Serverinfo</string>
 <string name="add_wizard_wifi_title">WLAN Verbindung</string>
-<string name="add_wizard_wifi_host">Server IP/Domainname:</string>
+<string name="add_wizard_wifi_host">Server IP/Domainname</string>
 <string name="add_wizard_cell_title">Mobilfunk</string>
 <string name="add_wizard_sec_title">Sicherheit</string>
 <string name="dialog_message_confirm">&quot;Die Aufgabe ist noch nicht komplett fertig gestellt. Sind sie sicher, dass die Aufgabe beendet werden soll?&quot;</string>
 <string name="menu_add">Download hinzufügen</string>
-<string name="add_download_url_title">Adresse:</string>
+<string name="add_download_url_title">Adresse</string>
 <string name="app_pro">Professional Version</string>
 <string name="app_google_plus">Fügen sie uns zu ihren Google+ Kreisen hinzu um immer die neuesten Informationen zu Synodroid zu bekommen:</string>
 <string name="tab_about">Über</string>    

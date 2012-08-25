@@ -342,7 +342,7 @@
 <string name="tab_main">Download</string>    
 <string name="tab_transfer">Overdracht</string>    
 <string name="tab_file">Bestanden</string>    
-<string name="add_wizard_srv_name">Server naam:</string>
+<string name="add_wizard_srv_name">Server naam</string>
 <string-array name="add_wizard_srv_type_array">
 	<item>Alleen Wifi</item>
 	<item>Alleen 3G</item>
@@ -350,12 +350,12 @@
 </string-array>
 <string name="add_wizard_srv_sel_title">Server Info</string>
 <string name="add_wizard_wifi_title">Wifi Connectie</string>
-<string name="add_wizard_wifi_host">Server IP/Domein naam:</string>
+<string name="add_wizard_wifi_host">Server IP/Domein naam</string>
 <string name="add_wizard_cell_title">3G Connectie</string>
 <string name="add_wizard_sec_title">Beveiliging</string>
 <string name="dialog_message_confirm">&quot;De take is nog niet voltooid. Weet je zeker dat je de take wilt verwijderen?&quot;</string>
 <string name="menu_add">Download toevoegen</string>
-<string name="add_download_url_title">URL:</string>
+<string name="add_download_url_title">Url</string>
 <string name="app_pro">Professionele Versie</string>
 <string name="app_google_plus">Controleer Synodroid op Google+ voor actuele informatie:</string>
 <string name="tab_about">Over</string>    

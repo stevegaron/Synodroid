@@ -343,7 +343,7 @@
 <string name="tab_main">Download</string>    
 <string name="tab_transfer">Transfer</string>    
 <string name="tab_file">Files</string>    
-<string name="add_wizard_srv_name">Server name:</string>
+<string name="add_wizard_srv_name">Server name</string>
 <string-array name="add_wizard_srv_type_array">
 	<item>Wifi Only</item>
 	<item>Cellular Network Only</item>
@@ -351,12 +351,12 @@
 </string-array>
 <string name="add_wizard_srv_sel_title">Server Info</string>
 <string name="add_wizard_wifi_title">Wifi Connection</string>
-<string name="add_wizard_wifi_host">Server IP/Domain name:</string>
+<string name="add_wizard_wifi_host">Server IP/Domain name</string>
 <string name="add_wizard_cell_title">Cellular Connection</string>
 <string name="add_wizard_sec_title">Security</string>
 <string name="dialog_message_confirm">&quot;The task is not completely finished. Are you sure you want to terminate it?&quot;</string>
 <string name="menu_add">Add Download</string>
-<string name="add_download_url_title">URL:</string>
+<string name="add_download_url_title">Url</string>
 <string name="app_pro">Professional version</string>
 <string name="app_google_plus">Circle us out on Google+ for up to date Synodroid information:</string>
 <string name="tab_about">About</string>    
@@ -465,5 +465,6 @@
 <string name="log_load">Loading logs...</string>
 <string name="pro_only">(Pro only)</string>
 <string name="what_new">What\'s new?</string>
+<string name="adv_settings">Authentication</string>
 
 </resources>

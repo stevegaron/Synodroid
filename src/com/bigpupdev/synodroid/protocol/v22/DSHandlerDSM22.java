@@ -454,7 +454,7 @@ class DSHandlerDSM22 implements DSHandler {
 		}
 	}
 
-	public void uploadUrl(Uri uriP) throws Exception {
+	public void uploadUrl(Uri uriP, String uname, String pass) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
 			if (uriP.toString() != null) {

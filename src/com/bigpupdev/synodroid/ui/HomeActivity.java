@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.action.AddPwTaskAction;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.ClearAllTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
@@ -32,9 +33,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * Front-door {@link Activity} that displays high-level features the schedule application offers to
@@ -120,6 +126,36 @@ public class HomeActivity extends BaseActivity {
 			View v = inflater.inflate(R.layout.add_download, null);
 			final EditText edt = (EditText) v.findViewById(R.id.add_url);
 			edt.setText("");
+			final EditText user = (EditText) v.findViewById(R.id.username);
+			user.setText("");
+			final EditText pass = (EditText) v.findViewById(R.id.pass);
+			pass.setText("");
+			final ImageView exp_col = (ImageView) v.findViewById(R.id.exp_col);
+			final LinearLayout creds = (LinearLayout) v.findViewById(R.id.credentials);
+			final RelativeLayout adv = (RelativeLayout) v.findViewById(R.id.adv_settings);
+			adv.setOnClickListener(new android.view.View.OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					if (creds.getVisibility() == View.GONE){
+						exp_col.setImageResource(R.drawable.ic_colapse);
+						creds.setVisibility(View.VISIBLE);
+					}
+					else{
+						creds.setVisibility(View.GONE);
+						exp_col.setImageResource(R.drawable.ic_expand);
+					}
+				}
+				
+			});
+			
+			try{
+				if (((Synodroid)getApplication()).getServer().getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+					adv.setVisibility(View.GONE);
+				}
+			}
+			catch (NullPointerException e){}
+			
 			add_download.setView(v);
 			add_download.setCancelable(true);
 			add_download.setPositiveButton(getString(R.string.menu_add), new OnClickListener() {
@@ -132,7 +168,12 @@ public class HomeActivity extends BaseActivity {
 					FragmentManager fm = getSupportFragmentManager();
 			        try{
 			        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-			        	app.executeAsynchronousAction(fragment_download, new AddTaskAction(Uri.parse(edt.getText().toString()), true, false), true);
+			        	if (!user.getText().toString().equals("") || !pass.getText().toString().equals("")){
+			        		app.executeAsynchronousAction(fragment_download, new AddPwTaskAction(Uri.parse(edt.getText().toString()), user.getText().toString(), pass.getText().toString(), true, false), true);
+			        	}
+			        	else{
+			        		app.executeAsynchronousAction(fragment_download, new AddTaskAction(Uri.parse(edt.getText().toString()), true, false), true);
+			        	}
 			        }
 					catch (Exception e){
 						//Cannot clear all when download fragment not accessible.

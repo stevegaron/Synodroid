@@ -12,16 +12,10 @@
     	android:text="@string/wizard_ddns"
     	android:layout_width="fill_parent"></CheckBox>
    
-	<TextView 
-	    android:layout_height="wrap_content" 
-	    android:text="@string/wizard_ddns_host" 
-	    android:layout_marginRight="4dip" 
-	    android:layout_marginTop="10dip" 
-	    android:layout_width="fill_parent"/>
-	
 	<EditText 
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content"
+	    android:hint="@string/wizard_ddns_host" 
 	    android:id="@+id/ddns_hostname" 
 	    android:inputType="textUri"/>
 	

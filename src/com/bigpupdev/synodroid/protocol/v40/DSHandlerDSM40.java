@@ -486,7 +486,7 @@ class DSHandlerDSM40 implements DSHandler {
 		}
 	}
 
-	public void uploadUrl(Uri uriP) throws Exception {
+	public void uploadUrl(Uri uriP, String uname, String pass) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
 			if (uriP.toString() != null) {
@@ -494,6 +494,12 @@ class DSHandlerDSM40 implements DSHandler {
 				
 				// Create the builder
 				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task");
+				
+				if (uname != null && pass != null){
+					builder.add("dlauth", "on");
+					builder.add("dluser", uname);
+					builder.add("dlpass", pass);
+				}
 				
 				// Execute
 				JSONObject json = null;
