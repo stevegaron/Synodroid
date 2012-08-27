@@ -14,6 +14,7 @@ import java.util.List;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.server.SynoServerConnection;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
+import com.bigpupdev.synodroid.ui.DetailFiles;
 import com.bigpupdev.synodroid.ui.DetailMain;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
 import com.bigpupdev.synodroid.ui.SearchFragment;
@@ -281,6 +282,26 @@ public class Synodroid extends Application {
 			actionQueue.add(actionP);
 		}
 	}
+	
+	/**
+	 * Execute an action and connect to the server or display the connection dialog if needed
+	 * 
+	 * @param activityP
+	 * @param actionP
+	 * @param forceRefreshP
+	 */
+	public void executeAction(final DetailFiles fragmentP, final SynoAction actionP, final boolean forceRefreshP) {
+		if (currentServer != null) {
+			// First verify if it is a DeleteTaskAction and if the task is not finished
+			currentServer.executeAsynchronousAction(fragmentP, actionP, forceRefreshP);
+		}
+		// If an action have to be executed but with no current connection
+		else {
+			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
+			actionQueue.add(actionP);
+		}
+	}
+	
 	/**
 	 * Execute an action and connect to the server or display the connection dialog if needed
 	 * 

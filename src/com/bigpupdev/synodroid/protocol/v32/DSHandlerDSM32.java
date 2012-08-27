@@ -290,6 +290,7 @@ class DSHandlerDSM32 implements DSHandler {
 					file.name = obj.getString("name");
 					file.filesize = obj.getString("size");
 					file.download = obj.getBoolean("wanted");
+					file.priority = obj.getString("priority");
 					file.id = obj.getInt("index");
 					result.add(file);
 				}
@@ -664,63 +665,33 @@ class DSHandlerDSM32 implements DSHandler {
 
 	}
 
-	public void setFilePriority(final Task taskP, List<TaskFile> filesP) throws Exception {
+	public void setFilePriority(final Task taskP, List<TaskFile> filesP, String priority) throws Exception {
 		// action=set_files_priority&task_id=2001&priority=skip&indexes=%5B1%5D
-		List<Integer> l_skip = new ArrayList<Integer>();
-		List<Integer> l_normal = new ArrayList<Integer>();
-
+		List<Integer> l_id = new ArrayList<Integer>();
+		
 		for (TaskFile taskFile : filesP) {
-			if (taskFile.download) {
-				l_normal.add(taskFile.id);
-			} else {
-				l_skip.add(taskFile.id);
-			}
+			l_id.add(taskFile.id);
 		}
+		
+		QueryBuilder updateSkipped = new QueryBuilder().add("action", "set_files_priority").add("task_id", "" + taskP.taskId).add("priority", priority).add("indexes", l_id.toString());
 
-		if (l_skip.size() != 0) {
-			QueryBuilder updateSkipped = new QueryBuilder().add("action", "set_files_priority").add("task_id", "" + taskP.taskId).add("priority", "skip").add("indexes", l_skip.toString());
-
-			// Execute it to the server
-			JSONObject json = null;
-			synchronized (server) {
-				json = server.sendJSONRequest(TORRENT_INFO, updateSkipped.toString(), "POST");
-			}
-			boolean success = json.getBoolean("success");
-			// If not successful then throw an exception
-			if (!success) {
-				String reason = "";
-				if (json.has("reason")) {
-					reason = json.getString("reason");
-				} else if (json.has("errno")) {
-					JSONObject err = json.getJSONObject("errno");
-					reason = err.getString("key");
-				}
-				throw new DSMException(reason);
-			}
+		// Execute it to the server
+		JSONObject json = null;
+		synchronized (server) {
+			json = server.sendJSONRequest(TORRENT_INFO, updateSkipped.toString(), "POST");
 		}
-
-		if (l_normal.size() != 0) {
-			QueryBuilder updateNormal = new QueryBuilder().add("action", "set_files_priority").add("task_id", "" + taskP.taskId).add("priority", "1").add("indexes", l_normal.toString());
-
-			// Execute it to the server
-			JSONObject json = null;
-			synchronized (server) {
-				json = server.sendJSONRequest(TORRENT_INFO, updateNormal.toString(), "POST");
+		boolean success = json.getBoolean("success");
+		// If not successful then throw an exception
+		if (!success) {
+			String reason = "";
+			if (json.has("reason")) {
+				reason = json.getString("reason");
+			} else if (json.has("errno")) {
+				JSONObject err = json.getJSONObject("errno");
+				reason = err.getString("key");
 			}
-			boolean success = json.getBoolean("success");
-			// If not successful then throw an exception
-			if (!success) {
-				String reason = "";
-				if (json.has("reason")) {
-					reason = json.getString("reason");
-				} else if (json.has("errno")) {
-					JSONObject err = json.getJSONObject("errno");
-					reason = err.getString("key");
-				}
-				throw new DSMException(reason);
-			}
+			throw new DSMException(reason);
 		}
-
 	}
 
 	/*

@@ -17,10 +17,10 @@
 package com.bigpupdev.synodroid.utils;
 
 import com.bigpupdev.synodroid.R;
-import com.bigpupdev.synodroid.ui.DownloadFragment;
+import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.ui.HomeActivity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -79,7 +79,13 @@ public class ActivityHelper {
     	
         if (actionMode != null){
 	        SimpleMenu actionMenu = new SimpleMenu(mActivity);
-	        mActivity.getMenuInflater().inflate(R.menu.action_mode_menu, actionMenu);
+	        if (mActivity instanceof HomeActivity){
+	        	mActivity.getMenuInflater().inflate(R.menu.action_mode_menu, actionMenu);
+	        }
+	        else {
+	        	mActivity.getMenuInflater().inflate(R.menu.action_mode_file_menu, actionMenu);
+	        }
+	        
 	        for (int i = 0; i < actionMenu.size(); i++) {
 	            MenuItem item = actionMenu.getItem(i);
 	            addActionButtonCompatFromMenuItem(actionMode, item, null);
@@ -347,7 +353,7 @@ public class ActivityHelper {
         }
     }
     
-    public void startActionMode(DownloadFragment fragment, OnClickListener cancelClickListener,
+    public void startActionMode(OnClickListener cancelClickListener,
     		OnClickListener clearClickListener, OnClickListener resumeClickListener,
     		OnClickListener pauseClickListener){
     	ViewGroup actionBar = (ViewGroup) mActivity.findViewById(R.id.actionbar_compat);
@@ -378,5 +384,31 @@ public class ActivityHelper {
     		TextView titleText = (TextView) actionMode.findViewById(R.id.actionmode_compat_text);
     		titleText.setText(title);
     	}
+    }
+    
+    public void startActionMode(OnClickListener cancelClickListener,
+    		OnClickListener highClickListener, OnClickListener normalClickListener,
+    		OnClickListener lowClickListener, OnClickListener skipClickListener){
+    	ViewGroup actionBar = (ViewGroup) mActivity.findViewById(R.id.actionbar_compat);
+    	ViewGroup actionMode = (ViewGroup) mActivity.findViewById(R.id.actionmode_compat);
+        
+        if (actionBar != null){
+        	actionBar.setVisibility(View.GONE);
+        }
+
+        if (actionMode != null){
+        	actionMode.setVisibility(View.VISIBLE);
+        	ImageButton logo = (ImageButton) actionMode.findViewById(R.id.actionmode_compat_logo);
+        	logo.setOnClickListener(cancelClickListener);
+        	
+        	ImageButton high = (ImageButton) actionMode.findViewById(R.id.menu_high);
+        	ImageButton normal = (ImageButton) actionMode.findViewById(R.id.menu_normal);
+        	ImageButton low = (ImageButton) actionMode.findViewById(R.id.menu_low);
+        	ImageButton skip = (ImageButton) actionMode.findViewById(R.id.menu_skip);
+        	high.setOnClickListener(highClickListener);
+        	normal.setOnClickListener(normalClickListener);
+        	low.setOnClickListener(lowClickListener);
+        	skip.setOnClickListener(skipClickListener);
+        }
     }
 }

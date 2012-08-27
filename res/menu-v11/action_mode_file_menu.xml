@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/menu_skip"
+        android:icon="@drawable/ic_action_cancel"
+        android:title="@string/priority_skip"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom"></item>
+    
+    <item android:title="@string/priority_high" 
+        android:id="@+id/menu_high" 
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_high" />
+    
+    <item android:id="@+id/menu_normal"
+        android:icon="@drawable/ic_action_normal"
+        android:title="@string/priority_normal"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom"></item>
+    
+    <item android:id="@+id/menu_low"
+        android:icon="@drawable/ic_action_low"
+        android:title="@string/priority_low"
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom"></item>
+    
+</menu>

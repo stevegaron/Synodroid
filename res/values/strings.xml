@@ -465,6 +465,14 @@
 <string name="log_load">Loading logs...</string>
 <string name="pro_only">(Pro only)</string>
 <string name="what_new">What\'s new?</string>
+
+
 <string name="adv_settings">Authentication</string>
+<string name="priority_high">High</string>
+<string name="priority_normal">Normal</string>
+<string name="priority_low">Low</string>
+<string name="priority_skip">Skip</string>
+
+    
 
 </resources>

@@ -19,41 +19,42 @@ package com.bigpupdev.synodroid.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskFile;
 import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.ui.DetailFiles;
 import com.bigpupdev.synodroid.utils.Utils;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  * An adaptor for task's files. This adaptor aims to create a view for each detail in the listView
  * 
  * @author eric.taix at gmail.com
  */
-public class FileDetailAdapter extends BaseAdapter {
+public class FileDetailAdapter extends BaseAdapter implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener{
 
 	// The task
 	private Task task;
-	// List of task to update
-	private List<TaskFile> modifiedTasks = new ArrayList<TaskFile>();
 	// List of file
 	private List<TaskFile> files = new ArrayList<TaskFile>();
 	// The XML view inflater
 	private final LayoutInflater inflater;
 	// The main activity
-	private Fragment fragment;
+	private DetailFiles fragment;
+	
+	private DSMVersion version;
 
 	/**
 	 * Constructor
@@ -63,15 +64,16 @@ public class FileDetailAdapter extends BaseAdapter {
 	 * @param torrentsP
 	 *            List of torrent
 	 */
-	public FileDetailAdapter(Fragment fragmentP, Task taskP) {
+	public FileDetailAdapter(DetailFiles fragmentP, Task taskP, DSMVersion versionP) {
 		task = taskP;
 		fragment = fragmentP;
 		Context c = fragment.getActivity().getApplicationContext();
 		inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		version = versionP;
 	}
 
 	/**
-	 * Update the torrents list
+	 * Update the File list
 	 * 
 	 * @param torrentsP
 	 */
@@ -79,7 +81,24 @@ public class FileDetailAdapter extends BaseAdapter {
 		files = filesP;
 		notifyDataSetChanged();
 	}
+	
+	/**
+	 * Clear the file selection
+	 * 
+	 * @param torrentsP
+	 */
+	public void clearTasksSelection() {
+		// First update upload informations
+		for (TaskFile task : files) {
+			task.selected = false;
+		}
+		notifyDataSetChanged();
+	}
 
+	public List<TaskFile> getFileList(){
+		return files;
+	}
+	
 	/**
 	 * Return the count of element
 	 * 
@@ -156,44 +175,41 @@ public class FileDetailAdapter extends BaseAdapter {
 			fileSize.setText(fileP.filesize);
 		}
 		
+		ImageView img = (ImageView) viewP.findViewById(R.id.img_priority);
+		if (task.isTorrent){
+			FileIconFacade.bindPriorityStatus(img, fileP);
+		}
+		else{
+			img.setVisibility(View.GONE);
+		}
+		
 		// Is the file has to be download
 		CheckBox downloadFile = (CheckBox) viewP.findViewById(R.id.id_file_to_download);
-		downloadFile.setTag(fileP.name);
-		downloadFile.setVisibility((task.isTorrent ? View.VISIBLE : View.GONE));
-		downloadFile.setChecked(fileP.download);
-		downloadFile.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				String tag = (String) buttonView.getTag();
-				TaskFile file = new TaskFile();
-				file.name = tag;
-				int index = files.indexOf(file);
-				if (index != -1) {
-					file = files.get(index);
-					if (isChecked != file.download) {
-						fileP.download = isChecked;
-						try{
-							modifiedTasks.add(file);	
-						} catch (NullPointerException e){
-							modifiedTasks = new ArrayList<TaskFile>();
-							modifiedTasks.add(file);
-						}
-						
-					}
-				}
-			}
-		});
+		downloadFile.setTag(fileP);
+		if ((!task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) && !task.status.equals(TaskStatus.TASK_SEEDING.name())) || version.smallerThen(DSMVersion.VERSION3_1))
+			downloadFile.setVisibility(View.GONE);
+		else
+			downloadFile.setVisibility((task.isTorrent ? View.VISIBLE : View.GONE));
+		downloadFile.setOnCheckedChangeListener(fragment);
+		downloadFile.setChecked(fileP.selected);
+ 
 		// Changing the checkbox state is only able if the download is not finished
-		downloadFile.setEnabled((task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) ? true : false));
+		downloadFile.setEnabled(((task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) || task.status.equals(TaskStatus.TASK_SEEDING.name())) ? true : false));
 	}
 
-	/**
-	 * Return the modified tasks list and then reset the modified list
-	 * 
-	 * @return
-	 */
-	public List<TaskFile> getModifiedTaskList() {
-		List<TaskFile> result = modifiedTasks;
-		modifiedTasks = new ArrayList<TaskFile>();
-		return result;
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		TaskFile file = files.get(position);
+		if (file != null) {
+			fragment.onTaskLongClicked(file);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

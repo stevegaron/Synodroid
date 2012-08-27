@@ -19,8 +19,9 @@ package com.bigpupdev.synodroid.adapter;
 import java.util.List;
 
 import com.bigpupdev.synodroid.data.Task;
+import com.bigpupdev.synodroid.data.TaskFile;
 import com.bigpupdev.synodroid.R;
-import com.bigpupdev.synodroid.action.TaskActionMenu;
+import com.bigpupdev.synodroid.action.FileActionMenu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -34,10 +35,10 @@ import android.widget.TextView;
  * 
  * @author Eric Taix (eric.taix at gmail.com)
  */
-public class ActionAdapter extends BaseAdapter {
+public class FileActionAdapter extends BaseAdapter {
 
 	// Available actions
-	private List<TaskActionMenu> actions;
+	private List<FileActionMenu> actions;
 	// The XML view inflater
 	private final LayoutInflater inflater;
 
@@ -47,8 +48,8 @@ public class ActionAdapter extends BaseAdapter {
 	 * @param ctxP
 	 *            The context
 	 */
-	public ActionAdapter(Context ctxP, Task taskP) {
-		actions = TaskActionMenu.createActions(ctxP, taskP);
+	public FileActionAdapter(Context ctxP, TaskFile fileP, Task taskP, List<TaskFile> files) {
+		actions = FileActionMenu.createActions(ctxP, fileP, taskP, files);
 		inflater = (LayoutInflater) ctxP.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
