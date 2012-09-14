@@ -150,7 +150,7 @@ public class HomeActivity extends BaseActivity {
 			});
 			
 			try{
-				if (((Synodroid)getApplication()).getServer().getDsmVersion().smallerThen(DSMVersion.VERSION3_2)){
+				if (((Synodroid)getApplication()).getServer().getDsmVersion().smallerThen(DSMVersion.VERSION3_1)){
 					adv.setVisibility(View.GONE);
 				}
 			}
