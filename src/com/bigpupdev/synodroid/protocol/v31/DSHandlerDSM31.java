@@ -477,7 +477,7 @@ class DSHandlerDSM31 implements DSHandler {
 		if (server.isConnected()) {
 			if (uriP.toString() != null) {
 				// Create the multipart
-				MultipartBuilder builder = new MultipartBuilder("BOUNDARY", DEBUG);
+				MultipartBuilder builder = new MultipartBuilder("-----------7dabb2d41348", DEBUG);
 
 				// The field's part
 				builder.addPart(new Part("field").setContent("task_id".getBytes()));
@@ -515,6 +515,13 @@ class DSHandlerDSM31 implements DSHandler {
 				builder.addPart(new Part("upload_type").setContent("url".getBytes()));
 				// The url_ftp's part
 				builder.addPart(new Part("url").setContent(uriP.toString().getBytes()));
+				
+				if (uname != null && pass != null){
+					builder.addPart(new Part("dlauth").setContent("on".getBytes()));
+					builder.addPart(new Part("dluser").setContent(uname.getBytes()));
+					builder.addPart(new Part("dlpass").setContent(pass.getBytes()));
+				}
+				
 				// The upload_type's part
 				builder.addPart(new Part("desttext").setContent(getSharedDirectory().getBytes()));
 				
