@@ -491,6 +491,9 @@ class DSHandlerDSM31 implements DSHandler {
 					builder.addPart(new Part("url_https").setContent(uriP.toString().getBytes()));
 					// The url_ftp's part
 					builder.addPart(new Part("url_ftp").setContent("".getBytes()));
+					// The url_magnet's part
+					builder.addPart(new Part("url_magnet").setContent("".getBytes()));
+					
 				} else if (uriP.toString().toLowerCase().startsWith("http:")) {
 					// The url_http's part
 					builder.addPart(new Part("url_http").setContent(uriP.toString().getBytes()));
@@ -498,6 +501,9 @@ class DSHandlerDSM31 implements DSHandler {
 					builder.addPart(new Part("url_https").setContent("".getBytes()));
 					// The url_ftp's part
 					builder.addPart(new Part("url_ftp").setContent("".getBytes()));
+					// The url_magnet's part
+					builder.addPart(new Part("url_magnet").setContent("".getBytes()));
+					
 				} else if (uriP.toString().toLowerCase().startsWith("ftp:")) {
 					// The url_http's part
 					builder.addPart(new Part("url_http").setContent("".getBytes()));
@@ -505,14 +511,35 @@ class DSHandlerDSM31 implements DSHandler {
 					builder.addPart(new Part("url_https").setContent("".getBytes()));
 					// The url_ftp's part
 					builder.addPart(new Part("url_ftp").setContent(uriP.toString().getBytes()));
+					// The url_magnet's part
+					builder.addPart(new Part("url_magnet").setContent("".getBytes()));
+					
+				} else if (uriP.toString().toLowerCase().startsWith("magnet:")) {
+					// The url_http's part
+					builder.addPart(new Part("url_http").setContent("".getBytes()));
+					// The url_https's part
+					builder.addPart(new Part("url_https").setContent("".getBytes()));
+					// The url_ftp's part
+					builder.addPart(new Part("url_ftp").setContent("".getBytes()));
+					// The url_magnet's part
+					builder.addPart(new Part("url_magnet").setContent(uriP.toString().getBytes()));
+					
 				} else {
-					return;
+					// The url_http's part
+					builder.addPart(new Part("url_http").setContent("".getBytes()));
+					// The url_https's part
+					builder.addPart(new Part("url_https").setContent("".getBytes()));
+					// The url_ftp's part
+					builder.addPart(new Part("url_ftp").setContent("".getBytes()));
+					// The url_ftp's part
+					builder.addPart(new Part("url_magnet").setContent("".getBytes()));
 				}
-				// The url_ftp's part
-				builder.addPart(new Part("url").setContent(uriP.toString().getBytes()));
+				
 				// The upload_type's part
 				builder.addPart(new Part("upload_type").setContent("url".getBytes()));
-
+				// The url_ftp's part
+				builder.addPart(new Part("url").setContent(uriP.toString().getBytes()));
+				
 				// Execute
 				synchronized (server) {
 					server.sendMultiPart(DM_URI, builder);
