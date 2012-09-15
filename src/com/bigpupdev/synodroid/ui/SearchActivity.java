@@ -99,7 +99,7 @@ public class SearchActivity extends BaseActivity{
         	
         	startSearch(null, false, null, false);
         }
-		if (item.getItemId() == R.id.menu_refresh){
+		else if (item.getItemId() == R.id.menu_refresh){
 			try{
         		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchActivity: Menu refresh selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
