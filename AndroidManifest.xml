@@ -3,7 +3,7 @@
     package="com.bigpupdev.synodroid"
     android:installLocation="auto"
     android:versionCode="220"
-    android:versionName="2.2 Beta" >
+    android:versionName="2.2 Beta 2" >
 
     <uses-sdk
         android:minSdkVersion="4"
@@ -47,6 +47,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:mimeType="text/plain" />
+                <data android:mimeType="application/x-bittorrent"/>
+                <data android:mimeType="application/x-nzb"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -107,6 +109,17 @@
                 <data
                     android:host="*"
                     android:pathPattern=".*\\.torrent"
+                    android:scheme="ftp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="*"
+                    android:pathPattern=".*\\.torrent"
                     android:scheme="file" />
             </intent-filter>
             <intent-filter>
@@ -140,6 +153,17 @@
                 <data
                     android:host="*"
                     android:pathPattern=".*\\.nzb"
+                    android:scheme="ftp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="*"
+                    android:pathPattern=".*\\.nzb"
                     android:scheme="file" />
             </intent-filter>
             <intent-filter>
@@ -161,6 +185,16 @@
                 <data
                     android:mimeType="application/x-bittorrent"
                     android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="application/x-bittorrent"
+                    android:scheme="ftp" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -191,6 +225,16 @@
                 <data
                     android:mimeType="application/x-nzb"
                     android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="application/x-nzb"
+                    android:scheme="ftp" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
