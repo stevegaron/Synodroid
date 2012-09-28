@@ -414,8 +414,10 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		String action = intentP.getAction();
 		if (action != null) {
 			Uri uri = null;
+			ArrayList<Uri> uris = null;
 			boolean out_url = false;
 			boolean use_safe = false;
+			boolean multiple = false;
 			
 			if (action.equals(Intent.ACTION_VIEW)) {
 				try{
@@ -445,7 +447,19 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}
 				uri = Uri.parse(uriString);
 				out_url = true;
-			} else {
+			} else if (action.equals(Intent.ACTION_SEND_MULTIPLE)) {
+				try{
+					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: New action_send_multiple intent recieved.");
+				}catch (Exception ex){/*DO NOTHING*/}
+				
+				uris = intentP.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+			    if (uris == null) {
+			    	return true;
+			    }
+			    
+				multiple = true;
+			}
+			else {
 				return true;
 			}
 			// If uri is not null
@@ -457,6 +471,25 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				AddTaskAction addTask = new AddTaskAction(uri, out_url, use_safe);
 				Synodroid app = (Synodroid) getActivity().getApplication();
 				app.executeAction(this, addTask, true);
+			}
+			else if (uris != null){
+				Synodroid app = (Synodroid) getActivity().getApplication();
+				for (Uri cur_uri : uris){
+					if (!cur_uri.toString().startsWith("file:")) {
+						out_url = true;
+					}	
+					else{
+						out_url = false;
+					}
+					
+					try{
+						if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Processing intent...");
+					}catch (Exception ex){/*DO NOTHING*/}
+					
+					AddTaskAction addTask = new AddTaskAction(cur_uri, out_url, use_safe);
+					app.executeAction(this, addTask, false);
+				}
+				app.forceRefresh();
 			}
 		}
 		return true;
@@ -578,7 +611,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		Intent intent = a.getIntent();
 		String action = intent.getAction();
 		// Check if it is a actionable Intent
-		if (action != null && (action.equals(Intent.ACTION_VIEW) || action.equals(Intent.ACTION_SEND))) {
+		if (action != null && (action.equals(Intent.ACTION_VIEW) || action.equals(Intent.ACTION_SEND) || action.equals(Intent.ACTION_SEND_MULTIPLE))) {
 			// REUSE INTENT CHECK: check if the intent is comming out of the history.
 			if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
 				// Not from history -> process intent
