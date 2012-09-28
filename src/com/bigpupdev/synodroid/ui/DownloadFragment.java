@@ -44,7 +44,6 @@ import com.bigpupdev.synodroid.utils.UIUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -508,6 +507,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 					app.executeAction(this, addTask, false);
 				}
 				app.forceRefresh();
+			}
+			else{
+				//Unsupported files
 			}
 		}
 		return true;
