@@ -38,10 +38,13 @@ import com.bigpupdev.synodroid.adapter.ActionAdapter;
 import com.bigpupdev.synodroid.adapter.TaskAdapter;
 import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
+import com.bigpupdev.synodroid.utils.IntentHelper;
+import com.bigpupdev.synodroid.utils.UIUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -417,7 +420,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			ArrayList<Uri> uris = null;
 			boolean out_url = false;
 			boolean use_safe = false;
-			boolean multiple = false;
 			
 			if (action.equals(Intent.ACTION_VIEW)) {
 				try{
@@ -442,11 +444,29 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}catch (Exception ex){/*DO NOTHING*/}
 				
 				String uriString = (String) intentP.getExtras().get(Intent.EXTRA_TEXT);
-				if (uriString == null) {
-					return true;
+				if (uriString != null) {
+					uri = Uri.parse(uriString);
+					if (!uri.toString().startsWith("file:")) {
+						out_url = true;
+					}
 				}
-				uri = Uri.parse(uriString);
-				out_url = true;
+				else{
+					if (UIUtils.isJB()){
+						uri = IntentHelper.getClipDataUri(intentP);
+						if (uri != null){
+							if (!uri.toString().startsWith("file:")) {
+								out_url = true;
+							}	
+						}
+						else{
+							return true;
+						}
+					}
+					else{
+						return true;
+					}
+				}
+				
 			} else if (action.equals(Intent.ACTION_SEND_MULTIPLE)) {
 				try{
 					if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: New action_send_multiple intent recieved.");
@@ -456,8 +476,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			    if (uris == null) {
 			    	return true;
 			    }
-			    
-				multiple = true;
 			}
 			else {
 				return true;
