@@ -9,10 +9,10 @@
 <string name="unknow_reason">&quot;Une erreur s'est produite pour une raison inconnue.&quot;</string>
 <string name="connect_wrong_userpassword">&quot;Mot de passe ou nom d'utilisateur incorrect. Réessayez.&quot;</string>
 <string name="connect_already_connected">&quot;Vous venez de vous connecter depuis un autre poste. Reconnectez-vous.&quot;</string>
-<string name="connect_nohost">&quot;Impossible de contacter le server. Veuillez vérifier vos paramêtres.&quot;</string>
+<string name="connect_nohost">&quot;Impossible de contacter le server. Veuillez vérifier vos paramètres.&quot;</string>
 <string name="connect_error_title">"Erreur"</string>
 <string name="connect_connecting2">"Connexion en cours. Veuillez patienter..."</string>
-<string name="connect_connecting">&quot;Connection à \n{0}\n en cours. Veuiller patienter...&quot;</string>
+<string name="connect_connecting">&quot;Connexion à \n{0}\n en cours. Veuillez patienter...&quot;</string>
 <string name="connect_ssl_error">"Erreur SSL: {0}"</string>
 <string name="action_deleting">&quot;Suppression du fichier %s&quot;</string>
 <string name="action_clearall">&quot;Suppression des tâches terminées...&quot;</string>
@@ -26,7 +26,7 @@
 <string name="menu_pauseall">Interrompre tâches</string>
 <string name="menu_resumeall">Reprendre tâches</string>
 <string name="dialog_title_action">Action</string>
-<string name="menu_parameter">Paramêtres</string>
+<string name="menu_parameter">Paramètres</string>
 <string name="err_unknown">Erreur inconnue!</string>
 
 <string name="connect_cant">"Vous n'êtes pas autorisé à utiliser ce service"</string>
@@ -37,10 +37,10 @@
 <string name="label_username">"Nom d'utilisateur"</string>
 <string name="label_password">Mot de passe</string>
 <string name="label_refreshinterval">Intervalle</string>
-<string name="hint_nickname">Règlez le surnom</string>
+<string name="hint_nickname">Réglez le surnom</string>
 <string name="hint_protocol">Sélectionnez le protocole à utiliser</string>
-<string name="hint_host">&quot;Règlez le nom du serveur ou l'adresse IP&quot;</string>
-<string name="hint_port">Règlez le port</string>
+<string name="hint_host">&quot;Réglez le nom du serveur ou l'adresse IP&quot;</string>
+<string name="hint_port">Réglez le port</string>
 <string name="hint_username">"Nom d'utilisateur"</string>
 <string name="hint_password">Mot de passe</string>
 
@@ -52,7 +52,7 @@
 
 <string name="button_cancel">Annuler</string>
 <string name="label_dsm_version">Disk Station Manager</string>
-<string name="hint_dsm_version">"Règlez la version de votre DSM"</string>
+<string name="hint_dsm_version">"Réglez la version de votre DSM"</string>
 <string name="title_preference">Préférences</string>
 <string name="label_autorefresh">Rafraichissement auto</string>
 <string name="hint_autorefresh_on">Rafraichissement automatique activé</string>
@@ -77,9 +77,9 @@
 <string name="label_default_server_prefix">Serveur </string>
 <string name="hint_default_server">Serveur non valide, cliquer pour modifier</string>
 <string name="menu_refresh">Rafraichir</string>
-<string name="title_cat_connection">Paramêtres de connexion publique</string>
-<string name="title_cat_connection_local">Paramêtres de connexion locale</string>
-<string name="title_cat_server">Paramêtres Genéraux</string>
+<string name="title_cat_connection">Paramètres de connexion publique</string>
+<string name="title_cat_connection_local">Paramètres de connexion locale</string>
+<string name="title_cat_server">Paramètres Genéraux</string>
 
 <string name="action_resume">Reprendre</string>
 <string name="action_pause">Interrompre</string>
@@ -129,9 +129,9 @@
 <string name="detail_status">Status</string>
 <string name="detail_transfered">Transferts</string>
 <string name="detail_speed">Vitesse</string>
-<string name="detail_peers">Pairs (connectés / totals)</string>
+<string name="detail_peers">Pairs (connectés / total)</string>
 <string name="detail_seeders_leechers">Seeders - Leechers</string>
-<string name="detail_eta">&quot;Temps d'arrivée estimé&quot;</string>
+<string name="detail_eta">&quot;Temps restant estimé&quot;</string>
 <string name="detail_pieces">Pièces (courantes / totales)</string>
 <string name="detail_progress">Progression</string>
 <string name="detail_status_waiting">En Attente</string>
@@ -217,12 +217,12 @@
 <string name="detail_forever">Pour toujours</string>
 <string name="action_enum_shared">Récupération des dossiers partagés</string>
 <string name="shared_dir_title">Sélection du dossier</string>
-<string name="shared_note">Note: Ce paramêtre affecte tous les téléchargement en cours.</string>
+<string name="shared_note">Note: Ce paramètre affecte tous les téléchargements en cours.</string>
 <string name="action_set_shared">Mise à jour du dossier de destination</string>
 <string name="menu_destination">Destination</string>
 <string name="action_download_original_file">"Téléchargement du fichier d'origine"</string>
-<string name="action_download_original_saved">Le fichier à été sauvegardé dans votre stockage externe (/sdcard/download)</string>
-<string name="action_download_original_failed">&quot;Impossible de sauvegarder le fichier. Votre stockage externe n'est peut-être pas branché.&quot;</string>
+<string name="action_download_original_saved">Le fichier a été sauvegardé dans votre stockage externe (/sdcard/download)</string>
+<string name="action_download_original_failed">&quot;Impossible de sauvegarder le fichier. Votre stockage externe n'est peut-être pas connecté.&quot;</string>
 <string name="lang_es">Espagnol</string>
 <string name="translator">&quot;Traducteurs:&quot;</string>
 <string name="fullscreen_preference">Plein Écran</string>
@@ -232,19 +232,19 @@
 <string name="crash_notif_text">Merci de cliquer ici pour nous aider à résoudre le problème.</string>
         
 <string name="crash_dialog_title">Synodroid s\'est fermé</string>
-<string name="crash_dialog_text">Une erreur inattendue est survenue, forcant l\'application à s\'arrêter.
+<string name="crash_dialog_text">Une erreur inattendue est survenue, forçant l\'application à s\'arrêter.
     Merci de nous aider à résoudre le problème en envoyant les données d\'erreur:
-        vous avez juste à cliquer sur  \'OK\'.</string>
+        vous n’avez juste qu’à cliquer sur  \'OK\'.</string>
 <string name="crash_dialog_comment_prompt">Vous pouvez ajouter votre adresse email et vos commentaires concernant le problème:</string>
 <string name="crash_dialog_ok_toast">Merci !</string>
 <string name="label_showupload">Progression d\'émission</string>
 <string name="hint_showupload_on">La progression est affichée</string>
-<string name="hint_showupload_off">La progression est cachée</string>
+<string name="hint_showupload_off">La progression est masquée</string>
 <string name="hint_wlan_on">Cette connexion est utilisée uniquement en WIFI</string>
 <string name="hint_wlan_off">Cette connexion n\'est pas utilisée en WIFI</string>
 <string name="label_wifissid">Réseau WIFI</string>
 <string name="hint_wifissid">Sélectionner le réseau WIFI à utiliser</string>
-<string name="title_wifi_disabled">Le Wifi est désactivé</string>
+<string name="title_wifi_disabled">Le WiFi est désactivé</string>
 <string name="message_wifi_disabled">Activez le WiFi avant d\'essayer de configurer la connexion</string>
 
 <string name="wizard_menu">Recherche serveur</string>
@@ -257,7 +257,7 @@
 <string name="installTorrentSearchAlternate">Téléchargement alternatif pour Torrent Search</string>
 <string name="logo_search">Recherche de torrent</string>
 <string name="dialog_message_confirm_add">Etes-vous sûr de vouloir commencer le téléchargement de ce fichier?</string>
-<string name="provider_missing">Aucun moteur de recherche n\'est installé. Vous pouvez soit installer une version de DSM supérieure a 3.1 ou installer le moteur de recherche alternatif en appuyant sur le menu de mise-à-jour du moteur de recherche.\n\n Note: Vous devez redémarrer Synodroid après l\'installation du moteur de recherche alternatif pour activer la recherche.</string>
+<string name="provider_missing">Aucun moteur de recherche n\'est installé. Vous pouvez soit installer une version de DSM supérieure à 3.1, soit installer le moteur de recherche alternatif en appuyant sur le menu de mise-à-jour du moteur de recherche.\n\n Note: Vous devez redémarrer Synodroid après l\'installation du moteur de recherche alternatif pour activer la recherche.</string>
 <string name="searching">Recherche en cours...\n\n</string>
 <string name="no_results">Aucun résultat.\n\n</string>
 <string name="sites">Sites disponibles:\n</string>
@@ -281,32 +281,32 @@
 <string name="hint_useext_on">Accessible depuis l\'extérieur</string>
 <string name="hint_useext_off">Non accessible depuis l\'extérieur</string>
 <string name="clear_search_history">Supprimer l\'historique de recherche</string>
-<string name="cleared_search_history">Historique de recherche supprimée.</string>
-<string name="wait_for_download">Ne fermé pas Synodroid tant que la tâche n\'est pas ajouter.\nEn attente du fichier de tâche...</string>
+<string name="cleared_search_history">Historique de recherche supprimé.</string>
+<string name="wait_for_download">Ne fermez pas Synodroid tant que la tâche n\'est pas ajoutée.\nEn attente du fichier de tâche...</string>
 
 <string name="err_noemail">Aucune application d\'email n\'est installée sur votre appareil.\n\nEnvoyer un message à synodroid@gmail.com pour assistance.</string>
 <string name="app_help">FAQ: Foire aux questions</string>
 <string name="email">Assistance par email!</string>
 <string name="faq1">Comment trouve-t\'on un serveur?</string>
-<string name="rep1">On ne trouve pas un serveur, on doit en poséder un. Synodroid à été conçu pour contrôler une unité de stockage réseau NAS Synology. Si vous n\'avez pas de NAS Synology, cette application n\'est d\'aucune utilité pour vous. Déinstallé la.</string>
+<string name="rep1">On ne trouve pas un serveur, on doit en posséder un. Synodroid a été conçu pour contrôler une unité de stockage réseau NAS Synology. Si vous n\'avez pas de NAS Synology, cette application ne vous est d\'aucune utilité. Désinstallez là.</string>
 
 <string name="faq2">Où puis-je me procurer un NAS Synology?</string>
-<string name="rep2">Allez sur le site web de Synology pour plus d\'information sur l\'achat de produits Synology.</string>
+<string name="rep2">Allez sur le site web de Synology pour plus d\'informations sur l\'achat de produits Synology.</string>
 
 <string name="faq6">Qu\'est-ce qu\'un NAS Synology?</string>
-<string name="rep6">Allez sur le site web de Synology pour plus d\'information sur les produits Synology.</string>
+<string name="rep6">Allez sur le site web de Synology pour plus d\'informations sur les produits Synology.</string>
 
 <string name="faq7">Comment puis-je télécharger un fichier sur mon téléphone à l\'aide de votre application?</string>
-<string name="rep7">Cette application n\'est pas conçu pour télécharger des fichier sur votre téléphone. Elle est conçu pour contrôler la section \"Download Station\" de votre NAS Synology.</string>
+<string name="rep7">Cette application n\'est pas conçue pour télécharger des fichiers sur votre téléphone. Elle est conçue pour contrôler la section \"Download Station\" de votre NAS Synology.</string>
 
 <string name="faq3">Comment puis-je me connecter sur mon NAS Synology?</string>
-<string name="rep3">De la page principale de Synodroid, selectioner le menu parametres. De la fenêtre de parametres, sélectioner un des deux menu suivants:\n\n1. Trouver un serveur\n2. Ajouter un serveur</string>
+<string name="rep3">De la page principale de Synodroid, selectionnez le menu paramètres. De la fenêtre de paramètres, sélectionnez un des deux menus suivants:\n\n1. Trouver un serveur\n2. Ajouter un serveur</string>
 
 <string name="faq4">Le bouton \"Trouver un serveur\" ne fonctionne pas, pourquoi?</string>
-<string name="rep4">Avant d\'utiliser la fonctionnalité de recherche de serveur, il y a 3 points que vous devez savoir:\n\n- 1 -\nVous devez être connecter sur le même réseau WIFI que votre serveur NAS.\n\n- 2 -\nVotre serveur NAS doit être ouvert et pret à utiliser.\n\n- 3 -\nVous devez avoir une version d\'Android superieure ou égale à 1.6.\n\n** Note:\nSi la fonctionnalité de recherche de serveur ne fonctionne pas pour vous, vous pouvez toujours ajouter un serveur manuellement avec le menu \"Ajouter un serveur\".</string>
+<string name="rep4">Avant d\'utiliser la fonctionnalité de recherche de serveur, il y a 3 points que vous devez savoir:\n\n- 1 -\nVous devez être connecté sur le même réseau WIFI que votre serveur NAS.\n\n- 2 -\nVotre serveur NAS doit être ouvert et prêt à être utilisé.\n\n- 3 -\nVous devez avoir une version d\'Android supérieure ou égale à 1.6.\n\n** Note:\nSi la fonctionnalité de recherche de serveur ne fonctionne pas pour vous, vous pouvez toujours ajouter un serveur manuellement avec le menu \"Ajouter un serveur\".</string>
 
-<string name="faq5">Cette Foire aux Questions ne m\'a pas aider dans mon problème, que faire?</string>
-<string name="rep5">Envoyer un message aux dévelopeurs de l\'application à l\'aide du bouton ci-dessous.\n\nSVP formulez une question précise pour nous aider à répondre à votre problème.</string>
+<string name="faq5">Cette Foire aux Questions ne m\'a pas aidé dans mon problème, que faire?</string>
+<string name="rep5">Envoyez un message aux développeurs de l\'application à l\'aide du bouton ci-dessous.\n\nSVP formulez une question précise pour nous aider à répondre à votre problème.</string>
 
 
 <string name="ul_rate">Vitesse de téléchargement max. (KB\\s)</string>
@@ -328,23 +328,23 @@
 </string-array>
 <string name="action_task_prop">Collecte des propriétés de la tâche...</string>
 <string name="task_parameters">Propriétés de la tâche</string>
-<string name="downloadOnly">Ne fonctionne seulement lorsque la tâche est en téléchargement...</string>
+<string name="downloadOnly">Ne fonctionne que lorsque la tâche est en téléchargement...</string>
 
 <string name="port_mismatch">Le protocole ne correspond pas au port sélectionné.</string>
 
 <string name="debug">Débogage</string>
 <string name="hint_debug">Activer journaux de débogage</string>
 
-<string name="empty_file_list">Les fichiers ne peuvent pas être affichiés pour l\'instant...</string>
-<string name="empty_file_list_wrong_type">N\'est pas valide pour les téléchargements autre que torrent et NZB.</string>
+<string name="empty_file_list">Les fichiers ne peuvent pas être affichés pour l\'instant...</string>
+<string name="empty_file_list_wrong_type">N\'est pas valide pour les téléchargements autres que torrent et NZB.</string>
 <string name="empty_download_list">Il n\'y a pas de téléchargement sur votre NAS pour le moment.\n\nVous pouvez ajouter un téléchargement en utilisant le menu ajouter, le moteur de recherche ou bien la fonction partage de lien de votre fureteur Android.</string>
 <string name="empty_list_loading">Chargement...</string>
-<string name="empty_not_connected">Non connecter.</string>	
-<string name="err_file_list">N\'a pas pu obtenir la liste de fichiers. Assurez-vous que votre configuration serveur équivaut à la version DSM de votre NAS.</string>
+<string name="empty_not_connected">Non connecté.</string>	
+<string name="err_file_list">N\'a pas pu obtenir la liste de fichiers. Assurez-vous que votre configuration serveur corresponde à la version DSM de votre NAS.</string>
 <string name="tab_main">Téléchargement</string>    
 <string name="tab_transfer">Transfert</string>    
 <string name="tab_file">Fichiers</string>    
-<string name="add_wizard_srv_name">Nom du serveur</string>
+<string name="add_wizard_srv_name">Nom du serveur:</string>
 <string-array name="add_wizard_srv_type_array">
 	<item>Wifi seulement</item>
 	<item>Réseau cellulaire seulement</item>
@@ -352,14 +352,14 @@
 </string-array>
 <string name="add_wizard_srv_sel_title">Information de serveur</string>
 <string name="add_wizard_wifi_title">Connexion Wifi</string>
-<string name="add_wizard_wifi_host">IP ou Nom de domaine</string>
-<string name="add_wizard_cell_title">Conexion Cellulaire</string>
+<string name="add_wizard_wifi_host">IP ou Nom de domaine:</string>
+<string name="add_wizard_cell_title">Connexion Cellulaire</string>
 <string name="add_wizard_sec_title">Securité</string>
 <string name="dialog_message_confirm">&quot;La tâche n\'est pas complètement terminée. Êtes-vous certain de vouloir l\'arrêter?&quot;</string>
 <string name="menu_add">Ajout de téléchargement</string>
-<string name="add_download_url_title">Lien</string>
+<string name="add_download_url_title">Lien:</string>
 <string name="app_pro">Version Professionelle</string>
-<string name="app_google_plus">Ajoutez-nous sur Google+ pour de l\'information à jour sur Synodroid:</string>
+<string name="app_google_plus">Ajoutez-nous sur Google+ pour être informé des mises à jour de Synodroid:</string>
 <string name="tab_about">À propos</string>    
 <string name="tab_help">F.A.Q.</string>    
 <string name="gplus">Recevez du support sur Google+</string>    
@@ -379,70 +379,70 @@
     
 <string name="selected">sélectionné(s)</string>
     
-<string name="upload_failed">L\'envoi du fichier vers la NAS n\'a pas fonctionné. Réessayez...</string>
+<string name="upload_failed">L\'envoi du fichier vers le NAS n\'a pas fonctionné. Réessayez...</string>
 
 <string name="action_se_get">Récupération de la liste des moteurs de recherche...</string>
 <string name="menu_searchengine">Sélection de plugins pour DSM search</string>
 <string name="search_engine_title">DSM Search - Sélection des plugins</string>
 <string name="action_set_searchengine">Sauvegarde des paramètres de recherche...</string>
 <string name="auto_DSM">Auto-détection de version DSM</string>
-<string name="hint_auto_DSM">La version de DSM sera auto-détecté L\'orsque synodroid ce connecte au NAS</string>
-<string name="delete_multiple">Suppression de plusieur tâches...</string>
-<string name="dialog_multiple_confirm">&quot;Les tâches non terminés seront supprimées. Etes-vous sur de vouloir continuer?&quot;</string>
-<string name="action_deleting_multiple">&quot;Supression des tâches sélectionées...%s&quot;</string>
-<string name="action_pausing_multiple">&quot;Pause des tâches sélectionées...%s&quot;</string>
-<string name="action_resuming_multiple">&quot;Reprise des tâches sélectionées...%s&quot;</string>
-<string name="file_not_found">Échec d\'acces à une des fonctionalités du serveur. Il est probable que vous utilisiez la mauvaise version de DSM. Utilisez la fonction d\'auto-détection de DSM dans les paramêtres...</string>
-<string name="failed_response">Échec de lecture de la réponse du serveur. Reconectez-vous!</string>
+<string name="hint_auto_DSM">La version de DSM sera auto-détecté lorsque Synodroid se sera connecté au NAS</string>
+<string name="delete_multiple">Suppression de plusieurs tâches...</string>
+<string name="dialog_multiple_confirm">&quot;Les tâches non terminées seront supprimées. Etes-vous sûr de vouloir continuer?&quot;</string>
+<string name="action_deleting_multiple">&quot;Suppression des tâches sélectionnées...%s&quot;</string>
+<string name="action_pausing_multiple">&quot;Pause des tâches sélectionnées...%s&quot;</string>
+<string name="action_resuming_multiple">&quot;Reprise des tâches sélectionnées...%s&quot;</string>
+<string name="file_not_found">Échec d\'accès à une des fonctionnalités du serveur. Il est probable que vous utilisiez la mauvaise version de DSM. Utilisez la fonction d\'auto-détection de DSM dans les paramètres...</string>
+<string name="failed_response">Échec de lecture de la réponse du serveur. Reconnectez-vous!</string>
 
 
 <string name="welcome">Bienvenue à Synodroid!</string>
 <string name="get_started">Tutoriel Synodroid</string>
-<string name="get_started_text">Regardez les differentes pages de ce tutoriel pour obtenir plus d\'information à propos des multiples fonctions de cette applicaiton.</string>
-<string name="get_started_text_2">NOTE: Le tutoriel sera toujours disponible dans la page À Propos (Menu -> À Propos). Vous devriez lire ce tutoriel au moins une fois, vous pouriez y apprendre quelque chose.</string>
+<string name="get_started_text">Regardez les différentes pages de ce tutoriel pour obtenir plus d\'informations à propos des multiples fonctions de cette application.</string>
+<string name="get_started_text_2">NOTE: Le tutoriel sera toujours disponible dans la page À Propos (Menu -> À Propos). Vous devriez lire ce tutoriel au moins une fois, vous pourriez y apprendre quelques informations.</string>
 <string name="skip">Sauter le tutoriel</string>
 <string name="syno_info_title">Contrôlez votre NAS</string>
-<string name="syno_info_t1">Synodroid à été créé pour contrôler la fonctionalitée de téléchargement du NAS Synology. Si vous n\'en avez pas un, cette application n\'est pas pour vous.</string>
+<string name="syno_info_t1">Synodroid a été créé pour contrôler la fonctionnalité de téléchargement du NAS Synology. Si vous n\'en avez pas de NAS Synology, cette application n\'est pas pour vous.</string>
 <string name="syno_info_t2">Si vous avez besoin de plus d\'information à propos des produits de Synology dirigez-vous vers leur site web:</string>
 <string name="syno_info_t3">Si vous voulez vous procurer un NAS Synology, vous pouvez trouver l\'information à l\'endroit suivant:</string>
 <string name="add_server_title">Ajout de Serveurs</string>
-<string name="add_server_t1">Il y a deux (2) façon d\'ajouter des connections à un serveur Synology. Les deux sont situés dans les paramêtres de l\'application (pesez menu, paramêtre).</string>
+<string name="add_server_t1">Il y a deux (2) façons d\'ajouter des connexions à un serveur Synology. Les deux sont situés dans les paramètres de l\'application (pressez menu, paramètres).</string>
 <string name="add_server_st1">Détection de Serveur</string>
-<string name="add_server_t2">La Détection de Serveur exige d\'avoir le Wifi activé et connecté sur le réseau sans-fil ou ce trouve votre NAS. Synodroid essayera the détecter votre NAS sur le réseau, vous affichera une fenêtre avec tout les NAS qui ont été trouvé et vous laissera les configurer correctement.</string>
+<string name="add_server_t2">La Détection de Serveur exige d\'avoir le Wifi activé et connecté sur le réseau sans-fil où se trouve votre NAS. Synodroid essayera de détecter votre NAS sur le réseau, vous affichera une fenêtre avec tous les NAS qui ont été trouvés et vous laissera les configurer correctement.</string>
 <string name="add_server_st2">Ajout de Serveur</string>
-<string name="add_server_t3">L\'Ajout de Serveur est utilisé lorsque la détection de serveur n\'a pas fonctionnée ou lorsque le wifi est désactivé. Cette fonctionalité vous permet de configurer manuellement tous les paramêtres de connection au serveur.</string>
+<string name="add_server_t3">L\'Ajout de Serveur est utilisé lorsque la détection de serveur n\'a pas fonctionné ou lorsque le wifi est désactivé. Cette fonctionnalité vous permet de configurer manuellement tous les paramètres de connexion au serveur.</string>
 <string name="add_dl_title">Ajout de Téléchargement à votre Serveur</string>
-<string name="add_dl_t1">Synodroid vous permet d\'ajouter des tâches de téléchargement à votre NAS. Il y a plusieur façon d\'ajouter un téléchargement, en voici quelques unes:</string>
-<string name="add_dl_st1">Pesé d\'un Lien dans le Navigateur</string>
-<string name="add_dl_t2">À partir du navigateur Android, lorsque vous pesez sur un lien d\'un fichier .torrent ou .nzb, Synodroid vous permettera d\'ajouter ce fichier à la liste de fichier à téléchargé sur votre NAS.</string>
-<string name="add_dl_st2">Fonctionalité de Partage Android</string>
-<string name="add_dl_t3">À partir de n\'importe quel application installée sur votre téléphone/tablette (navigateur, gestionaire de fichier, etc...), si vous partager un lien (n\'importe quel sorte de lien, pas seulement les .torrent/.nzb), Synodroid sera dans la liste des applications que vous pouvez utiliser pour télécharger.</string>
+<string name="add_dl_t1">Synodroid vous permet d\'ajouter des tâches de téléchargement à votre NAS. Il y a plusieurs façon d\'ajouter un téléchargement, en voici quelques unes:</string>
+<string name="add_dl_st1">Taper un Lien dans le Navigateur</string>
+<string name="add_dl_t2">À partir du navigateur Android, lorsque vous tapez sur un lien d\'un fichier .torrent ou .nzb, Synodroid vous permettra d\'ajouter ce fichier à la liste de fichier à télécharger sur votre NAS.</string>
+<string name="add_dl_st2">Fonctionnalité de Partage Android</string>
+<string name="add_dl_t3">À partir de n\'importe quelle application installée sur votre téléphone/tablette (navigateur, gestionnaire de fichier, etc...), si vous partagez un lien (n\'importe quelle sorte de lien, pas seulement les .torrent/.nzb), Synodroid sera dans la liste des applications que vous pouvez utiliser pour télécharger.</string>
 <string name="add_dl_st3">Sélection de Fichier</string>
-<string name="add_dl_t4">À partir d\'un gestionaire de fichiers ou bien même à partir de l\'application de téléchargement officiel Android, si vous pesez sur un fichier .torrent ou .nzb celui-ci sera transféré à Synodroid pour ajouter à vos téléchargements.</string>
+<string name="add_dl_t4">À partir d\'un gestionnaire de fichiers ou bien même à partir de l\'application de téléchargement officielle Android, si vous copiez sur un fichier .torrent ou .nzb celui-ci sera transféré à Synodroid pour y être ajouté à vos téléchargements.</string>
 <string name="add_dl_st4">Fenêtre d\'Ajout de Téléchargement (Pro seulement)</string>
 <string name="add_dl_t5">À partir de la page principale de Synodroid, le menu d\'ajout de téléchargement vous permet de taper ou de coller un lien pour qu\'il soit ensuite téléchargé par votre NAS. </string>
-<string name="add_dl_t6">Ceci est une des multiples fonctionalitées exclusive à Synodroid Pro!</string>
+<string name="add_dl_t6">Ceci est une des multiples fonctionnalités exclusives à Synodroid Pro!</string>
 <string name="search_engine_t">Moteurs de Recherche</string>
-<string name="search_engine_t1">Synodroid inclus deux moteurs de recherche. L\'un utilise une application externe (transdroid torrent search) et l\'autre la fonctionalité de recherche de votre NAS (DSM Search).</string>
+<string name="search_engine_t1">Synodroid inclus deux moteurs de recherche. L\'un utilise une application externe (transdroid torrent search) et l\'autre la fonctionnalité de recherche de votre NAS (DSM Search).</string>
 <string name="search_engine_st1">Transdroid Torrent Search</string>
-<string name="search_engine_t2">Transdroid Torrent Searchpermet d\'ajouter la fonctionalité de recherche à toutes les versions de DSM. Pour l\'utiliser, vous devez installer la version la plus récente. Un lien vers la mise-à-jour du moteur de recherche alternatif est disponible dans le menu de la page de recherche. En utilisant ce moteur de recherche, vous pouvez choisir le site avec lequel vous voulez effectuer la recherche ainsi que l\'ordre dans lequel les résultats vont être affichés.</string>
+<string name="search_engine_t2">Transdroid Torrent Search permet d\'ajouter la fonctionnalité de recherche à toutes les versions de DSM. Pour l\'utiliser, vous devez installer la version la plus récente. Un lien vers la mise-à-jour du moteur de recherche alternatif est disponible dans le menu de la page de recherche. En utilisant ce moteur de recherche, vous pouvez choisir le site avec lequel vous voulez effectuer la recherche ainsi que l\'ordre dans lequel les résultats vont être affichés.</string>
 <string name="search_engine_st2">Moteur de Recherche DSM (Pro seulement)</string>
-<string name="search_engine_t3">Synodroid Pro vous donne accès au moteur de recherche de votre NAS. Les recherches faites à travers ce moteur de recherche sont envoyé à plusieur sites en même temps au lieu d\'un seul. Vous pouvez aussi choisir les différents sites que vous voulez utiliser pour la recherche.</string>
-<string name="search_engine_t4">Ceci est une des multiples fonctionalitées exclusive à Synodroid Pro!</string>
+<string name="search_engine_t3">Synodroid Pro vous donne accès au moteur de recherche de votre NAS. Les recherches faites à travers ce moteur de recherche sont envoyées à plusieurs sites en même temps au lieu d\'un seul. Vous pouvez aussi choisir les différents sites que vous voulez utiliser pour la recherche.</string>
+<string name="search_engine_t4">Ceci est une des multiples fonctionnalités exclusives à Synodroid Pro!</string>
 <string name="upgrade_st1">1. Fenêtre d\'Ajout de Téléchargement</string>
-<string name="upgrade_t2">La Fenêtre d\'Ajout de Téléchargement vous permet de tapez/coller un lien que vous voulez téléchargé avec votre NAS.</string>
+<string name="upgrade_t2">La Fenêtre d\'Ajout de Téléchargement vous permet de copier/coller un lien que vous voulez télécharger avec votre NAS.</string>
 <string name="upgrade_st2">2. Téléchargement des Fichiers dans un Sous-Dossier</string>
 <string name="upgrade_t3">Synodroid Pro vous permet de définir la destination de votre téléchargement vers n\'importe quel dossier sur votre NAS, pas seulement vers les points de partage.</string>
 <string name="upgrade_st3">3. Actions sur Plusieurs Téléchargements</string>
-<string name="upgrade_t4">Synodroid Pro vous permet d\'effectuer des actions sur plusieur téléchargment à la fois en selectionant ces fichers dans la liste de téléchargement.</string>
+<string name="upgrade_t4">Synodroid Pro vous permet d\'effectuer des actions sur plusieurs téléchargements à la fois en selectionnant ces fichiers dans la liste de téléchargement.</string>
 <string name="upgrade_st4">4. Moteur de Recherche DSM</string>
-<string name="upgrade_t5">L\'intégration avec le moteur de recherche de votre NAS est une fonction disponible dans Synodroid Pro. Ceci vous permet de faire une recherche sur plusieur moteurs de recherche en même temps et de configurer la liste de site que vous voulez utiliser pour la recherche.</string>
-<string name="upgrade_st5">5. Apercu du Torrent avant le Téléchargement</string>
-<string name="upgrade_t6">Synodroid Pro vous donne un apercu du torrent comprenant le nom complet du fichier à télécharger lorsque vous pesez sur un des résultat de la recherche.</string>
+<string name="upgrade_t5">L\'intégration du moteur de recherche de votre NAS est une fonction disponible dans Synodroid Pro. Ceci vous permet de faire une recherche sur plusieurs moteurs de recherche en même temps et de configurer la liste de sites que vous voulez utiliser pour la recherche.</string>
+<string name="upgrade_st5">5. Aperçu du Torrent avant le Téléchargement</string>
+<string name="upgrade_t6">Synodroid Pro vous donne un aperçu du torrent comprenant le nom complet du fichier à télécharger lorsque vous copiez sur un des résultat de la recherche.</string>
 <string name="upgrade_st6">6. Auto-Détection de la Version DSM</string>
-<string name="upgrade_t7">Synodroid Pro peut automatiquement détecter quel version de DSM vous avez d\'installer sur votre NAS et ajuster votre configuration en conséquence. Cela veut dire que vous n\'aurez pas à changer votre configuration DSM à chaque fois que vous appliquer une mise-à-jour à votre NAS.</string>
+<string name="upgrade_t7">Synodroid Pro peut automatiquement détecter quelle version de DSM est installée sur votre NAS et ainsi ajuster votre configuration en conséquence. Cela veut dire que vous n\'aurez pas à changer votre configuration DSM à chaque fois que vous appliquez une mise-à-jour à votre NAS.</string>
 <string name="upgrade_st7">Mettre à Jour Maintenant</string>
-<string name="upgrade_play">Synodroid Pro offre plusieur fonctionalitées exclusive et bien d\'autre sont à venir. Procurez-vous Synodroid Pro maintenant pendant que le prix est toujours très bas...</string>
+<string name="upgrade_play">Synodroid Pro offre plusieurs fonctionnalités exclusives et bien d\'autres sont à venir. Procurez-vous Synodroid Pro maintenant tant que le prix reste très bas...</string>
 <string name="tutorial_done">Fin du tutoriel</string>
 <string name="tab_synology">Synology</string>
 <string name="tab_server">Serveur</string>
@@ -450,20 +450,20 @@
 <string name="tab_search">Recherche</string>
 <string name="tab_pro">Pro</string>
 <string name="upgrade_title">Merci d\'utiliser la version Pro</string>
-<string name="upgrade_t1">Synodroid Pro contient plusieur fonctionalités exclusive très pratique. Voici la liste des principales fonctionalités que vous avez reçu avec Synodroid Pro:</string>
+<string name="upgrade_t1">Synodroid Pro contient plusieurs fonctionnalités exclusives très pratique. Voici la liste des principales fonctionnalités que vous avez reçu avec Synodroid Pro:</string>
 
 <string name="title_cat_debug">Débogage</string>
 <string name="send_debug_logs">Voir/Envoyer les journaux de débogage</string>
 <string name="title_debug_logs">Aperçu des journaux Synodroid</string>
 <string name="btn_send">Envoyer</string>
-<string name="no_logs">Il n\'y a pas de journaux de générés pour votre application en ce moment. Activer le débogage et faites des actions avec l\'application jusqu\'à ce que vous puissiez reproduire le problème. Vous pourrez ensuite envoyer les logs...</string>
+<string name="no_logs">Il n\'y a pas de journaux générés pour votre application en ce moment. Activez le débogage et faites des actions avec l\'application jusqu\'à ce que vous puissiez reproduire le problème. Vous pourrez ensuite envoyer les logs...</string>
 
-<string name="label_def_srv">Serveur par Défault</string>
+<string name="label_def_srv">Serveur par défaut</string>
 <string name="hint_def_srv">Se connecte automatiquement à ce serveur</string>
 <string name="srv_always_ask">Toujours demander</string>
 
-<string name="upgrade_st8">7. Connection au Serveur par Défault</string>
-<string name="upgrade_t8">Avec Synodroid Pro, lorsque vous avez plusieurs serveurs de configurés, vous pouvez sélectioner un serveur par défault auquel Synodroid ce connectera automatiquement. Cela prévient Synodroid de demander à quel serveur ce connecter à chaque fois lorsqu\'un serveur est plus important que les autres.</string>
+<string name="upgrade_st8">7. Connexion au Serveur par défaut</string>
+<string name="upgrade_t8">Avec Synodroid Pro, lorsque vous avez plusieurs serveurs configurés, vous pouvez sélectionner un serveur par défaut auquel Synodroid se connectera automatiquement. Synodroid se connectera alors automatiquement au serveur prioritaire.</string>
 
 <string name="log_load">Chargement des journaux...</string>
 <string name="pro_only">(Pro seulement)</string>
