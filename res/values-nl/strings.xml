@@ -468,4 +468,10 @@
 <string name="pro_only">(Alleen Pro)</string>
 <string name="what_new">Wat is er nieuw?</string>
 
+<string name="adv_settings">Authenticatie</string>
+<string name="priority_high">Hoog</string>
+<string name="priority_normal">Normaal</string>
+<string name="priority_low">Laag</string>
+<string name="priority_skip">Overslaan</string>
+
 </resources>

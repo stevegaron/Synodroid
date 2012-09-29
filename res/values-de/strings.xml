@@ -464,4 +464,10 @@
 <string name="pro_only">(Nur Pro)</string>
 <string name="what_new">Was gibt\'s neues?</string>
 
+<string name="adv_settings">Beglaubigung</string>
+<string name="priority_high">Hoch</string>
+<string name="priority_normal">Regulär</string>
+<string name="priority_low">Gering</string>
+<string name="priority_skip">überspringen</string>
+
 </resources>

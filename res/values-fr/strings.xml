@@ -469,4 +469,10 @@
 <string name="pro_only">(Pro seulement)</string>
 <string name="what_new">Quoi de neuf?</string>
 
+<string name="adv_settings">Authentification</string>
+<string name="priority_high">Haute</string>
+<string name="priority_normal">Normale</string>
+<string name="priority_low">Basse</string>
+<string name="priority_skip">Sauter</string>
+
 </resources>

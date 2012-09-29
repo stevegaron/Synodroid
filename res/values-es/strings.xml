@@ -467,4 +467,10 @@
 <string name="pro_only">(Pro)</string>
 <string name="what_new">¿Qué hay de nuevo?</string>
 
+<string name="adv_settings">Autenticación</string>
+<string name="priority_high">Alto</string>
+<string name="priority_normal">Normal</string>
+<string name="priority_low">Bajo</string>
+<string name="priority_skip">Omitir</string>
+
 </resources>
