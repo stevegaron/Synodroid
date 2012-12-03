@@ -889,7 +889,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		if (host != null && host.length() > 0) {
 			editorP.putString(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.PROTOCOL_SUFFIX, ((Boolean) metaDataP.get(ServerWizard.META_HTTPS)) ? "HTTPS" : "HTTP");
 			editorP.putString(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.HOST_SUFFIX, host);
-			editorP.putString(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.PORT_SUFFIX, ((Boolean) metaDataP.get(ServerWizard.META_HTTPS)) ? "5001" : "5000");
+			editorP.putString(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.PORT_SUFFIX, ((Boolean) metaDataP.get(ServerWizard.META_HTTPS)) ? "5001" : Integer.toString((Integer)metaDataP.get(ServerWizard.META_PORT)));
 			editorP.putBoolean(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.SHOWUPLOAD_SUFFIX, showUpload);
 			editorP.putBoolean(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.REFRESHSTATE_SUFFIX, true);
 			editorP.putString(PreferenceFacade.SERVER_PREFIX + maxServerId + localRadical + PreferenceFacade.REFRESHVALUE_SUFFIX, refreshRate);
