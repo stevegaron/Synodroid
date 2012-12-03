@@ -36,6 +36,18 @@ import android.graphics.PorterDuff.Mode;
  */
 public class Utils {
 
+	public static String validateSSID(String ssid){
+		if (ssid == null){
+			return ssid;
+		}
+		
+		if (ssid.startsWith("\"") && ssid.endsWith("\"")){
+			return ssid.substring(1, ssid.length()-1);
+		}
+		
+		return ssid;
+	}
+		
 	/**
 	 * Compute the time left in the following format d h m s
 	 * 
