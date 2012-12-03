@@ -16,10 +16,21 @@
  */
 package com.bigpupdev.synodroid.utils;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+
+import org.apache.http.util.ByteArrayBuffer;
 
 import com.bigpupdev.synodroid.data.TaskDetail;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -28,6 +39,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 
 /**
  * As usual a utility class
@@ -36,6 +50,61 @@ import android.graphics.PorterDuff.Mode;
  */
 public class Utils {
 
+	public static String getContentName(ContentResolver resolver, Uri uri){
+	    Cursor cursor = resolver.query(uri, null, null, null, null);
+	    cursor.moveToFirst();
+	    int nameIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
+	    if (nameIndex >= 0) {
+	        return cursor.getString(nameIndex);
+	    } else {
+	        return null;
+	    }
+	}
+	
+	public static Uri moveToStorage(Activity a, Uri uri){
+		ContentResolver cr = a.getContentResolver();
+		try {
+			InputStream is = cr.openInputStream(uri);
+			
+			File path = Environment.getExternalStorageDirectory();
+			path = new File(path, "Android/data/com.bigpupdev.synodroid/cache/");
+			path.mkdirs();
+			
+			String fname = getContentName(cr, uri);
+			File file = null;
+			if (fname != null){
+				file = new File(path, fname);
+			}
+			else{
+				file = new File(path, "attachment.att");
+			}
+			
+			BufferedInputStream bis = new BufferedInputStream(is);
+
+			/*
+			 * Read bytes to the Buffer until there is nothing more to read(-1).
+			 */
+			ByteArrayBuffer baf = new ByteArrayBuffer(50);
+			int current = 0;
+			while ((current = bis.read()) != -1) {
+				baf.append((byte) current);
+			}
+
+			/* Convert the Bytes read to a String. */
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(baf.toByteArray());
+			fos.close();
+			
+			return uri = Uri.fromFile(file);
+		} catch (FileNotFoundException e) {
+			// do nothing
+		} catch (IOException e) {
+			// do nothing
+		}
+		
+		return null;
+	}
+	
 	public static String validateSSID(String ssid){
 		if (ssid == null){
 			return ssid;

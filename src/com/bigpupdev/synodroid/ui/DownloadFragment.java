@@ -8,6 +8,7 @@
  */
 package com.bigpupdev.synodroid.ui;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,10 +41,12 @@ import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
 import com.bigpupdev.synodroid.utils.IntentHelper;
 import com.bigpupdev.synodroid.utils.UIUtils;
+import com.bigpupdev.synodroid.utils.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -431,6 +434,10 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 				}
 				else if (uri.toString().startsWith("https://magnet/")){
 					uri = Uri.parse(uri.toString().replace("https://magnet/", "magnet:"));
+				}
+				
+				if (uri.toString().startsWith("content:")){
+					uri = Utils.moveToStorage(getActivity(), uri);
 				}
 				
 				if (!uri.toString().startsWith("file:")) {
