@@ -53,4 +53,12 @@
         android:scaleType="fitCenter"
         android:src="@drawable/file_normal" />
 
+    <TextView
+        android:id="@+id/id_file_ext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/img_priority"
+        android:layout_alignBottom="@+id/id_file_size"
+        android:text=".txt"/>
+
 </RelativeLayout>
