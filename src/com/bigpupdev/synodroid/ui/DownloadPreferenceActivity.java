@@ -28,6 +28,7 @@ import com.bigpupdev.synodroid.preference.PreferenceWithValue;
 import com.bigpupdev.synodroid.utils.SearchResultsOpenHelper;
 import com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion;
 import com.bigpupdev.synodroid.utils.UIUtils;
+import com.bigpupdev.synodroid.utils.Utils;
 import com.bigpupdev.synodroid.wizard.AddServerWizard;
 import com.bigpupdev.synodroid.wizard.ServerWizard;
 
@@ -714,7 +715,7 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 				}
 			}
 			WifiInfo currentWifi = wifiMgr.getConnectionInfo();
-			String cur_ssid = currentWifi.getSSID();
+			String cur_ssid = Utils.validateSSID(currentWifi.getSSID());
 
 			final ListPreferenceMultiSelectWithValue wifiSSIDPref = ListPreferenceMultiSelectWithValue.create(this, keyP + PreferenceFacade.SSID_SUFFIX, R.string.label_wifissid, R.string.hint_wifissid, wifiSSIDs, cur_ssid);
 			connectionCategory.addPreference(wifiSSIDPref);

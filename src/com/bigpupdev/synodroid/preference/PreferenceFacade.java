@@ -16,6 +16,7 @@ import java.util.Properties;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.server.SynoServerConnection;
+import com.bigpupdev.synodroid.utils.Utils;
 import com.bigpupdev.synodroid.data.DSMVersion;
 
 import android.content.Context;
@@ -194,7 +195,8 @@ public class PreferenceFacade {
 					else {
 						if (loc != null && wifiConnected && loc != null && loc.wifiSSID != null && loc.wifiSSID.size() > 0) {
 							for (String ssid : loc.wifiSSID) {
-								if (ssid.equals(currentWifi.getSSID())) {
+								ssid = Utils.validateSSID(ssid);
+								if (ssid.equals(Utils.validateSSID(currentWifi.getSSID()))) {
 									result.add(server);
 								}
 							}
