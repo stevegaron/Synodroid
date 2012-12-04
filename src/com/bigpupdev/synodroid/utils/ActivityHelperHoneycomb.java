@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.SearchView;
@@ -52,30 +53,43 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     public void setupSearch(Activity ctx, Menu menu){
     	SearchManager searchManager = (SearchManager) ctx.getSystemService(Context.SEARCH_SERVICE);
     	searchMenuItem = (MenuItem) menu.findItem(R.id.menu_search);
+    	searchMenuItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+    	final MenuItem refreshMenuItem = (MenuItem) menu.findItem(R.id.menu_refresh);
     	searchView = (SearchView) searchMenuItem.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(ctx.getComponentName()));
         searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
         searchView.setSubmitButtonEnabled(false);
         searchView.setQueryRefinementEnabled(true);
+        searchMenuItem.setOnActionExpandListener(new OnActionExpandListener(){
+			@Override
+			public boolean onMenuItemActionCollapse(MenuItem item) {
+	    		refreshMenuItem.setVisible(true);
+				return true;
+			}
+			@Override
+			public boolean onMenuItemActionExpand(MenuItem item) {
+				refreshMenuItem.setVisible(false);
+				return true;
+			}
+        });
     }
     
     public boolean startSearch(){
-    	if (searchView == null){
+    	if (searchMenuItem == null){
     		return false;
     	}
     	else{
-    		searchView.setIconified(false);
+    		searchMenuItem.expandActionView();
     		return true;
     	}
     }
     
     public void stopSearch(){
-    	if (searchView == null){
+    	if (searchMenuItem == null){
     		return;
     	}
     	
-    	searchView.setIconified(true);
-    	searchView.setIconified(true);
+    	searchMenuItem.collapseActionView();
     }
     
     @Override
