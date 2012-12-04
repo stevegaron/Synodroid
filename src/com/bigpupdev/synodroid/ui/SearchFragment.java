@@ -378,14 +378,16 @@ public class SearchFragment extends SynodroidFragment {
 	}
 
 	public void refresh(){
-		try{
-			curSearchTask.cancel(true);
+		if (!lastSearch.equals("")) {
+			try{
+				curSearchTask.cancel(true);
+			}
+			catch (NullPointerException e){
+				//Ignore NPEs
+			}
+			curSearchTask = new TorrentSearchTask();
+			curSearchTask.execute(lastSearch);
 		}
-		catch (NullPointerException e){
-			//Ignore NPEs
-		}
-		curSearchTask = new TorrentSearchTask();
-		curSearchTask.execute(lastSearch);
 	}
 
 	private class TorrentSearchTask extends AsyncTask<String, Void, Cursor> {

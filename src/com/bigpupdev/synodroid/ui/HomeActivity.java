@@ -15,6 +15,7 @@ import com.bigpupdev.synodroid.adapter.TaskAdapter;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
+import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.ui.DownloadPreferenceActivity;
 
 import android.app.Activity;
@@ -33,9 +34,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,7 +62,8 @@ public class HomeActivity extends BaseActivity {
 	//private TagStreamFragment mTagStreamFragment;
     @Override
 	public boolean onSearchRequested() {
-    	return super.onSearchRequested();
+    	showSearchActivity();
+		return true;
 	}
    
     @Override
@@ -226,6 +226,16 @@ public class HomeActivity extends BaseActivity {
 		startActivity(next);
 	}
 	
+	/**
+	 * Show the preference activity
+	 */
+	private void showSearchActivity() {
+		Intent next = new Intent();
+		next.setClass(this, SearchActivity.class);
+		next.putExtra("start_search", true);
+		startActivity(next);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -305,7 +315,7 @@ public class HomeActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.default_menu_items, menu);
         getMenuInflater().inflate(R.menu.download_menu_items, menu);
     	super.onCreateOptionsMenu(menu);
-        return true;
+    	return true;
     }
 
     @Override
@@ -323,7 +333,7 @@ public class HomeActivity extends BaseActivity {
         		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu search selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
         	
-            startSearch(null, false, null, false);
+            showSearchActivity();          
         }
         else if (item.getItemId() == R.id.menu_add){
         	try{

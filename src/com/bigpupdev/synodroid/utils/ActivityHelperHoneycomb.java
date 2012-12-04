@@ -21,12 +21,16 @@ import com.bigpupdev.synodroid.ui.HomeActivity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.SearchView;
 
 /**
  * An extension of {@link ActivityHelper} that provides Android 3.0-specific functionality for
@@ -35,6 +39,8 @@ import android.view.View.OnClickListener;
 public class ActivityHelperHoneycomb extends ActivityHelper {
     private Menu mOptionsMenu;
     private OnClickListener ocl = null;
+    private SearchView searchView = null;
+    private MenuItem searchMenuItem = null;
 
     protected ActivityHelperHoneycomb(Activity activity) {
         super(activity);
@@ -42,6 +48,26 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
 
     public void triggerDDNavigationMode(){
     	mActivity.getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+    }
+    
+    public void setupSearch(Activity ctx, Menu menu){
+    	SearchManager searchManager = (SearchManager) ctx.getSystemService(Context.SEARCH_SERVICE);
+    	searchMenuItem = (MenuItem) menu.findItem(R.id.menu_search);
+    	searchView = (SearchView) searchMenuItem.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(ctx.getComponentName()));
+        searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
+        searchView.setSubmitButtonEnabled(false);
+        searchView.setQueryRefinementEnabled(true);
+    }
+    
+    public boolean startSearch(){
+    	if (searchView == null){
+    		return false;
+    	}
+    	else{
+    		searchView.setIconified(false);
+    		return true;
+    	}
     }
     
     @Override
@@ -163,7 +189,10 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     /** {@inheritDoc} */
     @Override
     public void setRefreshActionButtonCompatState(boolean refreshing) {
-        // On Honeycomb, we can set the state of the refresh button by giving it a custom
+        if (searchView != null && !searchView.isIconified()){ 
+        	return;
+        }
+    	// On Honeycomb, we can set the state of the refresh button by giving it a custom
         // action view.
         if (mOptionsMenu == null) {
             return;

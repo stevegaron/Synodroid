@@ -5,5 +5,5 @@
         android:icon="@drawable/ic_title_search"
         android:title="@string/description_search"
         android:orderInCategory="0"
-        android:showAsAction="always" />
+        android:showAsAction="ifRoom|withText" android:visible="false"/>
 </menu>
