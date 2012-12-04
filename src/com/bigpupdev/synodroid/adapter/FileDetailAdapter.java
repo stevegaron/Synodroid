@@ -195,7 +195,7 @@ public class FileDetailAdapter extends BaseAdapter implements AdapterView.OnItem
 		// Is the file has to be download
 		CheckBox downloadFile = (CheckBox) viewP.findViewById(R.id.id_file_to_download);
 		downloadFile.setTag(fileP);
-		if ((!task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) && !task.status.equals(TaskStatus.TASK_SEEDING.name())) || version.smallerThen(DSMVersion.VERSION3_1))
+		if ((!task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) && !task.status.equals(TaskStatus.TASK_SEEDING.name())) || version == null || version.smallerThen(DSMVersion.VERSION3_1))
 			downloadFile.setVisibility(View.GONE);
 		else
 			downloadFile.setVisibility((task.isTorrent ? View.VISIBLE : View.GONE));
