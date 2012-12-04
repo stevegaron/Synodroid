@@ -17,8 +17,6 @@
 package com.bigpupdev.synodroid.utils;
 
 import com.bigpupdev.synodroid.R;
-import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.ui.HomeActivity;
 
 import android.app.Activity;
@@ -58,6 +56,7 @@ public class ActivityHelper {
 
     public void setupSearch(Activity ctx, Menu menu){}
     public boolean startSearch(){return true;}
+    public void stopSearch(){}
     
     protected ActivityHelper(Activity activity) {
         mActivity = activity;

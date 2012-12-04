@@ -69,6 +69,7 @@ public class SearchActivity extends BaseActivity{
         getActivityHelper().setupSearch(this, menu);
         if (searchAtStart){
         	getActivityHelper().startSearch();
+        	searchAtStart = false;
         }
         return true;
     }

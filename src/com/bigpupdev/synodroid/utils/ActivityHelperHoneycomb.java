@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.SearchView;
@@ -68,6 +67,15 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     		searchView.setIconified(false);
     		return true;
     	}
+    }
+    
+    public void stopSearch(){
+    	if (searchView == null){
+    		return;
+    	}
+    	
+    	searchView.setIconified(true);
+    	searchView.setIconified(true);
     }
     
     @Override

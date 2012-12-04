@@ -167,6 +167,7 @@ public class SearchFragment extends SynodroidFragment {
 					if (!source.equals(preferences.getString(PREFERENCE_SEARCH_SOURCE, default_site))){
 						preferences.edit().putString(PREFERENCE_SEARCH_SOURCE, source).commit();
 						if (!lastSearch.equals("")) {
+							((BaseActivity) getActivity()).getActivityHelper().stopSearch();
 							try{
 								curSearchTask.cancel(true);
 							}
@@ -194,6 +195,7 @@ public class SearchFragment extends SynodroidFragment {
 					if (!order.equals(preferences.getString(PREFERENCE_SEARCH_ORDER, "BySeeders"))){
 						preferences.edit().putString(PREFERENCE_SEARCH_ORDER, order).commit();
 						if (!lastSearch.equals("")) {
+							((BaseActivity) getActivity()).getActivityHelper().stopSearch();
 							try{
 								curSearchTask.cancel(true);
 							}
@@ -328,6 +330,8 @@ public class SearchFragment extends SynodroidFragment {
 		String action = intent.getAction();
 
 		if (Intent.ACTION_SEARCH.equals(action)) {
+			((BaseActivity) getActivity()).getActivityHelper().stopSearch();
+			
 			try{
 				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SearchFragment: New search intent received.");
 			}
@@ -379,6 +383,7 @@ public class SearchFragment extends SynodroidFragment {
 
 	public void refresh(){
 		if (!lastSearch.equals("")) {
+			((BaseActivity) getActivity()).getActivityHelper().stopSearch();
 			try{
 				curSearchTask.cancel(true);
 			}
