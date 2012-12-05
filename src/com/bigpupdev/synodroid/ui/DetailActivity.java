@@ -855,14 +855,16 @@ public class DetailActivity extends BaseActivity{
 				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"DetailActivity: Menu task properties selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)) {
-				app.executeAsynchronousAction(main, new GetTaskPropertiesAction(task), false, false);
-			} else {
-				try {
-					showDialog(TASK_PARAMETERS_DIALOG);
-				} catch (Exception e) {
-					// Dialog failed to display. Probably already displayed. Ignore!
+			try {
+				if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)) {
+					app.executeAsynchronousAction(main, new GetTaskPropertiesAction(task), false, false);
+				} else {
+						showDialog(TASK_PARAMETERS_DIALOG);
 				}
+			} catch (Exception e) {
+				try{
+					if (app.DEBUG) Log.e(Synodroid.DS_TAG,"DetailActivity: Failed to execute action on task properties. Ignoring...");
+				}catch (Exception ex){/*DO NOTHING*/}
 			}
 			return true;
 		}
@@ -871,12 +873,18 @@ public class DetailActivity extends BaseActivity{
 				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"DetailActivity: Menu destination selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
-        		app.executeAsynchronousAction(main, new GetDirectoryListShares("remote/"+destination), false);
-        	}
-        	else{
-        		app.executeAsynchronousAction(main, new EnumShareAction(), false);
-        	}
+			try {
+				if (app.getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
+	        		app.executeAsynchronousAction(main, new GetDirectoryListShares("remote/"+destination), false);
+	        	}
+	        	else{
+	        		app.executeAsynchronousAction(main, new EnumShareAction(), false);
+	        	}
+			} catch (NullPointerException e) {
+				try{
+					if (app.DEBUG) Log.e(Synodroid.DS_TAG,"DetailActivity: Failed to execute action on task destination. Ignoring...");
+				}catch (Exception ex){/*DO NOTHING*/}
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
