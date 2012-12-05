@@ -105,9 +105,7 @@
 <string name="label_asc_sort">Por orden ascendente</string>
 <string name="hint_asc_sort_on">La ordenación es ascendente</string>
 <string name="hint_asc_sort_off">La ordenación es descendente</string>
-<string name="eula_accept">Aceptar</string>
 <string name="eula_hide">Ocultar</string>
-<string name="eula_refuse">Rechazar</string>
 <string name="action_detailing">Recuperando los detalles de \'%s\'</string>
 <string name="action_adding">Añadiendo archivo %s</string>
 <string name="detail_tab_general">General</string>
@@ -417,14 +415,12 @@
 <string name="add_dl_t4">Desde cualquier buen gestor de archivos, o desde aplicación oficial de descargas de Android, puedes seleccionar un fichero .torrent o .nzb y el fichero será subido a tu NAS para comenzar a descargarse.</string>
 <string name="add_dl_st4">Ventana de diálogo para añadir descarga (Sólo Pro)</string>
 <string name="add_dl_t5">Desde la ventana principal Synodroid homepage, abrir el menú &quot;Añadir descarga&quot; y escribe o pega cualquier link para que comience su descarga.</string>
-<string name="add_dl_t6">¡Esta es una de las muchas características que solo están disponibles en Synodroid Pro!</string>
 <string name="search_engine_t">Motores de búsqueda</string>
 <string name="search_engine_t1">Synodroid incluye dos motores de búsqueda distintos. Uno utilizando una aplicación externa (transdroid torrent search) y otra utilizando el motor de búsqueda del DSM de Synology.</string>
 <string name="search_engine_st1">Transdroid Torrent Search</string>
 <string name="search_engine_t2">Transdroid Torrent Search provee la capacidad de búsqueda para todas las versiones de DSM de Synodroid. Para usarla, tendrás que instalar la última versión. Un link a la última versión está disponible en el menú de la página de búsqueda. Cuando utilices este motor de búsqueda puedes elegir desde que sitio quieres buscar y la manera de ordenar los resultados.</string>
 <string name="search_engine_st2">Motor de búsqueda del DSM (Solo Pro)</string>
 <string name="search_engine_t3">Synodroid Pro puede acceder al motor de búsqueda que incluye el DSM de Synology. Las búsquedas realizadas usando este método hacen peticiones a varios motores de búsqueda al mismo tiempo, no sólo uno como Transdroid Torrent Search. Puedes gestionar el motor de búsqueda a usar cuando haces una búsqueda.</string>
-<string name="search_engine_t4">¡Esta es una de las muchas características que solo están disponibles en Synodroid Pro!</string>
 <string name="upgrade_st1">1. Ventana de diálogo para añadir descarga </string>
 <string name="upgrade_t2">Esta opción es una característica muy útil que te permite escribir o pegar cualquier link para que sea descargada por tu NAS.</string>
 <string name="upgrade_st2">2. Destino de la descarga a una sub-carpeta</string>
@@ -437,8 +433,6 @@
 <string name="upgrade_t6">Synodroid Pro te permite previsualizar un torrent, incluido el nombre completo de cualquier archivo para cualquier torrent añadido desde el motor de búsqueda.</string>
 <string name="upgrade_st6">6. Autodetección de la versión de DSM</string>
 <string name="upgrade_t7">Synodroid Pro puede detectar automáticamente que versión de DSM está ejecutando tu NAS y ajustar la configuración en consecuencia. Esto siginifica que no tendrás que cambiar la versión de DSM de tu conexión cada vez que actualices tu NAS.</string>
-<string name="upgrade_st7">Actualizar ahora</string>
-<string name="upgrade_play">Synodroid Pro ofrece muchas nuevas características sobre la versión gratuita. Muchas más están por venir. Consigue Synodroid Pro ahora, que todavía tiene un precio bajo...</string>
 <string name="tutorial_done">Fin del tutorial</string>
 <string name="tab_synology">Synology</string>
 <string name="tab_server">Servidor</string>
