@@ -105,9 +105,7 @@
 <string name="label_asc_sort">Aufsteigende Sortierung</string>
 <string name="hint_asc_sort_on">Sortiere aufsteigend</string>
 <string name="hint_asc_sort_off">Sortiere absteigend</string>
-<string name="eula_accept">Akzeptieren</string>
 <string name="eula_hide">Verstecken</string>
-<string name="eula_refuse">Ablehnen</string>
 <string name="action_detailing">Empfange Details von \'%s\'</string>
 <string name="action_adding">Füge %s hinzu</string>
 <string name="detail_tab_general">Allgemein</string>
@@ -223,7 +221,6 @@
 <string name="action_download_original_file">Lade Originaldatei herunter</string>
 <string name="action_download_original_saved">Die Datei wurde auf dem externen Speicher gespeichert (/sdcard/download)</string>
 <string name="action_download_original_failed">Datei konnte nicht gespeichert werden. Vermutlich ist der externe Speicher nicht eingebunden.</string>
-<string name="lang_de">Deutsch</string>
 <string name="translator">&quot;Übersetzer:&quot;</string>
 <string name="fullscreen_preference">Vollbild</string>
 <string name="summary_fullscreen_preference">Versteckt die Benachrichtigungsleiste</string>
@@ -416,14 +413,12 @@
 <string name="add_dl_t4">Jeder gute Dateimanager und auch der androideigene Downloadmanager wird nach der Auswahl einer .torrent oder .nzb Datei eine Auswahl von Programmen anzeigen, in der auch Synodroid enthalten ist.</string>
 <string name="add_dl_st4">Dialog zum Hinzufügen eines Downloads (nur Pro-Version)</string>
 <string name="add_dl_t5">Drücken Sie einfach Menü -> Download hinzufügen auf der Startseite von Synodroid und fügen Sie den Link ein, den Sie herunterladen möchten.</string>
-<string name="add_dl_t6">Das ist eines der vielen Features, die nur in Synodroid Pro verfügbar sind!</string>
 <string name="search_engine_t">Suchengines</string>
 <string name="search_engine_t1">Synodroid beinhaltet zwei unterschiedliche Suchengines. Eine nutzt eine externe Anwendung (Transdroid Torrentsuche), die Andere nutzt direkt die Suchengines ihrer Diskstation.</string>
 <string name="search_engine_st1">Transdroid Torrentsuche</string>
 <string name="search_engine_t2">Die Transdroid Torrentsuche bietet eine Suche für alle DSM-Versionen an. Um sie zu benutzen müssen Sie sie zuerst installieren. Einen Link zur aktuellen Version finden sie im Menü der Suchseite. Wenn Sie diese Suchengine benutzen können Sie wählen, von welcher Seite sie Torrentinformationen beziehen möchten und wie die Ergebnisse sortiert sein sollen.</string>
 <string name="search_engine_st2">DSM Suchengine (nur Pro)</string>
 <string name="search_engine_t3">Synodroid Pro erlaubt den Zugriff auf die integrierte Suchfunktion Ihrer DiskStation. Suchen, die über die integrierte Suche ausgeführt werden werden direkt an mehrere Suchmaschinen geschickt, die benutzten Suchmaschinen können in den Einstellungen ausgewählt werden.</string>
-<string name="search_engine_t4">perhaps you should just use the same string here in all the places :) (Translation:"Dies ist eine der vielen Funktionen die nur in Synodroid Pro verfügbar sind!")</string>
 <string name="upgrade_st1">1. Dialog zum Hinzufügen von Downloads</string>
 <string name="upgrade_t2">Der Dialog zum Hinzufügen von Downloads ist eine praktische Funktion, das Sie eine Adresse eintippen oder einfügen lässt um das Ziel auf ihrem NAS herunterzuladen.</string>
 <string name="upgrade_st2">2. Herunterladen in Unterordner</string>
@@ -436,8 +431,6 @@
 <string name="upgrade_t6">Synodroid Pro zeigt ihnen für jeden aus der Suche gestarteten Torrentdownload die Details inklusive des vollen Dateinamens.</string>
 <string name="upgrade_st6">6. Automatische Erkennung der DSM-Version</string>
 <string name="upgrade_t7">Synodroid Pro kann die DSM-Version Ihrer Diskstation automatisch erkennen und die Konfiguration entsprechend vornehmen. So müssen Sie Ihre DSM-Version nicht jedes Mal anpassen, wenn Sie Ihr NAS geupdated haben.</string>
-<string name="upgrade_st7">Upgraden Sie jetzt</string>
-<string name="upgrade_play">Synodroid Pro bietet gegenüber der kostenlosen Version viele neue Funktionen. Viele Weitere werden in der nahen Zukunft dazu kommen. Kaufen sie Synodroid Pro jetzt, so lange es noch günstig ist...</string>
 <string name="tutorial_done">Tutorial beenden</string>
 <string name="tab_synology">Synology</string>
 <string name="tab_server">Server</string>

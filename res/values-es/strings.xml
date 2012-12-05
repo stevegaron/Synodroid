@@ -223,7 +223,6 @@
 <string name="action_download_original_file">Descargando archivo original</string>
 <string name="action_download_original_saved">El fichero se ha guardado en el almacenamiento externo(/sdcard/download)</string>
 <string name="action_download_original_failed">Imposile guardar el archivo. Posiblemente el almacenamiento externo esté desmontado</string>
-<string name="lang_es">Castellano</string>
 <string name="translator">&quot;Traductores:&quot;</string>
 <string name="fullscreen_preference">Pantalla completa</string>
 <string name="summary_fullscreen_preference">Oculta la barra de notificación</string>
@@ -239,7 +238,6 @@
 <string name="label_showupload">Mostrar progreso de subida</string>
 <string name="hint_showupload_on">Se muestra el progreso de subida</string>
 <string name="hint_showupload_off">No se muestra el progreso de subida</string>
-<string name="label_wlan">Conexión WIFI</string>
 <string name="hint_wlan_on">Esta conexión se utiliza sólo sobre WIFI</string>
 <string name="hint_wlan_off">Esta conexión no se utiliza sobre WIFI</string>
 <string name="label_wifissid">Red WIFI</string>
