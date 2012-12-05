@@ -295,7 +295,7 @@
 <string name="rep3">Drücken Sie den Menü-Knopf Ihres Gerätes auf der Startseite von Synodroid und wählen sie Einstellungen. Drücken sie Menü erneut im Einstellungsfenster und wählen sie eine der folgenden Optionen:\n\n1. Einen Server suchen\n2. Einen Server hinzufügen</string>
 
 <string name="faq4">Die Serversuche findet mein Synology NAS nicht, warum?</string>
-<string name="rep4">Bevor Sie die Serversuche benutzen sollten sie folgendes wissen:\n\n- 1 -\nSie müssen mit dem selben WLAN verbunden sein wie Ihr NAS.\n\n- 2 -\nIhr NAS muss eingeschaltet und betriebsbereit sein.\n\n- 3 -\nSie müssen Android 1.6 oder höher verwenden.\n\n** Info:\nWenn die Serversuche für sie nicht funktioniert können sie Ihren Server immer noch manuell über "Server hinzufügen" in den Einstellungen hinzufügen.</string>
+<string name="rep4">Bevor Sie die Serversuche benutzen sollten sie folgendes wissen:\n\n- 1 -\nSie müssen mit demselben WLAN verbunden sein wie Ihr NAS.\n\n- 2 -\nIhr NAS muss eingeschaltet und betriebsbereit sein.\n\n- 3 -\nSie müssen Android 1.6 oder höher verwenden.\n\n** Info:\nWenn die Serversuche für sie nicht funktioniert können sie Ihren Server immer noch manuell über "Server hinzufügen" in den Einstellungen hinzufügen.</string>
 
 <string name="faq5">Diese FAQ haben mir nicht geholfen. Was soll ich tun?</string>
 <string name="rep5">Schreiben sie den Entwicklern eine Email (auf Englisch) indem sie den Button unten benutzen.\n\nBitte stellen sie eine präzise Frage und geben sie uns Informationen zum Verständnis des Problems.</string>

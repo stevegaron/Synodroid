@@ -404,7 +404,7 @@
 <string name="add_server_title">Añadiendo conexiones a NAS</string>
 <string name="add_server_t1">Hay dos (2) maneras de añadir una conexión a una NAS a la aplicación. Ambas están localizadas en la configuración de la aplicación (Menu-> Preferencias en la pantalla principal de la aplicación).</string>
 <string name="add_server_st1">Asistente &quot;Encontrar servidor&quot;</string>
-<string name="add_server_t2">El asistente para encontrar un servidor necesita que estés conectado via WiFi donde se encuentre tu NAS. Synodroid intentará detectar tu NAS en la red y te preguntará para seleccionar la NAS que ha encontrado para configurarla con unos parámetros extra.</string>
+<string name="add_server_t2">El asistente para encontrar un servidor necesita que estés conectado vía WiFi donde se encuentre tu NAS. Synodroid intentará detectar tu NAS en la red y te preguntará para seleccionar la NAS que ha encontrado para configurarla con unos parámetros extra.</string>
 <string name="add_server_st2">Asistente &quot;Añadir Servidores&quot;</string>
 <string name="add_server_t3">Este asistente se utiliza cuando el &quot;Encontrar servidor&quot; falla o no estás conectado a la WiFi. Te permite seleccionar manualmente todos los parámetros de configuración para conectar a tu NAS.</string>
 <string name="add_dl_title">Añadir descargas a tu NAS</string>
@@ -434,7 +434,7 @@
 <string name="upgrade_st4">4. Motor de búsqueda de Synology DSM</string>
 <string name="upgrade_t5">Integración con el motor de búsqueda del DSM de Synology. Te permite buscar en multiples sitios a la vez y gestionar la lista de sitios de búsqueda.</string>
 <string name="upgrade_st5">5. Previsualizar Torrent antes de descagar</string>
-<string name="upgrade_t6">Synodroid Pro te permite previsualizar un torrent, incluído el nombre completo de cualquier archivo para cualquier torrent añadido desde el motor de búsqueda.</string>
+<string name="upgrade_t6">Synodroid Pro te permite previsualizar un torrent, incluido el nombre completo de cualquier archivo para cualquier torrent añadido desde el motor de búsqueda.</string>
 <string name="upgrade_st6">6. Autodetección de la versión de DSM</string>
 <string name="upgrade_t7">Synodroid Pro puede detectar automáticamente que versión de DSM está ejecutando tu NAS y ajustar la configuración en consecuencia. Esto siginifica que no tendrás que cambiar la versión de DSM de tu conexión cada vez que actualices tu NAS.</string>
 <string name="upgrade_st7">Actualizar ahora</string>
