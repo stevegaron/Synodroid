@@ -18,6 +18,7 @@ package com.bigpupdev.synodroid.utils;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.ui.HomeActivity;
+import com.bigpupdev.synodroid.utils.UIUtils;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -53,43 +54,66 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     public void setupSearch(Activity ctx, Menu menu){
     	SearchManager searchManager = (SearchManager) ctx.getSystemService(Context.SEARCH_SERVICE);
     	searchMenuItem = (MenuItem) menu.findItem(R.id.menu_search);
-    	searchMenuItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-    	final MenuItem refreshMenuItem = (MenuItem) menu.findItem(R.id.menu_refresh);
     	searchView = (SearchView) searchMenuItem.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(ctx.getComponentName()));
         searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
         searchView.setSubmitButtonEnabled(false);
         searchView.setQueryRefinementEnabled(true);
-        searchMenuItem.setOnActionExpandListener(new OnActionExpandListener(){
-			@Override
-			public boolean onMenuItemActionCollapse(MenuItem item) {
-	    		refreshMenuItem.setVisible(true);
-				return true;
-			}
-			@Override
-			public boolean onMenuItemActionExpand(MenuItem item) {
-				refreshMenuItem.setVisible(false);
-				return true;
-			}
-        });
+        if (UIUtils.isICS()){
+	        searchMenuItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+	    	final MenuItem refreshMenuItem = (MenuItem) menu.findItem(R.id.menu_refresh);
+	    	searchMenuItem.setOnActionExpandListener(new OnActionExpandListener(){
+				@Override
+				public boolean onMenuItemActionCollapse(MenuItem item) {
+		    		refreshMenuItem.setVisible(true);
+					return true;
+				}
+				@Override
+				public boolean onMenuItemActionExpand(MenuItem item) {
+					refreshMenuItem.setVisible(false);
+					return true;
+				}
+	        });
+        }
     }
     
     public boolean startSearch(){
-    	if (searchMenuItem == null){
-    		return false;
+    	if (UIUtils.isICS()){
+	    	if (searchMenuItem == null){
+	    		return false;
+	    	}
+	    	else{
+	    		searchMenuItem.expandActionView();
+	    		return true;
+	    	}
     	}
     	else{
-    		searchMenuItem.expandActionView();
-    		return true;
+    		if (searchView == null){
+	    		return false;
+	    	}
+	    	else{
+	    		searchView.setIconified(false);
+	    		return true;
+	    	}
     	}
     }
     
     public void stopSearch(){
-    	if (searchMenuItem == null){
-    		return;
+    	if (UIUtils.isICS()){
+    	    if (searchMenuItem == null){
+	    		return;
+	    	}
+	    	
+	    	searchMenuItem.collapseActionView();
     	}
-    	
-    	searchMenuItem.collapseActionView();
+    	else{
+    		if (searchView == null){
+	    		return;
+	    	}
+	    	
+    		searchView.setIconified(true);
+    		searchView.setIconified(true);
+    	}
     }
     
     @Override
