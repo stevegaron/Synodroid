@@ -494,7 +494,7 @@ class DSHandlerDSM40 implements DSHandler {
 				String urls = "[\""+uriP.toString()+"\"]";
 				
 				// Create the builder
-				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task");
+				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task").add("desttext",getSharedDirectory());
 				
 				if (uname != null && pass != null){
 					builder.add("dlauth", "on");
