@@ -14,7 +14,7 @@ package com.bigpupdev.synodroid.data;
  * @author Eric Taix (eric.taix at gmail dot com)
  */
 public enum DSMVersion {
-	VERSION2_2("DSM 2.2", 22), VERSION2_3("DSM 2.3", 23), VERSION3_0("DSM 3.0", 30), VERSION3_1("DSM 3.1", 31), VERSION3_2("DSM 3.2", 32), VERSION4_0("DSM 4.0", 40), VERSION4_1("DSM 4.1", 41);
+	VERSION2_2("DSM 2.2", 22), VERSION2_3("DSM 2.3", 23), VERSION3_0("DSM 3.0", 30), VERSION3_1("DSM 3.1", 31), VERSION3_2("DSM 3.2", 32), VERSION4_0("DSM 4.0", 40), VERSION4_1("DSM 4.1", 41), VERSION4_2("DSM 4.2", 42);
 
 	// The title of this version
 	private final String title;
