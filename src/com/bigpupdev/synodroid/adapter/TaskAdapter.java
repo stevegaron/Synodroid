@@ -320,9 +320,7 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		}
 		else if (!(taskP.status.equals(TaskStatus.TASK_DOWNLOADING.toString()) || 
 				taskP.status.equals(TaskStatus.TASK_PRE_SEEDING.toString()) || 
-				taskP.status.equals(TaskStatus.TASK_SEEDING.toString()) || 
-				taskP.status.equals(TaskStatus.TASK_WAITING.toString()) || 
-				taskP.status.equals(TaskStatus.TASK_HASH_CHECKING.toString()))){
+				taskP.status.equals(TaskStatus.TASK_SEEDING.toString()) ) ){
 			vh.torrentRates.setText(TaskStatus.getLabel(c, taskP.status));
 		}
 		else{
