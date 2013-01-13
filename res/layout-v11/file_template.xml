@@ -39,6 +39,7 @@
         android:layout_below="@+id/id_file_name"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/id_file_to_download"
+        android:textColor="#999"
         android:text="782 MB" />
 
     <ImageView
@@ -58,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/img_priority"
         android:layout_alignBottom="@+id/id_file_size"
+        android:textColor="#999"
         android:text=".txt"/>
 
 </RelativeLayout>

@@ -472,4 +472,15 @@
 <string name="priority_low">Low</string>
 <string name="priority_skip">Skip</string>
 
+<string name="detail_status_error_no_exist">Error: Destination does not exist</string>
+<string name="detail_status_error_denied">Error: Destination denied</string>
+<string name="detail_status_error_quota">Error: Quota reached</string>
+<string name="detail_status_error_timeout">Error: Timeout</string>
+<string name="detail_status_error_max_fs_size">Error: Exceeded max file system size</string>
+<string name="detail_status_error_broken">Error: Broken link</string>
+<string name="detail_status_error_full">Error: Disk full</string>
+<string name="detail_status_error_max_temp_file">Error: Exceeded max temporary file system size</string>
+<string name="detail_status_error_max_dest_file">Error: Exceeded max destination file system size</string>
+<string name="detail_status_error_duplicate">Error: Download duplicated</string>
+
 </resources>

@@ -27,7 +27,8 @@
         android:layout_toLeftOf="@+id/id_detail_action"
         android:text="@string/detail_transfered"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
     <TextView
         android:id="@+id/id_detail_value1"
         android:layout_width="fill_parent"
@@ -37,6 +38,7 @@
         android:layout_toLeftOf="@+id/id_detail_action"
         android:ellipsize="marquee"
         android:singleLine="true"
+        android:textColor="#999"
         android:text="@string/detail_progress_download" />
 
     <TextView
@@ -48,6 +50,7 @@
         android:layout_toLeftOf="@+id/id_detail_action"
         android:ellipsize="marquee"
         android:singleLine="true"
+        android:textColor="#999"
         android:text="@string/detail_progress_upload" />
 
 </RelativeLayout>

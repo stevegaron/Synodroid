@@ -36,6 +36,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/id_detail_name"
         android:layout_toLeftOf="@+id/id_detail_action"
+        android:textColor="#999"
         android:ellipsize="marquee"
         android:singleLine="true" />
 

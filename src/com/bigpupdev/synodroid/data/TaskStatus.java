@@ -26,7 +26,7 @@ import android.content.Context;
  * @author Eric Taix (eric.taix at gmail.com)
  */
 public enum TaskStatus {
-	TASK_UNKNOWN, TASK_WAITING, TASK_DOWNLOADING, TASK_SEEDING, TASK_PAUSED, TASK_FINISHED, TASK_HASH_CHECKING, TASK_ERROR, TASK_ERROR_BROKEN_LINK, TASK_ERROR_DISK_FULL, TASK_PRE_SEEDING, TASK_FINISHING, TASK_ERROR_DEST_NO_EXIST, TASK_ERROR_DEST_DENY, TASK_ERROR_QUOTA_REACHED, TASK_ERROR_TIMEOUT, TASK_ERROR_EXCEED_MAX_FS_SIZE, TASK_ERROR_EXCEED_MAX_TEMP_FS_SIZE, TASK_ERROR_EXCEED_MAX_DEST_FS_SIZE;
+	TASK_UNKNOWN, TASK_WAITING, TASK_DOWNLOADING, TASK_SEEDING, TASK_PAUSED, TASK_FINISHED, TASK_HASH_CHECKING, TASK_ERROR, TASK_ERROR_BROKEN_LINK, TASK_ERROR_DISK_FULL, TASK_PRE_SEEDING, TASK_FINISHING, TASK_ERROR_DEST_NO_EXIST, TASK_ERROR_DEST_DENY, TASK_ERROR_QUOTA_REACHED, TASK_ERROR_TIMEOUT, TASK_ERROR_EXCEED_MAX_FS_SIZE, TASK_ERROR_EXCEED_MAX_TEMP_FS_SIZE, TASK_ERROR_EXCEED_MAX_DEST_FS_SIZE, TASK_ERROR_TORRENT_DUPLICATE;
 
 	/**
 	 * Return a localized status label
@@ -54,16 +54,27 @@ public enum TaskStatus {
 			return ctxP.getString(R.string.detail_status_hash_checking);
 		case TASK_UNKNOWN:
 			return ctxP.getString(R.string.detail_unknown);
-		case TASK_ERROR:
 		case TASK_ERROR_DEST_NO_EXIST:
+			return ctxP.getString(R.string.detail_status_error_no_exist);
 		case TASK_ERROR_DEST_DENY:
+			return ctxP.getString(R.string.detail_status_error_denied);
 		case TASK_ERROR_QUOTA_REACHED:
+			return ctxP.getString(R.string.detail_status_error_quota);
 		case TASK_ERROR_TIMEOUT:
+			return ctxP.getString(R.string.detail_status_error_timeout);
 		case TASK_ERROR_EXCEED_MAX_FS_SIZE:
+			return ctxP.getString(R.string.detail_status_error_max_fs_size);
 		case TASK_ERROR_BROKEN_LINK:
+			return ctxP.getString(R.string.detail_status_error_broken);
 		case TASK_ERROR_DISK_FULL:
+			return ctxP.getString(R.string.detail_status_error_full);
 		case TASK_ERROR_EXCEED_MAX_TEMP_FS_SIZE:
+			return ctxP.getString(R.string.detail_status_error_max_temp_file);
 		case TASK_ERROR_EXCEED_MAX_DEST_FS_SIZE:
+			return ctxP.getString(R.string.detail_status_error_max_dest_file);
+		case TASK_ERROR_TORRENT_DUPLICATE:
+			return ctxP.getString(R.string.detail_status_error_duplicate);
+		case TASK_ERROR:
 		default:
 			return ctxP.getString(R.string.detail_status_error);
 		}

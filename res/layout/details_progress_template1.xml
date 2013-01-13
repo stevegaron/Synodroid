@@ -4,7 +4,8 @@
   	android:layout_width="fill_parent"
   	android:padding="6dip"
   	android:layout_height="wrap_content">
-
+
+
     <ImageView
         android:id="@+id/id_detail_action"
         android:layout_width="wrap_content"
@@ -25,7 +26,8 @@
         android:layout_toLeftOf="@+id/id_detail_action"
         android:text="@string/detail_progress"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
     <TextView
         android:id="@+id/id_detail_value"
         android:layout_width="wrap_content"
@@ -37,6 +39,7 @@
         android:ellipsize="marquee"
         android:minWidth="150dip"
         android:singleLine="true"
+        android:textColor="#999"
         android:text="@string/detail_status" />
 
     <ProgressBar

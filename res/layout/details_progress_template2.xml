@@ -37,6 +37,7 @@
         android:ellipsize="marquee"
         android:minWidth="150dip"
         android:singleLine="true"
+        android:textColor="#999"
         android:text="@string/detail_eta" />
 
     <ProgressBar

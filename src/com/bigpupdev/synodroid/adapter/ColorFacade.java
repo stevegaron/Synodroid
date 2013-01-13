@@ -17,10 +17,10 @@
 package com.bigpupdev.synodroid.adapter;
 
 import com.bigpupdev.synodroid.data.Task;
-import com.bigpupdev.synodroid.R;
 
 import android.content.Context;
-import android.widget.ImageView;
+import android.graphics.Color;
+import android.widget.TextView;
 
 /**
  * A simple facade which bind a icon according to a torent status
@@ -28,7 +28,7 @@ import android.widget.ImageView;
  * @author eric.taix @ gmail.com
  * 
  */
-public class IconFacade {
+public class ColorFacade {
 
 	/**
 	 * Set the image according to the torrent status
@@ -36,27 +36,22 @@ public class IconFacade {
 	 * @param viewP
 	 * @param siteP
 	 */
-	public static void bindTorrentStatus(Context ctxP, ImageView viewP, Task torrentP) {
+	public static void bindTorrentStatus(Context ctxP, TextView viewP, Task torrentP) {
 		// Trap invalid task status and replace by unknown
-		int id = 0;
 		switch (torrentP.getStatus()) {
 		case TASK_DOWNLOADING:
-			id = R.drawable.dl_download;
-			break;
 		case TASK_PRE_SEEDING:
 		case TASK_SEEDING:
-			id = R.drawable.dl_upload;
-			break;
-		case TASK_PAUSED:
-			id = R.drawable.dl_paused;
-			break;
 		case TASK_WAITING:
 		case TASK_HASH_CHECKING:
-			id = R.drawable.dl_wait;
+			viewP.setTextColor(Color.parseColor("#999999"));
 			break;
 		case TASK_FINISHING:
 		case TASK_FINISHED:
-			id = R.drawable.dl_finished;
+			viewP.setTextColor(Color.parseColor("#009900"));
+			break;
+		case TASK_PAUSED:
+			viewP.setTextColor(Color.parseColor("#5555DD"));
 			break;
 		case TASK_UNKNOWN:
 		case TASK_ERROR:
@@ -71,9 +66,8 @@ public class IconFacade {
 		case TASK_ERROR_EXCEED_MAX_DEST_FS_SIZE:
 		case TASK_ERROR_TORRENT_DUPLICATE:
 		default:
-			id = R.drawable.dl_error;
+			viewP.setTextColor(Color.parseColor("#AA0000"));
 			break;
 		}
-		viewP.setImageResource(id);
 	}
 }

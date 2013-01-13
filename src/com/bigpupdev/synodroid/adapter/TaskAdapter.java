@@ -34,6 +34,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -306,15 +307,28 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 			vh.unknownProgress.setVisibility(View.GONE);
 		}
 		// The current rates
+		ColorFacade.bindTorrentStatus(c, vh.torrentRates, taskP);
 		String rates = "";
 		if (taskP.downloadRate.length() > 0) {
-			rates += "D:" + taskP.downloadRate + "    ";
+			rates += "<font color=\"#009900\">D:" + taskP.downloadRate + "</font>&nbsp;&nbsp;&nbsp;&nbsp;";
 		}
 		if (taskP.uploadRate.length() > 0) {
-			rates += "U:" + taskP.uploadRate;
+			rates += "<font color=\"#AA6500\">U:" + taskP.uploadRate + "</font>";
 		}
-		vh.torrentRates.setText(rates);
-
+		if (rates != ""){
+			vh.torrentRates.setText(Html.fromHtml(rates));
+		}
+		else if (!(taskP.status.equals(TaskStatus.TASK_DOWNLOADING.toString()) || 
+				taskP.status.equals(TaskStatus.TASK_PRE_SEEDING.toString()) || 
+				taskP.status.equals(TaskStatus.TASK_SEEDING.toString()) || 
+				taskP.status.equals(TaskStatus.TASK_WAITING.toString()) || 
+				taskP.status.equals(TaskStatus.TASK_HASH_CHECKING.toString()))){
+			vh.torrentRates.setText(TaskStatus.getLabel(c, taskP.status));
+		}
+		else{
+			vh.torrentRates.setText("");
+		}
+		
 		// The estimated time left
 		vh.torrentETA.setText(taskP.eta);
 	}

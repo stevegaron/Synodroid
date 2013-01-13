@@ -16,8 +16,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="false"
         android:button="@drawable/checkbox_selector" >
-    </CheckBox>
-
+    </CheckBox>  
+
     <TextView
         android:id="@+id/id_file_name"
         android:layout_width="fill_parent"
@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/id_file_name"
         android:layout_marginLeft="5dp"
+        android:textColor="#999"
         android:layout_toRightOf="@+id/id_file_to_download"
         android:text="782 MB" />
 
@@ -57,6 +58,7 @@
         android:id="@+id/id_file_ext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#999"
         android:layout_toLeftOf="@+id/img_priority"
         android:layout_alignBottom="@+id/id_file_size"
         android:text=".txt"/>

@@ -66,35 +66,35 @@
 
         <TableRow android:layout_width="fill_parent" >
 
-            <TableLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="4" >
+                android:layout_span="4"
+                android:gravity="right" >
 
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_gravity="fill_horizontal" >
+                <TextView
+                    android:id="@+id/id_torrent_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="#999"
+        			android:layout_marginLeft="4dip"
+                    android:layout_toLeftOf="@+id/id_torrent_eta"
+                    android:text="D:450Ko U:123Ko"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
-                        android:id="@+id/id_torrent_speed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|center_vertical"
-                        android:layout_marginLeft="4dip"
-                        android:text="D:450Ko U:123Ko"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/id_torrent_eta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#999"
+        			android:layout_marginRight="4dip"
+                    android:lines="1"
+                    android:text="1d 4h 2m"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
-                        android:id="@+id/id_torrent_eta"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_marginLeft="4dip"
-                        android:lines="1"
-                        android:text="1d 4h 2m"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </TableRow>
-            </TableLayout>
+            </RelativeLayout>
         </TableRow>
 
         <TableRow>
@@ -158,7 +158,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="2dip"
-                    android:text="762 Mb"
+                    android:textColor="#999"
+        			android:text="762 Mb"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -168,14 +169,16 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="2dip"
                     android:layout_marginRight="2dip"
-                    android:text="/" />
+                    android:textColor="#999"
+        			android:text="/" />
 
                 <TextView
                     android:id="@+id/id_torrent_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="administrator"
+                    android:textColor="#999"
+        			android:text="administrator"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
         </TableRow>
