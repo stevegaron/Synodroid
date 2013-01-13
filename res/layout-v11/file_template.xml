@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:paddingTop="10dip"
+    tools:ignore="HardcodedText" >
+
+    <CheckBox
+        android:id="@+id/id_file_to_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false" >
+    </CheckBox>
+
+    <TextView
+        android:id="@+id/id_file_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/id_file_to_download"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="The filename of the task appears here"
+        android:textAppearance="?android:attr/textAppearanceMedium" >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/id_file_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_file_name"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/id_file_to_download"
+        android:text="782 MB" />
+
+    <ImageView
+        android:id="@+id/img_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/id_file_size"
+        android:layout_alignRight="@+id/id_file_name"
+        android:layout_below="@+id/id_file_name"
+        android:layout_margin="1dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/file_normal" />
+
+    <TextView
+        android:id="@+id/id_file_ext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/img_priority"
+        android:layout_alignBottom="@+id/id_file_size"
+        android:text=".txt"/>
+
+</RelativeLayout>
