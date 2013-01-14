@@ -105,9 +105,7 @@
 <string name="label_asc_sort">Oplopend sorteren</string>
 <string name="hint_asc_sort_on">Oplopend gesorteerd</string>
 <string name="hint_asc_sort_off">Aflopend gesorteerd</string>
-<string name="eula_accept">Accepteer</string>
 <string name="eula_hide">Verbergen</string>
-<string name="eula_refuse">Weigeren</string>
 <string name="action_detailing">Details ophalen van \'%s\'</string>
 <string name="action_adding">Toevoegen van het bestand %s</string>
 <string name="detail_tab_general">Algemaan</string>
@@ -223,7 +221,6 @@
 <string name="action_download_original_file">Originele bestand downloaden</string>
 <string name="action_download_original_saved">Het bestand is opgeslagen op uw externe opslag (/sdcard/download)</string>
 <string name="action_download_original_failed">Kan het bestand niet opslaan, waarschijnlijk omdat uw externe opslag niet is geïnstalleerd</string>
-<string name="lang_es">Spaans</string>
 <string name="translator">&quot;Vertalers:&quot;</string>
 <string name="fullscreen_preference">Volledig scherm</string>
 <string name="summary_fullscreen_preference">Verberg de statusbar</string>
@@ -420,14 +417,12 @@
 <string name="add_dl_t4">Vanuit een filemanager kan je op een .torrent of .nzb bestand klikken en het bestand zal geüpload worden naar je NAS en de taak word gestart.</string>
 <string name="add_dl_st4">Het Download venster (Alleen Pro)</string>
 <string name="add_dl_t5">Vanuit de Synodroid startpagina kan je via het menu een download toevoegen door een link in het venter te plakken en de download te starten.</string>
-<string name="add_dl_t6">Dit is ee functie die alleen in de betaalde versie beschikbaar is!</string>
 <string name="search_engine_t">Zoek Machines</string>
 <string name="search_engine_t1">Synodroid kent zoekmachines. Eentje via een externe applicatie (transdroid torrent search) en de ander via de Synology\'s DSM zoekmachine.</string>
 <string name="search_engine_st1">Transdroid Torrent Search</string>
 <string name="search_engine_t2">Transdroid Torrent Search biedt zoekmogelijkheden op alle DSM-versies voor Synodroid. Om deze te gebruiken moet je de laatste versie installeren. Je kunt dan zelf kiezen welke site\'s er doorzocht moeten worden. </string>
 <string name="search_engine_st2">DSM zoekmachine (Alleen Pro)</string>
 <string name="search_engine_t3">Synodroid Pro maak het mogelijk om toegang te krijgen tot de Synology DSM zoekmachine. Zoekopdrachten via DSM Search worden naar meerdere zoekmachines gestuurd en niet naar een zoals Transdroid Torrent Search.</string>
-<string name="search_engine_t4">Dit is ee functie die alleen in de betaalde versie beschikbaar is!</string>
 <string name="upgrade_st1">1. Download toevoegen</string>
 <string name="upgrade_t2">Het download toevoegen venster is handig om via een link een taak te kunnen starten.</string>
 <string name="upgrade_st2">2. Download doel veranderen</string>
@@ -440,8 +435,6 @@
 <string name="upgrade_t6">Synodroid Pro kan je vooraf een blik geven in de torrent zodat je kunt zien wat je nou precies download.</string>
 <string name="upgrade_st6">6. Automatisch de DSM Versie herkennen</string>
 <string name="upgrade_t7">Synodroid Pro kan automitisch de DSM-verie herkennen en deze instellen om verbinding maken met de NAS. Zo hoef je niet na elke update de DSM-versie bij te werken.</string>
-<string name="upgrade_st7">Upgrade Nu</string>
-<string name="upgrade_play">Synodroid Pro biedt veel nieuwe functies ten opzichte van de gratis versie. Er komt nog meer in de toekomst. Koop dus nu Synodroid Pro...</string>
 <string name="tutorial_done">Einde tutorial</string>
 <string name="tab_synology">Synology</string>
 <string name="tab_server">Server</string>

@@ -105,9 +105,7 @@
 <string name="label_asc_sort">Ordre de tri</string>
 <string name="hint_asc_sort_on">Le tri est croissant</string>
 <string name="hint_asc_sort_off">Le tri est décroissant</string>
-<string name="eula_accept">"J'accepte"</string>
 <string name="eula_hide">Fermer</string>
-<string name="eula_refuse">Je refuse</string>
 <string name="action_detailing">Récupération des details de \'%s\'</string>
 <string name="action_adding">Ajout de %s</string>
 <string name="detail_tab_general">Général</string>
@@ -223,7 +221,6 @@
 <string name="action_download_original_file">"Téléchargement du fichier d'origine"</string>
 <string name="action_download_original_saved">Le fichier a été sauvegardé dans votre stockage externe (/sdcard/download)</string>
 <string name="action_download_original_failed">&quot;Impossible de sauvegarder le fichier. Votre stockage externe n'est peut-être pas connecté.&quot;</string>
-<string name="lang_es">Espagnol</string>
 <string name="translator">&quot;Traducteurs:&quot;</string>
 <string name="fullscreen_preference">Plein Écran</string>
 <string name="summary_fullscreen_preference">Masque la barre de notification</string>
@@ -421,14 +418,12 @@
 <string name="add_dl_t4">À partir d\'un gestionnaire de fichiers ou bien même à partir de l\'application de téléchargement officielle Android, si vous copiez sur un fichier .torrent ou .nzb celui-ci sera transféré à Synodroid pour y être ajouté à vos téléchargements.</string>
 <string name="add_dl_st4">Fenêtre d\'Ajout de Téléchargement (Pro seulement)</string>
 <string name="add_dl_t5">À partir de la page principale de Synodroid, le menu d\'ajout de téléchargement vous permet de taper ou de coller un lien pour qu\'il soit ensuite téléchargé par votre NAS. </string>
-<string name="add_dl_t6">Ceci est une des multiples fonctionnalités exclusives à Synodroid Pro!</string>
 <string name="search_engine_t">Moteurs de Recherche</string>
 <string name="search_engine_t1">Synodroid inclus deux moteurs de recherche. L\'un utilise une application externe (transdroid torrent search) et l\'autre la fonctionnalité de recherche de votre NAS (DSM Search).</string>
 <string name="search_engine_st1">Transdroid Torrent Search</string>
 <string name="search_engine_t2">Transdroid Torrent Search permet d\'ajouter la fonctionnalité de recherche à toutes les versions de DSM. Pour l\'utiliser, vous devez installer la version la plus récente. Un lien vers la mise-à-jour du moteur de recherche alternatif est disponible dans le menu de la page de recherche. En utilisant ce moteur de recherche, vous pouvez choisir le site avec lequel vous voulez effectuer la recherche ainsi que l\'ordre dans lequel les résultats vont être affichés.</string>
 <string name="search_engine_st2">Moteur de Recherche DSM (Pro seulement)</string>
 <string name="search_engine_t3">Synodroid Pro vous donne accès au moteur de recherche de votre NAS. Les recherches faites à travers ce moteur de recherche sont envoyées à plusieurs sites en même temps au lieu d\'un seul. Vous pouvez aussi choisir les différents sites que vous voulez utiliser pour la recherche.</string>
-<string name="search_engine_t4">Ceci est une des multiples fonctionnalités exclusives à Synodroid Pro!</string>
 <string name="upgrade_st1">1. Fenêtre d\'Ajout de Téléchargement</string>
 <string name="upgrade_t2">La Fenêtre d\'Ajout de Téléchargement vous permet de copier/coller un lien que vous voulez télécharger avec votre NAS.</string>
 <string name="upgrade_st2">2. Téléchargement des Fichiers dans un Sous-Dossier</string>
@@ -441,8 +436,6 @@
 <string name="upgrade_t6">Synodroid Pro vous donne un aperçu du torrent comprenant le nom complet du fichier à télécharger lorsque vous copiez sur un des résultat de la recherche.</string>
 <string name="upgrade_st6">6. Auto-Détection de la Version DSM</string>
 <string name="upgrade_t7">Synodroid Pro peut automatiquement détecter quelle version de DSM est installée sur votre NAS et ainsi ajuster votre configuration en conséquence. Cela veut dire que vous n\'aurez pas à changer votre configuration DSM à chaque fois que vous appliquez une mise-à-jour à votre NAS.</string>
-<string name="upgrade_st7">Mettre à Jour Maintenant</string>
-<string name="upgrade_play">Synodroid Pro offre plusieurs fonctionnalités exclusives et bien d\'autres sont à venir. Procurez-vous Synodroid Pro maintenant tant que le prix reste très bas...</string>
 <string name="tutorial_done">Fin du tutoriel</string>
 <string name="tab_synology">Synology</string>
 <string name="tab_server">Serveur</string>
