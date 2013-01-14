@@ -467,4 +467,27 @@
 <string name="priority_low">Laag</string>
 <string name="priority_skip">Overslaan</string>
 
+<string name="detail_status_error_no_exist">Fout: Bestemming bestaat niet</string>
+<string name="detail_status_error_denied">Fout: Bestemming geweigerd</string>
+<string name="detail_status_error_quota">Fout: Quota bereikt</string>
+<string name="detail_status_error_timeout">Fout: Timeout</string>
+<string name="detail_status_error_max_fs_size">Fout: Maximale bestandsgrootte bereikt</string>
+<string name="detail_status_error_broken">Fout: Link is niet geldig</string>
+<string name="detail_status_error_full">Fout: Schijf is vol</string>
+<string name="detail_status_error_max_temp_file">Fout: Maximale aantal tijdelijke bestanden bereikt</string>
+<string name="detail_status_error_max_dest_file">Fout: Maximale groote voor de bestemmin is bereikt.</string>
+<string name="detail_status_error_duplicate">Fout: Download gedupliceerd.</string>
+<string name="download_station_not_found">Mislukt om de connectie te testen. Gebruikt DSM-auto detectie in de instellingen en zorg dat Download Station geïnstalleerd is en werkt op je NAS.</string>
+<string name="share">Deel url</string>
+
+<string name="detail_status_extracting">Archief uitpakken</string>
+<string name="detail_status_error_name_too_long">Fout: Naam te lang</string>
+<string name="detail_status_error_not_exist">Fout: Bestand bestaat niet</string>
+<string name="detail_status_error_premium">Fout: U heeft een premium account nodig</string>
+<string name="detail_status_error_not_supported">Fout: Niet ondersteund</string>
+<string name="detail_status_error_extract_failed">Fout: Uitpakken mislukt</string>
+<string name="detail_status_error_extract_wrong_password">Fout: Uitpakken mislukt, u heeft een wachtwoord nodig</string>
+<string name="detail_status_error_invalid_archive">Fout: Ongeldig archief</string>
+<string name="detail_status_error_account">Fout: U heeft een account nodig</string>
+
 </resources>
