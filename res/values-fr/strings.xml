@@ -468,4 +468,28 @@
 <string name="priority_low">Basse</string>
 <string name="priority_skip">Sauter</string>
 
+<string name="detail_status_error_no_exist">Erreur: La destination n\'existe pas</string>
+<string name="detail_status_error_denied">Erreur: Vous n\'avez pas accès à la destination</string>
+<string name="detail_status_error_quota">Erreur: Quota atteint</string>
+<string name="detail_status_error_timeout">Erreur: Temps mort</string>
+<string name="detail_status_error_max_fs_size">Erreur: Dépasse la taille de fichier maximale</string>
+<string name="detail_status_error_broken">Erreur: Lien brisé</string>
+<string name="detail_status_error_full">Erreur: Disque plein</string>
+<string name="detail_status_error_max_temp_file">Erreur: Dépasse la taille de fichier temporaire maximale</string>
+<string name="detail_status_error_max_dest_file">Erreur: Dépasse la taille de fichier de destination maximale</string>
+<string name="detail_status_error_duplicate">Erreur: Torrent dupliqué</string>
+<string name="detail_status_error_invalid">Erreur: Torrent invalide</string>
+<string name="download_station_not_found">Impossible de tester la connexion. Utiliser la détection automatique de DSM dans les paramètres et assurez vous que l\'application Download Station est installé et fonctionne sur votre NAS.</string>
+<string name="share">Partager lien</string>
+
+<string name="detail_status_extracting">Décompression de l\'archive</string>
+<string name="detail_status_error_name_too_long">Erreur: Le nom es trop long</string>
+<string name="detail_status_error_not_exist">Erreur: Le fichier n\'existe pas</string>
+<string name="detail_status_error_premium">Erreur: Nécessite un compte premium</string>
+<string name="detail_status_error_not_supported">Erreur: Non supporté</string>
+<string name="detail_status_error_extract_failed">Erreur: N\'a pas pu décompresser</string>
+<string name="detail_status_error_extract_wrong_password">Erreur: N\'a pas pu décompresser, mauvais mot de passe</string>
+<string name="detail_status_error_invalid_archive">Erreur: N\'est pas une archive valide</string>
+<string name="detail_status_error_account">Erreur: Nécessite un compte</string>
+
 </resources>
