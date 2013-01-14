@@ -486,4 +486,15 @@
 <string name="download_station_not_found">Failed to test the connection. Use DSM autodetection in the settings and make sure Download Station app is installed and running on your NAS.</string>
 <string name="share">Share url</string>
 
+<string name="detail_status_extracting">Extracting archive</string>
+<string name="detail_status_error_name_too_long">Error: Name too long</string>
+<string name="detail_status_error_not_exist">Error: File does not existt</string>
+<string name="detail_status_error_premium">Error: Requires a premium account</string>
+<string name="detail_status_error_not_supported">Error: Not supported</string>
+<string name="detail_status_error_extract_failed">Error: Extracting failed</string>
+<string name="detail_status_error_extract_wrong_password">Error: Extraction failed, wrong password</string>
+<string name="detail_status_error_invalid_archive">Error: Invalid archive</string>
+<string name="detail_status_error_account">Error: Requires an account</string>
+
+
 </resources>
