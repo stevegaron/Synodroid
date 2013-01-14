@@ -36,6 +36,7 @@ import com.bigpupdev.synodroid.data.TaskProperties;
 import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.protocol.DSHandler;
 import com.bigpupdev.synodroid.protocol.DSMException;
+import com.bigpupdev.synodroid.protocol.DownloadStationNotFound;
 import com.bigpupdev.synodroid.protocol.MultipartBuilder;
 import com.bigpupdev.synodroid.protocol.Part;
 import com.bigpupdev.synodroid.protocol.QueryBuilder;
@@ -442,7 +443,7 @@ class DSHandlerDSM40 implements DSHandler {
 				// The upload_type's part
 				builder.addPart(new Part("upload_type").setContent("torrent".getBytes()));
 				// The upload_type's part
-				builder.addPart(new Part("desttext").setContent(getSharedDirectory().getBytes()));
+				builder.addPart(new Part("desttext").setContent(getSharedDirectory(false).getBytes()));
 				// The direction's part
 				builder.addPart(new Part("direction").setContent("ASC".getBytes()));
 				// The field's part
@@ -494,7 +495,7 @@ class DSHandlerDSM40 implements DSHandler {
 				String urls = "[\""+uriP.toString()+"\"]";
 				
 				// Create the builder
-				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task").add("desttext",getSharedDirectory());
+				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task").add("desttext",getSharedDirectory(false));
 				
 				if (uname != null && pass != null){
 					builder.add("dlauth", "on");
@@ -774,7 +775,7 @@ class DSHandlerDSM40 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#getSharedDirectory()
 	 */
-	public String getSharedDirectory() throws Exception {
+	public String getSharedDirectory(boolean remap) throws Exception {
 		String result = null;
 		// If we are logged on
 		if (server.isConnected()) {
@@ -792,7 +793,18 @@ class DSHandlerDSM40 implements DSHandler {
 			} catch (FileNotFoundException e){
 				if (server.DEBUG) Log.w(Synodroid.DS_TAG, "DSHandlerDSM40: shareget action unavailable. Fallback to infoget action...");
 				synchronized (server) {
-					json = server.sendJSONRequest(DM_URI_NEW, infoGet.toString(), "GET");
+					try{
+						json = server.sendJSONRequest(DM_URI_NEW, infoGet.toString(), "GET");
+					}
+					catch (FileNotFoundException ex){
+						if (remap){
+							if (server.DEBUG) Log.w(Synodroid.DS_TAG, "DSHandlerDSM40: Download station does not seem to be running.");
+							throw new DownloadStationNotFound("DSHanderDSM40:  Download station does not seem to be running.");
+						}
+						else{
+							throw ex;
+						}
+					}
 				}
 			}
 			

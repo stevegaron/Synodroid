@@ -89,7 +89,7 @@ public class DSHandlerDSM22Factory extends DSMHandlerFactory {
 			catch (Exception e){
 				if (DEBUG) Log.e(Synodroid.DS_TAG, "Error while trying to guess DSM version.", e);
 			}
-			result = server.getDSMHandlerFactory().getDSHandler().getSharedDirectory();
+			result = server.getDSMHandlerFactory().getDSHandler().getSharedDirectory(true);
 			if (result.equals("")){
 				return false;
 			}

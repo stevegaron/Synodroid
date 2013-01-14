@@ -34,7 +34,7 @@ public class EnumShareAction implements SynoAction {
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
 		List<SharedDirectory> dirs = serverP.getDSMHandlerFactory().getDSHandler().enumSharedDirectory();
-		String dir = serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory();
+		String dir = serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory(false);
 		if (dir != null) {
 			SharedDirectory foo = new SharedDirectory(dir);
 			int index = dirs.indexOf(foo);

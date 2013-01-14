@@ -9,6 +9,7 @@
 package com.bigpupdev.synodroid.protocol.v32;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -35,6 +36,7 @@ import com.bigpupdev.synodroid.data.TaskProperties;
 import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.protocol.DSHandler;
 import com.bigpupdev.synodroid.protocol.DSMException;
+import com.bigpupdev.synodroid.protocol.DownloadStationNotFound;
 import com.bigpupdev.synodroid.protocol.MultipartBuilder;
 import com.bigpupdev.synodroid.protocol.Part;
 import com.bigpupdev.synodroid.protocol.QueryBuilder;
@@ -441,7 +443,7 @@ class DSHandlerDSM32 implements DSHandler {
 				// The upload_type's part
 				builder.addPart(new Part("upload_type").setContent("torrent".getBytes()));
 				// The upload_type's part
-				builder.addPart(new Part("desttext").setContent(getSharedDirectory().getBytes()));
+				builder.addPart(new Part("desttext").setContent(getSharedDirectory(false).getBytes()));
 				// The direction's part
 				builder.addPart(new Part("direction").setContent("ASC".getBytes()));
 				// The field's part
@@ -493,7 +495,7 @@ class DSHandlerDSM32 implements DSHandler {
 				String urls = "[\""+uriP.toString()+"\"]";
 				
 				// Create the builder
-				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task").add("desttext",getSharedDirectory());
+				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task").add("desttext",getSharedDirectory(false));
 				
 				if (uname != null && pass != null){
 					builder.add("dlauth", "on");
@@ -773,7 +775,7 @@ class DSHandlerDSM32 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#getSharedDirectory()
 	 */
-	public String getSharedDirectory() throws Exception {
+	public String getSharedDirectory(boolean remap) throws Exception {
 		String result = null;
 		// If we are logged on
 		if (server.isConnected()) {
@@ -781,7 +783,18 @@ class DSHandlerDSM32 implements DSHandler {
 			// Execute
 			JSONObject json;
 			synchronized (server) {
-				json = server.sendJSONRequest(DM_URI_NEW, getShared.toString(), "GET");
+				try{
+					json = server.sendJSONRequest(DM_URI_NEW, getShared.toString(), "GET");
+				}
+				catch (FileNotFoundException ex){
+					if (remap){
+						if (server.DEBUG) Log.w(Synodroid.DS_TAG, "DSHandlerDSM32: Download station does not seem to be running.");
+						throw new DownloadStationNotFound("DSHanderDSM32:  Download station does not seem to be running.");
+					}
+					else{
+						throw ex;
+					}
+				}
 			}
 			boolean success = json.getBoolean("success");
 			// If request succeded

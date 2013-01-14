@@ -157,7 +157,7 @@ public interface DSHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public String getSharedDirectory() throws Exception;
+	public String getSharedDirectory(boolean remap) throws Exception;
 
 	/**
 	 * Download a specific URL

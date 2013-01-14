@@ -28,6 +28,7 @@ import javax.net.ssl.TrustManager;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.protocol.DSMException;
 import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
+import com.bigpupdev.synodroid.protocol.DownloadStationNotFound;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
@@ -229,6 +230,13 @@ public class SynoServer extends SimpleSynoServer{
 							fireMessage(SynoServer.this.handler, ResponseHandler.MSG_ERROR, translateError(SynoServer.this.handler, e));
 						}catch (Exception err){}
 					}
+					// Download Station not running error
+					catch (DownloadStationNotFound e) {
+						if (DEBUG) Log.e(Synodroid.DS_TAG, "Download Station Not Found Error", e);
+						try {
+							fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.handler.getString(R.string.download_station_not_found));
+						}catch (Exception err){}
+					} 
 					// Programmation exception
 					catch (Exception e) {
 						if (DEBUG) Log.e(Synodroid.DS_TAG, "Exception occured", e);
@@ -622,6 +630,11 @@ public class SynoServer extends SimpleSynoServer{
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected DSM error", ex);
 					try{
 						fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.translateError(SynoServer.this.handler, ex));
+					}catch (Exception err){}
+				} catch (DownloadStationNotFound e) {
+					if (DEBUG) Log.e(Synodroid.DS_TAG, "Download Station Not Found Error", e);
+					try {
+						fireMessage(handlerP, ResponseHandler.MSG_ERROR, SynoServer.this.handler.getString(R.string.download_station_not_found));
 					}catch (Exception err){}
 				} catch (Exception e) {
 					if (DEBUG) Log.e(Synodroid.DS_TAG, "Unexpected error", e);

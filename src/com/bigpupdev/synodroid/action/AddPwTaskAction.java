@@ -90,7 +90,7 @@ public class AddPwTaskAction implements SynoAction {
 					msgIntent.putExtra(UploadIntentService.DIRECTORY, "");
 				}
 				else{
-					msgIntent.putExtra(UploadIntentService.DIRECTORY, serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory());
+					msgIntent.putExtra(UploadIntentService.DIRECTORY, serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory(false));
 				}
 				msgIntent.putExtra(UploadIntentService.COOKIES, serverP.getCookies());
 				msgIntent.putExtra(UploadIntentService.DSM_VERSION, serverP.getDsmVersion().getTitle());

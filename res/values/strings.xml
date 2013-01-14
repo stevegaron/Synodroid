@@ -482,5 +482,7 @@
 <string name="detail_status_error_max_temp_file">Error: Exceeded max temporary file system size</string>
 <string name="detail_status_error_max_dest_file">Error: Exceeded max destination file system size</string>
 <string name="detail_status_error_duplicate">Error: Download duplicated</string>
+<string name="download_station_not_found">Failed to test the connection. Use DSM autodetection in the settings and make sure Download Station app is installed and running on your NAS.</string>
+
 
 </resources>

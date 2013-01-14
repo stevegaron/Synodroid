@@ -39,7 +39,7 @@ public class GetDirectoryListShares implements SynoAction {
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
 		String name = "/";
 		if (id == null)
-			id = "remote/"+serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory();
+			id = "remote/"+serverP.getDSMHandlerFactory().getDSHandler().getSharedDirectory(false);
 		
 		if (id.startsWith("remote/")){
 			name = id.substring(7);
