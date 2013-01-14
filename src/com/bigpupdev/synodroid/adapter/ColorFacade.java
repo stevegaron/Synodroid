@@ -39,7 +39,6 @@ public class ColorFacade {
 	public static void bindTorrentStatus(Context ctxP, TextView viewP, Task torrentP) {
 		// Trap invalid task status and replace by unknown
 		switch (torrentP.getStatus()) {
-		default:
 		case TASK_FILEHOSTING_WAITING:
 		case TASK_EXTRACTING:
 		case TASK_DOWNLOADING:
@@ -80,6 +79,8 @@ public class ColorFacade {
 		case TASK_ERROR_EXCEED_MAX_TEMP_FS_SIZE:
 		case TASK_ERROR_EXCEED_MAX_DEST_FS_SIZE:
 		case TASK_ERROR_TORRENT_DUPLICATE:
+		case TASK_ERROR_TORRENT_INVALID:
+		default:
 			viewP.setTextColor(Color.parseColor("#AA0000"));
 			break;
 		}

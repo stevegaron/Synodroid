@@ -84,6 +84,7 @@ public class IconFacade {
 		case TASK_ERROR_EXTRACT_QUOTA_REACHED:
 		case TASK_ERROR_EXTRACT_DISK_FULL:
 		case TASK_ERROR_REQUIRED_ACCOUNT:
+		case TASK_ERROR_TORRENT_INVALID:
 		default:
 			id = R.drawable.dl_error;
 			break;
