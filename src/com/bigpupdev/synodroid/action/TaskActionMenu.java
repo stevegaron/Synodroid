@@ -76,6 +76,20 @@ public class TaskActionMenu {
 		case TASK_ERROR_DISK_FULL:
 		case TASK_ERROR_EXCEED_MAX_TEMP_FS_SIZE:
 		case TASK_ERROR_EXCEED_MAX_DEST_FS_SIZE:
+		case TASK_ERROR_TORRENT_DUPLICATE:
+		case TASK_ERROR_NAME_TOO_LONG_ENCRYPTION:
+		case TASK_ERROR_NAME_TOO_LONG:
+		case TASK_ERROR_FILE_NO_EXIST:
+		case TASK_ERROR_REQUIRED_PREMIUM:
+		case TASK_ERROR_NOT_SUPPORT_TYPE:
+		case TASK_ERROR_FTP_ENCRYPTION_NOT_SUPPORT_TYPE:
+		case TASK_ERROR_EXTRACT_FAIL:
+		case TASK_ERROR_EXTRACT_WRONG_PASSWORD:
+		case TASK_ERROR_EXTRACT_INVALID_ARCHIVE:
+		case TASK_ERROR_EXTRACT_QUOTA_REACHED:
+		case TASK_ERROR_EXTRACT_DISK_FULL:
+		case TASK_ERROR_REQUIRED_ACCOUNT:
+		case TASK_ERROR_TORRENT_INVALID:
 		case TASK_UNKNOWN:
 			result.add(new TaskActionMenu(taskP, ctxP.getString(R.string.action_retry), new ResumeTaskAction(taskP), true));
 			result.add(new TaskActionMenu(taskP, ctxP.getString(R.string.action_delete), new DeleteTaskAction(taskP), true));
@@ -85,6 +99,8 @@ public class TaskActionMenu {
 		case TASK_FINISHING:
 			result.add(new TaskActionMenu(taskP, ctxP.getString(R.string.action_clear), new DeleteTaskAction(taskP), true));
 			break;
+		case TASK_FILEHOSTING_WAITING:
+		case TASK_EXTRACTING:
 		case TASK_HASH_CHECKING:
 		case TASK_WAITING:
 			result.add(new TaskActionMenu(taskP, ctxP.getString(R.string.action_pause), new PauseTaskAction(taskP), true));
