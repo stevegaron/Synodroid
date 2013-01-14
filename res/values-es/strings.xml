@@ -465,4 +465,27 @@
 <string name="priority_low">Bajo</string>
 <string name="priority_skip">Omitir</string>
 
+<string name="detail_status_error_no_exist">Error: No existe el destino</string>
+<string name="detail_status_error_denied">Error: Destino denegado</string>
+<string name="detail_status_error_quota">Error: Cuota alcanzada</string>
+<string name="detail_status_error_timeout">Error: Tiempo de espera agotado</string>
+<string name="detail_status_error_max_fs_size">Error: Tamaño máximo de fichero de sistema excedido</string>
+<string name="detail_status_error_broken">Error: Link Roto</string>
+<string name="detail_status_error_full">Error: Disco lleno</string>
+<string name="detail_status_error_max_temp_file">Error: Tamaño máximo de fichero temporal excedido.</string>
+<string name="detail_status_error_max_dest_file">Error: Tamaño máximo de fichero destino excedido.</string>
+<string name="detail_status_error_duplicate">Error: Descarga duplicada</string>
+<string name="download_station_not_found">Error al probar la conexión. Usa el detector automática de DSM en la configuración y asegúrate que la aplicación \"Download Station\" está instalada y funcionando en tu NAS.</string>
+<string name="share">Compartir URL</string>
+
+<string name="detail_status_extracting">Extrayendo archivo</string>
+<string name="detail_status_error_name_too_long">Error: Nombre demasiado largo</string>
+<string name="detail_status_error_not_exist">Error: Fichero no existe</string>
+<string name="detail_status_error_premium">Error: Cuenta premium es necesaria</string>
+<string name="detail_status_error_not_supported">Error: No soportado</string>
+<string name="detail_status_error_extract_failed">Error: La extracción falló</string>
+<string name="detail_status_error_extract_wrong_password">Error: La extracción fallo. Contraseña incorrecta</string>
+<string name="detail_status_error_invalid_archive">Error: Archivo inválido</string>
+<string name="detail_status_error_account">Error: Es necesario una cuenta</string>
+
 </resources>
