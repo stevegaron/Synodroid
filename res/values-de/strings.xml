@@ -463,4 +463,26 @@
 <string name="priority_low">Gering</string>
 <string name="priority_skip">überspringen</string>
 
+<string name="detail_status_extracting">Extrahiere Archiv</string>
+<string name="detail_status_error_name_too_long">Fehler: Name zu lang</string>
+<string name="detail_status_error_not_exist">Fehler: Datei existiert nicht</string>
+<string name="detail_status_error_premium">Fehler: Benötigt einen Premiumaccount</string>
+<string name="detail_status_error_not_supported">Fehler: Nicht unterstützt</string>
+<string name="detail_status_error_extract_failed">Fehler: Entpacken fehlgeschlagen</string>
+<string name="detail_status_error_extract_wrong_password">Fehler: Entpacken fehlgeschlagen, falsches Passwort</string>
+<string name="detail_status_error_invalid_archive">Fehler: Defektes Archiv</string>
+<string name="detail_status_error_account">Fehler: Benötigt einen Account</string>
+<string name="detail_status_error_no_exist">Fehler: Ziel existiert nicht</string>
+<string name="detail_status_error_denied">Error: Ziel nicht erlaubt</string>
+<string name="detail_status_error_quota">Fehler: Quote erreicht</string>
+<string name="detail_status_error_timeout">Fehler: Timeout</string>
+<string name="detail_status_error_max_fs_size">Fehler: Maximaler Dateisystemplatz überschritten</string>
+<string name="detail_status_error_broken">Fehler: Defekter Link</string>
+<string name="detail_status_error_full">Fehler: Festplatte voll</string>
+<string name="detail_status_error_max_temp_file">Fehler: Maximale Größe des temporären Dateisystems überschritten</string>
+<string name="detail_status_error_max_dest_file">Fehler: Maximale Größe des Zieldateisystems überschritten</string>
+<string name="detail_status_error_duplicate">Fehler: Download dupliziert</string>
+<string name="download_station_not_found">Verbindungstest fehlgeschlagen. Benutzen sie die automatische DSM-Erkennung in den Einstellungen und stellen sie sicher, dass die Download Station auf ihrem NAS installiert ist und läuft.</string>
+<string name="share">URL teilen</string>
+
 </resources>
