@@ -841,8 +841,8 @@ public class DetailActivity extends BaseActivity{
 			
 			DetailFiles file = (DetailFiles)mAdapter.getItem(FILE_ITEM);
 			
+			app.forceRefresh();
 			if (task.isTorrent){
-				app.forceRefresh();
 				app.executeAsynchronousAction(file, new GetFilesAction(task), false);
 			}
 			return true;
