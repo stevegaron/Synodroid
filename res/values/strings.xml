@@ -6,10 +6,10 @@
 <string name="app_url">http://code.google.com/p/synodroid-ds/</string>
 
 <string name="connect_cant_connect">"Can't connect to {0}. Error is '{1}'."</string>
-<string name="unknow_reason">&quot;An error occured for an unknown reason&quot;</string>
+<string name="unknow_reason">&quot;An error occurred for an unknown reason&quot;</string>
 <string name="connect_wrong_userpassword">"Wrong user or password. Please try again."</string>
 <string name="connect_already_connected">"You're connected to another computer. Please reconnect."</string>
-<string name="connect_nohost">&quot;Can't contact host. Please verify your parameters.&quot;</string>
+<string name="connect_nohost">&quot;Can't contact host. Please verify your settings.&quot;</string>
 <string name="connect_error_title">"Error"</string>
 <string name="connect_connecting2">"Connecting. Please wait..."</string>
 <string name="connect_connecting">"Connecting to \n{0}\nPlease wait..."</string>
@@ -26,7 +26,7 @@
 <string name="menu_pauseall">Pause all</string>
 <string name="menu_resumeall">Resume all</string>
 <string name="dialog_title_action">Action</string>
-<string name="menu_parameter">Parameters</string>
+<string name="menu_parameter">Settings</string>
 <string name="err_unknown">Unknown error!</string>
 
 <string name="connect_cant">&quot;You are not allowed to use this service&quot;</string>
@@ -77,9 +77,9 @@
 <string name="label_default_server_prefix">Server </string>
 <string name="hint_default_server">Invalid server, click to edit</string>
 <string name="menu_refresh">Refresh</string>
-<string name="title_cat_connection">Public connection parameters</string> 
-<string name="title_cat_connection_local">Local connection parameters</string>
-<string name="title_cat_server">General parameters</string>
+<string name="title_cat_connection">Public connection settings</string> 
+<string name="title_cat_connection_local">Local connection settings</string>
+<string name="title_cat_server">General settings</string>
 
 <string name="action_resume">Resume</string>
 <string name="action_pause">Pause</string>
@@ -125,7 +125,7 @@
 
 <string name="detail_originaltorrent">Original torrent</string>
 <string name="detail_status">Status</string>
-<string name="detail_transfered">Transfered</string>
+<string name="detail_transfered">Transferred</string>
 <string name="detail_speed">Speed</string>
 <string name="detail_peers">Peers (connected / total)</string>
 <string name="detail_seeders_leechers">Seeders - Leechers</string>
@@ -298,10 +298,10 @@
 <string name="rep7">This app is not meant to download file ON your phone. It is only use to control the \"Download Station\" section of your Synology NAS.</string>
 
 <string name="faq3">How can I connect to my Synology NAS ?</string>
-<string name="rep3">From the main page of Synodroid, press the menu button of your phone and select parameters. Press the menu button again from the parameters window and select one of the 2 following options:\n\n1. Find a server\n2. Add a server</string>
+<string name="rep3">From the main page of Synodroid, press the menu button of your phone and select settings. Press the menu button again from the settings window and select one of the 2 following options:\n\n1. Find a server\n2. Add a server</string>
 
 <string name="faq4">The find server button does not find my Synology NAS, why?</string>
-<string name="rep4">Before using the find server feature, there is 3 things you need to know about:\n\n- 1 -\nYou must be connected to the same WIFI as your NAS.\n\n- 2 -\nYour NAS must be powered on and ready to use.\n\n- 3 -\nYou must be running Android 1.6 and up.\n\n** Note:\nIf the find server feature doesn\'t work for you, you can still add your server manually using the \"Add Server\" menu in the parameters.</string>
+<string name="rep4">Before using the find server feature, there is 3 things you need to know about:\n\n- 1 -\nYou must be connected to the same WIFI as your NAS.\n\n- 2 -\nYour NAS must be powered on and ready to use.\n\n- 3 -\nYou must be running Android 1.6 and up.\n\n** Note:\nIf the find server feature doesn\'t work for you, you can still add your server manually using the \"Add Server\" menu in the settings.</string>
 
 <string name="faq5">This FAQ didn\'t help me, What should I do?</string>
 <string name="rep5">Email the developers using the button below.\n\nPlease ask a very precise question to help us understand your problem.</string>
@@ -397,7 +397,7 @@
 
 <string name="welcome">Welcome to Synodroid Pro!</string>
 <string name="get_started">Synodroid Tutorial</string>
-<string name="get_started_text">Swipe throught the pages of this tutorial to get more information about the multiple features of this application.</string>
+<string name="get_started_text">Swipe through the pages of this tutorial to get more information about the multiple features of this application.</string>
 <string name="get_started_text_2">NOTE: The tutorial will always be available from the About page (From the homepage: Menu -> About). You should read through it at least once, you might learn something.</string>
 <string name="skip">Skip tutorial</string>
 <string name="syno_info_title">Control your NAS</string>
@@ -409,7 +409,7 @@
 <string name="add_server_st1">Find Server Wizard</string>
 <string name="add_server_t2">The Find Server Wizard requires to have wireless turned ON on your phone or tablet and to be connected to the wireless network where your NAS resides. Synodroid will try to detect your NAS from the network and prompt you with a dialog to select the NAS that was found and let you configure the extra settings.</string>
 <string name="add_server_st2">Add Server Wizard</string>
-<string name="add_server_t3">The add server wizard is to be used either when the find server failed or if you\'re not connected to wifi. It allows you to manually choose all the connection settings to connect to your NAS.</string>
+<string name="add_server_t3">The Add Server Wizard is to be used either when the find server failed or if you\'re not connected to wifi. It allows you to manually choose all the connection settings to connect to your NAS.</string>
 <string name="add_dl_title">Add Downloads to your NAS</string>
 <string name="add_dl_t1">Synodroid allows you to add download tasks to your NAS. There are multiple ways to do so, here are some of them:</string>
 <string name="add_dl_st1">Direct Link Press in Browser</string>
@@ -431,7 +431,7 @@
 <string name="upgrade_t1">Synodroid Pro contains a lot of features that are really useful and make it a worthy upgrade. This is the list of features that you got from upgrading:</string>
 
 <string name="upgrade_st1">1. Add Download Dialog</string>
-<string name="upgrade_t2">The Add Download dialog is a very handy feature that allows you to type or paste any link to be downloaded by your NAS.</string>
+<string name="upgrade_t2">The Add Download Dialog is a very handy feature that allows you to type or paste any link to be downloaded by your NAS.</string>
 <string name="upgrade_st2">2. Download Destination to Sub-Folder</string>
 <string name="upgrade_t3">Synodroid Pro allows you to set the destination for your download to any folder on your NAS, not just the shared directories.</string>
 <string name="upgrade_st3">3. Action on Multiple Files</string>
@@ -495,6 +495,5 @@
 <string name="detail_status_error_extract_wrong_password">Error: Extraction failed, wrong password</string>
 <string name="detail_status_error_invalid_archive">Error: Invalid archive</string>
 <string name="detail_status_error_account">Error: Requires an account</string>
-
 
 </resources>
