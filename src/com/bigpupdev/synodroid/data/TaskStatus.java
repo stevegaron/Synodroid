@@ -139,6 +139,9 @@ public enum TaskStatus {
 				return ctxP.getString(R.string.detail_status_error);
 			}
 		} catch (IllegalArgumentException e){
+			if (statusP.startsWith("TASK_EXTRACTING")){
+				return ctxP.getString(R.string.detail_status_extracting);
+			}
 			return statusP;
 		}
 		
