@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:NS0="http://schemas.android.com/tools" NS0:ignore="TypographyEllipsis">
+
+    <string name="app_name">Synodroid Pro</string>
+    <string name="app_opensource">Opensource project</string>
+    <string name="app_url">http://code.google.com/p/synodroid-ds/</string>
+    <string name="connect_cant_connect">"Impossibile connettersi a {0}. Errore: '{1}'."</string>
+    <string name="unknow_reason">"Si è verificato un errore per una ragione sconosciuta"</string>
+    <string name="connect_wrong_userpassword">"Nome utente o password errati. Riprovare, per favore."</string>
+    <string name="connect_already_connected">"Sei connesso ad un altro computer. Connettiti di nuovo, per favore."</string>
+    <string name="connect_nohost">"Impossibile contattare l’host. Controlla le impostazioni, per favore."</string>
+    <string name="connect_error_title">"Errore"</string>
+    <string name="connect_connecting2">"In connessione. Attendi..."</string>
+    <string name="connect_connecting">"Connettendo a \n{0}\nAttendi..."</string>
+    <string name="connect_ssl_error">"Errore SSL: {0}"</string>
+    <string name="action_deleting">"Eliminando file %s"</string>
+    <string name="action_clearall">"Eliminando i processi completati..."</string>
+    <string name="action_pausing">"Mettendo in pausa %s"</string>
+    <string name="action_resuming">"Riprendendo il download %s"</string>
+    <string name="action_pauseall">"Interrompendo tutte le attività..."</string>
+    <string name="action_resumeall">"Riprendendo le attività messe in pausa..."</string>
+    <string name="menu_connect">Connetti a</string>
+    <string name="menu_search">Cerca</string>
+    <string name="menu_clearall">Elimina i processi completati</string>
+    <string name="menu_pauseall">Metti in pausa tutto</string>
+    <string name="menu_resumeall">Riprendi tutto</string>
+    <string name="dialog_title_action">Azione</string>
+    <string name="menu_parameter">Impostazioni</string>
+    <string name="err_unknown">Errore sconosciuto!</string>
+    <string name="connect_cant">"Non sei autorizzato ad utilizzare questo servizio"</string>
+    <string name="label_nickname">Nome Utente</string>
+    <string name="label_protocol">Protocollo</string>
+    <string name="label_host">Host</string>
+    <string name="label_port">Porta</string>
+    <string name="label_username">Nome utente</string>
+    <string name="label_password">Password</string>
+    <string name="label_refreshinterval">Intervallo</string>
+    <string name="hint_nickname">Inserisci il nome utente</string>
+    <string name="hint_protocol">Scegli il protocollo da utilizzare</string>
+    <string name="hint_host">Imposta il nome dell’host o l’IP</string>
+    <string name="hint_port">Imposta il numero di porta</string>
+    <string name="hint_username">Il nome utente</string>
+    <string name="hint_password">La password</string>
+    <string name="hint_refreshinterval">Intervallo di aggiornamento in secondi</string>
+
+    <string-array name="protocols_array">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+    </string-array>
+
+    <string name="button_cancel">Annulla</string>
+    <string name="label_dsm_version">Disk Station Manager</string>
+    <string name="hint_dsm_version">"Imposta la versione del DSM in uso"</string>
+    <string name="title_preference">Impostazioni</string>
+    <string name="label_autorefresh">Aggiornamento automatico</string>
+    <string name="hint_autorefresh_on">Aggiornamento automatico attivo</string>
+    <string name="hint_autorefresh_off">Aggiornamento automatico disattivato</string>
+    <string name="title_cat_servers">Servers</string>
+    <string name="title_cat_general">Opzioni Generali</string>
+    <string name="menu_delete_server">Cancella server</string>
+
+    <string-array name="sorts_array">
+        <item>Per data di creazione</item>
+        <item>Per utente</item>
+    </string-array>
+
+    <string name="label_process_sort">Ordina attività</string>
+    <string name="hint_process_sort">Seleziona come ordinare le attività</string>
+
+    <string-array name="sort_array_values">
+        <item>data</item>
+        <item>utente</item>
+    </string-array>
+
+    <string name="button_delete">Cancella</string>
+    <string name="menu_add_server">Aggiungi un server</string>
+    <string name="label_default_server_prefix">Server</string>
+    <string name="hint_default_server">Server non valido, click per modificare</string>
+    <string name="menu_refresh">Aggiorna</string>
+    <string name="title_cat_connection">Impostazioni della connessione pubblica</string>
+    <string name="title_cat_connection_local">Impostazioni della connessione locale</string>
+    <string name="title_cat_server">Impostazioni generali</string>
+    <string name="action_resume">Riprendi</string>
+    <string name="action_pause">Pausa</string>
+    <string name="action_clear">Elimina</string>
+    <string name="action_cancel">Annulla</string>
+    <string name="action_retry">Riprova</string>
+    <string name="action_delete">Cancella</string>
+    <string name="action_details">Mostra dettagli...</string>
+    <string name="dialog_title_confirm">Conferma</string>
+    <string name="button_yes">Si</string>
+    <string name="button_no">No</string>
+    <string name="label_sort_taskid">Per data di creazione</string>
+    <string name="label_sort_filename">Per nome file</string>
+    <string name="label_sort_totalsize">Per grandezza (totale)</string>
+    <string name="label_sort_currentsize">Per grandezza (attuale)</string>
+    <string name="label_sort_progress">Per stato di avanzamento</string>
+    <string name="label_sort_uploadrate">Per velocità di upload</string>
+    <string name="label_sort_currentrate">Per velocità di download</string>
+    <string name="label_sort_timeleft">Per tempo rimasto</string>
+    <string name="label_sort_status">Per stato</string>
+    <string name="label_sort_username">Per utente</string>
+    <string name="label_asc_sort">Ordinamento crescente</string>
+    <string name="hint_asc_sort_on">L’ordinamento è crescente</string>
+    <string name="hint_asc_sort_off">L’ordinamento è decrescente</string>
+    <string name="eula_hide">Nascondi</string>
+    <string name="action_detailing">Recuperando dettagli di \'%s\'</string>
+    <string name="action_adding">Aggiungendo file %s</string>
+    <string name="detail_tab_general">Generale</string>
+    <string name="detail_tab_transfer">Trasferimento</string>
+    <string name="detail_tab_files">Files</string>
+    <string name="detail_filesize">Dimensione file</string>
+    <string name="detail_username">Nome utente</string>
+    <string name="detail_filename">Nome file</string>
+    <string name="detail_destination">Destinazione</string>
+    <string name="detail_creationtime">Data e ora creazione</string>
+    <string name="detail_url">Url</string>
+    <string name="detail_originaltorrent">Torrent originale</string>
+    <string name="detail_status">Stato</string>
+    <string name="detail_transfered">Trasferito</string>
+    <string name="detail_speed">Velocità</string>
+    <string name="detail_peers">Peers (connessi / totale)</string>
+    <string name="detail_seeders_leechers">Seeders - Leechers</string>
+    <string name="detail_eta">Tempo di completamento stimato</string>
+    <string name="detail_pieces">Parti (correnti / totali)</string>
+    <string name="detail_progress">Stato avanzamento</string>
+    <string name="detail_status_waiting">Aspettando</string>
+    <string name="detail_status_downloading">In Download</string>
+    <string name="detail_status_seeding">Seeding</string>
+    <string name="detail_status_paused">In pausa</string>
+    <string name="detail_status_finished">Finito</string>
+    <string name="detail_status_hash_checking">Controllo hash</string>
+    <string name="detail_status_error">Errore</string>
+    <string name="menu_about">Informazioni</string>
+    <string name="app_contributors">"Sostenitori del progetto:"</string>
+    <string name="app_status_project">Controlla lo stato del progetto:</string>
+    <string name="button_ok">OK</string>
+    <string name="eula_view">Licensa</string>
+    <string name="button_yesplease">Si, per favore</string>
+    <string name="button_nothanks">No grazie</string>
+    <string name="dialog_title_information">Informazioni</string>
+    <string name="no_server_configured">Non è stato configurato alcun server o non esiste un server appropriato per la connessione.\n\Vuoi configurare il sistema ora ?</string>
+    <string name="detail_progress_upload">Upload:</string>
+    <string name="detail_progress_download">Download:</string>
+    <string name="detail_finished">Finito</string>
+    <string name="detail_unvailable">Non disponibile</string>
+    <string name="not_yet_implemented">Caratteristica ancora non implementata</string>
+    <string name="title_information">Informazioni</string>
+    <string name="detail_unknown">Sconosciuto</string>
+    <string name="action_files">Recuperando file di \'%s\'</string>
+    <string name="action_updating">"Aggiornando File %s"</string>
+    <string name="seeding_time">Tempo seeding</string>
+    <string name="seeding_ratio">Rapporto seeding (%)</string>
+    <string name="seeding_parameters_time">Impostazioni seeding</string>
+
+    <string-array name="seeding_time_array">
+        <item>Ignor</item>
+        <item>90 min.</item>
+        <item>2 ore</item>
+        <item>3 ore</item>
+        <item>4 ore</item>
+        <item>5 ore</item>
+        <item>6 ore</item>
+        <item>7 ore</item>
+        <item>8 ore</item>
+        <item>9 ore</item>
+        <item>10 ore</item>
+        <item>12 ore</item>
+        <item>16 ore</item>
+        <item>20 ore</item>
+        <item>24 ore</item>
+        <item>30 ore</item>
+        <item>36 ore</item>
+        <item>48 ore</item>
+        <item>60 ore</item>
+        <item>72 ore</item>
+        <item>96 ore</item>
+        <item>Sempre</item>
+    </string-array>
+
+    <string name="logo_download">Torrent, NZB, Url</string>
+    <string name="logo_emule">eMule (non implementato)</string>
+    <string name="logo_about">Info</string>
+
+    <string-array name="seeding_time_array_values">
+        <item>0</item>
+        <item>90</item>
+        <item>120</item>
+        <item>180</item>
+        <item>240</item>
+        <item>300</item>
+        <item>360</item>
+        <item>420</item>
+        <item>480</item>
+        <item>540</item>
+        <item>600</item>
+        <item>720</item>
+        <item>960</item>
+        <item>1200</item>
+        <item>1440</item>
+        <item>1800</item>
+        <item>2160</item>
+        <item>2880</item>
+        <item>3600</item>
+        <item>4320</item>
+        <item>5760</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="detail_forever">Per sempre</string>
+    <string name="action_enum_shared">Recuperando cartelle condivise</string>
+    <string name="shared_dir_title">Seleziona una cartella condivisa</string>
+    <string name="shared_note">Nota: questo parametro influenzerà tutti i download non completati.</string>
+    <string name="action_set_shared">Impostando cartella condivisa</string>
+    <string name="menu_destination">Destinazione</string>
+    <string name="action_download_original_file">Scaricando file originale</string>
+    <string name="action_download_original_saved">Il file è stato salvato nel cellulare (/sdcard/download)</string>
+    <string name="action_download_original_failed">Impossibile salvare il file, forse devi montare lo storage interno!</string>
+    <string name="translator">"Traduttori:"</string>
+    <string name="fullscreen_preference">Schermo intero</string>
+    <string name="summary_fullscreen_preference">Nasconde la barra delle notifiche</string>
+    <string name="crash_notif_ticker_text">Errore sconosciuto, invia una segnalazione per favore...</string>
+    <string name="crash_notif_title">Synodroid si è bloccato...</string>
+    <string name="crash_notif_text">Per favore clicca qui per risolvere l’errore.</string>
+    <string name="crash_dialog_title">Synodroid si è bloccato</string>
+    <string name="crash_dialog_text">Si è verificato un errore sconosciuto che ha costretto a terminare l’applicazione. Perf avore aiutaci a correggerlo inviandoci una segnalazione, devi solo cliccare \'OK\'.</string>
+    <string name="crash_dialog_comment_prompt">Aggiungi la tua mail e il tuo commento riguardo al problema qui sotto:</string>
+    <string name="crash_dialog_ok_toast">Grazie !</string>
+    <string name="label_showupload">Stato di upload</string>
+    <string name="hint_showupload_on">Stato avanzamento upload mostrato</string>
+    <string name="hint_showupload_off">Stato avanzamento upload non mostrato</string>
+    <string name="hint_wlan_on">Questa connessione è utilizzata solo in WIFI</string>
+    <string name="hint_wlan_off">Questa connessione non è utilizzata in WIFI</string>
+    <string name="label_wifissid">Rete WIFI</string>
+    <string name="hint_wifissid">Seleziona la rete WIFI da utilizzare</string>
+    <string name="title_wifi_disabled">Il WIFI è disattivato</string>
+    <string name="message_wifi_disabled">Per favore attiva il WIFI prima di configurare la connessione</string>
+    <string name="wizard_menu">Trova server</string>
+    <string name="wizard_searching_title">Cercando..</string>
+    <string name="wizard_searching_msg">Cercando il NAS nella tua rete. Aspetta per favore...</string>
+    <string name="wizard_selectserver_title">Seleziona server</string>
+    <string name="wizard_user_title">Informazioni utente</string>
+    <string name="wizard_user_user_label">Utente</string>
+    <string name="wizard_user_password_label">Password</string>
+    <string name="installTorrentSearch">Installa Transdroid Torrent Search</string>
+    <string name="installTorrentSearchAlternate">Download alternativo</string>
+    <string name="logo_search">Ricerca Torrent</string>
+    <string name="dialog_message_confirm_add">Sei sicuro di voler cominciare il download del file?</string>
+    <string name="provider_missing">Nessun motore di ricerca installato. Puoi o aggiornare il tuo NAS alla DSM 3.1+ o installare un motore di ricerca alernativo cliccando sul menu aggiorna motore di ricerca.\n\n Note: Dovrai riavviare l’applicazione per abilitare la ricerca dopo aver installato il motore di ricerca alternativo...</string>
+    <string name="searching">Cercando...\n\n</string>
+    <string name="no_results">Nessun risultato.\n\n</string>
+    <string name="sites">Siti disponibili:\n</string>
+    <string name="no_keyword">Immetti una parola da cercare...</string>
+    <string name="search_hint">Ricerca Torrent</string>
+    <string name="wizard_options_title">Opzioni</string>
+    <string name="wizard_https">Voglio utilizzare una connessione sicura</string>
+    <string name="wizard_ddns">Voglio connettermi anche da Internet, fuori dalla LAN</string>
+    <string name="wizard_ddns_host">Nome DDNS</string>
+    <string name="wizard_selectdsm_title">Seleziona la versione del DSM</string>
+    <string name="wizard_no_server_found">Non è stato trovato alcun server nella rete. Controlla la connessione e prova di nuovo.</string>
+    <string name="err_nomarket">Il Play Store non è installato sul tuo dispositivo.\n\Contatta gli sviluppatori per ottenere una copia di Transdroid search.</string>
+    <string name="err_nobrowser">Il Play Store non è installato sul tuo dispositivo.\n\ Contatta gli sviluppatori per ottenere una copia di Transdroid search.</string>
+    <string name="err_provider_missing">Non sono installati motore di ricerca sul tuo dispositivo.\n\nSegui le istruzioni su questa pagina per installarne uno.</string>
+    <string name="help">Aiuto</string>
+    <string name="label_usewifi">Connetti dal WIFI</string>
+    <string name="hint_usewifi_on">Collegato ad una o più reti WIFI</string>
+    <string name="hint_usewifi_off">Non collegato a rete WIFI</string>
+    <string name="label_useext">Connetti da ovunque</string>
+    <string name="hint_useext_on">Accessibile ovunque</string>
+    <string name="hint_useext_off">Non accessibile fuori dal tuo WIFI</string>
+    <string name="clear_search_history">Pulisci la cronologia delle ricerche</string>
+    <string name="cleared_search_history">Cronologia delle ricerche pulita.</string>
+    <string name="wait_for_download">Non chiudere Synodroid prima che l’attivitità sia stata aggiunta.\nAspettando per il file dell’attività...</string>
+    <string name="err_noemail">Non ci sono applicazioni email configurate sul tuo dispositivo.\n\nScrivi a synodroid@gmail.com per ottenere aiuto.</string>
+    <string name="app_help">FAQ: Frequently asked questions</string>
+    <string name="email">Richiedi supporto per mail!</string>
+    <string name="faq1">Come trovo il server?</string>
+    <string name="rep1">Synodroid è stata create per controllare un Network Attached Storage (NAS) Synology. Se non hai un NAS Synology, puoi anche disinstallare questa applicazione...</string>
+    <string name="faq2">Dove posso comprare un NAS Synology?</string>
+    <string name="rep2">Controlla il sito web Synology per maggiori informazioni.</string>
+    <string name="faq6">Cos’è un NAS Synology?</string>
+    <string name="rep6">Controlla il sito web Synology per maggiori informazioni.</string>
+    <string name="faq7">Come posso scaricare file sul dispositivo utilizzando questa applicazione ?</string>
+    <string name="rep7">Questa applicazione non è fatta per scaricare file direttamente sul cellulare. Si utilizza per controllare la sezione \"Download Station\" del tuo NAS Synology.</string>
+    <string name="faq3">Come posso collegarmi al mio NAS Synology ?</string>
+    <string name="rep3">Dalla pagina principale di Synodroid, premi il pulsante menu del tuo telefono e seleziona impostazioni. Premi il pulsante nuovamente dalla finestra delle impostazioni e seleziona una delle 2 opzioni seguenti:\n\n1. Trova un server\n2. Aggiungi un server</string>
+    <string name="faq4">Il pulsante Trova server non trova il mio NAS, perché?</string>
+    <string name="rep4">Prima di utilizzare la funzione di ricerca server, ci sono 3 cose che devi sapere:\n\n- 1 -\nDevi essere connesso alla stessa WIFI del tuo NAS.\n\n- 2 -\nYour Il tuo NAS deve essere acceso.\n\n- 3 -\Devi utilizzare Android 1.6 o più.\n\n** Nota:\nSe la funzione di ricerca server non funziona, puoi sempre aggiungere un server manualmente utilizzando il menu \"Aggiungi server\" nelle impostazioni.</string>
+    <string name="faq5">Le FAQ non mi hanno aiutato. Cosa devo fare?</string>
+    <string name="rep5">Scrivi allo sviluppatore utilizzando la mail.\n\nEsponi bene il tuo problema per permetterci di aiutarti.</string>
+    <string name="ul_rate">Max velocità di upload (KB\\s)</string>
+    <string name="dl_rate">Max velocità di download (KB\\s)</string>
+    <string name="max_peers">Max numero peers</string>
+    <string name="priority">Priorità Download</string>
+    <string name="destination">Cartella di destinazione</string>
+
+    <string-array name="priority_array">
+        <item>Alta</item>
+        <item>Normale</item>
+        <item>Bassa</item>
+    </string-array>
+    <string-array name="priority_array_value">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+    <string-array name="destination_array"></string-array>
+
+    <string name="action_task_prop">Acquisendo proprietà dell’attività..</string>
+    <string name="task_parameters">Proprietà attività</string>
+    <string name="downloadOnly">Funziona solo quando l’attività sta scaricando..</string>
+    <string name="port_mismatch">Il protocollo non combacia con la porta utilizzata.</string>
+    <string name="debug">Debug</string>
+    <string name="hint_debug">Attiva registri debugging</string>
+    <string name="empty_file_list">I file non possono essere mostrati al momento..</string>
+    <string name="empty_file_list_wrong_type">Non disponibile per download Non-Torrent/NZB</string>
+    <string name="empty_download_list">Non ci sono download attivi sul NAS.\n\nPuoi aggiungerli utilizzando il pulsante aggiungi, quello di ricerca o usando l’opzione di condivisione dal tuo browser Android.</string>
+    <string name="empty_list_loading">Caricando..</string>
+    <string name="empty_not_connected">Non connesso.</string>
+    <string name="err_file_list">Impossibile trovare la lista dei file. Assicurati che la tua configurazione server corrisponda alla versione della DSM.</string>
+    <string name="tab_main">Download</string>
+    <string name="tab_transfer">Trasferimento</string>
+    <string name="tab_file">Files</string>
+    <string name="add_wizard_srv_name">Nome server:</string>
+
+    <string-array name="add_wizard_srv_type_array">
+        <item>Solo WIFI</item>
+        <item>Solo rete cellulare</item>
+        <item>WIFI e rete cellulare</item>
+    </string-array>
+
+    <string name="add_wizard_srv_sel_title">Informazioni Server</string>
+    <string name="add_wizard_wifi_title">Connessione WIFI</string>
+    <string name="add_wizard_wifi_host">Server IP/nome Dominio:</string>
+    <string name="add_wizard_cell_title">Connessione cellulare</string>
+    <string name="add_wizard_sec_title">Sicurezza</string>
+    <string name="dialog_message_confirm">"L’attività non è terminata. Sei sicuro di volerla eliminare?"</string>
+    <string name="menu_add">Aggiungi download</string>
+    <string name="add_download_url_title">URL:</string>
+    <string name="app_pro">Versione Gratis</string>
+    <string name="app_google_plus">Aggiungici alle cerchie su Google+ per informazioni aggiornate su Synodroid:</string>
+    <string name="tab_about">Informazioni</string>
+    <string name="tab_help">F.A.Q.</string>
+    <string name="gplus">Ottiene support su Google+</string>
+    <string name="description_logo">SynoDroid Pro</string>
+    <string name="description_home">Home</string>
+    <string name="description_search">Cerca</string>
+    <string name="description_refresh">Aggiorna</string>
+    <string name="eula_title">Contratto di Licensa</string>
+    <string name="accept">Accetta</string>
+    <string name="decline">Rifiuta</string>
+    <string name="gplus_title">Pagina Google+ di Synodroid</string>
+    <string name="tasks">Attività</string>
+    <string name="magnet">I link magnet funzionano solo a partire dalla DSM 3.1</string>
+    <string name="update_search_engine">Aggiorna motore di ricerca torrent alternativo</string>
+    <string name="update_search_engine_toast">Scaricando l’ultima versione del motore di ricerca.</string>
+    <string name="selected">selezionato</string>
+    <string name="upload_failed">Upload dei files sul NAS fallito.Riprova..</string>
+    <string name="action_se_get">Recuperando la liste dei motori di ricerca..</string>
+    <string name="menu_searchengine">Organizza plugin di ricerca DSM</string>
+    <string name="search_engine_title">Ricerca DSM – Selezione Plugin</string>
+    <string name="action_set_searchengine">Salvando le impostazioni dei motori di ricerca..</string>
+    <string name="auto_DSM">Determina automaticamente versione DSM</string>
+    <string name="hint_auto_DSM">La versione del DSM verrà determinata automaticamente connettendosi al NAS</string>
+    <string name="delete_multiple">Eliminando più attività</string>
+    <string name="dialog_multiple_confirm">"Le attività non terminate verranno eliminate. Sei sicuro di voler continuare?"</string>
+    <string name="action_deleting_multiple">"Rimuovendo le attività selezionate...%s"</string>
+    <string name="action_pausing_multiple">"Mettendo in pausa le attività selezionate...%s"</string>
+    <string name="action_resuming_multiple">"Ripristinando le attività selezionate...%s"</string>
+    <string name="file_not_found">Impossibile accedere ad una delle caratteristiche. Probabilmente hai selezionato una versione non corretta del DSM. Usa il riconoscimento automatico della versione DSM nelle impostazioni...</string>
+    <string name="failed_response">Nessuna risposta dal server. Riconnetti per favore!</string>
+    <string name="syno_pro_banner_text">Ottieni nuove funzionalità con Synodroid Pro. Premi qui!</string>
+    <string name="err_nomarket_upgrade">Il Play Store non è installato sul tuo dispositivo.\n\nContatta lo sviluppatore per ottenere una copia di Synodroid Pro.</string>
+    <string name="hide_banner">Nasconi banner Pro</string>
+    <string name="hint_hide_banner">Nascondi banner Synodroid Pro alla fine della lista di download</string>
+    <string name="welcome">Benvenuto su Synodroid Pro!</string>
+    <string name="get_started">Tutorial Synodroid </string>
+    <string name="get_started_text">Scorri tra le pagine di questo tutorial per ottenere più informazioni sulle caratteristiche di questa applicazione.</string>
+    <string name="get_started_text_2">NOTA: Il tutorial sarà sempre disponibile dalla pagina Informazioni (Dalla Home: Menu -&gt; Informazioni). Dovresti leggerlo almeno una volta, potresti imparare qualcosa di nuovo.</string>
+    <string name="skip">Salta tutorial</string>
+    <string name="syno_info_title">Controlla il tuo NAS</string>
+    <string name="syno_info_t1">Synodroid è pensato per controllare la funzionalità Download Station di un NAS Synology. Se non ne hai uno, questa applicazione è inutile.</string>
+    <string name="syno_info_t2">Se ti servono maggiori informazioni su Synology visita il sito:</string>
+    <string name="syno_info_t3">Se ti servono maggiori informazioni per acquistare un NAS Synology visita il sito:</string>
+    <string name="add_server_title">Aggiungi connessione NAS</string>
+    <string name="add_server_t1">Ci sono 2 modi di aggiungere una connessione NAS. Sono entrambi localizzati nelle impostazioni (premi menu, impostazioni dalla home dell’applicazione).</string>
+    <string name="add_server_st1">Wizard aggiungi server</string>
+    <string name="add_server_t2">Il wizard aggiungi server necessita di avere il WIFI attivo sul tuo cellulare o tablet e di essere connesso alla stessa rete del NAS. Synodroid proverà a trovare il NAS nella rete e ti farà selezionare in una nuova finestra il NAS che è stato trovato e ti lascerà configurare le impostazioni.</string>
+    <string name="add_server_st2">Wizard aggiungi server</string>
+    <string name="add_server_t3">L’Aggiunta guidata Server deve essere utilizzato quando il server non è riuscito a trovare o se non si è connessi a una rete WiFi. Ti permette di scegliere manualmente tutte le impostazioni di connessione per la connessione al NAS.</string>
+    <string name="add_dl_title">Aggiungi download al tuo NAS</string>
+    <string name="add_dl_t1">Synodroid ti permette di aggiungere attività di download al tuo NAS. Ci sono molti modi di farlo, tra cui:</string>
+    <string name="add_dl_st1">Premere sul link diretto nel Browser</string>
+    <string name="add_dl_t2">Dal browser android, quando premi qualsiasi link per file .torrent o .nzb , Synodroid si farà avanti e ti permetterà di scaricare quei file.</string>
+    <string name="add_dl_st2">Caratteristica di condivisione sistema Android</string>
+    <string name="add_dl_t3">Da qualsiasi applicazione installata sul tuo telefono (browser, file manager, etc..) se condividi un link (qualsiasi tipo di link, non solo .torrent/.nzb), Synodroid apparirà nella lista di applicazioni nelle quali puoi condividere il link.</string>
+    <string name="add_dl_st3">Seleziona file</string>
+    <string name="add_dl_t4">Da qualsiasi applicazione per gestione file o direttamente dal Download Manager di android, puoi cliccare su un file .torrent o .nzb e il file verrà inviato al tuo NAS per far partire il download.</string>
+    <string name="add_dl_st4">Aggiungi dialogo di download (Solo versione Pro)</string>
+    <string name="add_dl_t5">Dalla pagina home di Synodroid, apri il menu "Aggiungi Download" e scrivi o incolla qualsiasi link che vuoi scaricare.</string>
+    <string name="add_dl_t6">Questa è una delle tante caratteristiche di Synodroid Pro!</string>
+    <string name="search_engine_t">Motore di ricerca</string>
+    <string name="search_engine_t1">Synodroid include due motori di ricerca. Uno utilizza un’applicazione esterna (transdroid torrent search) e l’altro utilizza la ricerca nativa della DSM.</string>
+    <string name="search_engine_st1">Transdroid Torrent Search</string>
+    <string name="search_engine_t2">Transdroid Torrent Search fornisce capacità di ricerca a tutte le versioni DSM. Per usarlo, dovrai installare l’ultima versione. Un link all’ultima versione è disponibile nel menu della pagina ricerca. Mentre utilizzi questo motore di ricerca, puoi scegliere da quale sito vuoi cercare e in che modo ordinare i risultati.</string>
+    <string name="search_engine_st2">DSM Search Engine (Pro only)</string>
+    <string name="search_engine_t3">Synodroid Pro consente l’accesso al motore di ricerca Synology DSM. Ricerche fatte utilizzando il motore di ricerca della DSM sono inviate a diversi motori di ricerca contemporaneamente, non solo ad uno come Transdroid Torrent Search. Puoi organizzare i motori di ricerca mentre ne fai una.</string>
+    <string name="search_engine_t4">Questa è una delle caratteristiche  presenti nella versione Pro!</string>
+    <string name="upgrade_title">Grazie per essere passato alla versione Pro!</string>
+    <string name="upgrade_t1">Synodroid Pro contiene molte caratteristiche molto utili che lo rendono un aggiornamento necessario. Questa è la lista delle caratteristiche che hai ottenuto aggiornando:</string>
+    <string name="upgrade_st1">1. Dialogo aggiungi download</string>
+    <string name="upgrade_t2">Il dialogo di aggiunta download è una caratteristica molto utile che ti permette di scrivere o incollare qualsiasi link da scaricare con il NAS.</string>
+    <string name="upgrade_st2">2. Destinazione di Download nelle sottocartelle</string>
+    <string name="upgrade_t3">Synodroid Pro permette di impostare la destinazione dei tuoi download su qualsiasi cartella del NAS, non solo le cartelle condivise.</string>
+    <string name="upgrade_st3">3. Azioni multiple</string>
+    <string name="upgrade_t4">Synodroid Pro ti permette di eseguire azioni su più file contemporaneamente utilizzando la lista di download.</string>
+    <string name="upgrade_st4">4. Synology DSM Search Engine</string>
+    <string name="upgrade_t5">Integrazione con il motore di ricerca proprietario  Synology DSM. Permette di cercare su più siti contemporaneamente e di organizzare la lista dei siti su cui cercare.</string>
+    <string name="upgrade_st5">5. Anteprima Torrent</string>
+    <string name="upgrade_t6">Synodroid Pro fornisce l’anteprima del torrent, includendo il nome del file per qualsiasi torrent scaricato utilizzando il motore di ricerca.</string>
+    <string name="upgrade_st6">6. Individua automaticamente versione DSM</string>
+    <string name="upgrade_t7">Synodroid Pro può determinare automaticamente che versione DSM è presente sul NAS e aggiustare opportunamente la configurazione. Questo significa che non dovrai modificare la versione DSM della tua connessione ogni volta che aggiorni il tuo NAS.</string>
+    <string name="upgrade_st7">Aggiorna ora</string>
+    <string name="upgrade_play">Synodroid Pro offre molte caratteristiche rispetto alla versione gratuita. Molte alter arriveranno nella prossima versione. Compra ora Synodroid Pro prima che il prezzo salga...</string>
+    <string name="tutorial_done">Chiudi Tutorial</string>
+    <string name="tab_synology">Synology</string>
+    <string name="tab_server">Server</string>
+    <string name="tab_download">Download</string>
+    <string name="tab_search">Ricerca</string>
+    <string name="tab_pro">Pro</string>
+    <string name="title_cat_debug">Debugging</string>
+    <string name="send_debug_logs">Vedi/invia registri debug</string>
+    <string name="title_debug_logs">Anteprima registri Synodroid</string>
+    <string name="btn_send">Invia</string>
+    <string name="no_logs">Non è ancora stato prodotto alcun registro. Attiva il debugging ed esegui qualche operazione con l’applicazione fino a che non riproduci il problema prima di inviare i registri...</string>
+    <string name="label_def_srv">Server di Default</string>
+    <string name="hint_def_srv">Connetti automaticamente a questo server</string>
+    <string name="srv_always_ask">Chiedi sempre</string>
+    <string name="upgrade_st8">7. Connessione server di Default</string>
+    <string name="upgrade_t8">In Synodroid Pro, quando hai più server configurati, puoi impostare un server di default a cui Synodroid si connetterà automaticamente. Questo impedisce a Synodroid di chiederti ogni volta quale server utilizzare.</string>
+    <string name="log_load">Caricando I registri..</string>
+    <string name="pro_only">Solo PRO</string>
+    <string name="what_new">Cosa c’è di nuovo?</string>
+    <string name="adv_settings">Autenticazione</string>
+    <string name="priority_high">Alta</string>
+    <string name="priority_normal">Normale</string>
+    <string name="priority_low">Bassa</string>
+    <string name="priority_skip">Tralascia</string>
+    <string name="detail_status_error_no_exist">Errore: La cartella di destinazione non esiste</string>
+    <string name="detail_status_error_denied">Errore: Destinazione non accettata</string>
+    <string name="detail_status_error_quota">Errore: Quota raggiunta</string>
+    <string name="detail_status_error_timeout">Error: Timeout</string>
+    <string name="detail_status_error_max_fs_size">Errore: Superata dimensione massima</string>
+    <string name="detail_status_error_broken">Errore: Link rimosso</string>
+    <string name="detail_status_error_full">Errore: Disco pieno</string>
+    <string name="detail_status_error_max_temp_file">Errore: Superata massima dimensione file temporanei</string>
+    <string name="detail_status_error_max_dest_file">Errore: Superata massima dimensione file di destinazione</string>
+    <string name="detail_status_error_duplicate">Errore: Torrent duplicato</string>
+    <string name="detail_status_error_invalid">Errore: Torrent non valido</string>
+    <string name="download_station_not_found">Impossibile testare la connessione. Usa il riconoscimento automatico della versione DSM nelle impostazioni e assicurati che l\'applicazione Download Station sia installata e accesa nel NAS.</string>
+    <string name="share">Condividi URL</string>
+    <string name="detail_status_extracting">Estraendo archivio</string>
+    <string name="detail_status_error_name_too_long">Errore: Nome troppo lungo</string>
+    <string name="detail_status_error_not_exist">Errore: Il file non esiste</string>
+    <string name="detail_status_error_premium">Errore: Richiede un account premium</string>
+    <string name="detail_status_error_not_supported">Errore: Non supportato</string>
+    <string name="detail_status_error_extract_failed">Errore: Estrazione fallita</string>
+    <string name="detail_status_error_extract_wrong_password">Errore: Estrazione fallita, password errata</string>
+    <string name="detail_status_error_invalid_archive">Errore: Archivio Invalido</string>
+    <string name="detail_status_error_account">Errore: Richiede un account</string>
+
+</resources>

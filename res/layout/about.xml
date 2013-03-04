@@ -107,11 +107,20 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/TextView01"
+                android:id="@+id/tvGino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
                 android:text="- Gino Jongenelen (nl)"
+                android:textAppearance="?android:attr/textAppearanceMedium" >
+            </TextView>
+            
+            <TextView
+                android:id="@+id/tvGuido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:text="- Guido Cioni (it)"
                 android:textAppearance="?android:attr/textAppearanceMedium" >
             </TextView>
         </LinearLayout>
