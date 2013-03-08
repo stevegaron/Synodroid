@@ -58,6 +58,8 @@ public interface ResponseHandler {
 	
 	public static final int MSG_SE_LIST_RETRIEVED = 100015;
 	
+	public static final int MSG_OTP_REQUESTED = 100015;
+	
 	/**
 	 * Handle the response. BE CAREFUL this method will NOT be called from the main thread. So don't try to interact with the UI. Prefer to use SynodroidActivity subclass and then implements your code in handleMessage method.
 	 * 

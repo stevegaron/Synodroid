@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import com.bigpupdev.synodroid.protocol.DSHandler;
 import com.bigpupdev.synodroid.protocol.DSMException;
 import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
+import com.bigpupdev.synodroid.protocol.OTPRequestException;
 import com.bigpupdev.synodroid.protocol.QueryBuilder;
 
 import android.util.Log;
@@ -41,6 +42,7 @@ public class DSHandlerDSM40Factory extends DSMHandlerFactory {
 	private static final String LOGIN_RESULT_KEY = "result";
 	private static final String LOGIN_ERROR_REASON = "reason";
 	private static final String LOGIN_RESULT_SUCCESS = "success";
+	private static final String OTP_REQUEST_KEY = "request_otp";
 
 	// The Synology's server
 	private SimpleSynoServer server;
@@ -68,18 +70,31 @@ public class DSHandlerDSM40Factory extends DSMHandlerFactory {
 	 * @see com.bigpupdev.synodroid.common.protocol.DSMHandlerFactory#connect(com.bigpupdev .synodroid.common.SimpleSynoServer)
 	 */
 	@Override
-	public boolean connect() throws Exception {
+	public boolean connect(String otp) throws Exception {
 		String result = null;
 		String reason = null;
 		String pass = server.getPassword();
 		QueryBuilder builder = new QueryBuilder().add(LOGIN_USERNAME_KEY, server.getUser()).add(LOGIN_PASSWORD_KEY, pass);
+		if (otp != null){
+			builder.add("OTPcode", otp);
+		}
 		JSONObject respJSO = server.sendJSONRequest(LOGIN_URI, builder.toString(), "POST", false, 0);
 		if (DEBUG) Log.d(Synodroid.DS_TAG, "JSON response is:" + respJSO);
 		result = respJSO.getString(LOGIN_RESULT_KEY);
 		// If no success or not login success
 		if (result == null || !result.equals(LOGIN_RESULT_SUCCESS)) {
+			boolean r_otp = false;
 			reason = respJSO.getString(LOGIN_ERROR_REASON);
-			throw new DSMException(reason);
+			try{
+				r_otp = respJSO.getBoolean(OTP_REQUEST_KEY);
+			} catch (Exception e){}
+			
+			if (r_otp){
+				throw new OTPRequestException();
+			}
+			else{
+				throw new DSMException(reason);
+			}
 		}
 		else{
 			server.setConnected(true);

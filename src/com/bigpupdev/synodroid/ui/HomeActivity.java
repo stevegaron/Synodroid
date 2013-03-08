@@ -58,6 +58,7 @@ public class HomeActivity extends BaseActivity {
 	private static final int CONNECTION_DIALOG_ID = 1;
 	public static final int NO_SERVER_DIALOG_ID = 2;
 	private static final int ADD_DOWNLOAD = 3;
+	private static final int OTP_REQUEST_DIALOG_ID = 4;
 	
 	//private TagStreamFragment mTagStreamFragment;
     @Override
@@ -118,6 +119,44 @@ public class HomeActivity extends BaseActivity {
 				}
 			});
 			dialog = builderNoServer.create();
+			break;
+		case OTP_REQUEST_DIALOG_ID:
+			removeDialog(CONNECTION_DIALOG_ID);
+			
+			AlertDialog.Builder otp_request = new AlertDialog.Builder(this);
+			otp_request.setTitle(R.string.title_otp);
+			LayoutInflater otp_inflater = getLayoutInflater();
+			View otp_v = otp_inflater.inflate(R.layout.otp_request, null);
+			final EditText otp_edt = (EditText) otp_v.findViewById(R.id.otp_pass);
+			otp_edt.setText("");
+			otp_request.setView(otp_v);
+			otp_request.setCancelable(true);
+			otp_request.setPositiveButton(getString(android.R.string.ok), new OnClickListener() {
+				// Launch the Preference activity
+				public void onClick(DialogInterface dialogP, int whichP) {
+					Synodroid app = (Synodroid) getApplication();
+					FragmentManager fm = getSupportFragmentManager();
+			        try{
+			        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
+			        	app.connectServer(fragment_download, app.getServer(), null, false, otp_edt.getText().toString());
+						removeDialog(OTP_REQUEST_DIALOG_ID);
+			        }
+			        catch (Exception e){
+						//Cannot clear all when download fragment not accessible.
+						try{
+							if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call add download when download fragment hidden.");
+						}catch (Exception ex){/*DO NOTHING*/}
+					}
+					
+				}
+			});
+			otp_request.setNegativeButton(getString(android.R.string.cancel), new OnClickListener() {
+				// Launch the Preference activity
+				public void onClick(DialogInterface dialogP, int whichP) {
+					removeDialog(OTP_REQUEST_DIALOG_ID);
+				}
+			});
+			dialog = otp_request.create();
 			break;
 		case ADD_DOWNLOAD:
 			AlertDialog.Builder add_download = new AlertDialog.Builder(this);

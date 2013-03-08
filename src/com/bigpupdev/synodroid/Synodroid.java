@@ -100,7 +100,12 @@ public class Synodroid extends Application {
 	 * @param activityP
 	 * @param serverP
 	 */
+	
 	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated) {
+		connectServer(activityP, serverP, actionQueueP, automated, null);
+	}
+	
+	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated, String otp) {
 		// if (currentServer == null || !currentServer.isAlive() || !currentServer.equals(serverP)) {
 		// First disconnect the old server
 		if (currentServer != null && !automated) {
@@ -157,7 +162,7 @@ public class Synodroid extends Application {
 				}
 			}
 		}
-		currentServer.connect(activityP, actionQueueP, pub);
+		currentServer.connect(activityP, actionQueueP, pub, otp);
 		// }
 	}
 

@@ -29,6 +29,7 @@ import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.protocol.DSMException;
 import com.bigpupdev.synodroid.protocol.DSMHandlerFactory;
 import com.bigpupdev.synodroid.protocol.DownloadStationNotFound;
+import com.bigpupdev.synodroid.protocol.OTPRequestException;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
@@ -144,7 +145,7 @@ public class SynoServer extends SimpleSynoServer{
 	 * @return
 	 * @throws DSMException
 	 */
-	public void connect(final ResponseHandler handlerP, final List<SynoAction> actionQueueP, boolean publicP) {
+	public void connect(final ResponseHandler handlerP, final List<SynoAction> actionQueueP, boolean publicP, final String otp) {
 		// Set the connection according to the public or local parameter
 		if (publicP) {
 			currentConn = publicConnection;
@@ -159,7 +160,8 @@ public class SynoServer extends SimpleSynoServer{
 			Runnable runnable = new Runnable() {
 				public void run() {
 					try {
-						doConnection(false);
+						stop = false;
+						doConnection(false, otp);
 						// If the action's queue is not empty
 						if (actionQueueP != null) {
 							if (DEBUG) Log.v(Synodroid.DS_TAG, "There are items to execute in the queue...");
@@ -215,13 +217,20 @@ public class SynoServer extends SimpleSynoServer{
 							catch (Exception ex) {
 								// If not in Silent mode and throws it again
 								if (silentMode) {
-									doConnection(silentMode);
+									doConnection(silentMode, otp);
 									silentMode = false;
 								} else {
 									throw ex;
 								}
 							}
 						}
+					}
+					//Requires an OTP password to login
+					catch (OTPRequestException e){
+						if (DEBUG) Log.w(Synodroid.DS_TAG, "OTP Requested to continue to login.");
+						try{
+							fireMessage(SynoServer.this.handler, ResponseHandler.MSG_OTP_REQUESTED, null);
+						}catch (Exception err){}
 					}
 					// Connection error
 					catch (DSMException e) {
@@ -265,13 +274,13 @@ public class SynoServer extends SimpleSynoServer{
 	 * 
 	 * @throws Exception
 	 */
-	private void doConnection(boolean silentModeP) throws Exception {
+	private void doConnection(boolean silentModeP, String otp) throws Exception {
 		// Send a connecting message
 		if (!silentModeP) {
 			fireMessage(handler, ResponseHandler.MSG_CONNECTING);
 		}
 		// Connect: try to...
-		boolean need_shared = !dsmFactory.connect();
+		boolean need_shared = !dsmFactory.connect(otp);
 		// Send a connected message
 		if (!silentModeP) {
 			fireMessage(SynoServer.this.handler, ResponseHandler.MSG_CONNECTED);

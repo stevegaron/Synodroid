@@ -85,6 +85,8 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	private static final int CONNECTION_DIALOG_ID = 1;
 	// No server configured
 	private static final int NO_SERVER_DIALOG_ID = 2;
+	// No server configured
+	private static final int OTP_REQUEST_DIALOG_ID = 4;
 
 	// The torrent listview
 	public ListView taskView;
@@ -235,6 +237,23 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			
 			updateEmptyValues(a.getString(R.string.empty_list_loading), true);
 			
+		}
+		// Connecting to the server
+		else if (msg.what == ResponseHandler.MSG_OTP_REQUESTED) {
+			try{
+				if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Received OTP Request message.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			// Clear the prevous task list
+			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
+			validateChecked(taskAdapter.updateTasks(new ArrayList<Task>(), checked_tasks_id));
+			// Show the connection dialog
+			try {
+				a.showDialog(OTP_REQUEST_DIALOG_ID);
+			} catch (Exception e) {
+				// Unable to show dialog probably because intent has been closed. Ignoring...
+			}
+			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
 		}
 		// Connecting to the server
 		else if (msg.what == ResponseHandler.MSG_CONNECTING) {

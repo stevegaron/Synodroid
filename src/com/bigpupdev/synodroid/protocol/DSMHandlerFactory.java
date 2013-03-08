@@ -121,7 +121,7 @@ public abstract class DSMHandlerFactory {
 	 * 
 	 * @param serverP
 	 */
-	public abstract boolean connect() throws Exception;
+	public abstract boolean connect(String otp) throws Exception;
 
 	/**
 	 * Return the Download station handler

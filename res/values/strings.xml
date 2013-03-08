@@ -496,4 +496,6 @@
 <string name="detail_status_error_invalid_archive">Error: Invalid archive</string>
 <string name="detail_status_error_account">Error: Requires an account</string>
 
+<string name="title_otp">One Time Password:</string>
+
 </resources>

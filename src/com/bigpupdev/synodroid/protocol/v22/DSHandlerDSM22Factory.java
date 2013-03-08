@@ -68,7 +68,7 @@ public class DSHandlerDSM22Factory extends DSMHandlerFactory {
 	 * @see com.bigpupdev.synodroid.common.protocol.DSMHandlerFactory#connect(com.bigpupdev .synodroid.common.SynoServer)
 	 */
 	@Override
-	public boolean connect() throws Exception {
+	public boolean connect(String otp) throws Exception {
 		String result = null;
 		String reason = null;
 		String pass = server.getPassword();
