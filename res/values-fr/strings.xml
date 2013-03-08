@@ -492,4 +492,7 @@
 <string name="detail_status_error_invalid_archive">Erreur: N\'est pas une archive valide</string>
 <string name="detail_status_error_account">Erreur: Nécessite un compte</string>
 
+<string name="title_otp">Code de vérification</string>
+<string name="connect_wrong_otp">&quot;Code de vérification incorrect. Réessayez.&quot;</string>
+
 </resources>

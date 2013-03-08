@@ -15,7 +15,6 @@ import com.bigpupdev.synodroid.adapter.TaskAdapter;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
-import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.ui.DownloadPreferenceActivity;
 
 import android.app.Activity;
@@ -122,6 +121,10 @@ public class HomeActivity extends BaseActivity {
 			break;
 		case OTP_REQUEST_DIALOG_ID:
 			removeDialog(CONNECTION_DIALOG_ID);
+			final Synodroid app = (Synodroid) getApplication();
+			FragmentManager fm = getSupportFragmentManager();
+			final DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
+			fragment_download.setOTPDialog(true);
 			
 			AlertDialog.Builder otp_request = new AlertDialog.Builder(this);
 			otp_request.setTitle(R.string.title_otp);
@@ -130,30 +133,21 @@ public class HomeActivity extends BaseActivity {
 			final EditText otp_edt = (EditText) otp_v.findViewById(R.id.otp_pass);
 			otp_edt.setText("");
 			otp_request.setView(otp_v);
-			otp_request.setCancelable(true);
+			otp_request.setCancelable(false);
 			otp_request.setPositiveButton(getString(android.R.string.ok), new OnClickListener() {
 				// Launch the Preference activity
 				public void onClick(DialogInterface dialogP, int whichP) {
-					Synodroid app = (Synodroid) getApplication();
-					FragmentManager fm = getSupportFragmentManager();
-			        try{
-			        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
+					try{
+			        	fragment_download.setOTPDialog(false);
 			        	app.connectServer(fragment_download, app.getServer(), null, false, otp_edt.getText().toString());
 						removeDialog(OTP_REQUEST_DIALOG_ID);
 			        }
 			        catch (Exception e){
 						//Cannot clear all when download fragment not accessible.
 						try{
-							if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call add download when download fragment hidden.");
+							if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call OTP login when download fragment hidden.");
 						}catch (Exception ex){/*DO NOTHING*/}
 					}
-					
-				}
-			});
-			otp_request.setNegativeButton(getString(android.R.string.cancel), new OnClickListener() {
-				// Launch the Preference activity
-				public void onClick(DialogInterface dialogP, int whichP) {
-					removeDialog(OTP_REQUEST_DIALOG_ID);
 				}
 			});
 			dialog = otp_request.create();

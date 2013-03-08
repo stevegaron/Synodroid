@@ -377,6 +377,8 @@ public class SynoServer extends SimpleSynoServer{
 				msg = handlerP.getString(R.string.connect_already_connected);
 			} else if (jsoReason.equals("error_noprivilege")) {
 				msg = handlerP.getString(R.string.connect_cant);
+			} else if (jsoReason.equals("error_otp_failed")) {
+				msg = handlerP.getString(R.string.connect_wrong_otp);
 			} else {
 				String mapMessage = map.get(jsoReason);
 				if (mapMessage == null) {

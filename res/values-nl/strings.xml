@@ -490,4 +490,7 @@
 <string name="detail_status_error_invalid_archive">Fout: Ongeldig archief</string>
 <string name="detail_status_error_account">Fout: U heeft een account nodig</string>
 
+<string name="title_otp">Verificatiecode</string>
+<string name="connect_wrong_otp">"Verkeerde verificatiecode. Controleer uw gegevens."</string>
+
 </resources>

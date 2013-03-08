@@ -485,4 +485,7 @@
 <string name="download_station_not_found">Verbindungstest fehlgeschlagen. Benutzen sie die automatische DSM-Erkennung in den Einstellungen und stellen sie sicher, dass die Download Station auf ihrem NAS installiert ist und läuft.</string>
 <string name="share">URL teilen</string>
 
+<string name="title_otp">Bestätigungs-Code</string>
+<string name="connect_wrong_otp">&quot;Falscher Bestätigungscode. Bitte versuchen Sie es erneut.&quot;</string>
+
 </resources>

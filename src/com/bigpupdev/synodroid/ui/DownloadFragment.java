@@ -98,10 +98,16 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	// Flag to tell app that the connect dialog is opened
 	private boolean connectDialogOpened = false;
 	
+	private boolean otp_dialog = false;
+	
 	public boolean alreadyCanceled = false;
 	public ActionModeHelper mCurrentActionMode;
 	
 	private android.view.View.OnClickListener ocl;
+	
+	public void setOTPDialog(boolean otp){
+		otp_dialog = otp;
+	}
 	
 	private void updateEmptyValues(String text, boolean showPB){
 		View empty = taskView.getEmptyView();
@@ -693,7 +699,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		}
 		// No server then display the connection dialog
 		else {
-			if (connectToServer)
+			if (connectToServer && !otp_dialog)
 				showDialogToConnect(true, null, true);
 		}
 	}

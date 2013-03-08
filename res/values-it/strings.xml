@@ -469,4 +469,7 @@
     <string name="detail_status_error_invalid_archive">Errore: Archivio Invalido</string>
     <string name="detail_status_error_account">Errore: Richiede un account</string>
 
+    <string name="title_otp">Codice di verifica</string>
+    <string name="connect_wrong_otp">"Codice di verifica errati. Riprovare, per favore."</string>
+    
 </resources>

@@ -488,4 +488,7 @@
 <string name="detail_status_error_invalid_archive">Error: Archivo inválido</string>
 <string name="detail_status_error_account">Error: Es necesario una cuenta</string>
 
+<string name="title_otp">Código de verificación</string>
+<string name="connect_wrong_otp">"Código de verificación incorrecta. Pruebe de nuevo."</string>
+
 </resources>
