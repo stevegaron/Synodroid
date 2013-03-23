@@ -21,17 +21,17 @@
         android:icon="@drawable/ic_menu_wizard"
         android:title="@string/wizard_menu"
         android:orderInCategory="0"
-        android:showAsAction="ifRoom|withText"/>
+        android:showAsAction="ifRoom|withText" android:visible="false"/>
 
     <item android:id="@+id/menu_create"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/ic_menu_add_download"
         android:title="@string/menu_add_server"
         android:orderInCategory="0"
-        android:showAsAction="ifRoom|withText"/>
+        android:showAsAction="ifRoom|withText" android:visible="false"/>
 
     <item android:id="@+id/menu_delete"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_menu_delete"
         android:title="@string/menu_delete_server"
         android:orderInCategory="0"
-        android:showAsAction="ifRoom|withText"/>
+        android:showAsAction="ifRoom|withText" android:visible="false"/>
 </menu>

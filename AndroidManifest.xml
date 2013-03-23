@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bigpupdev.synodroid"
     android:installLocation="auto"
-    android:versionCode="224"
-    android:versionName="2.2.4" >
+    android:versionCode="230"
+    android:versionName="2.3.0 Beta" >
 
     <uses-sdk
-        android:minSdkVersion="4"
+        android:minSdkVersion="7"
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />

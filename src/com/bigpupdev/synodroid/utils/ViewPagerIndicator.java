@@ -1,5 +1,7 @@
 package com.bigpupdev.synodroid.utils;
 
+import com.slidingmenu.lib.SlidingMenu;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 public class ViewPagerIndicator extends RelativeLayout implements OnPageChangeListener {
 	private static final int PADDING = 5;
 	
+	SlidingMenu menu = null;
 	TextView mPrevious;
 	TextView mCurrent;
 	TextView mNext;
@@ -194,6 +197,10 @@ public class ViewPagerIndicator extends RelativeLayout implements OnPageChangeLi
 		updateColor(0);
 	}
 
+	public void setSlidingMenu(SlidingMenu p_menu){
+		menu = p_menu;
+	}
+	
 	public void onPageScrollStateChanged(int state) {
 		
 	}
@@ -205,6 +212,16 @@ public class ViewPagerIndicator extends RelativeLayout implements OnPageChangeLi
 		updateColor(positionOffsetPixels);
 		updateArrows(position);
 		updatePositions(positionOffsetPixels);
+		if (menu != null){
+			switch (position) {
+			case 0:
+				menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+				break;
+			default:
+				menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+				break;
+			}
+		}
 	}
 	
 	void updatePositions(int positionOffsetPixels){
@@ -215,23 +232,11 @@ public class ViewPagerIndicator extends RelativeLayout implements OnPageChangeLi
 			int offset = Math.min(positionOffsetPixels, maxOffset - 1);
 			mCurrent.setPadding(0, 0, 2 * offset, 0);
 			
-			// Move previous text out of the way. Slightly buggy.
-			/*
-			int overlapLeft = mPreviousGroup.getRight() - mCurrent.getLeft() + mArrowPadding;
-			mPreviousGroup.setPadding(0, 0, Math.max(0, overlapLeft), 0);
-			mNextGroup.setPadding(0, 0, 0, 0);
-			*/
 		}else{
 			maxOffset -= this.getPaddingRight();
 			int offset = Math.max(positionOffsetPixels, -maxOffset);
 			mCurrent.setPadding(-2 * offset, 0, 0, 0);
 			
-			// Move next text out of the way. Slightly buggy.
-			/*
-			int overlapRight = mCurrent.getRight() - mNextGroup.getLeft() + mArrowPadding;
-			mNextGroup.setPadding(Math.max(0, overlapRight), 0, 0, 0);
-			mPreviousGroup.setPadding(0, 0, 0, 0);
-			*/
 		}
 	}
 	

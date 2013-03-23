@@ -53,7 +53,7 @@ public class GetStartedActivity extends BaseActivity{
         // * How many pages are there in total
         // * A callback to get page titles
         mIndicator.setViewPager(mPager);
-		getActivityHelper().setupActionBar(getString(R.string.welcome), false);
+		getActivityHelper().setupActionBar(getString(R.string.welcome), false, null);
 	}
 	
 	@Override

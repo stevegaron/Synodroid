@@ -197,7 +197,9 @@ public class SearchActivity extends BaseActivity{
             EulaHelper.showEula(false, this);
         }
         setContentView(R.layout.activity_search);
-        getActivityHelper().setupActionBar(getString(R.string.search_hint), false);
+        attachSlidingMenu(((Synodroid)getApplication()).getServer());
+        getActivityHelper().setupActionBar(getString(R.string.search_hint), false, getSlidingMenu());
+        
     }
 	
 	@Override

@@ -19,15 +19,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager.BadTokenException;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 /**
  * This activity displays a help page
@@ -54,7 +51,7 @@ public class HelpFragment extends Fragment {
 		
 		final FragmentActivity helpActivity = this.getActivity();
 		View help = inflater.inflate(R.layout.help, null, false);
-		Button helpBtn = (Button) help.findViewById(R.id.id_email);
+		ImageView helpBtn = (ImageView) help.findViewById(R.id.t_gmail);
 		helpBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				try {
@@ -80,7 +77,8 @@ public class HelpFragment extends Fragment {
 				}
 			}
 		});
-		Button gplusBtn = (Button) help.findViewById(R.id.id_gplus);
+		
+		ImageView gplusBtn = (ImageView) help.findViewById(R.id.t_gplus);
 		gplusBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				String url = "https://plus.google.com/111893484035545745539";
@@ -90,14 +88,6 @@ public class HelpFragment extends Fragment {
 			}
 		});
 		
-		TextView main_web = (TextView) help.findViewById(R.id.syno_main_web);
-		main_web.setText(Html.fromHtml("<a href=\"http://www.synology.com\">www.synology.com</a>"));
-		main_web.setMovementMethod(LinkMovementMethod.getInstance());
-
-		TextView buy = (TextView) help.findViewById(R.id.syno_buy_web);
-		buy.setText(Html.fromHtml("<a href=\"http://www.synology.com/support/wheretobuy.php\">www.synology.com/support/wheretobuy.php</a>"));
-		buy.setMovementMethod(LinkMovementMethod.getInstance());
-
 		return help;
 	}
 }

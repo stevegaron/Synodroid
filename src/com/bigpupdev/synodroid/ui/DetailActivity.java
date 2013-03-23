@@ -813,7 +813,7 @@ public class DetailActivity extends BaseActivity{
         
         try{
         	if (((Synodroid)getApplication()).getServer().getDsmVersion().greaterThen(DSMVersion.VERSION3_0)){
-        		menu.add(0, MENU_DESTINATION, 0, getString(R.string.menu_destination)).setIcon(android.R.drawable.ic_menu_share).setEnabled(true);
+        		menu.add(0, MENU_DESTINATION, 0, getString(R.string.menu_destination)).setIcon(android.R.drawable.ic_menu_upload).setEnabled(true);
         	}
         }catch (NullPointerException e){/*No need to catch the exception*/}
 		
@@ -1037,6 +1037,7 @@ public class DetailActivity extends BaseActivity{
         mAdapter = new MyAdapter(getSupportFragmentManager(), 3, this, ((Synodroid)getApplication()).DEBUG);
         
         mPager = (ViewPager)findViewById(R.id.pager);
+        mPager.setOffscreenPageLimit(2);
         mPager.setAdapter(mAdapter);
         // Find the indicator from the layout
         mIndicator = (ViewPagerIndicator)findViewById(R.id.indicator);
@@ -1049,14 +1050,8 @@ public class DetailActivity extends BaseActivity{
         // * How many pages are there in total
         // * A callback to get page titles
         mIndicator.init(0, mAdapter.getCount(), mAdapter);
-		Resources res = getResources();
-		Drawable prev = res.getDrawable(R.drawable.indicator_prev_arrow);
-		Drawable next = res.getDrawable(R.drawable.indicator_next_arrow);
 		mIndicator.setFocusedTextColor(new int[]{255, 255, 255});
-		mIndicator.setUnfocusedTextColor(new int[]{120, 120, 120});
-		
-		// Set images for previous and next arrows.
-		mIndicator.setArrows(prev, next);
+		mIndicator.setUnfocusedTextColor(new int[]{90, 90, 90});
 		
 		mIndicator.setOnClickListener(new OnIndicatorClickListener());
 
@@ -1073,7 +1068,7 @@ public class DetailActivity extends BaseActivity{
 			priorities[iLoop] = Integer.parseInt(priorityArray[iLoop]);
 		}
 
-		getActivityHelper().setupActionBar(task.fileName, false);
+		getActivityHelper().setupActionBar(task.fileName, false, null);
     }
 
 	class OnIndicatorClickListener implements ViewPagerIndicator.OnClickListener{

@@ -338,7 +338,7 @@
 <string name="empty_file_list_wrong_type">Not available for non-Torrent/NZB downloads.</string>
 <string name="empty_download_list">There are no downloads on your NAS at the moment.\n\nYou can add downloads by using the add button, the search button or using the share feature from your Android browser.</string>
 <string name="empty_list_loading">Loading...</string>
-<string name="empty_not_connected">Not connected.</string>	
+<string name="empty_not_connected">Not connected</string>	
 <string name="err_file_list">Failed to get file listing. Make sure the your server configuration match your DSM version.</string>
 <string name="tab_main">Download</string>    
 <string name="tab_transfer">Transfer</string>    
@@ -498,5 +498,16 @@
 
 <string name="title_otp">Verification code</string>
 <string name="connect_wrong_otp">"Wrong verification code. Please try again."</string>
+
+<string name="sliding_downloads">Downloads</string>
+<string name="sliding_browser">Browser</string>
+<string name="sliding_files">Files</string>
+<string name="sliding_rss">RSS</string>
+<string name="sliding_search">Search</string>
+<string name="sliding_about">About</string>
+<string name="sliding_help">Help</string>
+
+<string name="help_title">We are here to help</string>
+<string name="help_text">You\'ve read through the tutorial and still have issues with our app or you would like to request a new feature in the app. We got you covered, us one of the two button below to either send us an email or drop us a line on Google+.</string>
 
 </resources>

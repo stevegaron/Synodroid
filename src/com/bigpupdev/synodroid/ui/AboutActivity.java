@@ -3,8 +3,6 @@ package com.bigpupdev.synodroid.ui;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -64,7 +62,7 @@ public class AboutActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		
         setContentView(R.layout.activity_about);
-        mAdapter = new MyAdapter(getSupportFragmentManager(), 6, this);
+        mAdapter = new MyAdapter(getSupportFragmentManager(), 7, this);
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         // Find the indicator from the layout
@@ -78,18 +76,14 @@ public class AboutActivity extends BaseActivity{
         // * How many pages are there in total
         // * A callback to get page titles
         mIndicator.init(0, mAdapter.getCount(), mAdapter);
-		Resources res = getResources();
-		Drawable prev = res.getDrawable(R.drawable.indicator_prev_arrow);
-		Drawable next = res.getDrawable(R.drawable.indicator_next_arrow);
 		mIndicator.setFocusedTextColor(new int[]{255, 255, 255});
-		mIndicator.setUnfocusedTextColor(new int[]{120, 120, 120});
-		
-		// Set images for previous and next arrows.
-		mIndicator.setArrows(prev, next);
+		mIndicator.setUnfocusedTextColor(new int[]{90, 90, 90});
 		
 		mIndicator.setOnClickListener(new OnIndicatorClickListener());
 
-		getActivityHelper().setupActionBar(getString(R.string.menu_about), false);
+		attachSlidingMenu(((Synodroid)getApplication()).getServer());
+		getActivityHelper().setupActionBar(getString(R.string.menu_about), false, getSlidingMenu());
+        mIndicator.setSlidingMenu(getSlidingMenu());
 	}
 	
 	@Override
@@ -153,8 +147,10 @@ public class AboutActivity extends BaseActivity{
 					return new AddDownloadFragment();
 				case 4:
 					return new SearchEngineFragment();
-				default:
+				case 5:
 					return new UpgradeProFragment();
+				default:
+					return new HelpFragment();
         	}
         }
 
@@ -170,11 +166,12 @@ public class AboutActivity extends BaseActivity{
     			return mCurActivity.getString(R.string.tab_download);
     		case 4:
     			return mCurActivity.getString(R.string.tab_search);
-    		default:
+    		case 5:
     			return mCurActivity.getString(R.string.tab_pro);
+        	default:
+    			return mCurActivity.getString(R.string.help);
         	}
 		}
-
     }
 	
 	class OnIndicatorClickListener implements ViewPagerIndicator.OnClickListener{

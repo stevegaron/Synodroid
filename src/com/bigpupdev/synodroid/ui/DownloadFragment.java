@@ -81,8 +81,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
 	private static final String PREFERENCE_SERVER = "servers_cat";
 	
-	// The connection dialog ID
-	private static final int CONNECTION_DIALOG_ID = 1;
 	// No server configured
 	private static final int NO_SERVER_DIALOG_ID = 2;
 	// No server configured
@@ -99,11 +97,20 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	private boolean connectDialogOpened = false;
 	
 	private boolean otp_dialog = false;
+	private List<SynoAction> postOTPActions = null;
 	
 	public boolean alreadyCanceled = false;
 	public ActionModeHelper mCurrentActionMode;
 	
 	private android.view.View.OnClickListener ocl;
+	
+	public List<SynoAction> getPostOTPActions(){
+		return postOTPActions;
+	}
+	
+	public void resetPostOTPActions(){
+		postOTPActions = null;
+	}
 	
 	public void setOTPDialog(boolean otp){
 		otp_dialog = otp;
@@ -143,6 +150,12 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		}
 	}
 	
+	public void resetCurrentStateValues(){
+		totalUpView.setText(" 0.00 KB/s");
+		totalDownView.setText(" 0.00 KB/s");
+		totalTasksView.setText("0");
+	}
+	
 	/**
 	 * Handle the message
 	 */
@@ -164,9 +177,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// Get the adapter
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
 			validateChecked(taskAdapter.updateTasks(tasks, checked_tasks_id));
-			
-			// Dismiss the connection dialog
-			killDialog(CONNECTION_DIALOG_ID);
 			
 			// Update total rates
 			totalUpView.setText(container.getTotalUp());
@@ -192,9 +202,12 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			// Change the title
+			((HomeActivity)a).updateSMServer(null);
+			
 			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false);
 			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
+			resetCurrentStateValues();
 			
 			// No tasks
 			ArrayList<Task> tasks = new ArrayList<Task>();
@@ -203,9 +216,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			taskView.setOnItemClickListener(taskAdapter);
 			taskView.setOnItemLongClickListener(taskAdapter);
 			validateChecked(taskAdapter.updateTasks(tasks, checked_tasks_id));
-			
-			// Dismiss the connection dialog
-			killDialog(CONNECTION_DIALOG_ID);
 			
 			// Show the error
 			// Save the last error inside the server to surive UI rotation and
@@ -235,11 +245,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// Change the title
 			String title = server.getNickname();
 			
+			((HomeActivity)a).updateSMServer(server);
 			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS);
 			((HomeActivity)a).updateActionBarTitleOCL(ocl);
-			
-			// Dissmiss the connection dialog
-			killDialog(CONNECTION_DIALOG_ID);
 			
 			updateEmptyValues(a.getString(R.string.empty_list_loading), true);
 			
@@ -253,6 +261,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// Clear the prevous task list
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
 			validateChecked(taskAdapter.updateTasks(new ArrayList<Task>(), checked_tasks_id));
+			postOTPActions = (List<SynoAction>)msg.obj;
 			// Show the connection dialog
 			try {
 				a.showDialog(OTP_REQUEST_DIALOG_ID);
@@ -270,13 +279,13 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			// Clear the prevous task list
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
 			validateChecked(taskAdapter.updateTasks(new ArrayList<Task>(), checked_tasks_id));
+			((HomeActivity)a).updateSMServer(null);
+			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false);
+			((HomeActivity)a).updateActionBarTitleOCL(ocl);
+			resetCurrentStateValues();
+			
 			// Show the connection dialog
-			try {
-				a.showDialog(CONNECTION_DIALOG_ID);
-			} catch (Exception e) {
-				// Unable to show dialog probably because intent has been closed. Ignoring...
-			}
-			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
+			updateEmptyValues(a.getString(R.string.connect_connecting2), true);
 		}
 		// Show task's details
 		else if (msg.what == ResponseHandler.MSG_SHOW_DETAILS) {
@@ -382,8 +391,10 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        final Activity a = getActivity(); 
         ocl = new android.view.View.OnClickListener(){
 			public void onClick(View v) {
+				((BaseActivity) a).getSlidingMenu().showContent();
 				showDialogToConnect(false, null, false);
 			}
 		};
@@ -639,6 +650,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 	public void onResume() {
 		super.onResume();
 		final Activity a = getActivity();
+		if (ocl != null) {
+			((HomeActivity)a).updateActionBarTitleOCL(ocl);
+		}
 		
 		SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 		if (preferences.getBoolean(PREFERENCE_SHOW_GET_STARTED, true)){
@@ -683,22 +697,25 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		// There are some case where the connected server does not show up in
 		// the title bar on top. This fixes thoses cases.
 		SynoServer server = ((Synodroid) a.getApplication()).getServer();
+		((HomeActivity)a).updateSMServer(server);
+		((HomeActivity)a).updateActionBarTitleOCL(ocl);
 		if (server != null && server.isConnected()) {
 			String title = server.getNickname();
 			
 			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS);
-			((HomeActivity)a).updateActionBarTitleOCL(ocl);
+			updateEmptyValues(a.getString(R.string.empty_list_loading), true);
 			
 			// Launch the gets task's details recurrent action
 			Synodroid app = (Synodroid) a.getApplication();
 			app.setRecurrentAction(this, new GetAllAndOneDetailTaskAction(server.getSortAttribute(), server.isAscending(), (TaskAdapter) taskView.getAdapter()));
-
 			app.resumeServer();
-			
-			updateEmptyValues(a.getString(R.string.empty_list_loading), true);
 		}
 		// No server then display the connection dialog
 		else {
+			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false);
+			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
+			resetCurrentStateValues();
+			
 			if (connectToServer && !otp_dialog)
 				showDialogToConnect(true, null, true);
 		}

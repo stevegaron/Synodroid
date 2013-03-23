@@ -17,7 +17,10 @@
 package com.bigpupdev.synodroid.utils;
 
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.ui.BaseActivity;
+import com.bigpupdev.synodroid.ui.DetailActivity;
 import com.bigpupdev.synodroid.ui.HomeActivity;
+import com.slidingmenu.lib.SlidingMenu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -42,6 +45,7 @@ import android.widget.TextView;
  */
 public class ActivityHelper {
     protected Activity mActivity;
+    private SlidingMenu menu = null;
     
     /**
      * Factory method for creating {@link ActivityHelper} objects for a given activity. Depending
@@ -61,7 +65,7 @@ public class ActivityHelper {
     protected ActivityHelper(Activity activity) {
         mActivity = activity;
     }
-
+    
     public void triggerDDNavigationMode(){}
     public void invalidateOptionMenu(){}
     
@@ -84,7 +88,7 @@ public class ActivityHelper {
 	        if (mActivity instanceof HomeActivity){
 	        	mActivity.getMenuInflater().inflate(R.menu.action_mode_menu, actionMenu);
 	        }
-	        else {
+	        else if (mActivity instanceof DetailActivity) {
 	        	mActivity.getMenuInflater().inflate(R.menu.action_mode_file_menu, actionMenu);
 	        }
 	        
@@ -125,30 +129,35 @@ public class ActivityHelper {
      * Invoke "home" action, returning to {@link com.google.android.apps.iosched.ui.HomeActivity}.
      */
     public void goHome() {
-        if (mActivity instanceof HomeActivity) {
-            return;
-        }
+    	if (menu != null){
+    		menu.toggle();
+    	}
+    	else{
+    		if (mActivity instanceof HomeActivity) {
+                return;
+            }
 
-        final Intent intent = new Intent(mActivity, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mActivity.startActivity(intent);
-        
-        //TODO: fix!?
-        //if (!UIUtils.isHoneycomb()) {
-        //    mActivity.overridePendingTransition(R.anim.home_enter, R.anim.home_exit);
-        //}
+            final Intent intent = new Intent(mActivity, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            mActivity.startActivity(intent);
+    	}
     }
 
     public void setTitleOnClickListener(OnClickListener ocl){
-    	ViewGroup actionBar = getActionBarCompat();
-        if (actionBar == null) {
-            return;
-        }
+    	if (menu != null){
+    		((BaseActivity) mActivity).setServerChangeListener(ocl);
+    	}
+    	else{
+    		ViewGroup actionBar = getActionBarCompat();
+            if (actionBar == null) {
+                return;
+            }
 
-        ImageButton logo = (ImageButton) actionBar.findViewById(R.id.actionbar_compat_logo);
-        if (logo != null) {
-        	logo.setOnClickListener(ocl);
-        }
+            ImageButton logo = (ImageButton) actionBar.findViewById(R.id.actionbar_compat_logo);
+            if (logo != null) {
+            	logo.setOnClickListener(ocl);
+            }
+    	}
     }
     
     /**
@@ -156,12 +165,12 @@ public class ActivityHelper {
      * the app logo will be shown instead of a title. Otherwise, a home button and title are
      * visible. If color is null, then the default colorstrip is visible.
      */
-    public void setupActionBar(CharSequence title, boolean is_home) {
-        final ViewGroup actionBarCompat = getActionBarCompat();
+    public void setupActionBar(CharSequence title, boolean is_home, SlidingMenu pmenu) {
+    	final ViewGroup actionBarCompat = getActionBarCompat();
         if (actionBarCompat == null) {
             return;
         }
-
+        
         LinearLayout.LayoutParams springLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.FILL_PARENT);
         springLayoutParams.weight = 1;
         
@@ -175,7 +184,7 @@ public class ActivityHelper {
             }
         };
 
-    	if (!is_home){
+    	if (!is_home || menu == null){
     		// Add Home button
     		addActionButtonCompat(R.drawable.ic_title_home, R.string.description_home,
     				homeClickListener, true);
@@ -205,6 +214,8 @@ public class ActivityHelper {
             actionText.setText("");
             actionMode.addView(actionText);
         }
+        menu = pmenu;
+        
     }
 
     /**

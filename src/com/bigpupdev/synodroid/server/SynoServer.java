@@ -229,7 +229,7 @@ public class SynoServer extends SimpleSynoServer{
 					catch (OTPRequestException e){
 						if (DEBUG) Log.w(Synodroid.DS_TAG, "OTP Requested to continue to login.");
 						try{
-							fireMessage(SynoServer.this.handler, ResponseHandler.MSG_OTP_REQUESTED, null);
+							fireMessage(SynoServer.this.handler, ResponseHandler.MSG_OTP_REQUESTED, actionQueueP);
 						}catch (Exception err){}
 					}
 					// Connection error

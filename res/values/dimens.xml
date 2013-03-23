@@ -23,4 +23,7 @@
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_xlarge">18sp</dimen>
     
+    <dimen name="slidingmenu_offset">50dp</dimen>
+    <dimen name="shadow_width">10dp</dimen>
+    
 </resources>

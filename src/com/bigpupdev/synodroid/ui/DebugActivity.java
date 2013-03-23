@@ -79,7 +79,7 @@ public class DebugActivity extends BaseActivity{
         	
         });
 
-		getActivityHelper().setupActionBar(getString(R.string.title_debug_logs), false);
+		getActivityHelper().setupActionBar(getString(R.string.title_debug_logs), false, null);
         
 	}
 	

@@ -69,7 +69,7 @@ import android.widget.Toast;
  * 
  * @author Eric Taix (eric.taix at gmail.com)
  */
-public class DownloadPreferenceActivity extends BasePreferenceActivity implements PreferenceProcessor {
+public class DownloadPreferenceActivity extends CustomPreferenceActivity implements PreferenceProcessor {
 
 	// Menu Create server
 	public static final int MENU_CREATE = 1;
@@ -105,6 +105,8 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_preference);
+        
 		// Add the preference screen
 		addPreferencesFromResource(R.xml.preference);
 
@@ -246,14 +248,15 @@ public class DownloadPreferenceActivity extends BasePreferenceActivity implement
 		
 		// Load currents servers
 		reloadCurrentServers();
+		
+		attachSlidingMenu(((Synodroid)getApplication()).getServer());
+		getActivityHelper().setupActionBar(getString(R.string.menu_parameter), false, getSlidingMenu());
 	}
 
 	@Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        if (UIUtils.isHoneycomb()){
-        	getActivityHelper().setupSubActivity();
-        }
+        getActivityHelper().setupSubActivity();
     }
 	
 	private void clearSearchHistory() {

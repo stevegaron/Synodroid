@@ -8,7 +8,6 @@
     tools:ignore="HardcodedText" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/dl_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -24,7 +23,7 @@
             android:layout_marginRight="5dip"
             android:text="0"
             android:textColor="#FF909090"
-            android:textSize="14dip" >
+            android:textSize="14sp" >
         </TextView>
 
         <TextView
@@ -33,12 +32,11 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:text="@string/tasks"
             android:textColor="#FF909090"
-            android:textSize="14dip" >
+            android:textSize="14sp" >
         </TextView>
     </LinearLayout>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rate_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -63,7 +61,7 @@
             android:layout_marginRight="20dip"
             android:text="0.00KB/s"
             android:textColor="#FF909090"
-            android:textSize="14dip" >
+            android:textSize="14sp" >
         </TextView>
 
         <ImageView
@@ -82,7 +80,7 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:text="0.00KB/s"
             android:textColor="#FF909090"
-            android:textSize="14dip" >
+            android:textSize="14sp" >
         </TextView>
     </LinearLayout>
 
@@ -101,7 +99,6 @@
     </ListView>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@id/android:empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

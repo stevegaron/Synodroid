@@ -17,8 +17,10 @@
 package com.bigpupdev.synodroid.utils;
 
 import com.bigpupdev.synodroid.R;
+import com.bigpupdev.synodroid.ui.BaseActivity;
 import com.bigpupdev.synodroid.ui.HomeActivity;
 import com.bigpupdev.synodroid.utils.UIUtils;
+import com.slidingmenu.lib.SlidingMenu;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -42,6 +44,7 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     private OnClickListener ocl = null;
     private SearchView searchView = null;
     private MenuItem searchMenuItem = null;
+    private SlidingMenu menu = null;
 
     protected ActivityHelperHoneycomb(Activity activity) {
         super(activity);
@@ -155,17 +158,22 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
      * Invoke "home" action, returning to {@link com.google.android.apps.iosched.ui.HomeActivity}.
      */
     public void goHome() {
-        if (mActivity instanceof HomeActivity) {
-            return;
-        }
+    	if (menu != null){
+    		menu.toggle();
+    	}
+    	else{
+    		if (mActivity instanceof HomeActivity) {    
+    			return;
+            }
 
-        final Intent intent = new Intent(mActivity, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mActivity.startActivity(intent);
-        
-        if (!UIUtils.isHoneycomb()) {
-            mActivity.overridePendingTransition(R.anim.home_enter, R.anim.home_exit);
-        }
+            final Intent intent = new Intent(mActivity, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            mActivity.startActivity(intent);
+            
+            if (!UIUtils.isHoneycomb()) {
+                mActivity.overridePendingTransition(R.anim.home_enter, R.anim.home_exit);
+            }
+    	}
     }
     
     /**
@@ -173,30 +181,38 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
      * the app logo will be shown instead of a title. Otherwise, a home button and title are
      * visible. If color is null, then the default colorstrip is visible.
      */
-    public void setupActionBar(CharSequence title, boolean is_home) {
+    public void setupActionBar(CharSequence title, boolean is_home, SlidingMenu pmenu) {
         setActionBarTitle(title, false);
+        if (pmenu != null){
+            menu = pmenu;  
+        }
     }
     
     /** {@inheritDoc} */
     @Override
     public void setupHomeActivity() {
-        super.setupHomeActivity();
-        // NOTE: there needs to be a content view set before this is called, so this method
-        // should be called in onPostCreate.
-        if (UIUtils.isTablet(mActivity)) {
-            mActivity.getActionBar().setDisplayOptions(
-                    0,
-                    ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
-        } else {
-            mActivity.getActionBar().setDisplayOptions(
-                    ActionBar.DISPLAY_USE_LOGO,
-                    ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
-        }
-        if (UIUtils.isICS())
-        	mActivity.getActionBar().setHomeButtonEnabled(true);
-        mActivity.getActionBar().setDisplayShowTitleEnabled(true);
+    	if (menu != null){
+    		setupSubActivity();
+    	}
+    	else{
+    		super.setupHomeActivity();
+            // NOTE: there needs to be a content view set before this is called, so this method
+            // should be called in onPostCreate.
+            if (UIUtils.isTablet(mActivity)) {
+                mActivity.getActionBar().setDisplayOptions(
+                        0,
+                        ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
+            } else {
+                mActivity.getActionBar().setDisplayOptions(
+                        ActionBar.DISPLAY_USE_LOGO,
+                        ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
+            }
+            if (UIUtils.isICS())
+            	mActivity.getActionBar().setHomeButtonEnabled(true);
+            mActivity.getActionBar().setDisplayShowTitleEnabled(true);
+    	}
     }
-
+    
     /** {@inheritDoc} */
     @Override
     public void setupSubActivity() {
@@ -256,6 +272,11 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     
     @Override
     public void setTitleOnClickListener(OnClickListener pOcl){
-    	ocl = pOcl;
+    	if (menu != null){
+        	((BaseActivity) mActivity).setServerChangeListener(pOcl);
+    	}
+    	else{
+        	ocl = pOcl;
+    	}
     }
 }

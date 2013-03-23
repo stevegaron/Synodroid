@@ -29,22 +29,8 @@
         android:menuCategory="system"></item>
     
     <item android:id="@+id/menu_share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@android:drawable/ic_menu_upload"
         android:title="@string/menu_destination"
-        android:orderInCategory="1" 
-        android:showAsAction="ifRoom" 
-        android:menuCategory="system"></item>
-    
-    <item android:showAsAction="ifRoom" 
-        android:menuCategory="system" 
-        android:orderInCategory="1" 
-        android:id="@+id/menu_preferences" 
-        android:icon="@android:drawable/ic_menu_preferences" 
-        android:title="@string/title_preference" />
-    
-    <item android:id="@+id/menu_about"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/menu_about"
         android:orderInCategory="1" 
         android:showAsAction="ifRoom" 
         android:menuCategory="system"></item>

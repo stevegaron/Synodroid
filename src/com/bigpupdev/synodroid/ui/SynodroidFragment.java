@@ -159,5 +159,11 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 			// Being unable to show the dialog, maybe the application does not have focus anymore...
 		}
 	}
-
+	
+	@Override
+	public void onDestroy(){
+		if (errorDialog != null && errorDialog.isShowing())	errorDialog.dismiss();
+		super.onDestroy();
+		
+	}
 }

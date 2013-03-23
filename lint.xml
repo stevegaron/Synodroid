@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="ContentDescription" severity="ignore" />
+    <issue id="InlinedApi">
+        <ignore path="src\com\bigpupdev\synodroid\utils\ActivityHelperHoneycomb.java" />
+    </issue>
     <issue id="MissingTranslation" severity="warning" />
     <issue id="NewApi">
         <ignore path="src/com/bigpupdev/synodroid/utils/ActionModeHelperHoneycomb.java" />
         <ignore path="src/com/bigpupdev/synodroid/utils/ActivityHelperHoneycomb.java" />
+        <ignore path="src\com\bigpupdev\synodroid\utils\ActivityHelperHoneycomb.java" />
     </issue>
     <issue id="UselessParent">
         <ignore path="res\layout\task_template.xml" />

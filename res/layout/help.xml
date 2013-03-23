@@ -8,223 +8,63 @@
     tools:ignore="HardcodedText" >
 
     <LinearLayout
-        android:id="@+id/LinearLayout01"
+        android:id="@+id/llMain"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dip"
+        android:gravity="center_horizontal"
         android:orientation="vertical" >
+        
+        <TextView
+            android:id="@+id/help_title"
+            android:layout_gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="20dip"
+            android:text="@string/help_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/help_text"
+            android:layout_gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="20dip"
+            android:text="@string/help_text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <LinearLayout
-            android:id="@+id/LinearLayout02"
+            android:id="@+id/llImgs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dip"
-            android:layout_marginTop="25dip"
-            android:gravity="top"
+            android:layout_gravity="top"
+            android:layout_marginTop="45dip"
+            android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
             <ImageView
-                android:id="@+id/ImageView01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout04"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingRight="10dip" >
-
-                <TextView
-                    android:id="@+id/app_vers_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/TextView04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_help" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout03"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:layout_marginTop="15dip"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq1"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep1" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq6"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView08"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep6" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/syno_main_web"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="www.synology.com" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq2"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep2" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/syno_buy_web"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="http://www.synology.com/support/wheretobuy.php" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq7"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView09"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep7" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView05"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq3"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView06"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep3" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq4"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep4" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:text="@string/faq5"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/TextView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:text="@string/rep5" >
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout05"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dip"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/id_gplus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip"
-                android:paddingBottom="5dip"
-                android:paddingLeft="30dip"
-                android:paddingRight="30dip"
-                android:paddingTop="3dip"
-                android:text="@string/gplus" />
-
-            <Button
-                android:id="@+id/id_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip"
-                android:paddingBottom="5dip"
-                android:paddingLeft="30dip"
-                android:paddingRight="30dip"
-                android:paddingTop="3dip"
-                android:text="@string/email" />
+	            android:id="@+id/t_gmail"
+	            android:layout_width="48dip"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginRight="35dip"
+	            android:gravity="center_vertical"
+	            android:src="@drawable/ic_gmail" />
+            
+	        <ImageView
+	            android:id="@+id/t_gplus"
+	            android:layout_width="42dip"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginLeft="35dip"
+	            android:gravity="center_vertical"
+	            android:src="@drawable/ic_gplus" />
+	        
         </LinearLayout>
     </LinearLayout>
+    
 </ScrollView>

@@ -71,7 +71,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:text="- Eric Taix"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Eric Taix"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -79,7 +81,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:text="- Steve Garon"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Steve Garon"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -95,7 +99,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:text="- Ignacio Diez (es)"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Ignacio Diez (es)"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -103,7 +109,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:text="- Matthias Kutscheid (de)"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Matthias Kutscheid (de)"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -111,7 +119,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:text="- Gino Jongenelen (nl)"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Gino Jongenelen (nl)"
                 android:textAppearance="?android:attr/textAppearanceMedium" >
             </TextView>
             
@@ -120,39 +130,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:text="- Guido Cioni (it)"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Guido Cioni (it)"
                 android:textAppearance="?android:attr/textAppearanceMedium" >
             </TextView>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout05"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dip"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
-
-            <TextView
-	            android:id="@+id/t_gplus"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="20dip"
-	            android:drawableLeft="@drawable/gplus"
-	            android:gravity="center_vertical"
-	            android:text="@string/gplus"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-            
-            <TextView
-	            android:id="@+id/t_gmail"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="20dip"
-	            android:drawableLeft="@drawable/gmail"
-	            android:gravity="center_vertical"
-	            android:text="@string/email"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
