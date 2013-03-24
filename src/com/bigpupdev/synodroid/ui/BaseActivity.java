@@ -201,6 +201,19 @@ public abstract class BaseActivity extends FragmentActivity {
 	                		}
 	                		break;
 	                	case SMNU_BR:
+	                		try{
+	                    		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SlidingMenu: Menu browser selected.");
+	                    	}catch (Exception ex){/*DO NOTHING*/}
+	                    	
+	                		if (!(act instanceof BrowserActivity)){
+	                			final Intent intent = new Intent(act, BrowserActivity.class);
+	                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                            act.startActivity(intent);
+	                		}
+	                		else{
+	                			menu.showContent(true);
+	                		}
+	                		break;
 	                	case SMNU_FI:
 	                	case SMNU_RS:
 	                		menu.showContent(true);

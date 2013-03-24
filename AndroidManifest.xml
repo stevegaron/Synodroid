@@ -365,6 +365,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.BrowserActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Synodroid.Home" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.GetStartedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"

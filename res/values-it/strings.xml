@@ -369,10 +369,6 @@
     <string name="action_resuming_multiple">"Ripristinando le attività selezionate...%s"</string>
     <string name="file_not_found">Accesso alla funzionalità negato. Probabilmente la versione del DSM non è abbastanza aggiornata. Usa il riconoscimento automatico della versione DSM nelle impostazioni...</string>
     <string name="failed_response">Nessuna risposta dal server. Riconnettiti per favore!</string>
-    <string name="syno_pro_banner_text">Ottieni nuove funzionalità con Synodroid Pro. Premi per ottenerlo!</string>
-    <string name="err_nomarket_upgrade">Il Play Store non è installato sul tuo dispositivo.\n\nContatta lo sviluppatore per ottenere una copia di Synodroid Pro.</string>
-    <string name="hide_banner">Nasconi banner Pro</string>
-    <string name="hint_hide_banner">Nascondi banner Synodroid Pro alla fine della lista di download</string>
     <string name="welcome">Benvenuto su Synodroid Pro!</string>
     <string name="get_started">Tutorial Synodroid</string>
     <string name="get_started_text">Scorri tra le pagine di questo tutorial per ottenere più informazioni sulle caratteristiche di questa applicazione.</string>
@@ -398,14 +394,12 @@
     <string name="add_dl_t4">Da qualsiasi applicazione per gestione file o direttamente dal Download Manager di Android, puoi cliccare su un file .torrent o .nzb e il file verrà inviato al tuo NAS per far partire il download.</string>
     <string name="add_dl_st4">Aggiungi dialogo di download (Solo versione Pro)</string>
     <string name="add_dl_t5">Dalla pagina home di Synodroid, apri il menu "Aggiungi Download" e scrivi o incolla qualsiasi link che vuoi scaricare.</string>
-    <string name="add_dl_t6">Questa è una delle tante caratteristiche di Synodroid Pro!</string>
     <string name="search_engine_t">Motore di ricerca</string>
     <string name="search_engine_t1">Synodroid include due motori di ricerca. Uno utilizza un’applicazione esterna (transdroid torrent search) e l’altro utilizza la ricerca nativa della DSM.</string>
     <string name="search_engine_st1">Transdroid Torrent Search</string>
     <string name="search_engine_t2">Transdroid Torrent Search fornisce capacità di ricerca a tutte le versioni DSM. Per usarlo, dovrai installare l’ultima versione. Un link all’ultima versione è disponibile nel menu della pagina ricerca. Mentre utilizzi questo motore di ricerca, puoi scegliere da quale sito vuoi cercare e in che modo ordinare i risultati.</string>
     <string name="search_engine_st2">DSM Search Engine (Pro only)</string>
     <string name="search_engine_t3">Synodroid Pro consente l’accesso al motore di ricerca Synology DSM. Ricerche fatte utilizzando il motore di ricerca della DSM sono inviate a diversi motori di ricerca contemporaneamente, non solo ad uno come Transdroid Torrent Search. Puoi organizzare i motori di ricerca mentre ne fai una.</string>
-    <string name="search_engine_t4">Questa è una delle caratteristiche  presenti nella versione Pro!</string>
     <string name="upgrade_title">Grazie per essere passato alla versione Pro!</string>
     <string name="upgrade_t1">Synodroid Pro contiene un sacco di caratteristiche utili che valgono il passaggio. Questa è la lista delle caratteristiche che hai ottenuto aggiornando:</string>
     <string name="upgrade_st1">1. Dialogo aggiungi download</string>
@@ -420,8 +414,6 @@
     <string name="upgrade_t6">Synodroid Pro fornisce l’anteprima del torrent, includendo il nome del file per qualsiasi torrent scaricato utilizzando il motore di ricerca.</string>
     <string name="upgrade_st6">6. Individua automaticamente versione DSM</string>
     <string name="upgrade_t7">Synodroid Pro può determinare automaticamente che versione DSM è presente sul NAS e aggiustare opportunamente la configurazione. Questo significa che non dovrai modificare la versione DSM della tua connessione ogni volta che aggiorni il tuo NAS.</string>
-    <string name="upgrade_st7">Aggiorna ora</string>
-    <string name="upgrade_play">Synodroid Pro offre molte caratteristiche rispetto alla versione gratuita. Molte alter arriveranno nella prossima versione. Compra ora Synodroid Pro prima che il prezzo salga...</string>
     <string name="tutorial_done">Chiudi Tutorial</string>
     <string name="tab_synology">Synology</string>
     <string name="tab_server">Server</string>
