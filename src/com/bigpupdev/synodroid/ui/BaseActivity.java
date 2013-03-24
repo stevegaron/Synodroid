@@ -215,6 +215,19 @@ public abstract class BaseActivity extends FragmentActivity {
 	                		}
 	                		break;
 	                	case SMNU_FI:
+	                		try{
+	                    		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SlidingMenu: Menu file selected.");
+	                    	}catch (Exception ex){/*DO NOTHING*/}
+	                    	
+	                		if (!(act instanceof FileActivity)){
+	                			final Intent intent = new Intent(act, FileActivity.class);
+	                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                            act.startActivity(intent);
+	                		}
+	                		else{
+	                			menu.showContent(true);
+	                		}
+	                		break;
 	                	case SMNU_RS:
 	                		menu.showContent(true);
 	                		Toast t = Toast.makeText(getApplicationContext(), R.string.not_yet_implemented, Toast.LENGTH_SHORT);
@@ -261,7 +274,7 @@ public abstract class BaseActivity extends FragmentActivity {
                 	
                 }
                 catch(Exception e) {
-                    Log.e(Synodroid.DS_TAG, "Cannot get item at position "+i+".");
+                    Log.e(Synodroid.DS_TAG, "Cannot get item at position "+i+".", e);
                 }
             }
 		});

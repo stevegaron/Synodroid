@@ -8,28 +8,29 @@
  */
 package com.bigpupdev.synodroid.ui;
 
+import java.io.File;
+
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.adapter.FileAdapter;
+import com.bigpupdev.synodroid.utils.FileItem;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ListView;
 
 /**
  * This activity displays a help page
  * 
  * @author Steve Garon (synodroid at gmail dot com)
  */
-@SuppressLint("SetJavaScriptEnabled")
-public class BrowserFragment extends Fragment {
+public class FileFragment extends Fragment {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// ignore orientation change
@@ -46,28 +47,39 @@ public class BrowserFragment extends Fragment {
 		try {
 			if (((Synodroid) getActivity().getApplication()).DEBUG)
 				Log.v(Synodroid.DS_TAG,
-						"BrowserFragment: Creating Browser fragment");
+						"BrowserFragment: Creating File fragment");
 		} catch (Exception ex) {/* DO NOTHING */
 		}
 
-		View browser = inflater.inflate(R.layout.browser, null, false);
-		WebView myWebView = (WebView) browser.findViewById(R.id.webview);
-		myWebView.setWebViewClient(new MyWebViewClient());
-		myWebView.getSettings().setJavaScriptEnabled(true);
-		myWebView.loadUrl("http://www.google.com");
+		View file_layout = inflater.inflate(R.layout.file, null, false);
+		ListView lvFiles = (ListView) file_layout.findViewById(R.id.file_list);
+		FileAdapter adapter = new FileAdapter(getActivity());
+        addFilesToAdapter(Environment.getExternalStorageDirectory().getPath(), adapter);
+        lvFiles.setAdapter(adapter);
 
-		return browser;
+		return file_layout;
 	}
-
-	public class MyWebViewClient extends WebViewClient {
-
-		public MyWebViewClient() {
-			super();
-			// start anything you need to
+	
+	private void addFilesToAdapter(String path, FileAdapter faFiles){
+		File dir = new File(path);
+		if (dir.exists()){
+			File[] f_list = dir.listFiles();
+			if (f_list == null) {
+				faFiles.clear();
+				return;
+			}
+			for (int i = 0; i < f_list.length; i++){
+				File cur_file = f_list[i];
+				if (cur_file.isDirectory()){
+					faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_file, i));
+				}
+				else{
+					faFiles.add(new FileItem(cur_file.getName(),-1, i));
+				}
+			}
 		}
-
-		public void onPageStarted(WebView view, String url, Bitmap favicon) {
-			// Do something to the urls, views, etc.
+		else{
+			faFiles.clear();
 		}
 	}
 }
