@@ -38,6 +38,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 /**
@@ -400,6 +402,27 @@ public class Synodroid extends Application {
 		if (currentServer != null) {
 			currentServer.executeAsynchronousAction(handlerP, actionP, forceRefreshP);
 		}
+		else{
+			fireMessage(handlerP, ResponseHandler.MSG_TOAST, ((Fragment) handlerP).getText(R.string.empty_not_connected));
+		}
 	}
 
+	/**
+	 * Send a message
+	 */
+	public void fireMessage(ResponseHandler handlerP, int msgP) {
+		fireMessage(handlerP, msgP, null);
+	}
+
+	/**
+	 * Send a message
+	 */
+	public void fireMessage(ResponseHandler handlerP, int msgP, Object objP) {
+		// Send the connecting message
+		Message msg = new Message();
+		msg.what = msgP;
+		msg.obj = objP;
+		handlerP.handleReponse(msg);
+
+	}
 }

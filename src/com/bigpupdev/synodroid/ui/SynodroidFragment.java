@@ -57,6 +57,9 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 					else if (a instanceof SearchActivity){
 						((SearchActivity) a).updateRefreshStatus(true);
 					}
+					else if (a instanceof FileActivity){
+						((FileActivity) a).updateRefreshStatus(true);
+					}
 					break;
 				case MSG_TOAST:
 					if (app != null && app.DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
@@ -79,6 +82,9 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 					}
 					else if (a instanceof SearchActivity){
 						((SearchActivity) a).updateRefreshStatus(false);
+					}
+					else if (a instanceof FileActivity){
+						((FileActivity) a).updateRefreshStatus(false);
 					}
 					break;
 				}

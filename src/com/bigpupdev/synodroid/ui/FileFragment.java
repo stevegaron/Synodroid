@@ -13,13 +13,15 @@ import java.util.Arrays;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.adapter.FileAdapter;
 import com.bigpupdev.synodroid.utils.FileItem;
 
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,7 @@ import android.widget.TextView;
  * 
  * @author Steve Garon (synodroid at gmail dot com)
  */
-public class FileFragment extends Fragment {
+public class FileFragment extends SynodroidFragment {
 	private ListView lvFiles;
 	private TextView tvFiles;
 	private FileAdapter faFiles;
@@ -52,11 +54,11 @@ public class FileFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
+		final Synodroid app = (Synodroid) getActivity().getApplication();
 		try {
-			if (((Synodroid) getActivity().getApplication()).DEBUG)
+			if (app.DEBUG)
 				Log.v(Synodroid.DS_TAG,	"FileFragment: Creating File fragment");
-		} catch (Exception ex) {/* DO NOTHING */
-		}
+		} catch (Exception ex) {/* DO NOTHING */}
 
 		View file_layout = inflater.inflate(R.layout.file, null, false);
 		lvFiles = (ListView) file_layout.findViewById(R.id.file_list);
@@ -77,7 +79,7 @@ public class FileFragment extends Fragment {
 				if (!selectedFile.exists()) return;
 				
 				if (selectedFile.isDirectory()){
-					Log.d(Synodroid.DS_TAG, "FileFragment: Directory " + selectedFile.getAbsolutePath() + " was click. Loading the content...");
+					if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: Directory " + selectedFile.getAbsolutePath() + " was click. Loading the content...");
 					if (selectedItem.id == -1){
 						//Go Back
 						String back = backFile.getAbsolutePath().substring(0, backFile.getAbsolutePath().length() - backFile.getName().length() -1);
@@ -88,12 +90,13 @@ public class FileFragment extends Fragment {
 					}
 				}
 				else{
-					Log.d(Synodroid.DS_TAG, "FileFragment: File " + selectedFile.getAbsolutePath() + " was click.");
+					if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: File " + selectedFile.getAbsolutePath() + " was click.");
 					if (selectedFile.getName().endsWith(".torrent") || selectedFile.getName().endsWith(".nzb") ){
-						Log.d(Synodroid.DS_TAG, "FileFragment: The file is a torrent or nzb file, it will be added to the download list.");
+						if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: The file is a torrent or nzb file, it will be added to the download list.");
+						app.executeAsynchronousAction(FileFragment.this, new AddTaskAction(Uri.parse(selectedFile.getAbsolutePath()), false, true), true);
 					}
 					else{
-						Log.d(Synodroid.DS_TAG, "FileFragment: Unsupported file type. Do Nothing...");
+						if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: Unsupported file type. Do Nothing...");
 					}
 				}
 			}
@@ -141,5 +144,11 @@ public class FileFragment extends Fragment {
 			}
 	        
 		}
+	}
+
+	@Override
+	public void handleMessage(Message msgP) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -90,6 +90,10 @@ public class FileActivity extends BaseActivity{
         return true;
     }
 	
+	public void updateRefreshStatus(boolean refreshing) {
+        getActivityHelper().setRefreshActionButtonCompatState(refreshing);
+    }
+	
 	@Override
 	public boolean onSearchRequested() {
 		return false;
