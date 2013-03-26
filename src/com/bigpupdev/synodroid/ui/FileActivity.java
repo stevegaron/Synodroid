@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.utils.UIUtils;
 
 public class FileActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
@@ -62,6 +65,30 @@ public class FileActivity extends BaseActivity{
 		}
     }
 	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Synodroid app = (Synodroid) getApplication();
+		FragmentManager fm = getSupportFragmentManager();
+		FileFragment fragment_file = (FileFragment) fm.findFragmentById(R.id.fragment_file);
+		
+		if (item.getItemId() == R.id.menu_refresh) {
+			try{
+				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"FileActivity: Menu refresh selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			fragment_file.addFilesToAdapter(fragment_file.getCurrentFolder());
+			return true;
+        }
+		
+		return super.onOptionsItemSelected(item);
+	}
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+		if (!UIUtils.isHoneycomb()){
+			getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
+		}
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
 	
 	@Override
 	public boolean onSearchRequested() {

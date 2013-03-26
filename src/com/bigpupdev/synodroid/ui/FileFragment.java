@@ -131,7 +131,12 @@ public class FileFragment extends Fragment {
 					faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_file, 0));
 				}
 				else{
-					faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_unknown_file, 1));
+					if (cur_file.getName().endsWith(".torrent") || cur_file.getName().endsWith(".nzb") ){
+						faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_torrent_file, 1));
+					}
+					else{
+						faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_unknown_file, 2));
+					}
 				}
 			}
 	        
