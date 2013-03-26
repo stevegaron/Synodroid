@@ -1,9 +1,13 @@
 package com.bigpupdev.synodroid.ui;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -37,6 +41,27 @@ public class FileActivity extends BaseActivity{
         super.onPostCreate(savedInstanceState);
         getActivityHelper().setupSubActivity();
     }
+	
+	@Override
+	public void onBackPressed() {
+		if (menu != null && menu.isMenuShowing()) {
+    		menu.showContent();
+    	}
+		else{
+			FragmentManager fm = getSupportFragmentManager();
+			FileFragment fragment_file = (FileFragment) fm.findFragmentById(R.id.fragment_file);
+	    	if (fragment_file != null && !fragment_file.getCurrentFolder().equals(Environment.getExternalStorageDirectory().getPath())) {
+	    		File backFile = new File(fragment_file.getCurrentFolder());
+	    		String back = backFile.getAbsolutePath().substring(0, backFile.getAbsolutePath().length() - backFile.getName().length() -1);
+	    		fragment_file.addFilesToAdapter(back);
+	    		return;
+	    	} 
+	    	else{
+	    		super.onBackPressed();
+	    	}
+		}
+    }
+	
 	
 	@Override
 	public boolean onSearchRequested() {

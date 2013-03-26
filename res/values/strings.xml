@@ -499,6 +499,8 @@
 <string name="title_otp">Verification code</string>
 <string name="connect_wrong_otp">"Wrong verification code. Please try again."</string>
 
+
+
 <string name="sliding_downloads">Downloads</string>
 <string name="sliding_browser">Browser</string>
 <string name="sliding_files">Files</string>
@@ -509,5 +511,6 @@
 
 <string name="help_title">We are here to help</string>
 <string name="help_text">You\'ve read through the tutorial and still have issues with our app or you would like to request a new feature in the app. We got you covered, us one of the two button below to either send us an email or drop us a line on Google+.</string>
+<string name="no_files">There are no files in the currently selected directory.</string>
 
 </resources>

@@ -19,4 +19,20 @@
 	    android:id="@+id/file_list"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"/>
+    
+    <LinearLayout
+        android:id="@id/android:empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="@string/no_files" />
+    </LinearLayout>
 </LinearLayout>

@@ -61,10 +61,12 @@ public class FileFragment extends Fragment {
 		View file_layout = inflater.inflate(R.layout.file, null, false);
 		lvFiles = (ListView) file_layout.findViewById(R.id.file_list);
 		tvFiles = (TextView) file_layout.findViewById(R.id.file_text);
+		View empty = file_layout.findViewById(android.R.id.empty);
 		faFiles = new FileAdapter(getActivity());
         addFilesToAdapter(Environment.getExternalStorageDirectory().getPath());
         lvFiles.setAdapter(faFiles);
-        lvFiles.setOnItemClickListener(new OnItemClickListener(){
+        lvFiles.setEmptyView(empty);
+		lvFiles.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -100,8 +102,13 @@ public class FileFragment extends Fragment {
 		return file_layout;
 	}
 	
-	private void addFilesToAdapter(String path){
+	public String getCurrentFolder(){
+		return tvFiles.getText().toString();
+	}
+	
+	public void addFilesToAdapter(String path){
 		faFiles.clear();	
+		tvFiles.setText(path);
 		
 		File dir = new File(path);
 		if (dir.exists()){
@@ -127,13 +134,7 @@ public class FileFragment extends Fragment {
 					faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_unknown_file, 1));
 				}
 			}
-			tvFiles.setText(path);
 	        
 		}
-		else{
-			faFiles.clear();
-			tvFiles.setText("Could not get file list. No external storage available.");
-		}
-		
 	}
 }

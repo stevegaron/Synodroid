@@ -61,7 +61,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	private static final int SMNU_AB = 5;
 	private static final int SMNU_SET = 6;
 	
-	private SlidingMenu menu = null;
+	protected SlidingMenu menu = null;
 	private SlidingMenuItem menuListSelectedItem = null;
 	
 	public SlidingMenu getSlidingMenu(){
