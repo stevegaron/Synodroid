@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    
+    <TextView 
+        android:id="@+id/file_text"
+        android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="5dip"
+	    android:paddingBottom="5dip"
+	    android:paddingLeft="2dip"
+	    android:paddingRight="2dip"
+	    android:textIsSelectable="true"
+	    android:background="#151515"/>
     
     <ListView 
 	    android:id="@+id/file_list"
