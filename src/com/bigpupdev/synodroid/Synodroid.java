@@ -56,6 +56,7 @@ public class Synodroid extends Application {
 	public boolean DEBUG;
 	// The current server
 	private SynoServer currentServer = null;
+	private String curBrowserUrl = null;
 
 	/*
 	 * (non-Javadoc)
@@ -77,6 +78,14 @@ public class Synodroid extends Application {
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
+	}
+	
+	public void setBrowserUrl(String url){
+		curBrowserUrl = url;
+	}
+	
+	public String getBrowserUrl(){
+		return curBrowserUrl;
 	}
 	
 	public void enableDebugLog(){

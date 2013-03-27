@@ -15,7 +15,6 @@ import android.view.WindowManager;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.utils.UIUtils;
 
 public class FileActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
@@ -81,11 +80,10 @@ public class FileActivity extends BaseActivity{
 		
 		return super.onOptionsItemSelected(item);
 	}
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-		if (!UIUtils.isHoneycomb()){
-			getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
-		}
+		getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
         super.onCreateOptionsMenu(menu);
         return true;
     }
