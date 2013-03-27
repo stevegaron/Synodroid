@@ -515,5 +515,8 @@
 <string name="gohome">Load homepage</string>
 <string name="sethome">Set homepage</string>
 <string name="home_set">Homepage saved to:\n</string>
+<string name="url_go">Load url</string>
+<string name="url_cancel">Cancel</string>
+<string name="url_hint">Url</string>
 
 </resources>

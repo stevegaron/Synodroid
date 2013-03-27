@@ -8,12 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.utils.UIUtils;
 import com.slidingmenu.lib.SlidingMenu;
 
 public class BrowserActivity extends BaseActivity{
@@ -112,6 +115,12 @@ public class BrowserActivity extends BaseActivity{
 			else{
 				item.setIcon(R.drawable.ic_sethome);
 				cur_url = "http://www.google.com/";
+			}
+			
+			if(!UIUtils.isHoneycomb()){
+				ViewGroup actionbar = getActivityHelper().getActionBarCompat();
+				ImageButton menuItem = (ImageButton) actionbar.findViewById(item.getItemId());
+				menuItem.setImageDrawable(item.getIcon());
 			}
 			
 			SharedPreferences.Editor editor = preferences.edit();
