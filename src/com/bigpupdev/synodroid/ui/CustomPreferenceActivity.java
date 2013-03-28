@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A base activity that defers common functionality across app activities to an
@@ -146,6 +147,14 @@ public abstract class CustomPreferenceActivity extends BasePreferenceActivity {
     	}
     }
     
+    public void attachSecondarySlidingMenu(){
+    	if (menu != null){
+    		menu.setMode(SlidingMenu.LEFT_RIGHT);
+    		menu.setSecondaryMenu(R.layout.sliding_bookmarks);
+    		menu.setSecondaryShadowDrawable(R.drawable.shadow_right);
+    	}
+    }
+    
     public void attachSlidingMenu(){
     	attachSlidingMenu(null);
     }
@@ -197,13 +206,37 @@ public abstract class CustomPreferenceActivity extends BasePreferenceActivity {
 	                		}
 	                		break;
 	                	case SMNU_BR:
-	                		menu.showContent(true);
+	                		try{
+	                    		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SlidingMenu: Menu browser selected.");
+	                    	}catch (Exception ex){/*DO NOTHING*/}
+	                    	
+	                		if (!(act instanceof BrowserActivity)){
+	                			final Intent intent = new Intent(act, BrowserActivity.class);
+	                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                            act.startActivity(intent);
+	                		}
+	                		else{
+	                			menu.showContent(true);
+	                		}
 	                		break;
 	                	case SMNU_FI:
-	                		menu.showContent(true);
+	                		try{
+	                    		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SlidingMenu: Menu file selected.");
+	                    	}catch (Exception ex){/*DO NOTHING*/}
+	                    	
+	                		if (!(act instanceof FileActivity)){
+	                			final Intent intent = new Intent(act, FileActivity.class);
+	                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                            act.startActivity(intent);
+	                		}
+	                		else{
+	                			menu.showContent(true);
+	                		}
 	                		break;
 	                	case SMNU_RS:
 	                		menu.showContent(true);
+	                		Toast t = Toast.makeText(getApplicationContext(), R.string.not_yet_implemented, Toast.LENGTH_SHORT);
+	                		t.show();
 	                		break;
 	                	case SMNU_SE:
 	                		try{

@@ -59,6 +59,7 @@ public class BrowserActivity extends BaseActivity{
         attachSecondarySlidingMenu();
         setContentView(R.layout.activity_browser);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        getSlidingMenu().setHardwareAccelerationUse(false);
 		getActivityHelper().setupActionBar(getString(R.string.sliding_browser), false, getSlidingMenu());
 	}
 	
