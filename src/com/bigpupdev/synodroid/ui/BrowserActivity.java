@@ -8,22 +8,17 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.utils.UIUtils;
 import com.slidingmenu.lib.SlidingMenu;
 
 public class BrowserActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
-	private static final String PREFERENCE_DEFAULT_URL = "general_cat.default_url";
-	public MenuItem homeMenu = null;
+	private String default_url = "http://www.google.com";
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -60,8 +55,9 @@ public class BrowserActivity extends BaseActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);        
-		setContentView(R.layout.activity_browser);
-        attachSlidingMenu(((Synodroid)getApplication()).getServer());
+		attachSlidingMenu(((Synodroid)getApplication()).getServer());
+        attachSecondarySlidingMenu();
+        setContentView(R.layout.activity_browser);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		getActivityHelper().setupActionBar(getString(R.string.sliding_browser), false, getSlidingMenu());
 	}
@@ -76,8 +72,7 @@ public class BrowserActivity extends BaseActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
 		getMenuInflater().inflate(R.menu.browser_menu_items, menu);
-		homeMenu = menu.findItem(R.id.menu_sethome);
-        super.onCreateOptionsMenu(menu);
+		super.onCreateOptionsMenu(menu);
         return true;
     }
 	
@@ -99,36 +94,12 @@ public class BrowserActivity extends BaseActivity{
 			webView.reload();
 			return true;
         }
-		else if (item.getItemId() == R.id.menu_sethome){
+		else if (item.getItemId() == R.id.menu_bookmarks){
 			try{
-				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"BrowserActivity: Menu Set Home selected.");
+				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"BrowserActivity: Menu show bookmarks selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
-			SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		 	String default_url  = preferences.getString(PREFERENCE_DEFAULT_URL, "http://www.google.com/");
-		 	
-			WebView webView = (WebView) fragment_browser.getView().findViewById(R.id.webview);
-			String cur_url = webView.getUrl();
 			
-			if (!default_url.equals(cur_url)){
-				item.setIcon(R.drawable.ic_resethome);
-			}
-			else{
-				item.setIcon(R.drawable.ic_sethome);
-				cur_url = "http://www.google.com/";
-			}
-			
-			if(!UIUtils.isHoneycomb()){
-				ViewGroup actionbar = getActivityHelper().getActionBarCompat();
-				ImageButton menuItem = (ImageButton) actionbar.findViewById(item.getItemId());
-				menuItem.setImageDrawable(item.getIcon());
-			}
-			
-			SharedPreferences.Editor editor = preferences.edit();
-		    editor.putString(PREFERENCE_DEFAULT_URL, cur_url);
-		    editor.commit();
-			
-			Toast.makeText(BrowserActivity.this, getText(R.string.home_set) + cur_url, Toast.LENGTH_SHORT).show();
-
+			getSlidingMenu().showSecondaryMenu(true);
 			return true;
         }
 		else if (item.getItemId() == R.id.menu_gohome){
@@ -136,9 +107,7 @@ public class BrowserActivity extends BaseActivity{
 				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"BrowserActivity: Menu Go Home selected.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		 	String default_url  = preferences.getString(PREFERENCE_DEFAULT_URL, "http://www.google.com/");
-		 	WebView webView = (WebView) fragment_browser.getView().findViewById(R.id.webview);
+			WebView webView = (WebView) fragment_browser.getView().findViewById(R.id.webview);
 			webView.loadUrl(default_url);
 			return true;
         }

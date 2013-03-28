@@ -21,9 +21,9 @@
         android:title="@string/gohome"
         android:orderInCategory="0"
         android:showAsAction="ifRoom|withText" android:visible="false"/>
-    <item android:id="@+id/menu_sethome"
-        android:icon="@drawable/ic_sethome"
-        android:title="@string/sethome"
+    <item android:id="@+id/menu_bookmarks"
+        android:icon="@drawable/ic_bookmarks"
+        android:title="@string/bookmarks"
         android:orderInCategory="0"
         android:showAsAction="ifRoom|withText" android:visible="false"/>
 </menu>

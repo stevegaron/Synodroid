@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_menu_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp" >
+
+    <ImageView
+        android:id="@+id/ivBookmarkIcon"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_browser" />
+
+    <LinearLayout 
+        android:id="@+id/llBookmarkDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivBookmarkIcon"
+       	android:layout_centerVertical="true"
+        android:orientation="vertical">
+        
+	    <TextView
+	        android:id="@+id/tvBookmarkText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:ellipsize="end"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="10dip"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@string/description_search"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+    	
+    	<TextView
+	        android:id="@+id/tvBookmarkUrl"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:ellipsize="end"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="10dip"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@string/description_search"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+</RelativeLayout>

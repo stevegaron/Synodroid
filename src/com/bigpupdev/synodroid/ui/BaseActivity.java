@@ -150,6 +150,14 @@ public abstract class BaseActivity extends FragmentActivity {
     	}
     }
     
+    public void attachSecondarySlidingMenu(){
+    	if (menu != null){
+    		menu.setMode(SlidingMenu.LEFT_RIGHT);
+    		menu.setSecondaryMenu(R.layout.sliding_bookmarks);
+    		menu.setSecondaryShadowDrawable(R.drawable.shadow_right);
+    	}
+    }
+    
     public void attachSlidingMenu(){
     	attachSlidingMenu(null);
     }

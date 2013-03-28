@@ -10,37 +10,51 @@ package com.bigpupdev.synodroid.ui;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
-import com.bigpupdev.synodroid.utils.UIUtils;
+import com.bigpupdev.synodroid.adapter.BookmarkMenuAdapter;
+import com.bigpupdev.synodroid.utils.BookmarkDBHelper;
+import com.bigpupdev.synodroid.utils.BookmarkMenuItem;
+import com.bigpupdev.synodroid.utils.SlidingMenuItem;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 /**
  * This activity displays a help page
@@ -49,14 +63,13 @@ import android.widget.ProgressBar;
  */
 @SuppressLint("SetJavaScriptEnabled")
 public class BrowserFragment extends SynodroidFragment {
-	private static final String PREFERENCE_GENERAL = "general_cat";
-	private static final String PREFERENCE_DEFAULT_URL = "general_cat.default_url";
-	
-	private ImageButton go_btn = null;
+	private ImageButton bookmark_btn = null;
 	private ImageButton stop_btn = null;
 	private EditText url_text = null;
 	private ImageView url_favicon = null;
 	private WebView myWebView = null;
+	private String default_url = "http://www.google.com";
+	private BookmarkMenuAdapter adapter = null;
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -71,35 +84,44 @@ public class BrowserFragment extends SynodroidFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		
-		SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-	 	String default_url  = preferences.getString(PREFERENCE_DEFAULT_URL, "http://www.google.com/");
-	 	String curBrowserUrl = ((Synodroid)getActivity().getApplication()).getBrowserUrl();
+		String curBrowserUrl = ((Synodroid)getActivity().getApplication()).getBrowserUrl();
 	 	
 		try {
 			if (((Synodroid) getActivity().getApplication()).DEBUG)	Log.v(Synodroid.DS_TAG, "BrowserFragment: Creating Browser fragment");
 		} catch (Exception ex) {/* DO NOTHING */}
 
+
+		View secMenu = ((BrowserActivity)getActivity()).getSlidingMenu().getSecondaryMenu();
+		adapter = new BookmarkMenuAdapter(getActivity());
+        HashMap<String, String> map = getUrlsFromDB();
+        for (Map.Entry<String, String> entry : map.entrySet()){
+        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
+        }
+		final ListView menuList = (ListView) secMenu.findViewById(R.id.lvBookmarks);
+        menuList.setAdapter(adapter);
+        menuList.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View view, int position,
+					long id) {
+				BookmarkMenuItem menuListSelectedItem = (BookmarkMenuItem) menuList.getItemAtPosition(position);
+            	((BrowserActivity)getActivity()).getSlidingMenu().showContent(true);
+				myWebView.loadUrl(menuListSelectedItem.url);
+			}
+        
+        });
+        
 		View browser = inflater.inflate(R.layout.browser, null, false);
 		myWebView = (WebView) browser.findViewById(R.id.webview);
 		url_favicon = (ImageView) browser.findViewById(R.id.favicon);
 		stop_btn = (ImageButton) browser.findViewById(R.id.stop);
-		go_btn = (ImageButton) browser.findViewById(R.id.go);
+		bookmark_btn = (ImageButton) browser.findViewById(R.id.bookmark);
 		url_text = (EditText) browser.findViewById(R.id.url);
-		url_text.setOnFocusChangeListener(new OnFocusChangeListener(){
+		url_text.setOnEditorActionListener(new OnEditorActionListener(){
 
 			@Override
-			public void onFocusChange(View currentView, boolean hasFocus) {
-				if (!hasFocus){
-					go_btn.requestFocus();
-				}
-				
-			}});	
-		go_btn.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View clickedView) {
-				go_btn.requestFocus();
-				String url = url_text.getText().toString();
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+	        	String url = url_text.getText().toString();
 				if (!url.equals("")){
 					if (!url.contains(".")){
 						try {
@@ -111,10 +133,66 @@ public class BrowserFragment extends SynodroidFragment {
 					}
 					
 					myWebView.loadUrl(url);	
+					url_text.clearFocus();
+				}
+	            return true;
+		    }
+			
+		});
+		url_text.setOnFocusChangeListener(new OnFocusChangeListener(){
+
+			@Override
+			public void onFocusChange(View view, boolean hasFocus) {
+				if (!hasFocus){
+					InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(url_text.getWindowToken(), 0);
+					imm.hideSoftInputFromWindow(url_text.getWindowToken(), 0);
+				}
+				
+			}
+			
+		});
+		bookmark_btn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View clickedView) {
+				Activity a = getActivity();
+				try{
+					if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"BrowserFragment: Add bookark button selected.");
+				}catch (Exception ex){/*DO NOTHING*/}
+				
+				WebView webView = (WebView) getView().findViewById(R.id.webview);
+				String cur_url = webView.getUrl();
+				
+				if (cur_url != null){
+					HashMap<String, String> bookmarks = getUrlsFromDB();
+					
+					if (!bookmarks.containsKey(cur_url)){
+						bookmark_btn.setImageDrawable(getResources().getDrawable(R.drawable.ic_resethome));
+						//Save to DB
+						saveToDB(webView.getTitle(), cur_url);
+						
+						Toast.makeText(getActivity(), getText(R.string.add_bookmark) +"\n" + cur_url, Toast.LENGTH_SHORT).show();
+					}
+					else{
+						bookmark_btn.setImageDrawable(getResources().getDrawable(R.drawable.ic_sethome));
+						//Delete from DB
+						deleteFromDB(cur_url);
+						
+						Toast.makeText(getActivity(), getText(R.string.del_bookmark) +"\n" + cur_url, Toast.LENGTH_SHORT).show();
+					}
+					
+					bookmarks = getUrlsFromDB();
+					adapter.clear();
+			        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
+			        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
+			        }
+			        adapter.notifyDataSetChanged();
 				}
 			}
 			
 		});
+		
 		stop_btn.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -165,6 +243,69 @@ public class BrowserFragment extends SynodroidFragment {
 		return browser;
 	}
 
+	public HashMap<String, String> getUrlsFromDB(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		BookmarkDBHelper mDbHelper = new BookmarkDBHelper(getActivity());
+		SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+		// Define a projection that specifies which columns from the database
+		// you will actually use after this query.
+		String[] projection = {
+			BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_TITLE,
+		    BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_URL};
+
+		// How you want the results sorted in the resulting Cursor
+		String sortOrder =
+			BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_TITLE + " DESC";
+
+		Cursor c = db.query(
+			BookmarkDBHelper.BookmarkEntry.TABLE_NAME,  // The table to query
+		    projection,                               // The columns to return
+		    null,                                // The columns for the WHERE clause
+		    null,                            // The values for the WHERE clause
+		    null,                                     // don't group the rows
+		    null,                                     // don't filter by row groups
+		    sortOrder                                 // The sort order
+		    );
+		
+	
+		for (int i = 0; i < c.getCount(); i++){
+			c.moveToPosition(i);
+			String itemTitle = c.getString(c.getColumnIndexOrThrow(BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_TITLE));
+			String itemUrl = c.getString(c.getColumnIndexOrThrow(BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_URL));
+			map.put(itemUrl, itemTitle);
+		}
+		return map;
+	}
+	
+	public void deleteFromDB(String url){
+		BookmarkDBHelper mDbHelper = new BookmarkDBHelper(getActivity());
+
+		// Gets the data repository in write mode
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+		// Define 'where' part of query.
+		String selection = BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_URL + " LIKE ?";
+		// Specify arguments in placeholder order.
+		String[] selectionArgs = { url };
+		// Issue SQL statement.
+		db.delete(BookmarkDBHelper.BookmarkEntry.TABLE_NAME, selection, selectionArgs);
+	}
+	
+	public void saveToDB(String title, String url){
+		BookmarkDBHelper mDbHelper = new BookmarkDBHelper(getActivity());
+
+		// Gets the data repository in write mode
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+		// Create a new map of values, where column names are the keys
+		ContentValues values = new ContentValues();
+		values.put(BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_TITLE, title);
+		values.put(BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_URL, url);
+
+		// Insert the new row, returning the primary key value of the new row
+		db.insert(BookmarkDBHelper.BookmarkEntry.TABLE_NAME, null, values);
+	}
+	
 	@Override
 	public void handleMessage(Message msgP) {
 		// TODO Auto-generated method stub
@@ -261,35 +402,24 @@ public class BrowserFragment extends SynodroidFragment {
 			} catch (Exception e){}
 			
 			if (favicon != null){
-				url_favicon.setVisibility(View.VISIBLE);
 				url_favicon.setImageBitmap(favicon);
 			}
 			else{
-				url_favicon.setVisibility(View.GONE);
+				url_favicon.setImageDrawable(getResources().getDrawable(R.drawable.ic_browser));
 			}
 			
 			url_text.setText(url);
 			
+			HashMap<String, String> bookmarks = getUrlsFromDB();
 			
-			SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		 	String default_url  = preferences.getString(PREFERENCE_DEFAULT_URL, "http://www.google.com/");
-		 	
-		 	MenuItem mnuHome = ((BrowserActivity)getActivity()).homeMenu;
-		 	
-		 	if (mnuHome != null){
-		 		if (url.equals(default_url)){
-		 			mnuHome.setIcon(R.drawable.ic_resethome);
+		 	if (bookmark_btn != null && url != null){
+		 		if (bookmarks.containsKey(url)){
+					bookmark_btn.setImageDrawable(getResources().getDrawable(R.drawable.ic_resethome));
 				}
 				else{
-					mnuHome.setIcon(R.drawable.ic_sethome);
+					bookmark_btn.setImageDrawable(getResources().getDrawable(R.drawable.ic_sethome));
 				}	
 		 	}
-		 	if(!UIUtils.isHoneycomb()){
-				ViewGroup actionbar = ((BrowserActivity)getActivity()).getActivityHelper().getActionBarCompat();
-				ImageButton menuItem = (ImageButton) actionbar.findViewById(mnuHome.getItemId());
-				menuItem.setImageDrawable(mnuHome.getIcon());
-			}
-		 	
 		}
 	}
 }
