@@ -251,7 +251,6 @@ public class BrowserFragment extends SynodroidFragment {
 		MyDownloadListener downloadListener = new MyDownloadListener();
 		MyWebChromeClient webChromeClient = new MyWebChromeClient();
 		webChromeClient.setPB(Pbar);
-		webViewClient.setWebView(myWebView);
 		
 		myWebView.setWebViewClient(webViewClient);
 		myWebView.setDownloadListener(downloadListener);
@@ -424,28 +423,24 @@ public class BrowserFragment extends SynodroidFragment {
 	
 	public class MyWebViewClient extends WebViewClient {
 		
-		private WebView webView = null;
-		
 		public MyWebViewClient() {
 			super();
 			// start anything you need to
 		}
 		
-		public void setWebView(WebView mWV){
-			webView = mWV;
-		}
-		
-		public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-	        if (failingUrl.startsWith("http://magnet/")){
-	        	failingUrl = failingUrl.replace("http://magnet/", "magnet:");
+		@Override  
+		public boolean shouldOverrideUrlLoading(WebView view, String url) {  
+		    boolean shouldOverride = false;  
+		    if (url.startsWith("http://magnet/")){
+				url = url.replace("http://magnet/", "magnet:");
 			}
-			else if (failingUrl.startsWith("https://magnet/")){
-				failingUrl.replace("https://magnet/", "magnet:");
+			else if (url.startsWith("https://magnet/")){
+				url.replace("https://magnet/", "magnet:");
 			}
 	        
-	        if (failingUrl.startsWith("magnet:")){
+	        if (url.startsWith("magnet:")){
 	        	ConfirmDialog dialog = new ConfirmDialog();
-	        	final String okUrl = failingUrl;
+	        	final String okUrl = url;
 	        	Runnable ok = new Runnable(){
 					@Override
 					public void run() {
@@ -455,11 +450,13 @@ public class BrowserFragment extends SynodroidFragment {
 					}
 	            };
 
-	        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), failingUrl, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
+	        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
 	        	
-				webView.goBack();
+				view.stopLoading();
+				shouldOverride = true;
 	        }
-	    }
+		    return shouldOverride;  
+		} 
 		
 		public void onPageStarted(WebView view, String url, Bitmap favicon) {
 			// Do something to the urls, views, etc.
