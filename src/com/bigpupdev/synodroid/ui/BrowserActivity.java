@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.webkit.WebIconDatabase;
 import android.webkit.WebView;
 
 import com.bigpupdev.synodroid.R;
@@ -55,7 +56,8 @@ public class BrowserActivity extends BaseActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);        
-		attachSlidingMenu(((Synodroid)getApplication()).getServer());
+		WebIconDatabase.getInstance().open(getDir("icons", MODE_PRIVATE).getPath());
+	 	attachSlidingMenu(((Synodroid)getApplication()).getServer());
         attachSecondarySlidingMenu();
         setContentView(R.layout.activity_browser);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);

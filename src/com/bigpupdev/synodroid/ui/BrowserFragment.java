@@ -10,6 +10,7 @@ package com.bigpupdev.synodroid.ui;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,6 @@ import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.adapter.BookmarkMenuAdapter;
 import com.bigpupdev.synodroid.utils.BookmarkDBHelper;
 import com.bigpupdev.synodroid.utils.BookmarkMenuItem;
-import com.bigpupdev.synodroid.utils.SlidingMenuItem;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -43,6 +43,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -70,6 +71,7 @@ public class BrowserFragment extends SynodroidFragment {
 	private WebView myWebView = null;
 	private String default_url = "http://www.google.com";
 	private BookmarkMenuAdapter adapter = null;
+	private Comparator<BookmarkMenuItem> comp = null;
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -85,18 +87,29 @@ public class BrowserFragment extends SynodroidFragment {
 		super.onCreateView(inflater, container, savedInstanceState);
 		
 		String curBrowserUrl = ((Synodroid)getActivity().getApplication()).getBrowserUrl();
-	 	
+		comp = new Comparator<BookmarkMenuItem>() {
+            public int compare(BookmarkMenuItem arg0, BookmarkMenuItem arg1) {
+            	try{
+                    return arg0.title.compareTo(arg1.title);
+            	}
+            	catch (Exception e){
+            		return 0;
+            	}
+            }
+        };
+		
 		try {
 			if (((Synodroid) getActivity().getApplication()).DEBUG)	Log.v(Synodroid.DS_TAG, "BrowserFragment: Creating Browser fragment");
 		} catch (Exception ex) {/* DO NOTHING */}
 
-
+		WebIconDatabase.getInstance().open(getActivity().getDir("icons", getActivity().MODE_PRIVATE).getPath());
 		View secMenu = ((BrowserActivity)getActivity()).getSlidingMenu().getSecondaryMenu();
 		adapter = new BookmarkMenuAdapter(getActivity());
         HashMap<String, String> map = getUrlsFromDB();
         for (Map.Entry<String, String> entry : map.entrySet()){
         	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
         }
+        adapter.sort(comp);
 		final ListView menuList = (ListView) secMenu.findViewById(R.id.lvBookmarks);
         menuList.setAdapter(adapter);
         menuList.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -110,7 +123,26 @@ public class BrowserFragment extends SynodroidFragment {
 			}
         
         });
+        menuList.setOnItemLongClickListener(new ListView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View clickedView,
+					int position, long arg3) {
+				BookmarkMenuItem menuListSelectedItem = (BookmarkMenuItem) menuList.getItemAtPosition(position);
+				deleteFromDB(menuListSelectedItem.url);
+				
+				Toast.makeText(getActivity(), getText(R.string.del_bookmark) +"\n" + menuListSelectedItem.url, Toast.LENGTH_SHORT).show();
+				HashMap<String, String>bookmarks = getUrlsFromDB();
+				adapter.clear();
+		        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
+		        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
+		        }
+		        adapter.sort(comp);
+		        adapter.notifyDataSetChanged();
+				return true;
+			}
         
+        });
 		View browser = inflater.inflate(R.layout.browser, null, false);
 		myWebView = (WebView) browser.findViewById(R.id.webview);
 		url_favicon = (ImageView) browser.findViewById(R.id.favicon);
@@ -187,6 +219,7 @@ public class BrowserFragment extends SynodroidFragment {
 			        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
 			        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
 			        }
+			        adapter.sort(comp);
 			        adapter.notifyDataSetChanged();
 				}
 			}
@@ -339,6 +372,11 @@ public class BrowserFragment extends SynodroidFragment {
 				stop_btn.setVisibility(View.VISIBLE);
 			}
 	    }
+		
+		@Override
+		public void onReceivedIcon(WebView view, Bitmap icon){				
+			url_favicon.setImageBitmap(icon);
+		}
 	}
 	
 	public class MyDownloadListener implements DownloadListener{
