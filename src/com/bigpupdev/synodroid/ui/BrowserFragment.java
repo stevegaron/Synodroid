@@ -129,17 +129,27 @@ public class BrowserFragment extends SynodroidFragment {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapterView, View clickedView,
 					int position, long arg3) {
-				BookmarkMenuItem menuListSelectedItem = (BookmarkMenuItem) menuList.getItemAtPosition(position);
-				deleteFromDB(menuListSelectedItem.url);
+				final BookmarkMenuItem menuListSelectedItem = (BookmarkMenuItem) menuList.getItemAtPosition(position);
 				
-				Toast.makeText(getActivity(), getText(R.string.del_bookmark) +"\n" + menuListSelectedItem.url, Toast.LENGTH_SHORT).show();
-				HashMap<String, String>bookmarks = getUrlsFromDB();
-				adapter.clear();
-		        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
-		        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
-		        }
-		        adapter.sort(comp);
-		        adapter.notifyDataSetChanged();
+				ConfirmDialog dialog = new ConfirmDialog();
+	        	Runnable ok = new Runnable(){
+					@Override
+					public void run() {
+						deleteFromDB(menuListSelectedItem.url);
+						
+						Toast.makeText(getActivity(), getText(R.string.del_bookmark) +"\n" + menuListSelectedItem.url, Toast.LENGTH_SHORT).show();
+						HashMap<String, String>bookmarks = getUrlsFromDB();
+						adapter.clear();
+				        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
+				        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
+				        }
+				        adapter.sort(comp);
+				        adapter.notifyDataSetChanged();
+					}
+	            };
+
+	        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_remove_bookmark).toString(), menuListSelectedItem.url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
+	        	
 				return true;
 			}
         
@@ -396,9 +406,18 @@ public class BrowserFragment extends SynodroidFragment {
 				url.replace("https://magnet/", "magnet:");
 			}
 			
-			AddTaskAction addTask = new AddTaskAction(Uri.parse(url), true, true);
-			Synodroid app = (Synodroid) getActivity().getApplication();
-			app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+			ConfirmDialog dialog = new ConfirmDialog();
+        	final String okUrl = url;
+        	Runnable ok = new Runnable(){
+				@Override
+				public void run() {
+					AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
+					Synodroid app = (Synodroid) getActivity().getApplication();
+					app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+				}
+            };
+
+        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
 		}
 		
 	}
@@ -425,10 +444,19 @@ public class BrowserFragment extends SynodroidFragment {
 			}
 	        
 	        if (failingUrl.startsWith("magnet:")){
-	        	AddTaskAction addTask = new AddTaskAction(Uri.parse(failingUrl), true, false);
-				Synodroid app = (Synodroid) getActivity().getApplication();
-				app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
-				
+	        	ConfirmDialog dialog = new ConfirmDialog();
+	        	final String okUrl = failingUrl;
+	        	Runnable ok = new Runnable(){
+					@Override
+					public void run() {
+						AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
+						Synodroid app = (Synodroid) getActivity().getApplication();
+						app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+					}
+	            };
+
+	        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), failingUrl, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
+	        	
 				webView.goBack();
 	        }
 	    }
