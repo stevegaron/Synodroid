@@ -12,6 +12,7 @@
         android:layout_height="32dip"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:padding="4dip"
         android:layout_marginRight="5dip"
         android:src="@drawable/ic_browser" />
 

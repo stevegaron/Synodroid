@@ -18,7 +18,7 @@
 	        android:id="@+id/favicon"
 	        android:layout_width="32dip"
 	        android:layout_height="32dip"
-	        android:paddingLeft="4dip"
+	        android:paddingLeft="8dip"
 	        android:paddingRight="8dip"
 	        android:src="@drawable/ic_browser"
 	        android:layout_gravity="center"
