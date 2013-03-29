@@ -73,7 +73,7 @@ public class FileFragment extends SynodroidFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				FileItem selectedItem = (FileItem) lvFiles.getItemAtPosition(position);
-				File selectedFile = new File(tvFiles.getText() + "/" + selectedItem.tag);
+				final File selectedFile = new File(tvFiles.getText() + "/" + selectedItem.tag);
 				File backFile = new File(tvFiles.getText().toString());
 				
 				if (!selectedFile.exists()) return;
@@ -93,7 +93,15 @@ public class FileFragment extends SynodroidFragment {
 					if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: File " + selectedFile.getAbsolutePath() + " was click.");
 					if (selectedFile.getName().endsWith(".torrent") || selectedFile.getName().endsWith(".nzb") ){
 						if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: The file is a torrent or nzb file, it will be added to the download list.");
-						app.executeAsynchronousAction(FileFragment.this, new AddTaskAction(Uri.parse(selectedFile.getAbsolutePath()), false, true), true);
+						ConfirmDialog dialog = new ConfirmDialog();
+			        	Runnable ok = new Runnable(){
+							@Override
+							public void run() {
+								app.executeAsynchronousAction(FileFragment.this, new AddTaskAction(Uri.parse(selectedFile.getAbsolutePath()), false, true), true);
+							}
+			            };
+
+			        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), selectedFile.getAbsolutePath(), getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
 					}
 					else{
 						if (app.DEBUG) Log.d(Synodroid.DS_TAG, "FileFragment: Unsupported file type. Do Nothing...");
@@ -126,6 +134,7 @@ public class FileFragment extends SynodroidFragment {
 				faFiles.add(new FileItem("..",R.drawable.ic_file, -1));
 			}
 			
+			//Do Directories
 			for (File cur_file : f_list){
 				
 				if (cur_file.getName().startsWith(".")) continue;
@@ -133,7 +142,14 @@ public class FileFragment extends SynodroidFragment {
 				if (cur_file.isDirectory()){
 					faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_file, 0));
 				}
-				else{
+			}
+			
+			//Do Files
+			for (File cur_file : f_list){
+				
+				if (cur_file.getName().startsWith(".")) continue;
+				
+				if (!cur_file.isDirectory()){
 					if (cur_file.getName().endsWith(".torrent") || cur_file.getName().endsWith(".nzb") ){
 						faFiles.add(new FileItem(cur_file.getName(),R.drawable.ic_torrent_file, 1));
 					}
