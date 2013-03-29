@@ -32,6 +32,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -102,7 +103,7 @@ public class BrowserFragment extends SynodroidFragment {
 			if (((Synodroid) getActivity().getApplication()).DEBUG)	Log.v(Synodroid.DS_TAG, "BrowserFragment: Creating Browser fragment");
 		} catch (Exception ex) {/* DO NOTHING */}
 
-		WebIconDatabase.getInstance().open(getActivity().getDir("icons", getActivity().MODE_PRIVATE).getPath());
+		WebIconDatabase.getInstance().open(getActivity().getDir("icons", FragmentActivity.MODE_PRIVATE).getPath());
 		View secMenu = ((BrowserActivity)getActivity()).getSlidingMenu().getSecondaryMenu();
 		adapter = new BookmarkMenuAdapter(getActivity());
         HashMap<String, String> map = getUrlsFromDB();
