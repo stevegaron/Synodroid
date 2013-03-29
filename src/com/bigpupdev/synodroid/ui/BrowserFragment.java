@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -282,10 +283,26 @@ public class BrowserFragment extends SynodroidFragment {
 		else{
 			myWebView.loadUrl(default_url);
 		}	
-
+		registerForContextMenu(myWebView);
 		return browser;
 	}
 
+	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+		ConfirmDialog dialog = new ConfirmDialog();
+    	WebView.HitTestResult hitTestResult = myWebView.getHitTestResult();
+		final String okUrl = hitTestResult.getExtra();
+    	Runnable ok = new Runnable(){
+			@Override
+			public void run() {
+				AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
+				Synodroid app = (Synodroid) getActivity().getApplication();
+				app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+			}
+        };
+
+    	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), okUrl, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
+	
+	}
 	public HashMap<String, String> getUrlsFromDB(){
 		HashMap<String, String> map = new HashMap<String, String>();
 		BookmarkDBHelper mDbHelper = new BookmarkDBHelper(getActivity());
