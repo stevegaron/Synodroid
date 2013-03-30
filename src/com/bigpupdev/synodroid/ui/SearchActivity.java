@@ -9,6 +9,8 @@ import com.bigpupdev.synodroid.utils.EulaHelper;
 import com.bigpupdev.synodroid.utils.SearchResultsOpenHelper;
 import com.bigpupdev.synodroid.utils.UIUtils;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,7 +26,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.WindowManager.BadTokenException;
-import android.widget.Toast;
 
 public class SearchActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
@@ -144,8 +145,7 @@ public class SearchActivity extends BaseActivity{
         }
         else if (item.getItemId() == R.id.menu_update){
         	downloadSearchEngine();
-			Toast toast = Toast.makeText(SearchActivity.this, getString(R.string.update_search_engine_toast), Toast.LENGTH_LONG);
-			toast.show();
+			Crouton.makeText(SearchActivity.this, getString(R.string.update_search_engine_toast), Synodroid.CROUTON_INFO).show();
         }
 		else if (item.getItemId() == R.id.menu_search_engine){
 			try{

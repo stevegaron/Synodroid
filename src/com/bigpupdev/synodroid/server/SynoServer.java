@@ -625,7 +625,7 @@ public class SynoServer extends SimpleSynoServer{
 				try {
 					if (actionP instanceof AddTaskAction && SynoServer.this.getDsmVersion().smallerThen(DSMVersion.VERSION3_1) && ((AddTaskAction)actionP).getUriString().startsWith("magnet")){
 						if (DEBUG) Log.w(Synodroid.DS_TAG, "Task dismissed. Magnet links only works on DSM 3.1 and up.");
-						fireMessage(handlerP, ResponseHandler.MSG_TOAST, ((Fragment) handlerP).getText(R.string.magnet));
+						fireMessage(handlerP, ResponseHandler.MSG_ERR, ((Fragment) handlerP).getText(R.string.magnet));
 					}
 					else{
 						// If a Toast must be shown
@@ -633,7 +633,7 @@ public class SynoServer extends SimpleSynoServer{
 							int resId = actionP.getToastId();
 							String fileName = (actionP.getTask() != null ? actionP.getTask().fileName : "");
 							String text = handlerP.getString(resId, new Object[] { fileName });
-							fireMessage(handlerP, ResponseHandler.MSG_TOAST, text);
+							fireMessage(handlerP, ResponseHandler.MSG_CONFIRM, text);
 						}
 						actionP.execute(handlerP, SynoServer.this);
 					}

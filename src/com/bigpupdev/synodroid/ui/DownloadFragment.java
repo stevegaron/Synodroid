@@ -42,6 +42,8 @@ import com.bigpupdev.synodroid.utils.IntentHelper;
 import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.utils.Utils;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -66,7 +68,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
@@ -132,24 +133,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		}
 	}
 	
-	private void killDialog(int ID){
-		try{
-			if (((Synodroid)getActivity().getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"DownloadFragment: Closing dialog box ID: "+ID);
-		}catch (Exception ex){/*DO NOTHING*/}
-		
-		// Dissmiss the connection dialog
-		try {
-			getActivity().dismissDialog(ID);
-		}
-		// Nothing to do because it can occured when a new instance is
-		// created
-		// if a SynoCollector thread is already running
-		catch (IllegalArgumentException ex) {
-		}
-		catch (NullPointerException ex) {
-		}
-	}
-	
 	public void resetCurrentStateValues(){
 		totalUpView.setText(" 0.00 KB/s");
 		totalDownView.setText(" 0.00 KB/s");
@@ -164,8 +147,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		final Activity a = getActivity();
 		// Update tasks
 		if (msg.what == ResponseHandler.MSG_TASK_DL_WAIT){
-			Toast toast = Toast.makeText(getActivity(), getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
-			toast.show();
+			Crouton.makeText(getActivity(), getString(R.string.wait_for_download), Synodroid.CROUTON_INFO).show();
 		}
 		else if (msg.what == ResponseHandler.MSG_TASKS_UPDATED) {
 			try{
@@ -223,16 +205,19 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			final SynoServer server = ((Synodroid) a.getApplication()).getServer();
 			if (server != null) {
 				server.setLastError((String) msg.obj);
-				showError(server.getLastError(), new Dialog.OnClickListener() {
-					public void onClick(DialogInterface dialogP, int whichP) {
-						// Ask to reconnect when connection is lost.
+				android.view.View.OnClickListener ocl = new android.view.View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
 						if (server != null) {
 							if (!server.isConnected()) {
 								showDialogToConnect(false, null, false);
 							}
 						}
+						Crouton.cancelAllCroutons();
 					}
-				});
+				};
+				Crouton.makeText(getActivity(), server.getLastError()+ "\n\n" + getText(R.string.click_dismiss), Synodroid.CROUTON_ERROR).setOnClickListener(ocl).show();
 			}
 		}
 		// Connection is done

@@ -62,7 +62,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_vertical"
-	        android:contentDescription="@string/url_go"
+	        android:contentDescription="@string/ar_bookmark"
 	        android:src="@drawable/ic_sethome" />
 	
 	</LinearLayout>

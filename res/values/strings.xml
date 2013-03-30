@@ -513,14 +513,14 @@
 <string name="help_text">You\'ve read through the tutorial and still have issues with our app or you would like to request a new feature in the app. We got you covered, us one of the two button below to either send us an email or drop us a line on Google+.</string>
 <string name="no_files">There are no files in the currently selected directory.</string>
 <string name="gohome">Load homepage</string>
-<string name="sethome">Set homepage</string>
-<string name="add_bookmark">Page added to bookmarks</string>
-<string name="del_bookmark">Page removed from bookmarks</string>
-<string name="url_go">Load url</string>
+<string name="ar_bookmark">Add/Remove bookmark</string>
+<string name="add_bookmark">Added to bookmarks</string>
+<string name="del_bookmark">Removed from bookmarks</string>
 <string name="url_cancel">Cancel</string>
 <string name="url_hint">Enter Url or Keyword</string>
 <string name="bookmarks">Bookmarks</string>
 <string name="confirm_download">Add download</string>
 <string name="confirm_remove_bookmark">Remove bookmark</string>
+<string name="click_dismiss">[Press to dismiss]</string>
 
 </resources>

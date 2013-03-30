@@ -42,6 +42,8 @@ import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.utils.Utils;
 import com.bigpupdev.synodroid.utils.ViewPagerIndicator;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -66,7 +68,6 @@ import android.view.WindowManager;
 import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class DetailActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
@@ -409,11 +410,12 @@ public class DetailActivity extends BaseActivity{
 	 */
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
+		final EditText seedRatio = (EditText) dialog.findViewById(R.id.seedingPercentage);
+		final Spinner seedTime = (Spinner) dialog.findViewById(R.id.seedingTime);
+		
 		switch (id) {
 		// Prepare the task's parameters dialog
 		case TASK_PARAMETERS_DIALOG:
-			final EditText seedRatio = (EditText) dialog.findViewById(R.id.seedingPercentage);
-			final Spinner seedTime = (Spinner) dialog.findViewById(R.id.seedingTime);
 			seedRatio.setText("" + seedingRatio);
 			// Try to find the right value
 			int pos = 0;
@@ -426,9 +428,6 @@ public class DetailActivity extends BaseActivity{
 			seedTime.setSelection(pos);
 			break;
 		case TASK_PROPERTIES_DIALOG:
-			final EditText seedRatioP = (EditText) dialog.findViewById(R.id.seedingPercentage);
-			final Spinner seedTimeP = (Spinner) dialog.findViewById(R.id.seedingTime);
-
 			final EditText ul_rateP = (EditText) dialog.findViewById(R.id.ul_rate);
 			final EditText dl_rateP = (EditText) dialog.findViewById(R.id.dl_rate);
 			final EditText max_peersP = (EditText) dialog.findViewById(R.id.max_peers);
@@ -437,7 +436,7 @@ public class DetailActivity extends BaseActivity{
 			dl_rateP.setText("" + dl_rate);
 			max_peersP.setText("" + max_peers);
 
-			seedRatioP.setText("" + seedingRatio);
+			seedRatio.setText("" + seedingRatio);
 			// Try to find the right value
 			int position = 0;
 			for (int iLoop = 0; iLoop < seedingTimes.length; iLoop++) {
@@ -446,7 +445,7 @@ public class DetailActivity extends BaseActivity{
 					break;
 				}
 			}
-			seedTimeP.setSelection(position);
+			seedTime.setSelection(position);
 
 			// Try to find the right value
 			position = 0;
@@ -693,7 +692,14 @@ public class DetailActivity extends BaseActivity{
 			SynoServer server = ((Synodroid) getApplication()).getServer();
 			if (server != null)
 				server.setLastError((String) msgP.obj);
-			main.showError(server.getLastError(), null);
+			android.view.View.OnClickListener ocl = new android.view.View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Crouton.cancelAllCroutons();
+					DetailActivity.this.finish();
+				}
+			};
+			Crouton.makeText(DetailActivity.this, server.getLastError()+ "\n\n" + getText(R.string.click_dismiss), Synodroid.CROUTON_ERROR).setOnClickListener(ocl).show();
 			break;
 		case ResponseHandler.MSG_ORIGINAL_FILE_RETRIEVED:
 			try{
@@ -711,16 +717,14 @@ public class DetailActivity extends BaseActivity{
 				OutputStream os = new FileOutputStream(file);
 				os.write(rawData.toString().getBytes());
 				os.close();
-				Toast toast = Toast.makeText(DetailActivity.this, getString(R.string.action_download_original_saved), Toast.LENGTH_SHORT);
-				toast.show();
+				Crouton.makeText(DetailActivity.this, getString(R.string.action_download_original_saved), Synodroid.CROUTON_INFO).show();
 			} catch (Exception e) {
 				// Unable to create file, likely because external storage is
 				// not currently mounted.
 				try{
 					if (((Synodroid)getApplication()).DEBUG) Log.w(Synodroid.DS_TAG, "Error writing " + file + " to SDCard.", e);
 				}catch (Exception ex){/*DO NOTHING*/}
-				Toast toast = Toast.makeText(DetailActivity.this, getString(R.string.action_download_original_failed), Toast.LENGTH_LONG);
-				toast.show();
+				Crouton.makeText(DetailActivity.this, getString(R.string.action_download_original_failed), Synodroid.CROUTON_ALERT).show();
 			}
 			break;
 		default: 

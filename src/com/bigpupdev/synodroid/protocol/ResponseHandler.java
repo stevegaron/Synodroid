@@ -29,8 +29,6 @@ public interface ResponseHandler {
 	public static final int MSG_OPERATION_PENDING = 10000;
 	// Specify an update operation is finished
 	public static final int MSG_OPERATION_DONE = 10001;
-	// Show a Toast's message
-	public static final int MSG_TOAST = 10002;
 	// Specify an error has to be shown
 	public static final int MSG_ERROR = 10003;
 	// Specify the obj contains task
@@ -59,6 +57,11 @@ public interface ResponseHandler {
 	public static final int MSG_SE_LIST_RETRIEVED = 100015;
 	
 	public static final int MSG_OTP_REQUESTED = 100015;
+	
+	public static final int MSG_INFO = 10020;
+	public static final int MSG_ALERT = 10021;
+	public static final int MSG_ERR = 10022;
+	public static final int MSG_CONFIRM = 10023;
 	
 	/**
 	 * Handle the response. BE CAREFUL this method will NOT be called from the main thread. So don't try to interact with the UI. Prefer to use SynodroidActivity subclass and then implements your code in handleMessage method.

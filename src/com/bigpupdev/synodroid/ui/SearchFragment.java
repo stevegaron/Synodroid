@@ -32,7 +32,6 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -48,6 +47,8 @@ import com.bigpupdev.synodroid.utils.SearchResultsOpenHelper;
 import com.bigpupdev.synodroid.utils.SearchViewBinder;
 import com.bigpupdev.synodroid.utils.SynodroidDSMSearch;
 import com.bigpupdev.synodroid.utils.SynodroidSearchSuggestion;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 public class SearchFragment extends SynodroidFragment {
 	private static final String PREFERENCE_GENERAL = "general_cat";
@@ -551,8 +552,7 @@ public class SearchFragment extends SynodroidFragment {
 	public void handleMessage(Message msg) {
 		// Update tasks
 		if (msg.what == ResponseHandler.MSG_TASK_DL_WAIT){
-			Toast toast = Toast.makeText(getActivity(), getString(R.string.wait_for_download), Toast.LENGTH_SHORT);
-			toast.show();
+			Crouton.makeText(getActivity(), getString(R.string.wait_for_download), Synodroid.CROUTON_INFO).show();
 		}
 		else if (msg.what == ResponseHandler.MSG_SE_LIST_RETRIEVED) {
 			final Activity a = getActivity();

@@ -27,6 +27,9 @@ import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.TaskStatus;
 
+import de.keyboardsurfer.android.widget.crouton.Style;
+import de.keyboardsurfer.android.widget.crouton.Style.Builder;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -41,6 +44,7 @@ import android.net.wifi.WifiManager;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ViewGroup.LayoutParams;
 
 /**
  * The application (single instance) which implements utility methods to access to the current server
@@ -58,6 +62,22 @@ public class Synodroid extends Application {
 	private SynoServer currentServer = null;
 	private String curBrowserUrl = null;
 
+	public static final Style CROUTON_ERROR;
+	public static final Style CROUTON_ALERT;
+    public static final Style CROUTON_CONFIRM;
+    public static final Style CROUTON_INFO;
+
+    public static final int holoRedLight = 0xddff4444;
+    public static final int holoGreenLight = 0xdd99cc00;
+  	public static final int holoBlueLight = 0xdd33b5e5;
+
+	static {
+		CROUTON_ERROR = new Builder().setDuration(-1).setBackgroundColorValue(holoRedLight).setHeight(LayoutParams.WRAP_CONTENT).build();
+		CROUTON_ALERT = new Builder().setDuration(1300).setBackgroundColorValue(holoRedLight).setHeight(LayoutParams.WRAP_CONTENT).build();
+		CROUTON_CONFIRM = new Builder().setDuration(1300).setBackgroundColorValue(holoGreenLight).setHeight(LayoutParams.WRAP_CONTENT).build();
+	    CROUTON_INFO = new Builder().setDuration(1300).setBackgroundColorValue(holoBlueLight).setHeight(LayoutParams.WRAP_CONTENT).build();
+	  }
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -412,7 +432,7 @@ public class Synodroid extends Application {
 			currentServer.executeAsynchronousAction(handlerP, actionP, forceRefreshP);
 		}
 		else{
-			fireMessage(handlerP, ResponseHandler.MSG_TOAST, ((Fragment) handlerP).getText(R.string.empty_not_connected));
+			fireMessage(handlerP, ResponseHandler.MSG_ALERT, ((Fragment) handlerP).getText(R.string.empty_not_connected));
 		}
 	}
 

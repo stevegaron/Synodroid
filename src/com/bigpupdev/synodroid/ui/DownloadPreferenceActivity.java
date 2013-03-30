@@ -32,6 +32,8 @@ import com.bigpupdev.synodroid.utils.Utils;
 import com.bigpupdev.synodroid.wizard.AddServerWizard;
 import com.bigpupdev.synodroid.wizard.ServerWizard;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -62,7 +64,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
 
 /**
  * The preference activity
@@ -199,8 +200,7 @@ public class DownloadPreferenceActivity extends CustomPreferenceActivity impleme
 
 			public boolean onPreferenceClick(Preference arg0) {
 				clearSearchHistory();
-				Toast toast = Toast.makeText(DownloadPreferenceActivity.this, getString(R.string.cleared_search_history), Toast.LENGTH_SHORT);
-				toast.show();
+				Crouton.makeText(DownloadPreferenceActivity.this, getString(R.string.cleared_search_history), Synodroid.CROUTON_CONFIRM).show();
 				return false;
 			}
 

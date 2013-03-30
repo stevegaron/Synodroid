@@ -25,6 +25,8 @@ import com.bigpupdev.synodroid.utils.ActivityHelper;
 import com.bigpupdev.synodroid.utils.SlidingMenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -42,7 +44,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * A base activity that defers common functionality across app activities to an
@@ -238,8 +239,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	                		break;
 	                	case SMNU_RS:
 	                		menu.showContent(true);
-	                		Toast t = Toast.makeText(getApplicationContext(), R.string.not_yet_implemented, Toast.LENGTH_SHORT);
-	                		t.show();
+	                		Crouton.makeText(BaseActivity.this, R.string.not_yet_implemented, Synodroid.CROUTON_ALERT).show();
 	                		break;
 	                	case SMNU_SE:
 	                		try{

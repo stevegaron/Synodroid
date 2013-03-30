@@ -14,6 +14,9 @@ import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,7 +26,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * The base class of an activity in Synodroid
@@ -44,6 +46,7 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 			final Activity a = SynodroidFragment.this.getActivity();
 			if (a != null){
 				Synodroid app = (Synodroid) a.getApplication();
+				Style msg_style = null;
 				// According to the message
 				switch (msgP.what) {
 				case MSG_OPERATION_PENDING:
@@ -64,13 +67,19 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 						((BrowserActivity) a).updateRefreshStatus(true);
 					}
 					break;
-				case MSG_TOAST:
+				case MSG_INFO:
+					if (msg_style == null) msg_style = Synodroid.CROUTON_INFO;
+				case MSG_ALERT:
+					if (msg_style == null) msg_style = Synodroid.CROUTON_ALERT;
+				case MSG_ERR:
+					if (msg_style == null) msg_style = Synodroid.CROUTON_ERROR;
+				case MSG_CONFIRM:
+					if (msg_style == null) msg_style = Synodroid.CROUTON_CONFIRM;
 					if (app != null && app.DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received toast message.");
 					final String text = (String) msgP.obj;
 					Runnable runnable = new Runnable() {
 						public void run() {
-							Toast toast = Toast.makeText(a, text, Toast.LENGTH_SHORT);
-							toast.show();
+							Crouton.makeText(a, text, Synodroid.CROUTON_CONFIRM).show();
 						}
 						};
 					a.runOnUiThread(runnable);
@@ -150,31 +159,10 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 		});
 		errorDialog = builder.create();
 	}
-
-	/**
-	 * Show an error message
-	 * 
-	 * @param msgP
-	 *            The message to display
-	 * @param listenerP
-	 *            A listener which will be called when the user will click on the OK button
-	 */
-	public void showError(String msgP, DialogInterface.OnClickListener listenerP) {
-		try{
-			if (((Synodroid)SynodroidFragment.this.getActivity().getApplication()).DEBUG) Log.w(Synodroid.DS_TAG,"SynodroidFragment: Showing error message.");
-		}catch (Exception ex){/*DO NOTHING*/}
-		try {
-			errorDialog.setMessage(msgP);
-			errorDialogListener = listenerP;
-			errorDialog.show();
-		} catch (Exception e) {
-			// Being unable to show the dialog, maybe the application does not have focus anymore...
-		}
-	}
 	
 	@Override
 	public void onDestroy(){
-		if (errorDialog != null && errorDialog.isShowing())	errorDialog.dismiss();
+		Crouton.cancelAllCroutons();
 		super.onDestroy();
 		
 	}

@@ -21,6 +21,8 @@ import com.bigpupdev.synodroid.adapter.BookmarkMenuAdapter;
 import com.bigpupdev.synodroid.utils.BookmarkDBHelper;
 import com.bigpupdev.synodroid.utils.BookmarkMenuItem;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -56,7 +58,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 
 /**
@@ -87,6 +88,10 @@ public class BrowserFragment extends SynodroidFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
+		try {
+			if (((Synodroid) getActivity().getApplication()).DEBUG)	Log.v(Synodroid.DS_TAG, "BrowserFragment: Creating Browser fragment");
+		} catch (Exception ex) {/* DO NOTHING */}
+		View browser = inflater.inflate(R.layout.browser, null, false);
 		
 		String curBrowserUrl = ((Synodroid)getActivity().getApplication()).getBrowserUrl();
 		comp = new Comparator<BookmarkMenuItem>() {
@@ -99,10 +104,6 @@ public class BrowserFragment extends SynodroidFragment {
             	}
             }
         };
-		
-		try {
-			if (((Synodroid) getActivity().getApplication()).DEBUG)	Log.v(Synodroid.DS_TAG, "BrowserFragment: Creating Browser fragment");
-		} catch (Exception ex) {/* DO NOTHING */}
 
 		WebIconDatabase.getInstance().open(getActivity().getDir("icons", FragmentActivity.MODE_PRIVATE).getPath());
 		View secMenu = ((BrowserActivity)getActivity()).getSlidingMenu().getSecondaryMenu();
@@ -138,7 +139,6 @@ public class BrowserFragment extends SynodroidFragment {
 					public void run() {
 						deleteFromDB(menuListSelectedItem.url);
 						
-						Toast.makeText(getActivity(), getText(R.string.del_bookmark) +"\n" + menuListSelectedItem.url, Toast.LENGTH_SHORT).show();
 						HashMap<String, String>bookmarks = getUrlsFromDB();
 						adapter.clear();
 				        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
@@ -155,7 +155,6 @@ public class BrowserFragment extends SynodroidFragment {
 			}
         
         });
-		View browser = inflater.inflate(R.layout.browser, null, false);
 		myWebView = (WebView) browser.findViewById(R.id.webview);
 		url_favicon = (ImageView) browser.findViewById(R.id.favicon);
 		stop_btn = (ImageButton) browser.findViewById(R.id.stop);
@@ -216,14 +215,14 @@ public class BrowserFragment extends SynodroidFragment {
 						//Save to DB
 						saveToDB(webView.getTitle(), cur_url);
 						
-						Toast.makeText(getActivity(), getText(R.string.add_bookmark) +"\n" + cur_url, Toast.LENGTH_SHORT).show();
+						Crouton.makeText(getActivity(), getText(R.string.add_bookmark), Synodroid.CROUTON_CONFIRM).show();
 					}
 					else{
 						bookmark_btn.setImageDrawable(getResources().getDrawable(R.drawable.ic_sethome));
 						//Delete from DB
 						deleteFromDB(cur_url);
 						
-						Toast.makeText(getActivity(), getText(R.string.del_bookmark) +"\n" + cur_url, Toast.LENGTH_SHORT).show();
+						Crouton.makeText(getActivity(), getText(R.string.del_bookmark), Synodroid.CROUTON_ALERT).show();
 					}
 					
 					bookmarks = getUrlsFromDB();
@@ -286,7 +285,14 @@ public class BrowserFragment extends SynodroidFragment {
 		registerForContextMenu(myWebView);
 		return browser;
 	}
-
+	
+	@Override
+	public void onDestroy(){
+		WebIconDatabase.getInstance().close();
+	    super.onDestroy();
+	}
+	
+	
 	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
 		ConfirmDialog dialog = new ConfirmDialog();
     	WebView.HitTestResult hitTestResult = myWebView.getHitTestResult();
@@ -335,6 +341,8 @@ public class BrowserFragment extends SynodroidFragment {
 			String itemUrl = c.getString(c.getColumnIndexOrThrow(BookmarkDBHelper.BookmarkEntry.COLUMN_NAME_URL));
 			map.put(itemUrl, itemTitle);
 		}
+		
+		db.close();
 		return map;
 	}
 	
@@ -349,6 +357,8 @@ public class BrowserFragment extends SynodroidFragment {
 		String[] selectionArgs = { url };
 		// Issue SQL statement.
 		db.delete(BookmarkDBHelper.BookmarkEntry.TABLE_NAME, selection, selectionArgs);
+
+		db.close();
 	}
 	
 	public void saveToDB(String title, String url){
@@ -364,6 +374,8 @@ public class BrowserFragment extends SynodroidFragment {
 
 		// Insert the new row, returning the primary key value of the new row
 		db.insert(BookmarkDBHelper.BookmarkEntry.TABLE_NAME, null, values);
+
+		db.close();
 	}
 	
 	@Override
