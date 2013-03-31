@@ -5,9 +5,7 @@ import java.util.List;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
-import com.bigpupdev.synodroid.action.AddPwTaskAction;
 import com.bigpupdev.synodroid.action.AddPwTaskListAction;
-import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.AddTaskListAction;
 import com.bigpupdev.synodroid.action.ClearAllTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
