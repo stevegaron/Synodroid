@@ -12,11 +12,12 @@
 	    <EditText
 	        android:id="@+id/add_url"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="60dip"
     		android:layout_marginLeft="5dip"
+    		android:singleLine="false"
+    		android:gravity="top"
     		android:hint="@string/add_download_url_title"
-	        android:inputType="textUri" >
-	
+	        android:inputType="textMultiLine|textUri" >
 	        <requestFocus />
 	    </EditText>
 	

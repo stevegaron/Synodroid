@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.server.SimpleSynoServer;
 import com.bigpupdev.synodroid.utils.SearchResult;
@@ -1141,5 +1142,11 @@ class DSHandlerDSM31 implements DSHandler {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void uploadUrlList(List<Uri> uriP, String uname, String pass)
+			throws Exception {
+		throw new DSMException(R.string.crash_notif_ticker_text);
 	}
 }

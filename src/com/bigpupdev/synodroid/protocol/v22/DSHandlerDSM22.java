@@ -768,5 +768,10 @@ class DSHandlerDSM22 implements DSHandler {
 		throw new Exception("Unsupported");
 	}
 	
+	@Override
+	public void uploadUrlList(List<Uri> uriP, String uname, String pass)
+			throws Exception {
+		throw new Exception("Unsupported");
+	}
 }
 

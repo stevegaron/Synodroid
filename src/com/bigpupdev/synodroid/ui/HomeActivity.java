@@ -1,11 +1,14 @@
 package com.bigpupdev.synodroid.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddPwTaskAction;
+import com.bigpupdev.synodroid.action.AddPwTaskListAction;
 import com.bigpupdev.synodroid.action.AddTaskAction;
+import com.bigpupdev.synodroid.action.AddTaskListAction;
 import com.bigpupdev.synodroid.action.ClearAllTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetDirectoryListShares;
@@ -191,23 +194,29 @@ public class HomeActivity extends BaseActivity {
 					FragmentManager fm = getSupportFragmentManager();
 			        try{
 			        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-			        	Uri uri = Uri.parse(edt.getText().toString());
 			        	
-			        	if (!uri.toString().startsWith("http://") && !uri.toString().startsWith("https://") && !uri.toString().startsWith("ftp://") && !uri.toString().startsWith("file://") && !uri.toString().startsWith("magnet:")){
-							uri = Uri.parse("http://"+uri.toString());
-						}
-			        	if (uri.toString().startsWith("http://magnet/")){
-							uri = Uri.parse(uri.toString().replace("http://magnet/", "magnet:"));
-						}
-						else if (uri.toString().startsWith("https://magnet/")){
-							uri = Uri.parse(uri.toString().replace("https://magnet/", "magnet:"));
-						}
-						
+			        	List<Uri> outlines = new ArrayList<Uri>();
+			        	for (String line: edt.getText().toString().split("\n")){
+			        		if (line.equals("")) continue;
+			        		
+			        		if (!line.startsWith("http://") && !line.startsWith("https://") && !line.startsWith("ftp://") && !line.startsWith("file://") && !line.startsWith("magnet:")){
+								line = "http://"+line;
+							}
+				        	if (line.startsWith("http://magnet/")){
+								line = line.replace("http://magnet/", "magnet:");
+							}
+							else if (line.startsWith("https://magnet/")){
+								line = line.replace("https://magnet/", "magnet:");
+							}
+							
+			        		outlines.add(Uri.parse(line));
+			        	}
+			        	
 			        	if (!user.getText().toString().equals("") || !pass.getText().toString().equals("")){
-			        		app.executeAsynchronousAction(fragment_download, new AddPwTaskAction(uri, user.getText().toString(), pass.getText().toString(), true, false), true);
+			        		app.executeAsynchronousAction(fragment_download, new AddPwTaskListAction(outlines, user.getText().toString(), pass.getText().toString()), true);
 			        	}
 			        	else{
-			        		app.executeAsynchronousAction(fragment_download, new AddTaskAction(uri, true, false), true);
+			        		app.executeAsynchronousAction(fragment_download, new AddTaskListAction(outlines), true);
 			        	}
 			        }
 					catch (Exception e){

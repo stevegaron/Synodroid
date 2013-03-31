@@ -489,10 +489,28 @@ class DSHandlerDSM32 implements DSHandler {
 	}
 
 	public void uploadUrl(Uri uriP, String uname, String pass) throws Exception {
+		List<Uri> bypassList = new ArrayList<Uri>();
+		bypassList.add(uriP);
+		uploadUrlList(bypassList, uname, pass);
+	}
+	
+	public void uploadUrlList(List<Uri> uriP, String uname, String pass) throws Exception {
 		// If we are logged on
 		if (server.isConnected()) {
 			if (uriP.toString() != null) {
-				String urls = "[\""+uriP.toString()+"\"]";
+				String urls = "[";
+				boolean addSep = false;
+				for (Uri uri: uriP){
+					if (addSep){
+						urls += ",";
+					}
+					else{
+						addSep = true;
+					}
+					
+					urls += "\"" + uri.toString() + "\"";
+				}
+				urls += "]";
 				
 				// Create the builder
 				QueryBuilder builder = new QueryBuilder().add("urls", urls).add("action", "add_url_task").add("desttext",getSharedDirectory(false));

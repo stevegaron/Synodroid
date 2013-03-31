@@ -92,6 +92,13 @@ public interface DSHandler {
 	 * @param uriP
 	 */
 	public void uploadUrl(final Uri uriP, final String uname, final String pass) throws Exception;
+	
+	/**
+	 * Upload a file defined by an Uri
+	 * 
+	 * @param uriP
+	 */
+	public void uploadUrlList(final List<Uri> uriP, final String uname, final String pass) throws Exception;
 
 	/**
 	 * Get task's raw details
