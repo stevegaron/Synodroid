@@ -488,4 +488,27 @@
 <string name="title_otp">Bestätigungs-Code</string>
 <string name="connect_wrong_otp">&quot;Falscher Bestätigungscode. Bitte versuchen Sie es erneut.&quot;</string>
 
+
+<string name="sliding_downloads">Downloads</string>
+<string name="sliding_browser">Browser</string>
+<string name="sliding_files">Dateien</string>
+<string name="sliding_rss">RSS</string>
+<string name="sliding_search">Suche</string>
+<string name="sliding_about">Über</string>
+<string name="sliding_help">Hilfe</string>
+
+<string name="help_title">Wir können helfen</string>
+<string name="help_text">Sie haven das Tutorial gelesen und haben immer noch Probleme oder wollen eine neue Funktion vorschlagen? Kontaktieren sie uns einfach über einen der beiden Buttons unten und schicken sie uns eine Mail oder eine Nachricht auf Google+.</string>
+<string name="no_files">Der aktuelle Ordner enthält keine Dateien.</string>
+<string name="gohome">Zur Startseite</string>
+<string name="ar_bookmark">Lesezeichen hinzufügen/entfernen</string>
+<string name="add_bookmark">Zu Lesezeichen hinzufügen</string>
+<string name="del_bookmark">Aus Lesezeichen entfernt</string>
+<string name="url_cancel">Abbrechen</string>
+<string name="url_hint">URL oder Schlagwort angeben</string>
+<string name="bookmarks">Lesezeichen</string>
+<string name="confirm_download">Download hinzufügen</string>
+<string name="confirm_remove_bookmark">Lesezeichen entfernen</string>
+<string name="click_dismiss">[Klicken zum entfernen]</string>
+
 </resources>

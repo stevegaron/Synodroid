@@ -510,7 +510,7 @@
 <string name="sliding_help">Help</string>
 
 <string name="help_title">We are here to help</string>
-<string name="help_text">You\'ve read through the tutorial and still have issues with our app or you would like to request a new feature in the app. We got you covered, us one of the two button below to either send us an email or drop us a line on Google+.</string>
+<string name="help_text">You\'ve read through the tutorial and still have issues with our app or you would like to request a new feature in the app. We got you covered, use one of the two button below to either send us an email or drop us a line on Google+.</string>
 <string name="no_files">There are no files in the currently selected directory.</string>
 <string name="gohome">Go to homepage</string>
 <string name="ar_bookmark">Add/Remove bookmark</string>

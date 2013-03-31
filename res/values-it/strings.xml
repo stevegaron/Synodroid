@@ -464,4 +464,26 @@
     <string name="title_otp">Codice di verifica</string>
     <string name="connect_wrong_otp">"Codice di verifica errato. Riprovare, per favore."</string>
     
+    
+    <string name="sliding_downloads">Downloads</string>
+	<string name="sliding_browser">Browser</string>
+	<string name="sliding_files">File</string>
+	<string name="sliding_rss">RSS</string>
+	<string name="sliding_search">Cerca</string>
+	<string name="sliding_about">Info</string>
+	<string name="sliding_help">Aiuto</string>
+	<string name="help_title">Siamo qui per aiutarti</string>
+	<string name="help_text">Hai letto il tutorial ed hai ancora problemi con la nostra applicazione o vorresti richiedere una nuova caratteristica nell\'applicazione. Siamo pronti ad ascoltarti, usa uno dei due pulsanti qui sotto o per mandarci una mail o per lasciarci un messaggio sulla bacheca di Google+.</string>
+	<string name="no_files">La cartella selezionata è vuota.</string>
+	<string name="gohome">Vai alla Home</string>
+	<string name="ar_bookmark">Aggiungi/Rimuovi segnalibro</string>
+	<string name="add_bookmark">Aggiunto ai segnalibri</string>
+	<string name="del_bookmark">Rimosso dai segnalibri</string>
+	<string name="url_cancel">Cancella</string>
+	<string name="url_hint">Inserisci URL o parole chiavi</string>
+	<string name="bookmarks">Segnalibri</string>
+	<string name="confirm_download">Aggiungi download</string>
+	<string name="confirm_remove_bookmark">Rimuovi segnalibro</string>
+	<string name="click_dismiss">[Premi per abbandonare]</string>
+	
 </resources>

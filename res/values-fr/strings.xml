@@ -495,4 +495,26 @@
 <string name="title_otp">Code de vérification</string>
 <string name="connect_wrong_otp">&quot;Code de vérification incorrect. Réessayez.&quot;</string>
 
+<string name="sliding_downloads">Téléchargements</string>
+<string name="sliding_browser">Fureteur</string>
+<string name="sliding_files">Fichiers</string>
+<string name="sliding_rss">RSS</string>
+<string name="sliding_search">Recherche</string>
+<string name="sliding_about">À Propos</string>
+<string name="sliding_help">Aide</string>
+
+<string name="help_title">Nous sommes là pour vous aidez</string>
+<string name="help_text">Vous avez lu le tutoriel et vous avez toujours des question à propos de notre application ou vous avez des suggestions pour de nouvelles fonctionalitées. Utilisez un des deux boutons ci-dessous pour communiquer avec nous soit par courriel ou par Google+.</string>
+<string name="no_files">Il n\'y a pas de fichier dans le répertoire sélectionné.</string>
+<string name="gohome">Page principale</string>
+<string name="ar_bookmark">Ajouter/Supprimer Favoris</string>
+<string name="add_bookmark">Ajouté aux favoris</string>
+<string name="del_bookmark">Supprimé des favoris</string>
+<string name="url_cancel">Annuler</string>
+<string name="url_hint">Entrez un Url ou un mot clé</string>
+<string name="bookmarks">Favoris</string>
+<string name="confirm_download">Ajout de téléchargements</string>
+<string name="confirm_remove_bookmark">Supprimé des Favoris</string>
+<string name="click_dismiss">[Touché pour fermer]</string>
+
 </resources>

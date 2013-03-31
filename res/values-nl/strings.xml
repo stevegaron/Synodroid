@@ -493,4 +493,27 @@
 <string name="title_otp">Verificatiecode</string>
 <string name="connect_wrong_otp">"Verkeerde verificatiecode. Controleer uw gegevens."</string>
 
+
+<string name="sliding_downloads">Downloads</string>
+<string name="sliding_browser">Browser</string>
+<string name="sliding_files">Bestanden</string>
+<string name="sliding_rss">RSS</string>
+<string name="sliding_search">Zoeken</string>
+<string name="sliding_about">Over</string>
+
+<string name="sliding_help">Help</string>
+<string name="help_title">Wij zijn er om te helpen</string>
+<string name="help_text">Heb je de tutorial gelezen en nog steeds problemen, of wil je een nieuwe functie voorstellen voor in de applicatie? dan kan je ons een email sturen of feedback sturen via Google+.</string>
+<string name="no_files">Er bevinden zich geen bestanden in deze map.</string>
+<string name="gohome">Naar de homepagina</string>
+<string name="ar_bookmark">Favorieten toevoegen/verwijderen</string>
+<string name="add_bookmark">Aan favorieten toegevoegd</string>
+<string name="del_bookmark">Uit favorieten verwijderd</string>
+<string name="url_cancel">Annuleren</string>
+<string name="url_hint">Typ een adres of zoekwoord</string>
+<string name="bookmarks">Favorieten</string>
+<string name="confirm_download">Download toevoegen</string>
+<string name="confirm_remove_bookmark">Verwijder favoriet</string>
+<string name="click_dismiss">[Annuleren]</string>
+
 </resources>
