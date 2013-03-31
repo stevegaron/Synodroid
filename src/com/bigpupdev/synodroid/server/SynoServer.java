@@ -742,7 +742,14 @@ public class SynoServer extends SimpleSynoServer{
 	public void pause() {
 		pause = true;
 	}
-
+	
+	public boolean isUsingLocalConnection(){
+		if (currentConn.equals(localConnection)){
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Resume the server's thread
 	 */

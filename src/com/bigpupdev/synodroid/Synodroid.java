@@ -135,19 +135,9 @@ public class Synodroid extends Application {
 	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated) {
 		connectServer(activityP, serverP, actionQueueP, automated, null);
 	}
-	
-	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated, String otp) {
-		// if (currentServer == null || !currentServer.isAlive() || !currentServer.equals(serverP)) {
-		// First disconnect the old server
-		if (currentServer != null && !automated) {
-			currentServer.disconnect();
-		}
-		// Set the recurrent action
-		GetAllAndOneDetailTaskAction recurrentAction = new GetAllAndOneDetailTaskAction(serverP.getSortAttribute(), serverP.isAscending(), activityP.getTaskAdapter());
-		serverP.setRecurrentAction(activityP, recurrentAction);
-		// Then connect the new one
-		currentServer = serverP;
 
+	public boolean shouldUsePublicConnection(){
+		boolean pub = true;
 		// Determine the current network access
 		WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		boolean wifiOn = wifiMgr.isWifiEnabled();
@@ -172,7 +162,6 @@ public class Synodroid extends Application {
 			}
 		}
 		// If we are connected to a WIFI network, verify if SSID match
-		boolean pub = true;
 		String cur_ssid = Utils.validateSSID(currentWifi.getSSID());
 		if (wifiConnected && cur_ssid != null) {
 			if (DEBUG) Log.v(Synodroid.DS_TAG, "Synodroid: Wifi current SSID is: '" + cur_ssid+"'");
@@ -193,7 +182,21 @@ public class Synodroid extends Application {
 				}
 			}
 		}
-		currentServer.connect(activityP, actionQueueP, pub, otp);
+		return pub;
+	}
+	
+	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated, String otp) {
+		// if (currentServer == null || !currentServer.isAlive() || !currentServer.equals(serverP)) {
+		// First disconnect the old server
+		if (currentServer != null && !automated) {
+			currentServer.disconnect();
+		}
+		// Set the recurrent action
+		GetAllAndOneDetailTaskAction recurrentAction = new GetAllAndOneDetailTaskAction(serverP.getSortAttribute(), serverP.isAscending(), activityP.getTaskAdapter());
+		serverP.setRecurrentAction(activityP, recurrentAction);
+		// Then connect the new one
+		currentServer = serverP;
+		currentServer.connect(activityP, actionQueueP, shouldUsePublicConnection(), otp);
 		// }
 	}
 

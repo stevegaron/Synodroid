@@ -692,8 +692,14 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			
 			// Launch the gets task's details recurrent action
 			Synodroid app = (Synodroid) a.getApplication();
-			app.setRecurrentAction(this, new GetAllAndOneDetailTaskAction(server.getSortAttribute(), server.isAscending(), (TaskAdapter) taskView.getAdapter()));
-			app.resumeServer();
+			if ((server.isUsingLocalConnection() && app.shouldUsePublicConnection()) || (!server.isUsingLocalConnection() && !app.shouldUsePublicConnection())){
+				server.disconnect();
+				showDialogToConnect(true, null, true);
+			}
+			else{
+				app.setRecurrentAction(this, new GetAllAndOneDetailTaskAction(server.getSortAttribute(), server.isAscending(), (TaskAdapter) taskView.getAdapter()));
+				app.resumeServer();
+			}
 		}
 		// No server then display the connection dialog
 		else {

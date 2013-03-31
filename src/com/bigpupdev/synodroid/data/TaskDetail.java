@@ -90,11 +90,11 @@ public class TaskDetail implements Serializable {
 		try {
 			taskStat = TaskStatus.valueOf(status);
 		} catch (Exception e) {
-			if (status.startsWith("TASK_EXTRACTING")){
-				taskStat = TaskStatus.TASK_EXTRACTING;
-			}
-			else{
-				taskStat = TaskStatus.TASK_UNKNOWN;
+			taskStat = TaskStatus.TASK_UNKNOWN;
+			if (status != null){
+				if (status.startsWith("TASK_EXTRACTING")){
+					taskStat = TaskStatus.TASK_EXTRACTING;
+				}	
 			}
 		}
 
