@@ -491,4 +491,27 @@
 <string name="title_otp">Código de verificación</string>
 <string name="connect_wrong_otp">"Código de verificación incorrecta. Pruebe de nuevo."</string>
 
+
+<string name="sliding_downloads">Descargas</string>
+<string name="sliding_browser">Navegador</string>
+<string name="sliding_files">Archivos</string>
+<string name="sliding_rss">RSS</string>
+<string name="sliding_search">Buscar</string>
+<string name="sliding_about">Sobre</string>
+<string name="sliding_help">Ayudar</string>
+
+<string name="help_title">Estamos aquí para ayudar</string>
+<string name="help_text">Usted ha leído el tutorial y todavía tienen problemas con nuestra aplicación o si desea solicitar una nueva característica en la aplicación. Nosotros tenemos cubierto, use uno de los dos botones de abajo para bien enviarnos un correo electrónico o envíanos una línea en Google+.</string>
+<string name="no_files">No hay archivos en el directorio seleccionado.</string>
+<string name="gohome">Página principal</string>
+<string name="ar_bookmark">Agregar/Quitar marcador</string>
+<string name="add_bookmark">Añadido a favoritos</string>
+<string name="del_bookmark">Eliminado de marcadores</string>
+<string name="url_cancel">Cancelar</string>
+<string name="url_hint">Introducir URL o palabra clave</string>
+<string name="bookmarks">BMarcadores</string>
+<string name="confirm_download">Añadir descargar</string>
+<string name="confirm_remove_bookmark">Eliminar marcador</string>
+<string name="click_dismiss">[Pulse para cerrar]</string>
+
 </resources>
