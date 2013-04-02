@@ -12,7 +12,6 @@ import com.bigpupdev.synodroid.action.GetFilesAction;
 import com.bigpupdev.synodroid.action.PauseMultipleTaskAction;
 import com.bigpupdev.synodroid.action.ResumeMultipleTaskAction;
 import com.bigpupdev.synodroid.action.UpdateFilesAction;
-import com.bigpupdev.synodroid.action.UpdateTaskAction;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskFile;
 import com.bigpupdev.synodroid.ui.BaseActivity;

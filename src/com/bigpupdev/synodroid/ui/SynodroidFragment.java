@@ -11,15 +11,12 @@
 package com.bigpupdev.synodroid.ui;
 
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
-import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,11 +30,6 @@ import android.util.Log;
  * @author Eric Taix (eric.taix at gmail.com)
  */
 public abstract class SynodroidFragment extends Fragment implements ResponseHandler {
-	// The error dialog
-	private AlertDialog errorDialog;
-	// The error dialog listener
-	private DialogInterface.OnClickListener errorDialogListener;
-
 	// A generic Handler which delegate to the activity
 	private Handler handler = new Handler() {
 		// The toast message
@@ -121,8 +113,6 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		createDialogs();
 	}
 
 	/*
@@ -138,27 +128,6 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 	 * Handle the message from a none UI thread. It is safe to interact with the UI in this method
 	 */
 	public abstract void handleMessage(Message msgP);
-
-	/**
-	 * Create all required dialogs
-	 */
-	private void createDialogs() {
-		// The error dialog
-		Activity a = getActivity();
-		AlertDialog.Builder builder = new AlertDialog.Builder(a);
-		// By default the message is "Error Unknown"
-		builder.setMessage(R.string.err_unknown);
-		builder.setTitle(getString(R.string.connect_error_title)).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-				// If a listener as been defined
-				if (errorDialogListener != null) {
-					errorDialogListener.onClick(dialog, id);
-				}
-			}
-		});
-		errorDialog = builder.create();
-	}
 	
 	@Override
 	public void onDestroy(){

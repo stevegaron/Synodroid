@@ -171,7 +171,7 @@ public class ActivityHelper {
             return;
         }
         
-        LinearLayout.LayoutParams springLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.FILL_PARENT);
+        LinearLayout.LayoutParams springLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
         springLayoutParams.weight = 1;
         
         LinearLayout.LayoutParams secLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -257,7 +257,7 @@ public class ActivityHelper {
         		style);
         actionButton.setLayoutParams(new ViewGroup.LayoutParams(
                 (int) mActivity.getResources().getDimension(R.dimen.actionbar_compat_height),
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
         actionButton.setImageResource(iconResId);
         actionButton.setScaleType(ImageView.ScaleType.CENTER);
         actionButton.setContentDescription(mActivity.getResources().getString(textResId));
@@ -306,7 +306,7 @@ public class ActivityHelper {
         actionButton.setId(item.getItemId());
         actionButton.setLayoutParams(new ViewGroup.LayoutParams(
                 (int) mActivity.getResources().getDimension(R.dimen.actionbar_compat_height),
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
         actionButton.setImageDrawable(item.getIcon());
         actionButton.setScaleType(ImageView.ScaleType.CENTER);
         actionButton.setContentDescription(item.getTitle());
