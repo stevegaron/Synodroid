@@ -1,19 +1,15 @@
 package com.bigpupdev.synodroid.ui;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager.BadTokenException;
 import android.widget.TextView;
 
 import com.bigpupdev.synodroid.R;
@@ -52,6 +48,12 @@ public class AboutFragment extends Fragment{
 		}
 		TextView vname = (TextView) about.findViewById(R.id.app_vers_name_text);
 		vname.setText(vn);
+		TextView jmdns = (TextView) about.findViewById(R.id.tvJmdnsUrl);
+		Linkify.addLinks(jmdns, Linkify.ALL);
+		TextView slidingmenu = (TextView) about.findViewById(R.id.tvSlidingMenuUrl);
+		Linkify.addLinks(slidingmenu, Linkify.ALL);
+		TextView crouton = (TextView) about.findViewById(R.id.tvCroutonUrl);
+		Linkify.addLinks(crouton, Linkify.ALL);
 		
 		return about;
 	}

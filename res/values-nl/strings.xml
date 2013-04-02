@@ -515,5 +515,6 @@
 <string name="confirm_download">Download toevoegen</string>
 <string name="confirm_remove_bookmark">Verwijder favoriet</string>
 <string name="click_dismiss">[Annuleren]</string>
+<string name="app_libraries">Bibliotheken die:</string>
 
 </resources>

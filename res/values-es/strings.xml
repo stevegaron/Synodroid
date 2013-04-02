@@ -513,5 +513,6 @@
 <string name="confirm_download">Añadir descargar</string>
 <string name="confirm_remove_bookmark">Eliminar marcador</string>
 <string name="click_dismiss">[Pulse para cerrar]</string>
+<string name="app_libraries">Las bibliotecas utilizan:</string>
 
 </resources>

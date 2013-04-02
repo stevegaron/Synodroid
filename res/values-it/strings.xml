@@ -485,5 +485,6 @@
 	<string name="confirm_download">Aggiungi download</string>
 	<string name="confirm_remove_bookmark">Rimuovi segnalibro</string>
 	<string name="click_dismiss">[Premi per abbandonare]</string>
+	<string name="app_libraries">Librerie usato:</string>
 	
 </resources>

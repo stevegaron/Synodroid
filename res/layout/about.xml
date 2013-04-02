@@ -55,8 +55,9 @@
             android:id="@+id/LinearLayout03"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dip"
+            android:layout_marginLeft="40dip"
             android:layout_marginTop="15dip"
+            android:layout_marginBottom="15dip"
             android:orientation="vertical" >
 
             <TextView
@@ -135,6 +136,68 @@
                 android:text="Guido Cioni (it)"
                 android:textAppearance="?android:attr/textAppearanceMedium" >
             </TextView>
+            
+            <TextView
+                android:id="@+id/tvLibs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_libraries"
+                android:layout_marginTop="16dip"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/tvJmdns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="JmDNS"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/tvJmdnsUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="http://jmdns.sourceforge.net/index.html"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tvSlidingMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="SlidingMenu"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/tvSlidingMenuUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="https://github.com/jfeinstein10/SlidingMenu"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+            <TextView
+                android:id="@+id/tvCrouton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="Crouton"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/tvCroutonUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dip"
+                android:textColor="#BBB"
+                android:text="https://github.com/keyboardsurfer/Crouton"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
     </LinearLayout>

@@ -510,5 +510,6 @@
 <string name="confirm_download">Download hinzufügen</string>
 <string name="confirm_remove_bookmark">Lesezeichen entfernen</string>
 <string name="click_dismiss">[Klicken zum entfernen]</string>
+<string name="app_libraries">Programmbibliotheken verwendet:</string>
 
 </resources>

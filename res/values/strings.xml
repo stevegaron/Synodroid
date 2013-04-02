@@ -522,5 +522,6 @@
 <string name="confirm_download">Add download</string>
 <string name="confirm_remove_bookmark">Remove bookmark</string>
 <string name="click_dismiss">[Press to dismiss]</string>
+<string name="app_libraries">Libraries used:</string>
 
 </resources>

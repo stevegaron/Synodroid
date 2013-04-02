@@ -516,5 +516,6 @@
 <string name="confirm_download">Ajout de téléchargements</string>
 <string name="confirm_remove_bookmark">Supprimé des Favoris</string>
 <string name="click_dismiss">[Touché pour fermer]</string>
+<string name="app_libraries">Bibliothèques logicielles utilisées:</string>
 
 </resources>
