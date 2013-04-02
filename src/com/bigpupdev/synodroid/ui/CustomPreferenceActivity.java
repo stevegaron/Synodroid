@@ -176,7 +176,7 @@ public abstract class CustomPreferenceActivity extends BasePreferenceActivity {
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_downloads), R.drawable.ic_download, SMNU_DL));
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_browser), R.drawable.ic_browser, SMNU_BR));
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_files), R.drawable.ic_file, SMNU_FI));
-        adapter.add(new SlidingMenuItem(getString(R.string.sliding_rss), R.drawable.ic_rss, SMNU_RS));
+        //adapter.add(new SlidingMenuItem(getString(R.string.sliding_rss), R.drawable.ic_rss, SMNU_RS));
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_search), R.drawable.ic_title_search, SMNU_SE));
         adapter.add(new SlidingMenuItem(getString(R.string.menu_parameter), R.drawable.ic_settings, SMNU_SET));
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_about), R.drawable.ic_about, SMNU_AB));
