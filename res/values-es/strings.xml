@@ -493,26 +493,25 @@
 
 
 <string name="sliding_downloads">Descargas</string>
-<string name="sliding_browser">Navegador</string>
-<string name="sliding_files">Archivos</string>
+<string name="sliding_browser">Navegador web</string>
+<string name="sliding_files">Explorador de Archivos</string>
 <string name="sliding_rss">RSS</string>
 <string name="sliding_search">Buscar</string>
 <string name="sliding_about">Sobre</string>
-<string name="sliding_help">Ayudar</string>
-
-<string name="help_title">Estamos aquí para ayudar</string>
-<string name="help_text">Usted ha leído el tutorial y todavía tienen problemas con nuestra aplicación o si desea solicitar una nueva característica en la aplicación. Nosotros tenemos cubierto, use uno de los dos botones de abajo para bien enviarnos un correo electrónico o envíanos una línea en Google+.</string>
+<string name="sliding_help">Ayuda</string>
+<string name="help_title">Estamos para ayudar</string>
+<string name="help_text">¿Has leído el tutorial y todavía tienes dudas? ¿Quieres hacer alguna petición sobre una nueva funcionalidad? Haznoslo saber a través de email o G+</string>
 <string name="no_files">No hay archivos en el directorio seleccionado.</string>
-<string name="gohome">Página principal</string>
-<string name="ar_bookmark">Agregar/Quitar marcador</string>
+<string name="gohome">Ir a la página de inicio</string>
+<string name="ar_bookmark">Añadir/Borrar favorito</string>
 <string name="add_bookmark">Añadido a favoritos</string>
-<string name="del_bookmark">Eliminado de marcadores</string>
+<string name="del_bookmark">Borrado de favoritos</string>
 <string name="url_cancel">Cancelar</string>
-<string name="url_hint">Introducir URL o palabra clave</string>
-<string name="bookmarks">BMarcadores</string>
-<string name="confirm_download">Añadir descargar</string>
-<string name="confirm_remove_bookmark">Eliminar marcador</string>
-<string name="click_dismiss">[Pulse para cerrar]</string>
+<string name="url_hint">Introduce una url o una palabra clave</string>
+<string name="bookmarks">Favoritos</string>
+<string name="confirm_download">Añadir descarga</string>
+<string name="confirm_remove_bookmark">Borrar favorito</string>
+<string name="click_dismiss">[Pulse para cancelar]</string>
 <string name="app_libraries">Las bibliotecas utilizan:</string>
 
 </resources>
