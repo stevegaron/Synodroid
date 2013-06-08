@@ -273,6 +273,7 @@ public class BrowserFragment extends SynodroidFragment {
 		WebSettings webSettings = myWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setBuiltInZoomControls(true);
+		webSettings.setDisplayZoomControls(false);
 		webSettings.setUseWideViewPort(true);
 		webSettings.setLoadWithOverviewMode(true);
 		
