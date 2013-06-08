@@ -171,7 +171,7 @@ public abstract class BaseActivity extends FragmentActivity {
         menu.setShadowWidthRes(R.dimen.shadow_width);
         menu.setShadowDrawable(R.drawable.shadow);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        menu.setFadeDegree(0.50f);
+        menu.setFadeDegree(0.90f);
         menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
         menu.setMenu(R.layout.home_menu_frame);
         
