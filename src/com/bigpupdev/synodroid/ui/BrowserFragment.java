@@ -20,6 +20,7 @@ import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.adapter.BookmarkMenuAdapter;
 import com.bigpupdev.synodroid.utils.BookmarkDBHelper;
 import com.bigpupdev.synodroid.utils.BookmarkMenuItem;
+import com.bigpupdev.synodroid.utils.UIUtils;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 
@@ -273,7 +274,7 @@ public class BrowserFragment extends SynodroidFragment {
 		WebSettings webSettings = myWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setBuiltInZoomControls(true);
-		webSettings.setDisplayZoomControls(false);
+		if(UIUtils.isICS()) webSettings.setDisplayZoomControls(false);
 		webSettings.setUseWideViewPort(true);
 		webSettings.setLoadWithOverviewMode(true);
 		
