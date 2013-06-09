@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="20dip"
-            android:drawableLeft="@drawable/ic_menu_wizard"
+            android:drawableLeft="@drawable/ic_find_srv"
             android:gravity="center_vertical"
             android:text="@string/add_server_st1"
             android:textAppearance="?android:attr/textAppearanceMedium" />

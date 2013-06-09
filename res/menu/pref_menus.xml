@@ -18,7 +18,7 @@
 <menu 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_wizard"
-        android:icon="@drawable/ic_menu_wizard"
+        android:icon="@drawable/ic_find_srv"
         android:title="@string/wizard_menu"
         android:orderInCategory="0"
         android:showAsAction="ifRoom|withText" android:visible="false"/>
