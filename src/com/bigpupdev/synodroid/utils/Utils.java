@@ -149,24 +149,26 @@ public class Utils {
 		if (etaP != -1) {
 			// Days
 			long d = etaP / (60 * 60 * 24);
-			if (d > 0) {
-				result += d + "d ";
-				etaP -= d * (60 * 60 * 24);
+			if (d > 1) {
+				result += d + "d";
+				etaP = 0;
 			}
 			// Hours
 			long h = etaP / (60 * 60);
-			if (h > 0 || d > 0) {
-				result += h + "h ";
-				etaP -= h * (60 * 60);
+			if (h > 1) {
+				result += h + "h";
+				etaP = 0;
 			}
 			// Minutes
 			long m = etaP / 60;
-			if (m > 0 || h > 0 || m > 0) {
-				result += m + "m ";
-				etaP -= m * 60;
+			if (m > 2) {
+				result += m + "m";
+				etaP = 0;
 			}
 			// Secondes
-			result += etaP + "s";
+			if (etaP > 0 ){
+				result += etaP + "s";	
+			}
 		}
 		return result;
 	}
