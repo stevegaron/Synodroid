@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/id_torrent_icon"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="left"
             android:layout_marginBottom="2dip"
             android:layout_marginRight="5dip"
@@ -29,21 +29,9 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/dl_download" />
-
-        <CheckBox
-            android:id="@+id/id_torrent_cb"
-    		android:button="@drawable/checkbox_selector"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:duplicateParentState="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
     </LinearLayout>
 
     <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dip"
@@ -61,7 +49,8 @@
                 android:marqueeRepeatLimit="100"
                 android:singleLine="true"
                 android:text="Ubuntu 8.04.iso"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textColor="#EEE"
+        		android:textAppearance="?android:attr/textAppearanceMedium" />
         </TableRow>
 
         <TableRow android:layout_width="fill_parent" >

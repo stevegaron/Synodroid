@@ -64,14 +64,13 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  * This activity list all current tasks
  * 
  * @author eric.taix at gmail.com
  */
-public class DownloadFragment extends SynodroidFragment implements OnCheckedChangeListener{
+public class DownloadFragment extends SynodroidFragment{
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
@@ -408,6 +407,8 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		TaskAdapter taskAdapter = new TaskAdapter(this);
 		taskView.setAdapter(taskAdapter);
 		taskView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		taskView.setSelector(R.drawable.list_selector);
+		taskView.setFocusableInTouchMode(false);
 		taskView.setOnItemClickListener(taskAdapter);
 		taskView.setOnItemLongClickListener(taskAdapter);
 		View empty = downloadContent.findViewById(android.R.id.empty);
@@ -746,7 +747,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		checked_tasks_id = new ArrayList<Integer>();
 		TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
 		taskAdapter.clearTasksSelection();
-	
+		for (int i = 0; i < taskAdapter.getCount(); i++){
+			taskView.setItemChecked(i, false);
+		}
 	}
 	
 	public void validateChecked(ArrayList<Integer> currentTasks){
@@ -781,9 +784,9 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		}
 	}
 	
-	public void onCheckedChanged(CompoundButton button, boolean check) {
-		Task t = (Task)button.getTag();
+	public void checkView(Task t, View v, boolean check) {
 		if (check){
+			v.setBackgroundResource(R.drawable.list_item_selector_highlighted);
 			if (checked_tasks_id.contains(t.taskId)) return;
 			t.selected = true;
 			
@@ -796,6 +799,7 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 			checked_tasks_id.add(t.taskId);
 		}
 		else{
+			v.setBackgroundResource(R.drawable.list_item_selector_default);
 			if (!checked_tasks_id.contains(t.taskId)) return;
 			t.selected = false;
 			

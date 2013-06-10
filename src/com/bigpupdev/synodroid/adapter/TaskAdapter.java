@@ -38,10 +38,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -70,7 +68,6 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	private Activity a;
 
 	static class ViewHolder{
-		public CheckBox cb;
 		public ImageView image;
 		public TextView torrentName;
 		public TextView torrentSize;
@@ -215,7 +212,6 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		if (view == null) {
 			view = inflater.inflate(R.layout.task_template, parentP, false);
 		    ViewHolder vh = new ViewHolder();
-		    vh.cb = (CheckBox) view.findViewById(R.id.id_torrent_cb);
 		    vh.image = (ImageView) view.findViewById(R.id.id_torrent_icon);
 		    vh.torrentName = (TextView) view.findViewById(R.id.id_torrent_name);
 		    vh.torrentSize = (TextView) view.findViewById(R.id.id_torrent_total_size);
@@ -226,12 +222,6 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		    vh.torrentRates = (TextView) view.findViewById(R.id.id_torrent_speed);
 			vh.torrentETA = (TextView) view.findViewById(R.id.id_torrent_eta);
 			
-	     	View parent = view.findViewById(R.id.id_parent_view_template);
-			final CheckBox checkbox = (CheckBox) view.findViewById(R.id.id_torrent_cb);
-			parent.setOnClickListener(new OnClickListener(){
-				public void onClick(View arg0) {
-					checkbox.performClick();
-				}});
 			view.setTag(vh);
 		}
 		
@@ -252,9 +242,6 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	 */
 	private void bindView(View viewP, final Task taskP) {
 		ViewHolder vh = (ViewHolder) viewP.getTag();
-		vh.cb.setOnCheckedChangeListener(fragment);
-		vh.cb.setTag(taskP);
-		vh.cb.setChecked(taskP.selected);
 		
 		// Torrent's status icon
 		IconFacade.bindTorrentStatus(c, vh.image, taskP);
@@ -329,6 +316,13 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		
 		// The estimated time left
 		vh.torrentETA.setText(taskP.eta);
+		
+		if (taskP.selected){
+			viewP.setBackgroundResource(R.drawable.list_item_selector_highlighted);
+		}
+		else{
+			viewP.setBackgroundResource(R.drawable.list_item_selector_default);
+		}
 	}
 
 	/**
@@ -356,18 +350,9 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-		ViewHolder vh = (ViewHolder) view.getTag();
 		Task task = tasks.get(position);
 		if (task != null) {
-			if (!task.selected){
-				fragment.onCheckedChanged(vh.cb, true);
-				vh.cb.setChecked(true);
-			}
-			else{
-				fragment.onCheckedChanged(vh.cb, false);
-				vh.cb.setChecked(false);
-			}
-			
+			fragment.checkView(task, view, !task.selected);
 			return true;
 		}
 		return false;

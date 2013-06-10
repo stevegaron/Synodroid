@@ -33,6 +33,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
 	@Override
 	public void stopActionMode(){
 		if (mCurrentActionMode != null) mCurrentActionMode.finish();
+		started = false;
 	}
 	
 	@Override
@@ -43,6 +44,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
 		terminating = false;
 		mCurrentFragment = fragment;
 		mCurrentActionMode = fragment.getActivity().startActionMode(mContentSelectionActionModeCallback);
+		started = true;
 	}
 	
 	@Override

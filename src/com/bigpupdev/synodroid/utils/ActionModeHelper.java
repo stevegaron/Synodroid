@@ -21,6 +21,7 @@ import com.bigpupdev.synodroid.ui.SynodroidFragment;
 
 public class ActionModeHelper{
 	public boolean terminating = false;
+	public boolean started = false;
 	SynodroidFragment mCurrentFragment = null;
 	ActivityHelper mCurrentActivityHelper = null;
 	
@@ -44,6 +45,7 @@ public class ActionModeHelper{
 			mCurrentActivityHelper = null;
             terminating = false;
 		}
+		started = false;
 	}
 	
 	private List<Task> countSelected(){
@@ -110,6 +112,7 @@ public class ActionModeHelper{
 		
 		mCurrentActivityHelper.startActionMode(cancelClickListener, clearClickListener,
 				resumeClickListener, pauseClickListener);
+		started = true;
 	}
 	
 	public void setTitle(String title){
@@ -119,10 +122,7 @@ public class ActionModeHelper{
 	}
 
 	public boolean isActionModeEnabled(){
-		if (mCurrentActivityHelper != null){
-			return true;
-		}
-		return false;
+		return started;
 	}
 	
 	public void startActionMode(DetailFiles fragment, final Task taskP) {
