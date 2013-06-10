@@ -37,6 +37,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -323,6 +324,13 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		else{
 			viewP.setBackgroundResource(R.drawable.list_item_selector_default);
 		}
+		final View listItem = viewP;
+		final Task curTask = taskP;
+		vh.image.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				fragment.checkView(curTask, listItem, !curTask.selected);
+			}});
 	}
 
 	/**
