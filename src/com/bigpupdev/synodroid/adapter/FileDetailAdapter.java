@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,7 +42,7 @@ import android.widget.TextView;
  * 
  * @author eric.taix at gmail.com
  */
-public class FileDetailAdapter extends BaseAdapter implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener{
+public class FileDetailAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
 	// The task
 	private Task task;
@@ -192,33 +191,24 @@ public class FileDetailAdapter extends BaseAdapter implements AdapterView.OnItem
 			img.setVisibility(View.GONE);
 		}
 		
-		// Is the file has to be download
-		CheckBox downloadFile = (CheckBox) viewP.findViewById(R.id.id_file_to_download);
-		downloadFile.setTag(fileP);
-		if ((!task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) && !task.status.equals(TaskStatus.TASK_SEEDING.name())) || version == null || version.smallerThen(DSMVersion.VERSION3_1))
-			downloadFile.setVisibility(View.GONE);
-		else
-			downloadFile.setVisibility((task.isTorrent ? View.VISIBLE : View.GONE));
-		downloadFile.setOnCheckedChangeListener(fragment);
-		downloadFile.setChecked(fileP.selected);
- 
-		// Changing the checkbox state is only able if the download is not finished
-		downloadFile.setEnabled(((task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) || task.status.equals(TaskStatus.TASK_SEEDING.name())) ? true : false));
-	}
-
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-		TaskFile file = files.get(position);
-		if (file != null) {
-			fragment.onTaskLongClicked(file);
-			return true;
+		if (fileP.selected){
+			viewP.setBackgroundResource(R.drawable.list_item_selector_highlighted);
 		}
-		return false;
+		else{
+			viewP.setBackgroundResource(R.drawable.list_item_selector_default);
+		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
-		
+		TaskFile cFile = files.get(position);
+		if ((!task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) && !task.status.equals(TaskStatus.TASK_SEEDING.name())) || version == null || version.smallerThen(DSMVersion.VERSION3_1)){
+			//DO NOTHING
+		}
+		else{
+			if (task.isTorrent && (task.status.equals(TaskStatus.TASK_DOWNLOADING.name()) || task.status.equals(TaskStatus.TASK_SEEDING.name()))){
+				fragment.checkView(cFile, view, !cFile.selected);
+			}
+		}
 	}
 }

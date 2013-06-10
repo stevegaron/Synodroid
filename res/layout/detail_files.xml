@@ -1,15 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/detail_files"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <ListView android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:id="@id/android:list"></ListView>
+    <ListView 
+        android:id="@id/android:list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:isScrollContainer="true"></ListView>
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout 
         android:id="@id/android:empty"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal">
+        android:layout_height="fill_parent" 
+        android:gravity="center_vertical|center_horizontal">
 
         <ProgressBar
             android:id="@+id/empty_pb"
@@ -21,6 +29,8 @@
             android:id="@+id/empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_list_loading" android:paddingLeft="10dip" android:paddingRight="10dip"/>
+            android:text="@string/empty_list_loading" 
+            android:paddingLeft="10dip" 
+            android:paddingRight="10dip"/>
     </LinearLayout>
 </LinearLayout>

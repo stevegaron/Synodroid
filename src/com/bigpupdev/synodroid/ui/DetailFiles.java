@@ -49,7 +49,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * 
  * @author Eric Taix (eric.taix at gmail.com)
  */
-public class DetailFiles extends SynodroidFragment implements OnCheckedChangeListener{
+public class DetailFiles extends SynodroidFragment{
 	FileDetailAdapter fileAdapter;
 	private ListView filesListView;
 		
@@ -133,8 +133,9 @@ public class DetailFiles extends SynodroidFragment implements OnCheckedChangeLis
 		fileAdapter = new FileDetailAdapter(this, task, vers);
 		filesListView.setAdapter(fileAdapter);
 		filesListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		filesListView.setSelector(R.drawable.list_selector);
+		filesListView.setFocusableInTouchMode(false);
 		filesListView.setOnItemClickListener(fileAdapter);
-		filesListView.setOnItemLongClickListener(fileAdapter);
 		View empty = v.findViewById(android.R.id.empty);
 		
 		filesListView.setEmptyView(empty);
@@ -168,6 +169,9 @@ public class DetailFiles extends SynodroidFragment implements OnCheckedChangeLis
 		checked_tasks = new ArrayList<TaskFile>();
 		checked_tasks_id = new ArrayList<Integer>();
 		fileAdapter.clearTasksSelection();
+		for (int i = 0; i < fileAdapter.getCount(); i++){
+			filesListView.setItemChecked(i, false);
+		}
 	
 	}
 	
@@ -203,9 +207,9 @@ public class DetailFiles extends SynodroidFragment implements OnCheckedChangeLis
 		}
 	}
 	
-	public void onCheckedChanged(CompoundButton button, boolean check) {
-		TaskFile t = (TaskFile)button.getTag();
+	public void checkView(TaskFile t, View v,  boolean check) {
 		if (check){
+			v.setBackgroundResource(R.drawable.list_item_selector_highlighted);
 			
 			Intent intent = a.getIntent();
 			Task task = (Task) intent.getSerializableExtra("com.bigpupdev.synodroid.ds.Details");
@@ -222,6 +226,7 @@ public class DetailFiles extends SynodroidFragment implements OnCheckedChangeLis
 			checked_tasks_id.add(t.id);
 		}
 		else{
+			v.setBackgroundResource(R.drawable.list_item_selector_default);
 			if (!checked_tasks_id.contains(t.id)) return;
 			t.selected = false;
 			
@@ -240,40 +245,4 @@ public class DetailFiles extends SynodroidFragment implements OnCheckedChangeLis
 		String selected = getActivity().getString(R.string.selected);
 		mCurrentActionMode.setTitle(Integer.toString(checked_tasks_id.size()) +" "+ selected);
 	}
-	
-	/**
-	 * A task as been long clicked by the user
-	 * 
-	 * @param file
-	 */
-	public void onTaskLongClicked(final TaskFile file) {
-		final Activity a = getActivity();
-		Intent intent = a.getIntent();
-		Task task = (Task) intent.getSerializableExtra("com.bigpupdev.synodroid.ds.Details");
-	
-		AlertDialog.Builder builder = new AlertDialog.Builder(a);
-		builder.setTitle(getString(R.string.dialog_title_action));
-		final FileActionAdapter adapter = new FileActionAdapter(a, file, task, fileAdapter.getFileList());
-		if (adapter.getCount() != 0) {
-			builder.setAdapter(adapter, new OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					TaskActionMenu taskAction = (TaskActionMenu) adapter.getItem(which);
-					// Only if TaskActionMenu is enabled: it seems that even if the
-					// item is
-					// disable the user can tap it
-					if (taskAction.isEnabled()) {
-						Synodroid app = (Synodroid) a.getApplication();
-						app.executeAction(DetailFiles.this, taskAction.getAction(), true);
-					}
-				}
-			});
-			AlertDialog connectDialog = builder.create();
-			try {
-				connectDialog.show();
-			} catch (BadTokenException e) {
-				// Unable to show dialog probably because intent has been closed. Ignoring...
-			}
-		}
-	}
-
 }

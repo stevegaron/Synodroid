@@ -8,15 +8,6 @@
     android:paddingTop="10dip"
     tools:ignore="HardcodedText" >
 
-    <CheckBox
-        android:id="@+id/id_file_to_download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="false" >
-    </CheckBox>
-
     <TextView
         android:id="@+id/id_file_name"
         android:layout_width="fill_parent"
@@ -24,7 +15,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_toRightOf="@+id/id_file_to_download"
+        android:textColor="#EEE"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="The filename of the task appears here"
@@ -38,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/id_file_name"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/id_file_to_download"
         android:textColor="#999"
         android:text="782 MB" />
 
