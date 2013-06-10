@@ -77,6 +77,14 @@ public class FileActivity extends BaseActivity{
 			fragment_file.addFilesToAdapter(fragment_file.getCurrentFolder());
 			return true;
         }
+		else if ( item.getItemId() == R.id.menu_gohome){
+			try{
+				if (app.DEBUG) Log.v(Synodroid.DS_TAG,"FileActivity: Menu home selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
+			
+			fragment_file.addFilesToAdapter(Environment.getExternalStorageDirectory().getPath());
+			return true;
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}
@@ -84,6 +92,7 @@ public class FileActivity extends BaseActivity{
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.refresh_menu_items, menu);
+		getMenuInflater().inflate(R.menu.file_menu_items, menu);
         super.onCreateOptionsMenu(menu);
         return true;
     }
