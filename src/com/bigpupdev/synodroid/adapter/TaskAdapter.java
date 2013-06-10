@@ -344,16 +344,30 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	 * Click on a item
 	 */
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Task task = tasks.get(position);
-		if (task != null) {
-			fragment.onTaskClicked(task);
+		if (fragment.mCurrentActionMode.isActionModeEnabled()){
+			this.onItemLongClick(parent, view, position, id);
+		}
+		else{
+			Task task = tasks.get(position);
+			if (task != null) {
+				fragment.onTaskClicked(task);
+			}
 		}
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		ViewHolder vh = (ViewHolder) view.getTag();
 		Task task = tasks.get(position);
 		if (task != null) {
-			fragment.onTaskLongClicked(task);
+			if (!task.selected){
+				fragment.onCheckedChanged(vh.cb, true);
+				vh.cb.setChecked(true);
+			}
+			else{
+				fragment.onCheckedChanged(vh.cb, false);
+				vh.cb.setChecked(false);
+			}
+			
 			return true;
 		}
 		return false;

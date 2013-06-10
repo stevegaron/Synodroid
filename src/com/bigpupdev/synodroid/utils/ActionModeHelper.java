@@ -118,6 +118,13 @@ public class ActionModeHelper{
 		}
 	}
 
+	public boolean isActionModeEnabled(){
+		if (mCurrentActivityHelper != null){
+			return true;
+		}
+		return false;
+	}
+	
 	public void startActionMode(DetailFiles fragment, final Task taskP) {
 		if (mCurrentActivityHelper != null){
 			return;

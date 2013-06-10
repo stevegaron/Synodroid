@@ -33,8 +33,6 @@ import com.bigpupdev.synodroid.preference.PreferenceFacade;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.ui.SynodroidFragment;
 import com.bigpupdev.synodroid.action.ShowDetailsAction;
-import com.bigpupdev.synodroid.action.TaskActionMenu;
-import com.bigpupdev.synodroid.adapter.ActionAdapter;
 import com.bigpupdev.synodroid.adapter.TaskAdapter;
 import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.utils.EulaHelper;
@@ -49,7 +47,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.net.Uri;
 import android.os.Bundle;
@@ -720,39 +717,6 @@ public class DownloadFragment extends SynodroidFragment implements OnCheckedChan
 		Synodroid app = (Synodroid) getActivity().getApplication();
 		app.executeAction(DownloadFragment.this, new ShowDetailsAction(taskP), true);
 	}
-
-	/**
-	 * A task as been long clicked by the user
-	 * 
-	 * @param taskP
-	 */
-	public void onTaskLongClicked(final Task taskP) {
-		final Activity a = getActivity();
-		AlertDialog.Builder builder = new AlertDialog.Builder(a);
-		builder.setTitle(getString(R.string.dialog_title_action));
-		final ActionAdapter adapter = new ActionAdapter(a, taskP);
-		if (adapter.getCount() != 0) {
-			builder.setAdapter(adapter, new OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					TaskActionMenu taskAction = (TaskActionMenu) adapter.getItem(which);
-					// Only if TaskActionMenu is enabled: it seems that even if the
-					// item is
-					// disable the user can tap it
-					if (taskAction.isEnabled()) {
-						Synodroid app = (Synodroid) a.getApplication();
-						app.executeAction(DownloadFragment.this, taskAction.getAction(), true);
-					}
-				}
-			});
-			AlertDialog connectDialog = builder.create();
-			try {
-				connectDialog.show();
-			} catch (BadTokenException e) {
-				// Unable to show dialog probably because intent has been closed. Ignoring...
-			}
-		}
-	}
-
 	
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
