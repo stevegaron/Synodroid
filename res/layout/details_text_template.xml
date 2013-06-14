@@ -2,17 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
     android:padding="6dip"
     tools:ignore="ContentDescription" >
 
     <ImageView
         android:id="@+id/id_detail_action"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:clickable="false"
         android:contentDescription=""
         android:cropToPadding="true"
@@ -36,8 +36,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/id_detail_name"
         android:layout_toLeftOf="@+id/id_detail_action"
-        android:textColor="#999"
-        android:ellipsize="marquee"
-        android:singleLine="true" />
+        android:textColor="#999" />
 
 </RelativeLayout>

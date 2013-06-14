@@ -93,7 +93,9 @@
         android:choiceMode="singleChoice"
         android:clickable="true"
         android:isScrollContainer="true"
-        android:longClickable="true">
+        android:longClickable="true"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dip">
 
         <!-- Preview: listitem=@layout/task_template -->
     </ListView>

@@ -11,7 +11,9 @@
         android:layout_height="fill_parent"
         android:choiceMode="singleChoice"
         android:clickable="true"
-        android:isScrollContainer="true"></ListView>
+        android:isScrollContainer="true"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dip"></ListView>
     
     <LinearLayout 
         android:id="@id/android:empty"

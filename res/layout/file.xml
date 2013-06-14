@@ -18,7 +18,9 @@
     <ListView 
 	    android:id="@+id/file_list"
 	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"/>
+	    android:layout_height="fill_parent"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dip"/>
     
     <LinearLayout
         android:id="@id/android:empty"

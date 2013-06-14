@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="top"
-    android:paddingTop="10dip"
+    android:padding="4dip"
     tools:ignore="HardcodedText" >
 
     <TextView

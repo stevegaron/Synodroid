@@ -22,8 +22,8 @@
    
    	<color name="accent_1">#FFFFFFFF</color>
    	
-   	<color name="holo_blue_selected">#3333b5e5</color>
-   	<color name="holo_pressed">#5533b5e5</color>
-    <color name="holo_focused">#9933b5e5</color>
+   	<color name="holo_blue_selected">#4433b5e5</color>
+   	<color name="holo_pressed">#7733b5e5</color>
+    <color name="holo_focused">#aa33b5e5</color>
    	
 </resources>
