@@ -86,7 +86,7 @@ public class ActionModeHelper{
             	}catch (Exception ex){/*DO NOTHING*/}
             	app.executeAction(((DownloadFragment)mCurrentFragment), new DeleteMultipleTaskAction(countSelected()), false);
             	stopActionMode();
-            	app.forceRefresh();
+            	app.delayedRefresh();
             }
         };
         View.OnClickListener resumeClickListener = new View.OnClickListener() {
@@ -96,7 +96,7 @@ public class ActionModeHelper{
             	}catch (Exception ex){/*DO NOTHING*/}
             	app.executeAction(((DownloadFragment)mCurrentFragment), new ResumeMultipleTaskAction(countSelected()), false);
             	stopActionMode();
-            	app.forceRefresh();
+            	app.delayedRefresh();
             }
         };
         View.OnClickListener pauseClickListener = new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class ActionModeHelper{
             	}catch (Exception ex){/*DO NOTHING*/}
             	app.executeAction(((DownloadFragment)mCurrentFragment), new PauseMultipleTaskAction(countSelected()), false);
             	stopActionMode();
-            	app.forceRefresh();
+            	app.delayedRefresh();
             }
         };
 		

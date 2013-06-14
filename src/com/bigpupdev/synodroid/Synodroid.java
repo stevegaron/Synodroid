@@ -242,6 +242,15 @@ public class Synodroid extends Application {
 			currentServer.forceRefresh();
 		}
 	}
+	
+	/**
+	 * Delay a refresh for 2 seconds
+	 */
+	public void delayedRefresh() {
+		if (currentServer != null) {
+			currentServer.delayedRefresh();
+		}
+	}
 
 	/**
 	 * Pause the current server if exist

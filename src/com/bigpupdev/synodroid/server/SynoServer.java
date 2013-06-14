@@ -41,6 +41,7 @@ import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.SynoProtocol;
 
+import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -733,6 +734,21 @@ public class SynoServer extends SimpleSynoServer{
 	synchronized public void forceRefresh() {
 		if (collector != null) {
 			collector.interrupt();
+		}
+	}
+	
+	/**
+	 * Delay a refresh for 2 seconds
+	 */
+	synchronized public void delayedRefresh() {
+		if (collector != null) {
+			final Handler handler = new Handler();
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					collector.interrupt();
+				}
+			}, 2000);
 		}
 	}
 

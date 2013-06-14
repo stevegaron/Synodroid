@@ -405,7 +405,8 @@ public class HomeActivity extends BaseActivity {
 				FragmentManager fm = getSupportFragmentManager();
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-		        	app.executeAction(fragment_download, new ClearAllTaskAction(), true);
+		        	app.executeAction(fragment_download, new ClearAllTaskAction(), false);
+	            	app.delayedRefresh();
 		        }
 				catch (Exception e){
 					try{
@@ -433,7 +434,8 @@ public class HomeActivity extends BaseActivity {
 		        		}
 		        	}
 		        	if (t_list.size() != 0){
-		        		app.executeAction(fragment_download, new RemoveErroneousMultipleTaskAction(t_list), true);	
+		        		app.executeAction(fragment_download, new RemoveErroneousMultipleTaskAction(t_list), false);
+		            	app.delayedRefresh();
 		        	}
 		        }
 				catch (Exception e){
@@ -454,7 +456,8 @@ public class HomeActivity extends BaseActivity {
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
 		        	List<Task> tasks = ((TaskAdapter) fragment_download.taskView.getAdapter()).getTaskList();
-		    		app.executeAction(fragment_download, new StopAllAction(tasks), true);
+		    		app.executeAction(fragment_download, new StopAllAction(tasks), false);
+	            	app.delayedRefresh();
 		        }
 				catch (Exception e){
 					try{
@@ -474,7 +477,8 @@ public class HomeActivity extends BaseActivity {
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
 		        	List<Task> tasks = ((TaskAdapter) fragment_download.taskView.getAdapter()).getTaskList();
-		    		app.executeAction(fragment_download, new ResumeAllAction(tasks), true);
+		    		app.executeAction(fragment_download, new ResumeAllAction(tasks), false);
+	            	app.delayedRefresh();
 		        }
 				catch (Exception e){
 					try{

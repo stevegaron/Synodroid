@@ -90,7 +90,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
                 	}catch (Exception ex){/*DO NOTHING*/}
                 	app.executeAction(((DownloadFragment)mCurrentFragment), new PauseMultipleTaskAction(t_list), false);
                 	actionMode.finish();
-                	app.forceRefresh();
+                	app.delayedRefresh();
                     return true;
                 case R.id.menu_clear:
                 	try{
@@ -98,7 +98,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
                 	}catch (Exception ex){/*DO NOTHING*/}
                 	app.executeAction(((DownloadFragment)mCurrentFragment), new DeleteMultipleTaskAction(t_list), false);
                 	actionMode.finish();
-                	app.forceRefresh();
+                	app.delayedRefresh();
                     return true;
                 case R.id.menu_resume:
                 	try{
@@ -106,7 +106,7 @@ public class ActionModeHelperHoneycomb extends ActionModeHelper{
                 	}catch (Exception ex){/*DO NOTHING*/}
                 	app.executeAction(((DownloadFragment)mCurrentFragment), new ResumeMultipleTaskAction(t_list), false);
                 	actionMode.finish();
-                	app.forceRefresh();
+                	app.delayedRefresh();
                     return true;
             }
             return false;
