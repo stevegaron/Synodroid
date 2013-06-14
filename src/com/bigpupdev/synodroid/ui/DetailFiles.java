@@ -21,15 +21,10 @@ import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.ui.SynodroidFragment;
 import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.action.GetFilesAction;
-import com.bigpupdev.synodroid.action.TaskActionMenu;
-import com.bigpupdev.synodroid.adapter.FileActionAdapter;
 import com.bigpupdev.synodroid.adapter.FileDetailAdapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Message;
@@ -37,12 +32,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager.BadTokenException;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  * This activity displays a task's details
