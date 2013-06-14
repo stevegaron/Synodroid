@@ -10,6 +10,7 @@ import com.bigpupdev.synodroid.action.AddTaskListAction;
 import com.bigpupdev.synodroid.action.ClearAllTaskAction;
 import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetDirectoryListShares;
+import com.bigpupdev.synodroid.action.RemoveErroneousMultipleTaskAction;
 import com.bigpupdev.synodroid.action.ResumeAllAction;
 import com.bigpupdev.synodroid.action.StopAllAction;
 import com.bigpupdev.synodroid.adapter.TaskAdapter;
@@ -404,11 +405,40 @@ public class HomeActivity extends BaseActivity {
 				FragmentManager fm = getSupportFragmentManager();
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-		        	app.executeAction(fragment_download, new ClearAllTaskAction(), false);
+		        	app.executeAction(fragment_download, new ClearAllTaskAction(), true);
 		        }
 				catch (Exception e){
 					try{
 						if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call clear all when download fragment hidden.");
+					}catch (Exception ex){/*DO NOTHING*/}
+				}
+			}
+		}
+		else if (item.getItemId() == R.id.menu_erroneous){
+			try{
+				if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu clear all erroneous tasks selected.");
+			}catch (Exception ex){/*DO NOTHING*/}
+        	
+			if (serverValid(server)){
+				Synodroid app = (Synodroid) getApplication();
+				FragmentManager fm = getSupportFragmentManager();
+		        try{
+		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
+		        	List<Task> t_list = new ArrayList<Task>();
+					
+		        	for (int i = 0; i < fragment_download.taskView.getCount(); i++){
+		        		Task t = (Task) fragment_download.taskView.getItemAtPosition(i);	
+		        		if (t.status.startsWith("TASK_ERROR_")){
+		        			t_list.add(t);
+		        		}
+		        	}
+		        	if (t_list.size() != 0){
+		        		app.executeAction(fragment_download, new RemoveErroneousMultipleTaskAction(t_list), true);	
+		        	}
+		        }
+				catch (Exception e){
+					try{
+						if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to remove erroneous tasks when download fragment hidden.");
 					}catch (Exception ex){/*DO NOTHING*/}
 				}
 			}
@@ -424,7 +454,7 @@ public class HomeActivity extends BaseActivity {
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
 		        	List<Task> tasks = ((TaskAdapter) fragment_download.taskView.getAdapter()).getTaskList();
-		    		app.executeAction(fragment_download, new StopAllAction(tasks), false);
+		    		app.executeAction(fragment_download, new StopAllAction(tasks), true);
 		        }
 				catch (Exception e){
 					try{
@@ -444,7 +474,7 @@ public class HomeActivity extends BaseActivity {
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
 		        	List<Task> tasks = ((TaskAdapter) fragment_download.taskView.getAdapter()).getTaskList();
-		    		app.executeAction(fragment_download, new ResumeAllAction(tasks), false);
+		    		app.executeAction(fragment_download, new ResumeAllAction(tasks), true);
 		        }
 				catch (Exception e){
 					try{

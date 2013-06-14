@@ -524,4 +524,8 @@
 <string name="click_dismiss">[Press to dismiss]</string>
 <string name="app_libraries">Libraries used:</string>
 
+<string name="menu_erroneous">Remove erroneous tasks</string>
+<string name="action_erroneous">Removing erroneous tasks...</string>
+
+
 </resources>

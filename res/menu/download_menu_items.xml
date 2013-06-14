@@ -14,6 +14,13 @@
         android:showAsAction="ifRoom" 
         android:icon="@android:drawable/ic_menu_close_clear_cancel" />
     
+    <item android:menuCategory="system" 
+        android:title="@string/menu_erroneous" 
+        android:id="@+id/menu_erroneous" 
+        android:orderInCategory="1" 
+        android:showAsAction="ifRoom" 
+        android:icon="@drawable/ic_menu_clear_playlist" />
+    
     <item android:id="@+id/menu_pause_all"
         android:icon="@drawable/ic_menu_pause"
         android:title="@string/menu_pauseall"
