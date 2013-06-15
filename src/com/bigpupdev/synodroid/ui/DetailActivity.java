@@ -386,14 +386,14 @@ public class DetailActivity extends BaseActivity{
 		final String originalLink = details.url;
 		DetailText urlDetail = new DetailText(getString(R.string.detail_url), originalLink);
 		task.originalLink = originalLink;
-		urlDetail.setAction(new DetailAction() {
-			public void execute(Detail detailsP) {
-				if ((task.isTorrent || task.isNZB)) {
+		if ((task.isTorrent || task.isNZB) && !task.originalLink.startsWith("file:") && !task.originalLink.startsWith("magnet:")) {
+			urlDetail.setAction(new DetailAction() {
+				public void execute(Detail detailsP) {
 					Synodroid app = (Synodroid) getApplication();
 					app.executeAsynchronousAction((DetailMain)mAdapter.getItem(MAIN_ITEM), new DownloadOriginalLinkAction(task), false);
 				}
-			}
-		});
+			});
+		}
 		result.add(urlDetail);
 		// Username
 		result.add(new DetailText(getString(R.string.detail_username), details.userName));

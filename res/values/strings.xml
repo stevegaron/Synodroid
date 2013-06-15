@@ -526,6 +526,6 @@
 
 <string name="menu_erroneous">Remove erroneous tasks</string>
 <string name="action_erroneous">Removing erroneous tasks...</string>
-
+<string name="action_remove">Remove</string>
 
 </resources>
