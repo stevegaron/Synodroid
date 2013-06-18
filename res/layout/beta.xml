@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_scroll"
+    android:layout_width="fill_parent"
+    android:layout_margin="5dip"
+	android:layout_height="fill_parent"
+    android:isScrollContainer="true"
+    tools:ignore="HardcodedText" >
+
+	<LinearLayout
+	    android:id="@+id/LinearLayout03"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	
+		<TextView
+		     android:id="@+id/beta_title"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:layout_marginLeft="5dip"
+		     android:layout_marginRight="5dip"
+		     android:layout_marginTop="20dip"
+		     android:layout_marginBottom="20dip"
+		     android:text="@string/beta_title"
+		     android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		<TextView
+		    android:id="@+id/beta_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginLeft="20dip"
+		    android:text="@string/beta_text" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/community_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginLeft="20dip"
+		    android:text="@string/community_text" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/community_link"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="20dip"
+		    android:text="https://plus.google.com/communities/103259289271255769802" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/registration_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dip"
+		    android:layout_marginLeft="20dip"
+		    android:text="@string/registration_text" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/registration_link"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="20dip"
+		    android:layout_marginBottom="20dip"
+		    android:text="https://play.google.com/apps/testing/com.bigpupdev.synodroid" >
+		</TextView>
+	</LinearLayout>
+</ScrollView>

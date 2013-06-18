@@ -448,6 +448,7 @@
 <string name="tab_download">Download</string>
 <string name="tab_search">Search</string>
 <string name="tab_pro">Pro</string>
+<string name="tab_beta">Beta</string>
 
 <string name="title_cat_debug">Debugging</string>
 <string name="send_debug_logs">View/Send debug logs</string>
@@ -527,5 +528,9 @@
 <string name="menu_erroneous">Remove erroneous tasks</string>
 <string name="action_erroneous">Removing erroneous tasks...</string>
 <string name="action_remove">Remove</string>
+<string name="beta_title">Register for beta updates</string>
+<string name="beta_text">You can now register for beta updates which will give you access to test version of Synodroid with new featrures before they are release to the rest of the users.</string>
+<string name="community_text">First, join the Synodroid Beta community using the following link: (You have to be a member to be elligible to beta updates)</string>
+<string name="registration_text">Then register for beta updates clicking the following link:</string>
 
 </resources>

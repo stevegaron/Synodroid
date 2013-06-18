@@ -62,7 +62,7 @@ public class AboutActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		
         setContentView(R.layout.activity_about);
-        mAdapter = new MyAdapter(getSupportFragmentManager(), 7, this);
+        mAdapter = new MyAdapter(getSupportFragmentManager(), 8, this);
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         // Find the indicator from the layout
@@ -149,6 +149,8 @@ public class AboutActivity extends BaseActivity{
 					return new SearchEngineFragment();
 				case 5:
 					return new UpgradeProFragment();
+				case 6:
+					return new BetaFragment();
 				default:
 					return new HelpFragment();
         	}
@@ -168,6 +170,8 @@ public class AboutActivity extends BaseActivity{
     			return mCurActivity.getString(R.string.tab_search);
     		case 5:
     			return mCurActivity.getString(R.string.tab_pro);
+    		case 6:
+    			return mCurActivity.getString(R.string.tab_beta);
         	default:
     			return mCurActivity.getString(R.string.help);
         	}
