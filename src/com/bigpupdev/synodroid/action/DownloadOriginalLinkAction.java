@@ -48,20 +48,27 @@ public class DownloadOriginalLinkAction implements SynoAction {
 	 * @seecom.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds. TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		/*StringBuffer data = serverP.getDSMHandlerFactory().getDSHandler().getOriginalFile(task);
-		OriginalFile ori = new OriginalFile();
-		String[] temp = task.originalLink.split("/");
-		ori.fileName = temp[(temp.length) - 1];
-		ori.rawData = data;
-		serverP.fireMessage(handlerP, ResponseHandler.MSG_ORIGINAL_FILE_RETRIEVED, ori);
-		*/
+		String fileName = null;
+		if (task.originalLink.startsWith("magnet:")){
+			if (task.isTorrent){
+				fileName = task.fileName + ".torrent";
+			}
+			else{
+				fileName = task.fileName + ".nzb";
+			}
+		}
+		else{
+			String[] temp = task.originalLink.split("/");
+			fileName = temp[(temp.length) - 1];
+		}
+		
 		Activity a = ((Fragment)handlerP).getActivity();
 		Intent msgIntent = new Intent(a, DownloadOriginalIntentService.class);
 		msgIntent.putExtra(DownloadOriginalIntentService.TASKID, task.taskId);
-		msgIntent.putExtra(DownloadOriginalIntentService.ORIGINAL_LINK, task.originalLink);
 		msgIntent.putExtra(DownloadOriginalIntentService.COOKIES, serverP.getCookies());
 		msgIntent.putExtra(DownloadOriginalIntentService.DSM_VERSION, serverP.getDsmVersion().getTitle());
 		msgIntent.putExtra(DownloadOriginalIntentService.PATH, serverP.getUrl());
+		msgIntent.putExtra(DownloadOriginalIntentService.FILENAME, fileName);
 		msgIntent.putExtra(DownloadOriginalIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
 		a.startService(msgIntent);
 	}

@@ -27,7 +27,7 @@ public class DownloadOriginalIntentService extends IntentService{
 	public static String DSM_VERSION = "DSM_VERSION";
 	public static String COOKIES = "COOKIES";
 	public static String PATH = "PATH";
-	public static String ORIGINAL_LINK = "ORIGINAL_LINK";
+	public static String FILENAME = "FILENAME";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	
@@ -57,8 +57,8 @@ public class DownloadOriginalIntentService extends IntentService{
 	protected void onHandleIntent(Intent intent) {
 		int taskid = intent.getIntExtra(TASKID, -1);
 		String dsm_version = intent.getStringExtra(DSM_VERSION);
-		String original_link = intent.getStringExtra(ORIGINAL_LINK);
 		String cookie = intent.getStringExtra(COOKIES);
+		String fileName = intent.getStringExtra(FILENAME);
 		String path = intent.getStringExtra(PATH);
 		boolean dbg = intent.getBooleanExtra(DEBUG, false);
 		SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
@@ -77,9 +77,6 @@ public class DownloadOriginalIntentService extends IntentService{
 		} catch (Exception e1) {
 			if (dbg) Log.e(Synodroid.DS_TAG, "Failed building Original file string.", e1);
 		}
-		
-		String[] temp = original_link.split("/");
-		String fileName = temp[(temp.length) - 1];
 		
 		Notification notification = ServiceHelper.getNotificationProgress(this, fileName, progress, DOL_ID, R.drawable.dl_download);
 		

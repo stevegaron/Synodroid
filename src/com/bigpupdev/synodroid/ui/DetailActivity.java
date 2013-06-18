@@ -386,7 +386,7 @@ public class DetailActivity extends BaseActivity{
 		final String originalLink = details.url;
 		DetailText urlDetail = new DetailText(getString(R.string.detail_url), originalLink);
 		task.originalLink = originalLink;
-		if ((task.isTorrent || task.isNZB) && !task.originalLink.startsWith("file:") && !task.originalLink.startsWith("magnet:")) {
+		if ((task.isTorrent || task.isNZB)) {
 			urlDetail.setAction(new DetailAction() {
 				public void execute(Detail detailsP) {
 					Synodroid app = (Synodroid) getApplication();

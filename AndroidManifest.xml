@@ -3,7 +3,7 @@
     package="com.bigpupdev.synodroid"
     android:installLocation="auto"
     android:versionCode="232"
-    android:versionName="2.3.2 Beta" >
+    android:versionName="2.3.2 RC2" >
 
     <uses-sdk
         android:minSdkVersion="7"
