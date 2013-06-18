@@ -444,21 +444,30 @@ public class BrowserFragment extends SynodroidFragment {
             
 			ConfirmDialog dialog = new ConfirmDialog();
         	final String okUrl = url;
+        	final String cD = contentDisposition;
         	Runnable ok = new Runnable(){
 				@Override
 				public void run() {
-					if (okUrl.startsWith("magnet:")){
-						AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
-						Synodroid app = (Synodroid) getActivity().getApplication();
-						app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+					String content;
+					if (cD == null){
+						content = "";
 					}
 					else{
+						content = cD;
+					}
+					
+					if ((okUrl.toLowerCase().endsWith(".torrent") || okUrl.toLowerCase().endsWith(".nzb") || content.toLowerCase().contains(".torrent") || content.toLowerCase().contains(".nzb")) && !okUrl.startsWith("magnet:")){
 						Activity a = getActivity();
 						Intent msgIntent = new Intent(a, DownloadIntentService.class);
 						msgIntent.putExtra(DownloadIntentService.URL, okUrl);
 						msgIntent.putExtra(DownloadIntentService.COOKIE, cookie);
 						msgIntent.putExtra(DownloadIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
 						a.startService(msgIntent);
+					}
+					else {
+						AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
+						Synodroid app = (Synodroid) getActivity().getApplication();
+						app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
 					}
 				}
             };
