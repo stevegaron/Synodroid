@@ -71,6 +71,7 @@ public class AddTaskAction implements SynoAction {
 			Activity a = ((Fragment)handlerP).getActivity();
 			Intent msgIntent = new Intent(a, DownloadIntentService.class);
 			msgIntent.putExtra(DownloadIntentService.URL, uri.toString());
+			msgIntent.putExtra(DownloadIntentService.COOKIE, "");
 			msgIntent.putExtra(DownloadIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
 			a.startService(msgIntent);
 		}

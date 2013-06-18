@@ -18,6 +18,7 @@ import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.adapter.BookmarkMenuAdapter;
+import com.bigpupdev.synodroid.server.DownloadIntentService;
 import com.bigpupdev.synodroid.utils.BookmarkDBHelper;
 import com.bigpupdev.synodroid.utils.BookmarkMenuItem;
 import com.bigpupdev.synodroid.utils.UIUtils;
@@ -28,6 +29,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -46,6 +48,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebIconDatabase;
@@ -76,6 +79,7 @@ public class BrowserFragment extends SynodroidFragment {
 	private String default_url = "http://www.google.com";
 	private BookmarkMenuAdapter adapter = null;
 	private Comparator<BookmarkMenuItem> comp = null;
+	private String url_last = "http://www.google.com";
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -423,8 +427,7 @@ public class BrowserFragment extends SynodroidFragment {
 	public class MyDownloadListener implements DownloadListener{
 
 		@Override
-		public void onDownloadStart(String url, String userAgent,
-				String contentDisposition, String mimetype, long contentLength) {
+		public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
 			try{
 				if (((Synodroid)getActivity().getApplication()).DEBUG)Log.d(Synodroid.DS_TAG, "Downloading URL: " + url);
 			} catch (Exception e){}
@@ -436,18 +439,33 @@ public class BrowserFragment extends SynodroidFragment {
 				url.replace("https://magnet/", "magnet:");
 			}
 			
+			CookieManager cookieManager = CookieManager.getInstance();
+            final String cookie = cookieManager.getCookie(url);
+            
 			ConfirmDialog dialog = new ConfirmDialog();
         	final String okUrl = url;
         	Runnable ok = new Runnable(){
 				@Override
 				public void run() {
-					AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
-					Synodroid app = (Synodroid) getActivity().getApplication();
-					app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+					if (okUrl.startsWith("magnet:")){
+						AddTaskAction addTask = new AddTaskAction(Uri.parse(okUrl), true, false);
+						Synodroid app = (Synodroid) getActivity().getApplication();
+						app.executeAsynchronousAction(BrowserFragment.this, addTask, false);
+					}
+					else{
+						Activity a = getActivity();
+						Intent msgIntent = new Intent(a, DownloadIntentService.class);
+						msgIntent.putExtra(DownloadIntentService.URL, okUrl);
+						msgIntent.putExtra(DownloadIntentService.COOKIE, cookie);
+						msgIntent.putExtra(DownloadIntentService.DEBUG, ((Synodroid)a.getApplication()).DEBUG);
+						a.startService(msgIntent);
+					}
 				}
             };
 
         	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
+        	
+        	url_text.setText(url_last);
 		}
 		
 	}
@@ -503,6 +521,7 @@ public class BrowserFragment extends SynodroidFragment {
 				url_favicon.setImageDrawable(getResources().getDrawable(R.drawable.ic_browser));
 			}
 			
+			url_last = url_text.getText().toString();
 			url_text.setText(url);
 			
 			HashMap<String, String> bookmarks = getUrlsFromDB();

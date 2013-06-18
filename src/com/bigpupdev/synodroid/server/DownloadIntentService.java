@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
@@ -22,6 +23,7 @@ import android.util.Log;
 
 public class DownloadIntentService extends IntentService{
 	public static String URL = "URL";
+	public static String COOKIE = "COOKIE";
 	public static String DEBUG = "DEBUG";
 	private int DL_ID = 42;
 	
@@ -48,11 +50,11 @@ public class DownloadIntentService extends IntentService{
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		String uri = intent.getStringExtra(URL);
+		String cookie = intent.getStringExtra(COOKIE);
 		boolean dbg = intent.getBooleanExtra(DEBUG, false);
 		
-		String temp[] = uri.split("/");
-		String fname = temp[(temp.length) - 1];
-		Notification notification = ServiceHelper.getNotificationProgress(this, fname, progress, DL_ID, R.drawable.dl_download);
+		String fname = "SYNODROID_" + UUID.randomUUID().toString().replace("-", "").toUpperCase();
+		Notification notification = ServiceHelper.getNotificationProgress(this, uri, progress, DL_ID, R.drawable.dl_download);
 		
 		try {
 			URL url = new URL(uri); // you can write here any link
@@ -73,7 +75,11 @@ public class DownloadIntentService extends IntentService{
 			}catch (Exception ex){/*DO NOTHING*/}
 			/* Open a connection to that URL. */
 			HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-
+			
+			if (!cookie.equals("")){
+				ucon.setRequestProperty("Cookie", cookie);
+			}
+			
 			/*
 			 * Define InputStreams to read from the URLConnection.
 			 */
