@@ -156,13 +156,19 @@ public class DetailActivity extends BaseActivity{
 		// Launch the gets task's details recurrent action
 		Synodroid app = (Synodroid) getApplication();
 		SynoServer server = app.getServer();
-		if ((server.isUsingLocalConnection() && app.shouldUsePublicConnection()) || (!server.isUsingLocalConnection() && !app.shouldUsePublicConnection())){
-			server.disconnect();
-			finish();
+		if (server != null){
+			if ((server.isUsingLocalConnection() && app.shouldUsePublicConnection()) || (!server.isUsingLocalConnection() && !app.shouldUsePublicConnection())){
+				server.disconnect();
+				finish();
+			}
+			else{
+				app.resumeServer();
+			}	
 		}
 		else{
-			app.resumeServer();
+			finish();
 		}
+		
 	}
 	
 	@Override
