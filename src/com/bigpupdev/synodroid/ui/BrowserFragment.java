@@ -407,12 +407,20 @@ public class BrowserFragment extends SynodroidFragment {
 	        
 	        if(progress == 100) {
 	        	pb.setVisibility(ProgressBar.GONE);
-	        	((BrowserActivity)getActivity()).updateRefreshStatus(false);
+	        	try{
+	        		((BrowserActivity)getActivity()).updateRefreshStatus(false);
+	        	}
+	        	catch(NullPointerException e){/*Let's not do anything with this error since it only happens when the fragment is being closed...*/}
+	        	
 				shouldUpdate = true;
 				stop_btn.setVisibility(View.GONE);
 	        }
 	        else if (shouldUpdate){
-				((BrowserActivity)getActivity()).updateRefreshStatus(true);
+				try{
+					((BrowserActivity)getActivity()).updateRefreshStatus(true);
+				}
+				catch(NullPointerException e){/*Let's not do anything with this error since it only happens when the fragment is being closed...*/}
+	        	
 				shouldUpdate = false;
 				stop_btn.setVisibility(View.VISIBLE);
 			}
