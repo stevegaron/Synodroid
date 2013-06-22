@@ -79,15 +79,39 @@ public class DiscoveringThread extends Thread {
 			msg.what = AddHandler.MSG_SERVER_FOUND;
 			msg.obj = infos;
 			handler.sendMessage(msg);
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException iae){ 
+			// JMDNS failed parsing the results it received. Fake no server found...
+			ServiceInfo[] infos = new ServiceInfo[0];
+			Message msg = new Message();
+			msg.what = AddHandler.MSG_SERVER_FOUND;
+			msg.obj = infos;
+			handler.sendMessage(msg);
+			if (DEBUG) {
+				Log.e(Synodroid.DS_TAG, "Failed parsing JMDNS results.");
+				Log.e(Synodroid.DS_TAG, iae.toString());
+			}
+		} catch (SecurityException se) {
 			// Could not acquire lock. Fake no server found...
 			ServiceInfo[] infos = new ServiceInfo[0];
 			Message msg = new Message();
 			msg.what = AddHandler.MSG_SERVER_FOUND;
 			msg.obj = infos;
 			handler.sendMessage(msg);
+			if (DEBUG) {
+				Log.e(Synodroid.DS_TAG, "Could not acquire networking lock.");
+				Log.e(Synodroid.DS_TAG, se.toString());
+			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			// Networking exception caught. Fake no server found...
+			ServiceInfo[] infos = new ServiceInfo[0];
+			Message msg = new Message();
+			msg.what = AddHandler.MSG_SERVER_FOUND;
+			msg.obj = infos;
+			handler.sendMessage(msg);
+			if (DEBUG) {
+				Log.e(Synodroid.DS_TAG, "Networking exception caught.");
+				Log.e(Synodroid.DS_TAG, e.toString()); 
+			}
 		} finally {
 			if (jmdns != null)
 				jmdns.close();
