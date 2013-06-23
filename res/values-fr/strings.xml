@@ -518,4 +518,13 @@
 <string name="click_dismiss">[Touché pour fermer]</string>
 <string name="app_libraries">Bibliothèques logicielles utilisées:</string>
 
+<string name="menu_erroneous">Supprimer des tâches erronées</string>
+<string name="action_erroneous">Suppression des tâches erronées...</string>
+<string name="action_remove">Supprimer</string>
+<string name="beta_title">Inscrivez-vous pour les mises-à-jour bêta</string>
+<string name="beta_text">Vous pouvez maintenant vous inscrire aux mises-à-jour bêta qui vous donnera accès à des versions prématurées de Synodroid avec de nouvelles fonctionalitées avant qu\'elles ne soient publiées au reste des utilisateurs.</string>
+<string name="community_text">Tout d\'abord, vous devez joindre la communauté Beta Synodroid en utilisant le lien suivant: (Vous devez être membre pour être admissible à recevoir aux mises-à-jour bêta)</string>
+<string name="registration_text">Finalement, inscrivez-vous aux mises-à-jour bêta en cliquant sur le lien suivant:</string>
+
+
 </resources>
