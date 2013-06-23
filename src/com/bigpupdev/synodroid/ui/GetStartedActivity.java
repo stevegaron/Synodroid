@@ -39,7 +39,7 @@ public class GetStartedActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		
         setContentView(R.layout.activity_get_started);
-        mAdapter = new MyAdapter(getSupportFragmentManager(), 6, this);
+        mAdapter = new MyAdapter(getSupportFragmentManager(), 7, this);
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         // Find the indicator from the layout
@@ -119,6 +119,8 @@ public class GetStartedActivity extends BaseActivity{
         			return new AddDownloadFragment();
         		case 4:
         			return new SearchEngineFragment();
+        		case 5:
+        			return new BetaFragment();
         		default:
         			return new UpgradeProFragment();
         	}
