@@ -517,4 +517,13 @@
 <string name="click_dismiss">[Annuleren]</string>
 <string name="app_libraries">Bibliotheken die:</string>
 
+<string name="menu_erroneous">Verwijder onjuiste taken</string>
+<string name="action_erroneous">Verwijderen van onjuiste taken...</string>
+<string name="action_remove">Verwijder</string>
+<string name="beta_title">Registreer voor beta-updates</string>
+<string name="beta_text">Je kan je nu registeren voor beta-updates, zo kan je als eerst gebruik maken van de nieuwe functies voordat de nieuwe versie in de app-store komt.</string>
+<string name="community_text">Allereerst moet je de Synodroid Beta community deelnemen in de volgende link: (Je moet lid zijn om in aanmerking te komen voor beta-updates.)</string>
+<string name="registration_text">Dan kun je je registeren voor beta-updates via de volgende link:</string>
+<string name="tab_beta">Beta</string>
+
 </resources>
