@@ -512,4 +512,13 @@
 <string name="click_dismiss">[Klicken zum entfernen]</string>
 <string name="app_libraries">Programmbibliotheken verwendet:</string>
 
+<string name="menu_erroneous">Fehlerhafte Aufgaben entfernen</string>
+<string name="action_erroneous">Entferne fehlerhafte Aufgaben...</string>
+<string name="action_remove">Entfernen</string>
+<string name="beta_title">Für Beta-Updates registrieren</string>
+<string name="beta_text">Sie könne sich jetzt für Beta-Updates registrieren, was ihnen Zugriff auf die neuesten Testversionen von Synodroid mit neuen Features gibt bevor sie für alle Nutzer veröffentlicht werden.</string>
+<string name="community_text">Zuerst melden sie sich unter folgendem Link in der Google+ community an: (Sie müssen Mitglied dieser Gruppe sein um Betaupdates zu erhalten)</string>
+<string name="registration_text">Dann registrieren sie sich unter folgendem Link für Betaupdates:</string>
+<string name="tab_beta">Beta</string>
+
 </resources>
