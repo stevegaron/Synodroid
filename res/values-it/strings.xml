@@ -487,4 +487,12 @@
 	<string name="click_dismiss">[Premi per abbandonare]</string>
 	<string name="app_libraries">Librerie usato:</string>
 	
+	<string name="menu_erroneous">Rimuovi attività con errori</string>
+	<string name="action_erroneous">Rimuovendo attività con errori...</string>
+	<string name="action_remove">Rimuovi</string>
+	<string name="beta_title">Registrazione per aggiornamenti beta</string>
+	<string name="beta_text">Da adesso puoi registrarti per ricevere gli aggiornamenti beta in modo da testare le nuove funzioni di Synodroid prima che vengano distribuite al resto degli utenti.</string>
+	<string name="community_text">Innanzitutto , entra nella community di Synodroid Beta utilizzando questo link: (devi essere membro per poter ricevere gli aggiornamenti)</string>
+	<string name="registration_text">Dopo registrati per gli aggiornamenti beta cliccando sul seguente link :</string>
+	
 </resources>
