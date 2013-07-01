@@ -514,4 +514,12 @@
 <string name="click_dismiss">[Pulse para cancelar]</string>
 <string name="app_libraries">Las bibliotecas utilizan:</string>
 
+<string name="menu_erroneous">Borrar tareas erróneas</string>
+<string name="action_erroneous">Borrando tareas erróneas</string>
+<string name="action_remove">Borrar</string>
+<string name="beta_title">Registro para actualizaciones beta</string>
+<string name="beta_text">Ahora puedes registrarte al programa de actualizaciones beta que te dará acceso a la versión beta de Synodroid, la cual contiene nuevas funcionalidades que no dispone la versión estándar de Synodroid</string>
+<string name="community_text">Primero, únete a la comunidad de Synodroid Beta siguiendo este enlace (Tienes que ser miembro para poder acceder a las betas)</string>
+<string name="registration_text">Después, registrate en el programa de beta accediendo al siguiente enlace:</string>
+
 </resources>
