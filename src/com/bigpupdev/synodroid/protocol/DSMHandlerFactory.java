@@ -68,6 +68,8 @@ public abstract class DSMHandlerFactory {
 			return new DSHandlerDSM40Factory(serverP, debug, autoDetect);
 		case VERSION4_2:
 			return new DSHandlerDSM40Factory(serverP, debug, autoDetect);
+		case VERSION4_3:
+			return new DSHandlerDSM40Factory(serverP, debug, autoDetect);
 		}
 		return result;
 	}
@@ -106,9 +108,13 @@ public abstract class DSMHandlerFactory {
 					// DSM 4.0
 					return DSMVersion.VERSION4_1;
 				}
-				else if (version >= 2166){
+				else if (version < 3776){
 					// DSM 4.0
 					return DSMVersion.VERSION4_2;
+				}
+				else if (version >= 3776){
+					// DSM 4.0
+					return DSMVersion.VERSION4_3;
 				}
 			}
 		}
