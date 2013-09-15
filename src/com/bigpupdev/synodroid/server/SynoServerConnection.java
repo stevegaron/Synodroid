@@ -64,7 +64,14 @@ public class SynoServerConnection {
 
 			if (valid) {
 				SynoProtocol protocol = SynoProtocol.valueOf(props.getProperty(radical + PreferenceFacade.PROTOCOL_SUFFIX));
-				int port = Integer.parseInt(props.getProperty(radical + PreferenceFacade.PORT_SUFFIX));
+				int port = 5000;
+				try{
+					port = Integer.parseInt(props.getProperty(radical + PreferenceFacade.PORT_SUFFIX));
+				}
+				catch (NumberFormatException numEx){
+					if (debug) Log.w(Synodroid.DS_TAG, "An invalid port number was detected while loading " + (local ? "local" : "public") + " connection. This connection will be ignored.");
+				}
+				
 				String host = props.getProperty(radical + PreferenceFacade.HOST_SUFFIX);
 				if (protocol != null && port != 0 && host != null && host.length() > 0) {
 					result = new SynoServerConnection();
