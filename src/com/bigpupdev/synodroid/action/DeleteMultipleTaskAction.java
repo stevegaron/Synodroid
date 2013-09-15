@@ -21,8 +21,8 @@ import java.util.List;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
-
 import com.bigpupdev.synodroid.data.Task;
+import com.bigpupdev.synodroid.data.TaskStatus;
 
 /**
  * Delete a torrent
@@ -34,11 +34,15 @@ public class DeleteMultipleTaskAction implements SynoAction {
 	// The task to resume
 	private List<Task> tasks;
 	private String taskids;
+	private boolean requireConfirm = false;
 
 	public DeleteMultipleTaskAction(List<Task> tasksP) {
 		tasks = tasksP;
 		taskids = "";
 		for (Task task : tasks) {
+			if (TaskStatus.getOnGoingTasks().contains(task.status)){
+				this.requireConfirm = true;
+			}
 			if (!taskids.equals("")){
 				taskids += ":";
 			}
@@ -80,6 +84,15 @@ public class DeleteMultipleTaskAction implements SynoAction {
 	 */
 	public boolean isToastable() {
 		return true;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.bigpupdev.synodroid.common.SynoAction#isToastable()
+	 */
+	public boolean requireConfirm() {
+		return this.requireConfirm;
 	}
 
 	/*

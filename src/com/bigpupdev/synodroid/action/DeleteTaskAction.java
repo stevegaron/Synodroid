@@ -19,8 +19,8 @@ package com.bigpupdev.synodroid.action;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
-
 import com.bigpupdev.synodroid.data.Task;
+import com.bigpupdev.synodroid.data.TaskStatus;
 
 /**
  * Delete a torrent
@@ -31,9 +31,13 @@ public class DeleteTaskAction implements SynoAction {
 
 	// The task to resume
 	private Task task;
+	private boolean requireConfirm = false;
 
 	public DeleteTaskAction(Task taskP) {
 		task = taskP;
+		if (TaskStatus.getOnGoingTasks().contains(taskP.status)){
+			requireConfirm = true;
+		}
 	}
 
 	/*
@@ -67,6 +71,15 @@ public class DeleteTaskAction implements SynoAction {
 			return R.string.action_clearall;
 		}
 		return R.string.action_deleting;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#requireConfirm()
+	 */
+	public boolean requireConfirm() {
+		return this.requireConfirm;
 	}
 
 	/*

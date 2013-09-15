@@ -77,6 +77,15 @@ public class GetDirectoryListShares implements SynoAction {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#requireConfirm()
+	 */
+	public boolean requireConfirm() {
+		return false;
+	}
+
 	/**
 	 * @return the task
 	 */

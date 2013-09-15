@@ -43,6 +43,13 @@ public interface SynoAction {
 	 * @return
 	 */
 	public boolean isToastable();
+	
+	/**
+	 * Return true if a toast must be shown when this action is executed
+	 * 
+	 * @return
+	 */
+	public boolean requireConfirm();
 
 	/**
 	 * Return the resource id to use when a toast must be shown

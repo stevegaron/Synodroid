@@ -85,6 +85,15 @@ public class GetTaskPropertiesAction implements SynoAction {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#requireConfirm()
+	 */
+	public boolean requireConfirm() {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.bigpupdev.synodroid.common.action.SynoAction#isToastable()
 	 */
 	public boolean isToastable() {

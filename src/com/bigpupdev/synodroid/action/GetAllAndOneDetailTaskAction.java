@@ -128,6 +128,15 @@ public class GetAllAndOneDetailTaskAction implements SynoAction {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#requireConfirm()
+	 */
+	public boolean requireConfirm() {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#isToastable()
 	 */
 	public boolean isToastable() {

@@ -384,7 +384,7 @@
 <string name="action_set_searchengine">Sauvegarde des paramètres de recherche...</string>
 <string name="auto_DSM">Auto-détection de version DSM</string>
 <string name="hint_auto_DSM">La version de DSM sera auto-détecté lorsque Synodroid se sera connecté au NAS</string>
-<string name="delete_multiple">Suppression de plusieurs tâches...</string>
+<string name="delete_multiple">Suppression de tâches...</string>
 <string name="dialog_multiple_confirm">&quot;Les tâches non terminées seront supprimées. Etes-vous sûr de vouloir continuer?&quot;</string>
 <string name="action_deleting_multiple">&quot;Suppression des tâches sélectionnées...%s&quot;</string>
 <string name="action_pausing_multiple">&quot;Pause des tâches sélectionnées...%s&quot;</string>

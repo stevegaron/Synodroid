@@ -82,6 +82,15 @@ public class PauseMultipleTaskAction implements SynoAction {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.bigpupdev.synodroid.ds.action.TaskAction#requireConfirm()
+	 */
+	public boolean requireConfirm() {
+		return false;
+	}
+
 	/**
 	 * @return the task
 	 */

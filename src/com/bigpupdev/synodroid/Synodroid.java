@@ -25,7 +25,6 @@ import com.bigpupdev.synodroid.action.DeleteMultipleTaskAction;
 import com.bigpupdev.synodroid.action.DeleteTaskAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
-import com.bigpupdev.synodroid.data.TaskStatus;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 import de.keyboardsurfer.android.widget.crouton.Style.Builder;
@@ -280,11 +279,7 @@ public class Synodroid extends Application {
 	public void executeAction(final DetailMain fragmentP, final SynoAction actionP, final boolean forceRefreshP) {
 		if (currentServer != null) {
 			// First verify if it is a DeleteTaskAction and if the task is not finished
-			TaskStatus status = null;
-			if (actionP.getTask() != null && actionP.getTask().status != null) {
-				status = actionP.getTask().getStatus();
-			}
-			if ((actionP instanceof DeleteTaskAction) && (status != TaskStatus.TASK_FINISHED)) {
+			if ((actionP instanceof DeleteTaskAction) && actionP.requireConfirm()) {
 				Activity a = fragmentP.getActivity();
 				Dialog d = new AlertDialog.Builder(a).setTitle(actionP.getTask().fileName).setMessage(R.string.dialog_message_confirm).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -362,11 +357,7 @@ public class Synodroid extends Application {
 	public void executeAction(final DownloadFragment fragmentP, final SynoAction actionP, final boolean forceRefreshP) {
 		if (currentServer != null && currentServer.isConnected()) {
 			// First verify if it is a DeleteTaskAction and if the task is not finished
-			TaskStatus status = null;
-			if (actionP.getTask() != null && actionP.getTask().status != null) {
-				status = actionP.getTask().getStatus();
-			}
-			if ((actionP instanceof DeleteTaskAction) && (status != TaskStatus.TASK_FINISHED)) {
+			if ((actionP instanceof DeleteTaskAction) && actionP.requireConfirm()) {
 				Activity a = fragmentP.getActivity();
 				Dialog d = new AlertDialog.Builder(a).setTitle(actionP.getTask().fileName).setMessage(R.string.dialog_message_confirm).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -376,7 +367,7 @@ public class Synodroid extends Application {
 				// d.setOwnerActivity(this); // why can't the builder do this?
 				d.show();
 			}
-			else if (actionP instanceof DeleteMultipleTaskAction) {
+			else if (actionP instanceof DeleteMultipleTaskAction && actionP.requireConfirm()) {
 				Activity a = fragmentP.getActivity();
 				Dialog d = new AlertDialog.Builder(a).setTitle(R.string.delete_multiple).setMessage(R.string.dialog_multiple_confirm).setNegativeButton(android.R.string.no, null).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {

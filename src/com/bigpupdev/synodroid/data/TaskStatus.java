@@ -16,6 +16,9 @@
  */
 package com.bigpupdev.synodroid.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bigpupdev.synodroid.R;
 
 import android.content.Context;
@@ -62,6 +65,18 @@ public enum TaskStatus {
 	TASK_ERROR_EXTRACT_DISK_FULL,
 	TASK_ERROR_REQUIRED_ACCOUNT;
 
+	public static List<String> getOnGoingTasks(){
+		List<String> onGoingTasks = new ArrayList<String>();
+		onGoingTasks.add("TASK_WAITING");
+		onGoingTasks.add("TASK_DOWNLOADING");
+		onGoingTasks.add("TASK_PAUSED");
+		onGoingTasks.add("TASK_HASH_CHECKING");
+		onGoingTasks.add("TASK_PRE_SEEDING");
+		onGoingTasks.add("TASK_FILEHOSTING_WAITING");
+		onGoingTasks.add("TASK_EXTRACTING");
+		return onGoingTasks;
+	}
+	
 	/**
 	 * Return a localized status label
 	 * 
