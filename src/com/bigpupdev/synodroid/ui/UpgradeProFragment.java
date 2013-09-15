@@ -55,7 +55,7 @@ public class UpgradeProFragment extends Fragment {
 			}
 		});
 		
-		if (gsActivity instanceof AboutActivity){
+		if (gsActivity instanceof AboutActivity || gsActivity instanceof HelpActivity){
 			btnSkip.setVisibility(View.GONE);
 		}
 		

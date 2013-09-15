@@ -59,8 +59,9 @@ public abstract class BaseActivity extends FragmentActivity {
 	private static final int SMNU_FI = 2;
 	private static final int SMNU_RS = 3;
 	private static final int SMNU_SE = 4;
-	private static final int SMNU_AB = 5;
-	private static final int SMNU_SET = 6;
+	private static final int SMNU_HP = 5;
+	private static final int SMNU_AB = 6;
+	private static final int SMNU_SET = 7;
 	
 	protected SlidingMenu menu = null;
 	private SlidingMenuItem menuListSelectedItem = null;
@@ -182,6 +183,7 @@ public abstract class BaseActivity extends FragmentActivity {
         //adapter.add(new SlidingMenuItem(getString(R.string.sliding_rss), R.drawable.ic_rss, SMNU_RS));
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_search), R.drawable.ic_title_search, SMNU_SE));
         adapter.add(new SlidingMenuItem(getString(R.string.menu_parameter), R.drawable.ic_settings, SMNU_SET));
+        adapter.add(new SlidingMenuItem(getString(R.string.help), R.drawable.ic_help, SMNU_HP));
         adapter.add(new SlidingMenuItem(getString(R.string.sliding_about), R.drawable.ic_about, SMNU_AB));
         
         final ListView menuList = (ListView) menu.findViewById(R.id.lvMenu);
@@ -250,6 +252,22 @@ public abstract class BaseActivity extends FragmentActivity {
 	                			showSearchActivity(true);     
 		                	}
 	                		else {
+	                			menu.showContent(true);
+	                		}
+	                		break;
+	                	case SMNU_HP:
+	                		try{
+	            				if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SlidingMenu: Menu help selected.");
+	            			}catch (Exception ex){/*DO NOTHING*/}
+	                    	
+	                		if (!(act instanceof HelpActivity)){
+	                			// Starting new intent
+		            			Intent next = new Intent();
+		            			next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		                        next.setClass(act, HelpActivity.class);
+		            			startActivity(next);
+	                		}
+	                		else{
 	                			menu.showContent(true);
 	                		}
 	                		break;

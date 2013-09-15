@@ -4,30 +4,20 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.BadTokenException;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.utils.EulaHelper;
-import com.bigpupdev.synodroid.utils.ViewPagerIndicator;
 
 public class AboutActivity extends BaseActivity{
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	
-	MyAdapter mAdapter;
-    ViewPager mPager;
-    ViewPagerIndicator mIndicator;
-    
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// ignore orientation change
@@ -62,28 +52,9 @@ public class AboutActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		
         setContentView(R.layout.activity_about);
-        mAdapter = new MyAdapter(getSupportFragmentManager(), 8, this);
-        mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
-        // Find the indicator from the layout
-        mIndicator = (ViewPagerIndicator)findViewById(R.id.indicator);
-        
-        // Set the indicator as the pageChangeListener
-        mPager.setOnPageChangeListener(mIndicator);
-     
-        // Initialize the indicator. We need some information here:
-        // * What page do we start on.
-        // * How many pages are there in total
-        // * A callback to get page titles
-        mIndicator.init(0, mAdapter.getCount(), mAdapter);
-		mIndicator.setFocusedTextColor(new int[]{255, 255, 255});
-		mIndicator.setUnfocusedTextColor(new int[]{90, 90, 90});
-		
-		mIndicator.setOnClickListener(new OnIndicatorClickListener());
-
+       
 		attachSlidingMenu(((Synodroid)getApplication()).getServer());
 		getActivityHelper().setupActionBar(getString(R.string.menu_about), false, getSlidingMenu());
-        mIndicator.setSlidingMenu(getSlidingMenu());
 	}
 	
 	@Override
@@ -119,75 +90,4 @@ public class AboutActivity extends BaseActivity{
 		}
 	}
 	
-	public static class MyAdapter extends FragmentPagerAdapter implements ViewPagerIndicator.PageInfoProvider{
-		int mItemsNum;
-		private AboutActivity mCurActivity;
-		
-		public MyAdapter(FragmentManager pFm, int pItemNum, AboutActivity pCurActivity) {
-			super(pFm);
-			mItemsNum = pItemNum;
-			mCurActivity = pCurActivity;
-        }
-
-		@Override
-        public int getCount() {
-            return mItemsNum;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-			switch (position){
-				case 0:
-					return new AboutFragment();
-				case 1:
-					return new SynologyInfoFragment();
-				case 2:
-					return new AddServerFragment();
-				case 3:
-					return new AddDownloadFragment();
-				case 4:
-					return new SearchEngineFragment();
-				case 5:
-					return new UpgradeProFragment();
-				case 6:
-					return new BetaFragment();
-				default:
-					return new HelpFragment();
-        	}
-        }
-
-        public String getTitle(int pos){
-        	switch (pos){
-        	case 0:
-        		return mCurActivity.getString(R.string.tab_about);
-    		case 1:
-    			return mCurActivity.getString(R.string.tab_synology);
-    		case 2:
-    			return mCurActivity.getString(R.string.tab_server);
-    		case 3:
-    			return mCurActivity.getString(R.string.tab_download);
-    		case 4:
-    			return mCurActivity.getString(R.string.tab_search);
-    		case 5:
-    			return mCurActivity.getString(R.string.tab_pro);
-    		case 6:
-    			return mCurActivity.getString(R.string.tab_beta);
-        	default:
-    			return mCurActivity.getString(R.string.help);
-        	}
-		}
-    }
-	
-	class OnIndicatorClickListener implements ViewPagerIndicator.OnClickListener{
-		public void onCurrentClicked(View v) {}
-		
-		public void onNextClicked(View v) {
-			mPager.setCurrentItem(Math.min(mAdapter.getCount() - 1, mIndicator.getCurrentPosition() + 1));
-		}
-
-		public void onPreviousClicked(View v) {
-			mPager.setCurrentItem(Math.max(0, mIndicator.getCurrentPosition() - 1));
-		}
-    	
-    }
 }
