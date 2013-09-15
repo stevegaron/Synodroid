@@ -351,6 +351,7 @@ class DSHandlerDSM31 implements DSHandler {
 						result.speedDownload = Utils.toDouble(m.group(2));
 					} else {
 						result.speedDownload = result.speedUpload;
+						result.speedUpload = 0.0;
 					}
 				}
 				if (data.has("filename"))
