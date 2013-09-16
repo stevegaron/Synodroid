@@ -1,6 +1,8 @@
 package com.bigpupdev.synodroid.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
@@ -62,7 +64,7 @@ public class SearchFragment extends SynodroidFragment {
 	private Spinner SpinnerSource, SpinnerSort;
 	private ArrayAdapter<CharSequence> AdapterSource, AdapterSort;
 
-	private String[] SortOrder = { "Combined", "BySeeders" };
+	private String[] SortOrder = { "Seeders ASC", "Seeders DESC", "Leachers ASC", "Leachers DESC", "Name ASC", "Name DESC", "Size ASC", "Size DESC", "Date ASC",  "Date DESC" };
 	private String lastSearch = "";
 	private ListView resList;
 
@@ -72,6 +74,8 @@ public class SearchFragment extends SynodroidFragment {
 	private boolean fromCache = false;
 
 	private static final String getCachedQuery = "SELECT "+SearchResultsOpenHelper.CACHE_ID+","+SearchResultsOpenHelper.CACHE_TITLE+","+SearchResultsOpenHelper.CACHE_TURL+","+SearchResultsOpenHelper.CACHE_DURL+","+SearchResultsOpenHelper.CACHE_SIZE+","+SearchResultsOpenHelper.CACHE_ADDED+","+SearchResultsOpenHelper.CACHE_SEED+","+SearchResultsOpenHelper.CACHE_LEECH+" FROM "+ SearchResultsOpenHelper.TABLE_CACHE + " WHERE " +SearchResultsOpenHelper.CACHE_QUERY+ "=? AND "+SearchResultsOpenHelper.CACHE_PROVIDER+ "=? AND "+SearchResultsOpenHelper.CACHE_ORDER+"=?";
+	private static final String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
+	
 	
 	public String getLastSearch(){
 		return lastSearch;
@@ -397,7 +401,99 @@ public class SearchFragment extends SynodroidFragment {
 	}
 
 	private class TorrentSearchTask extends AsyncTask<String, Void, Cursor> {
-
+		
+		class SearchResult{
+			public int id;
+			public String name;
+			public String torrentUrl;
+			public String detailUrl;
+			public String size;
+			public String dateAdded;
+			public int seeders;
+			public int leachers;
+			
+			public SearchResult(int _id, String _name, String _torrentUrl, String _detailUrl, String _size, String _dateAdded, int _seeders, int _leachers){
+				id = _id;
+				name = _name;
+				torrentUrl = _torrentUrl;
+				detailUrl = _detailUrl;
+				size = _size;
+				dateAdded = _dateAdded;
+				seeders = _seeders;
+				leachers = _leachers;
+			}
+		}
+		
+		public class SearchResultNameComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return left.name.compareTo(right.name);
+		    }
+		}
+		
+		public class SearchResultSizeComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return left.size.compareTo(right.size);
+		    }
+		}
+		
+		public class SearchResultDateComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return left.dateAdded.compareTo(right.dateAdded);
+		    }
+		}
+		
+		public class SearchResultSeedersComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return left.seeders - right.seeders;
+		    }
+		}
+		
+		public class SearchResultLeachersComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return left.leachers - right.leachers;
+		    }
+		}
+		
+		public class SearchResultNameDESCComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return right.name.compareTo(left.name);
+		    }
+		}
+		
+		public class SearchResultSizeDESCComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return right.size.compareTo(left.size);
+		    }
+		}
+		
+		public class SearchResultDateDESCComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return right.dateAdded.compareTo(left.dateAdded);
+		    }
+		}
+		
+		public class SearchResultSeedersDESCComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return right.seeders - left.seeders;
+		    }
+		}
+		
+		public class SearchResultLeachersDESCComparator implements Comparator<SearchResult>
+		{
+		    public int compare(SearchResult left, SearchResult right) {
+		        return right.leachers - left.leachers;
+		    }
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			emptyText.setVisibility(TextView.VISIBLE);
@@ -418,17 +514,17 @@ public class SearchFragment extends SynodroidFragment {
 			
 			try {
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-				String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
-				String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
+				String search_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
+				String search_order = "Combined";
 				
-				Cursor res = cache.rawQuery(getCachedQuery, new String[]{params[0], pref_src, pref_order});
+				Cursor res = cache.rawQuery(getCachedQuery, new String[]{params[0], search_src, search_order});
 				
 				if (res.getCount() == 0){
 					fromCache = false;
-					if (pref_src.equals("DSM Search")){
+					if (search_src.equals("DSM Search")){
 						Synodroid app = (Synodroid) getActivity().getApplication();
 
-						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, pref_order);
+						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, search_order);
 
 					}
 					else{
@@ -437,12 +533,11 @@ public class SearchFragment extends SynodroidFragment {
 						Uri uri = Uri.parse(uriString);
 						// Then query for this specific record (no selection nor projection nor sort):
 
-						return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { pref_src }, pref_order);
+						return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { search_src }, search_order);
 					}
 				}
 				else{
 					fromCache = true;
-					String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
 					MatrixCursor cursor = new MatrixCursor(COLS);
 					res.moveToFirst();
 					do {
@@ -485,11 +580,11 @@ public class SearchFragment extends SynodroidFragment {
 					} else {
 						emptyText.setVisibility(TextView.GONE);
 						resList.setVisibility(ListView.VISIBLE);
+						SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+						String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
 						
 						if (!fromCache){
-							SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 							String pref_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
-							String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
 							SQLiteDatabase cache = db_helper.getWritableDatabase();
 							
 							try{
@@ -518,7 +613,58 @@ public class SearchFragment extends SynodroidFragment {
 							
 						}
 						
-						SimpleCursorAdapter cursor = new SimpleCursorAdapter(getActivity(), R.layout.search_row, cur, from, to);
+						List<SearchResult> toSort = new ArrayList<SearchResult>();
+						cur.moveToFirst();
+						do {
+							toSort.add(new SearchResult(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4), cur.getString(5), cur.getInt(6), cur.getInt(7)));
+						} while(cur.moveToNext());
+						
+						if (pref_order.equals("Seeders ASC")){
+							Collections.sort(toSort, new SearchResultSeedersComparator());
+						}
+						else if (pref_order.equals("Leachers ASC")){
+							Collections.sort(toSort, new SearchResultLeachersComparator());
+						}
+						else if (pref_order.equals("Name ASC")){
+							Collections.sort(toSort, new SearchResultNameComparator());
+						}
+						else if (pref_order.equals("Size ASC")){
+							Collections.sort(toSort, new SearchResultSizeComparator());
+						}
+						else if (pref_order.equals("Date ASC")){
+							Collections.sort(toSort, new SearchResultDateComparator());
+						}
+						else if (pref_order.equals("Seeders DESC")){
+							Collections.sort(toSort, new SearchResultSeedersDESCComparator());
+						}
+						else if (pref_order.equals("Leachers DESC")){
+							Collections.sort(toSort, new SearchResultLeachersDESCComparator());
+						}
+						else if (pref_order.equals("Name DESC")){
+							Collections.sort(toSort, new SearchResultNameDESCComparator());
+						}
+						else if (pref_order.equals("Size DESC")){
+							Collections.sort(toSort, new SearchResultSizeDESCComparator());
+						}
+						else if (pref_order.equals("Date DESC")){
+							Collections.sort(toSort, new SearchResultDateDESCComparator());
+						}
+						
+						MatrixCursor sorted = new MatrixCursor(COLS);
+						for (SearchResult sr: toSort){
+							Object[] values = new Object[8];
+	                        values[0] = sr.id;
+	                        values[1] = sr.name;
+	                        values[2] = sr.torrentUrl;
+	                        values[3] = sr.detailUrl;
+	                        values[4] = sr.size;
+	                        values[5] = sr.dateAdded;
+	                        values[6] = sr.seeders;
+	                        values[7] = sr.leachers;
+	                        sorted.addRow(values);
+						}
+						
+						SimpleCursorAdapter cursor = new SimpleCursorAdapter(getActivity(), R.layout.search_row, sorted, from, to);
 						cursor.setViewBinder(new SearchViewBinder());
 						resList.setAdapter(cursor);
 					}
