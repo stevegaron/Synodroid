@@ -51,5 +51,17 @@
         android:layout_alignBottom="@+id/id_file_size"
         android:textColor="#999"
         android:text=".txt"/>
-
+    
+	<ProgressBar
+        android:id="@+id/fileProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dip"
+        android:layout_height="4dip"
+        android:layout_alignBottom="@+id/id_file_ext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="6dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/download_progress" />
+	
 </RelativeLayout>
