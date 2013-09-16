@@ -27,6 +27,8 @@ public class TaskFile {
 	public String name;
 	// The filesize
 	public String filesize;
+	// The filesize
+	public String done = null;
 	// A flag to know if the file will be downloaded or not
 	public boolean download;
 	// Task priority

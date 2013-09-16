@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -172,6 +173,23 @@ public class FileDetailAdapter extends BaseAdapter implements AdapterView.OnItem
 		}
 		else{
 			fileExt.setText("");
+		}
+		
+		ProgressBar filePB = (ProgressBar) viewP.findViewById(R.id.fileProgress);
+		if (fileP.done == null){
+			filePB.setVisibility(View.GONE);
+		}
+		else{
+			filePB.setVisibility(View.VISIBLE);
+			float fDone = Float.parseFloat(fileP.done);
+			float fSize = Float.parseFloat(fileP.filesize);
+			int percent = (int) ((fDone/fSize) * 100);
+			if (fDone == fSize){
+				filePB.setVisibility(View.GONE);
+			}
+			else{
+				filePB.setProgress(percent);
+			}
 		}
 		
 		// The file size

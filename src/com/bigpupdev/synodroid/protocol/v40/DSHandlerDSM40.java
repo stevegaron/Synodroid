@@ -291,6 +291,9 @@ class DSHandlerDSM40 implements DSHandler {
 					TaskFile file = new TaskFile();
 					file.name = obj.getString("name");
 					file.filesize = obj.getString("size");
+					try{
+						file.done = obj.getString("done");
+					}catch (Exception e){}
 					file.download = obj.getBoolean("wanted");
 					file.priority = obj.getString("priority");
 					file.id = obj.getInt("index");

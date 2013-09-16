@@ -15,12 +15,11 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:textColor="#EEE"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="The filename of the task appears here"
-        android:textAppearance="?android:attr/textAppearanceMedium" >
-
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#EEE" >
     </TextView>
 
     <TextView
@@ -29,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/id_file_name"
         android:layout_marginLeft="5dp"
-        android:textColor="#999"
-        android:text="782 MB" />
+        android:text="782 MB"
+        android:textColor="#999" />
 
     <ImageView
         android:id="@+id/img_priority"
@@ -51,5 +50,17 @@
         android:layout_toLeftOf="@+id/img_priority"
         android:layout_alignBottom="@+id/id_file_size"
         android:text=".txt"/>
+
+    <ProgressBar
+        android:id="@+id/fileProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dip"
+        android:layout_height="4dip"
+        android:layout_alignBottom="@+id/id_file_ext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="6dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/download_progress" />
 
 </RelativeLayout>

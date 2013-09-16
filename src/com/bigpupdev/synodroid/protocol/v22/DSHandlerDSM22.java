@@ -21,6 +21,7 @@ import com.bigpupdev.synodroid.server.SimpleSynoServer;
 import com.bigpupdev.synodroid.utils.SearchResult;
 import com.bigpupdev.synodroid.utils.SortOrder;
 import com.bigpupdev.synodroid.utils.Utils;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -285,6 +286,9 @@ class DSHandlerDSM22 implements DSHandler {
 					TaskFile file = new TaskFile();
 					file.name = obj.getString("name");
 					file.filesize = obj.getString("size");
+					try{
+						file.done = obj.getString("done");
+					}catch (Exception e){}
 					file.download = obj.getBoolean("dl");
 					result.add(file);
 				}
