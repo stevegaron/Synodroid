@@ -268,13 +268,7 @@ public class DetailActivity extends BaseActivity{
 		// ------------ Peers
 		if (details.isTorrent) {
 			String peers = details.peersCurrent + " / " + details.peersTotal;
-			DetailProgress peersDetail = new DetailProgress(getString(R.string.detail_peers), R.layout.details_progress_template2);
-			int pProgress = 0;
-			if (details.peersTotal != 0) {
-				pProgress = (int) ((details.peersCurrent * 100) / details.peersTotal);
-			}
-			peersDetail.setProgress(peers, pProgress);
-			result.add(peersDetail);
+			result.add(new DetailText(getString(R.string.detail_peers), peers));
 		}
 		// ------------ Seeders / Leechers
 		if (details.isTorrent) {
