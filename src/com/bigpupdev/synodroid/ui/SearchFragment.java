@@ -401,6 +401,7 @@ public class SearchFragment extends SynodroidFragment {
 	}
 
 	private class TorrentSearchTask extends AsyncTask<String, Void, Cursor> {
+		private static final String SEARCH_ORDER = "Combined";
 		
 		class SearchResult{
 			public int id;
@@ -515,16 +516,15 @@ public class SearchFragment extends SynodroidFragment {
 			try {
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 				String search_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
-				String search_order = "Combined";
 				
-				Cursor res = cache.rawQuery(getCachedQuery, new String[]{params[0], search_src, search_order});
+				Cursor res = cache.rawQuery(getCachedQuery, new String[]{params[0], search_src, SEARCH_ORDER});
 				
 				if (res.getCount() == 0){
 					fromCache = false;
 					if (search_src.equals("DSM Search")){
 						Synodroid app = (Synodroid) getActivity().getApplication();
 
-						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, search_order);
+						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, SEARCH_ORDER);
 
 					}
 					else{
@@ -533,7 +533,7 @@ public class SearchFragment extends SynodroidFragment {
 						Uri uri = Uri.parse(uriString);
 						// Then query for this specific record (no selection nor projection nor sort):
 
-						return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { search_src }, search_order);
+						return getActivity().managedQuery(uri, null, "SITE = ?", new String[] { search_src }, SEARCH_ORDER);
 					}
 				}
 				else{
@@ -593,7 +593,7 @@ public class SearchFragment extends SynodroidFragment {
 									ContentValues values = new ContentValues();
 									values.put(SearchResultsOpenHelper.CACHE_QUERY, lastSearch);
 									values.put(SearchResultsOpenHelper.CACHE_PROVIDER, pref_src);
-									values.put(SearchResultsOpenHelper.CACHE_ORDER, pref_order);
+									values.put(SearchResultsOpenHelper.CACHE_ORDER, SEARCH_ORDER);
 									values.put(SearchResultsOpenHelper.CACHE_ID, String.valueOf(cur.getInt(0)));
 									values.put(SearchResultsOpenHelper.CACHE_TITLE, cur.getString(1));
 									values.put(SearchResultsOpenHelper.CACHE_TURL, cur.getString(2));
