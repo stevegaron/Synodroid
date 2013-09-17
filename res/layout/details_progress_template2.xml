@@ -43,10 +43,11 @@
     <ProgressBar
       android:layout_toLeftOf="@+id/id_detail_action"
       android:indeterminate="false"
-      android:layout_height="wrap_content"
+      android:layout_height="10dip"
       style="?android:attr/progressBarStyleHorizontal"
       android:max="100"
       android:layout_alignBottom="@+id/id_detail_value"
+      android:layout_marginBottom="4dip"
       android:layout_toRightOf="@+id/id_detail_value"
       android:id="@+id/id_detail_progress"
       android:progressDrawable="@drawable/big_upload_progress"

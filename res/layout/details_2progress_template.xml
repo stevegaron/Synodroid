@@ -45,12 +45,13 @@
       android:id="@+id/id_detail_progress1"
       android:layout_toLeftOf="@+id/id_detail_action"
       android:indeterminate="false"
-      android:layout_height="wrap_content"
+      android:layout_height="10dip"
       style="?android:attr/progressBarStyleHorizontal"
       android:max="100"
       android:layout_width="150dip"
       android:layout_toRightOf="@+id/id_detail_value1"
       android:layout_alignBottom="@+id/id_detail_value1"
+      android:layout_marginBottom="4dip"
       android:progressDrawable="@drawable/big_download_progress"/>
 
     <TextView
@@ -70,11 +71,12 @@
       android:layout_toLeftOf="@+id/id_detail_action"
       android:indeterminate="false"
       android:progress="50"
-      android:layout_height="wrap_content"
+      android:layout_height="10dip"
       android:max="100"
       android:layout_width="150dip"
       android:layout_toRightOf="@+id/id_detail_value2"
       android:layout_alignTop="@+id/id_detail_value2"
+      android:layout_marginTop="3dip"
       style="?android:attr/progressBarStyleHorizontal"
       android:progressDrawable="@drawable/big_upload_progress"/>
 </RelativeLayout>
