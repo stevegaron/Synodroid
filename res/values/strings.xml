@@ -533,4 +533,6 @@
 <string name="community_text">First, join the Synodroid Beta community using the following link: (You have to be a member to be elligible to beta updates)</string>
 <string name="registration_text">Then register for beta updates clicking the following link:</string>
 
+<string name="search_res">%d result(s) found.</string>
+<string name="search_cache">%s [from cache]</string>
 </resources>

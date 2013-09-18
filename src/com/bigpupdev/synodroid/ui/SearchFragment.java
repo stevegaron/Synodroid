@@ -60,6 +60,7 @@ public class SearchFragment extends SynodroidFragment {
 	private final String[] from = new String[] { "NAME", "SIZE", "ADDED", "LEECHERS", "SEEDERS", "TORRENTURL" };
 	private final int[] to = new int[] { R.id.result_title, R.id.result_size, R.id.result_date, R.id.result_leechers, R.id.result_seeds, R.id.result_url };
 	private TextView emptyText;
+	private TextView resCountText;
 
 	private Spinner SpinnerSource, SpinnerSort;
 	private ArrayAdapter<CharSequence> AdapterSource, AdapterSort;
@@ -72,10 +73,12 @@ public class SearchFragment extends SynodroidFragment {
 	private SearchResultsOpenHelper db_helper;
 	
 	private boolean fromCache = false;
+	private boolean skipCache = false;
 
 	private static final String getCachedQuery = "SELECT "+SearchResultsOpenHelper.CACHE_ID+","+SearchResultsOpenHelper.CACHE_TITLE+","+SearchResultsOpenHelper.CACHE_TURL+","+SearchResultsOpenHelper.CACHE_DURL+","+SearchResultsOpenHelper.CACHE_SIZE+","+SearchResultsOpenHelper.CACHE_ADDED+","+SearchResultsOpenHelper.CACHE_SEED+","+SearchResultsOpenHelper.CACHE_LEECH+" FROM "+ SearchResultsOpenHelper.TABLE_CACHE + " WHERE " +SearchResultsOpenHelper.CACHE_QUERY+ "=? AND "+SearchResultsOpenHelper.CACHE_PROVIDER+ "=? AND "+SearchResultsOpenHelper.CACHE_ORDER+"=?";
+	private static final String clearCache = "DELETE FROM "+ SearchResultsOpenHelper.TABLE_CACHE + " WHERE " +SearchResultsOpenHelper.CACHE_QUERY+ "=? AND "+SearchResultsOpenHelper.CACHE_PROVIDER+ "=? AND "+SearchResultsOpenHelper.CACHE_ORDER+"=?";
 	private static final String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
-	
+	private static final String SEARCH_ORDER = "Combined";
 	
 	public String getLastSearch(){
 		return lastSearch;
@@ -113,6 +116,8 @@ public class SearchFragment extends SynodroidFragment {
 		resList = (ListView) searchContent.findViewById(R.id.resList);
 
 		emptyText = (TextView) searchContent.findViewById(R.id.empty);
+		resCountText = (TextView) searchContent.findViewById(R.id.res_count);
+		resCountText.setText("");
 
 		SpinnerSource = (Spinner) searchContent.findViewById(R.id.srcSpinner);
 		SpinnerSort = (Spinner) searchContent.findViewById(R.id.sortSpinner);
@@ -395,13 +400,13 @@ public class SearchFragment extends SynodroidFragment {
 			catch (NullPointerException e){
 				//Ignore NPEs
 			}
+			skipCache = true;
 			curSearchTask = new TorrentSearchTask();
 			curSearchTask.execute(lastSearch);
 		}
 	}
 
 	private class TorrentSearchTask extends AsyncTask<String, Void, Cursor> {
-		private static final String SEARCH_ORDER = "Combined";
 		
 		class SearchResult{
 			public int id;
@@ -499,6 +504,8 @@ public class SearchFragment extends SynodroidFragment {
 		protected void onPreExecute() {
 			emptyText.setVisibility(TextView.VISIBLE);
 			emptyText.setText(getString(R.string.searching));
+			resCountText.setText("");
+
 			resList.setVisibility(ListView.GONE);
 			resList.setAdapter(null);
 
@@ -516,11 +523,18 @@ public class SearchFragment extends SynodroidFragment {
 			try {
 				SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 				String search_src = preferences.getString(PREFERENCE_SEARCH_SOURCE, SpinnerSource.getSelectedItem().toString());
+				Cursor res = null;
 				
-				Cursor res = cache.rawQuery(getCachedQuery, new String[]{params[0], search_src, SEARCH_ORDER});
+				if (skipCache){
+					res = cache.rawQuery(clearCache, new String[]{params[0], search_src, SEARCH_ORDER});
+				}
+				else{
+					res = cache.rawQuery(getCachedQuery, new String[]{params[0], search_src, SEARCH_ORDER});
+				}
 				
 				if (res.getCount() == 0){
 					fromCache = false;
+					skipCache = false;
 					if (search_src.equals("DSM Search")){
 						Synodroid app = (Synodroid) getActivity().getApplication();
 
@@ -571,15 +585,18 @@ public class SearchFragment extends SynodroidFragment {
 				if (cur == null) {
 					emptyText.setVisibility(TextView.VISIBLE);
 					resList.setVisibility(ListView.GONE);
+					resCountText.setVisibility(ListView.GONE);
 					emptyText.setText(getString(R.string.no_results));
 				} else {// Show results in the list
 					if (cur.getCount() == 0) {
 						emptyText.setVisibility(TextView.VISIBLE);
 						resList.setVisibility(ListView.GONE);
+						resCountText.setVisibility(ListView.GONE);
 						emptyText.setText(getString(R.string.no_results));
 					} else {
 						emptyText.setVisibility(TextView.GONE);
 						resList.setVisibility(ListView.VISIBLE);
+						resCountText.setVisibility(TextView.VISIBLE);
 						SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 						String pref_order = preferences.getString(PREFERENCE_SEARCH_ORDER, SpinnerSort.getSelectedItem().toString());
 						
@@ -618,6 +635,14 @@ public class SearchFragment extends SynodroidFragment {
 						do {
 							toSort.add(new SearchResult(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4), cur.getString(5), cur.getInt(6), cur.getInt(7)));
 						} while(cur.moveToNext());
+						
+						int num_res = toSort.size();
+						if (fromCache){
+							resCountText.setText(getString(R.string.search_cache, getString(R.string.search_res, num_res)));
+						}
+						else{
+							resCountText.setText(getString(R.string.search_res, num_res));
+						}
 						
 						if (pref_order.equals("Seeders ASC")){
 							Collections.sort(toSort, new SearchResultSeedersComparator());
