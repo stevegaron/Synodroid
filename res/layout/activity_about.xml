@@ -9,13 +9,17 @@
 
     <include layout="@layout/actionbar" />
 
-    <fragment
-        android:id="@+id/fragment_about"
-        android:name="com.bigpupdev.synodroid.ui.AboutFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        tools:layout="@layout/about" >
-    </fragment>
+    <com.bigpupdev.synodroid.utils.ViewPagerIndicator 
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff101010"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" /> 
+    <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"/>
 
 </LinearLayout>
