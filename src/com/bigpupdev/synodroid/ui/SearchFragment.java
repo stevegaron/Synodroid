@@ -65,7 +65,7 @@ public class SearchFragment extends SynodroidFragment {
 	private Spinner SpinnerSource, SpinnerSort;
 	private ArrayAdapter<CharSequence> AdapterSource, AdapterSort;
 
-	private String[] SortOrder = { "Seeders ASC", "Seeders DESC", "Leachers ASC", "Leachers DESC", "Name ASC", "Name DESC", "Size ASC", "Size DESC", "Date ASC",  "Date DESC" };
+	private String[] SortOrder = null;
 	private String lastSearch = "";
 	private ListView resList;
 
@@ -137,6 +137,7 @@ public class SearchFragment extends SynodroidFragment {
 		int lastOrder = 0;
 		int lastSource = 0;
 
+		SortOrder = getResources().getStringArray(R.array.search_order_array);
 		for (int i = 0; i < SortOrder.length; i++) {
 			if (pref_order.equals(SortOrder[i])) {
 				lastOrder = i;
@@ -644,34 +645,34 @@ public class SearchFragment extends SynodroidFragment {
 							resCountText.setText(getString(R.string.search_res, num_res));
 						}
 						
-						if (pref_order.equals("Seeders ASC")){
+						if (pref_order.equals(SortOrder[0])){
 							Collections.sort(toSort, new SearchResultSeedersComparator());
 						}
-						else if (pref_order.equals("Leachers ASC")){
+						else if (pref_order.equals(SortOrder[2])){
 							Collections.sort(toSort, new SearchResultLeachersComparator());
 						}
-						else if (pref_order.equals("Name ASC")){
+						else if (pref_order.equals(SortOrder[4])){
 							Collections.sort(toSort, new SearchResultNameComparator());
 						}
-						else if (pref_order.equals("Size ASC")){
+						else if (pref_order.equals(SortOrder[6])){
 							Collections.sort(toSort, new SearchResultSizeComparator());
 						}
-						else if (pref_order.equals("Date ASC")){
+						else if (pref_order.equals(SortOrder[8])){
 							Collections.sort(toSort, new SearchResultDateComparator());
 						}
-						else if (pref_order.equals("Seeders DESC")){
+						else if (pref_order.equals(SortOrder[1])){
 							Collections.sort(toSort, new SearchResultSeedersDESCComparator());
 						}
-						else if (pref_order.equals("Leachers DESC")){
+						else if (pref_order.equals(SortOrder[3])){
 							Collections.sort(toSort, new SearchResultLeachersDESCComparator());
 						}
-						else if (pref_order.equals("Name DESC")){
+						else if (pref_order.equals(SortOrder[5])){
 							Collections.sort(toSort, new SearchResultNameDESCComparator());
 						}
-						else if (pref_order.equals("Size DESC")){
+						else if (pref_order.equals(SortOrder[7])){
 							Collections.sort(toSort, new SearchResultSizeDESCComparator());
 						}
-						else if (pref_order.equals("Date DESC")){
+						else if (pref_order.equals(SortOrder[9])){
 							Collections.sort(toSort, new SearchResultDateDESCComparator());
 						}
 						

@@ -535,4 +535,18 @@
 
 <string name="search_res">%d result(s) found.</string>
 <string name="search_cache">%s [from cache]</string>
+
+<string-array name="search_order_array">
+	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Name&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Name&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Size&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Size&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Date&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Date&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+</string-array>
+
 </resources>
