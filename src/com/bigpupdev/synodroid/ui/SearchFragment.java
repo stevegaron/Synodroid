@@ -505,7 +505,9 @@ public class SearchFragment extends SynodroidFragment {
 		protected void onPreExecute() {
 			emptyText.setVisibility(TextView.VISIBLE);
 			emptyText.setText(getString(R.string.searching));
+			
 			resCountText.setText("");
+			resCountText.setVisibility(ListView.GONE);
 
 			resList.setVisibility(ListView.GONE);
 			resList.setAdapter(null);
@@ -586,13 +588,13 @@ public class SearchFragment extends SynodroidFragment {
 				if (cur == null) {
 					emptyText.setVisibility(TextView.VISIBLE);
 					resList.setVisibility(ListView.GONE);
-					resCountText.setVisibility(ListView.GONE);
+					resCountText.setVisibility(TextView.GONE);
 					emptyText.setText(getString(R.string.no_results));
 				} else {// Show results in the list
 					if (cur.getCount() == 0) {
 						emptyText.setVisibility(TextView.VISIBLE);
 						resList.setVisibility(ListView.GONE);
-						resCountText.setVisibility(ListView.GONE);
+						resCountText.setVisibility(TextView.GONE);
 						emptyText.setText(getString(R.string.no_results));
 					} else {
 						emptyText.setVisibility(TextView.GONE);
