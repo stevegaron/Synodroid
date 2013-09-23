@@ -495,4 +495,25 @@
 	<string name="community_text">Innanzitutto , entra nella community di Synodroid Beta utilizzando questo link: (devi essere membro per poter ricevere gli aggiornamenti)</string>
 	<string name="registration_text">Dopo registrati per gli aggiornamenti beta cliccando sul seguente link :</string>
 	
+	<string name="search_res">%d risultato/i trovato/i.</string>
+	<string name="search_cache">%s [dalla cache]</string>
+	<string-array name="search_order_array">
+		<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+		<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+		<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+		<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+		<item>Nome &#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+		<item>Nome&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+		<item>Dimensione&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+		<item>Dimensione&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+		<item>Data&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+		<item>Data&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	</string-array>
+	<string name="menu_filter">Filtro</string>
+	<string name="menu_filter_all">Tutti</string>
+	<string name="menu_filter_downloading">In doenload</string>
+	<string name="menu_filter_completed">Completato</string>
+	<string name="menu_filter_active">Attivo</string>
+	<string name="menu_filter_inactive">Inattivo</string>
+	<string name="menu_filter_stopped">Arrestato</string>
 </resources>

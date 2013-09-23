@@ -522,4 +522,26 @@
 <string name="community_text">Primero, únete a la comunidad de Synodroid Beta siguiendo este enlace (Tienes que ser miembro para poder acceder a las betas)</string>
 <string name="registration_text">Después, registrate en el programa de beta accediendo al siguiente enlace:</string>
 
+<string name="search_res">%d resultado(s) encontrado(s).</string>
+<string name="search_cache">%s [desde cache]</string>
+<string-array name="search_order_array">
+	<item>Semillas&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Semillas&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Sanguijuelas&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Sanguijuelas&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Nombre&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Nombre&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Tamaño&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Tamaño&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Fecha&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Fecha&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+</string-array>
+<string name="menu_filter">Filter</string>
+<string name="menu_filter_all">Todo</string>
+<string name="menu_filter_downloading">Descargando</string>
+<string name="menu_filter_completed">Completado</string>
+<string name="menu_filter_active">Activo</string>
+<string name="menu_filter_inactive">Inactivo</string>
+<string name="menu_filter_stopped">Parado</string>
+
 </resources>

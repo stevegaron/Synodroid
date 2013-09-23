@@ -526,4 +526,26 @@
 <string name="registration_text">Dan kun je je registeren voor beta-updates via de volgende link:</string>
 <string name="tab_beta">Beta</string>
 
+<string name="search_res">%d resultat(en) gevonden.</string>
+<string name="search_cache">%s [vanuit cache]</string>
+<string-array name="search_order_array">
+	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Naam&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Naam&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Grootte&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Grootte&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Datum&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Datum&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+</string-array>
+<string name="menu_filter">Filter</string>
+<string name="menu_filter_all">Alles</string>
+<string name="menu_filter_downloading">Downloaden</string>
+<string name="menu_filter_completed">Voltooid</string>
+<string name="menu_filter_active">Actief</string>
+<string name="menu_filter_inactive">Inactief</string>
+<string name="menu_filter_stopped">Gestopt</string>
+
 </resources>

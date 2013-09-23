@@ -527,4 +527,26 @@
 <string name="registration_text">Finalement, inscrivez-vous aux mises-à-jour bêta en cliquant sur le lien suivant:</string>
 <string name="tab_beta">Beta</string>
 
+<string name="search_res">%d résultat(s) trouvé(s).</string>
+<string name="search_cache">%s [en cache]</string>
+<string-array name="search_order_array">
+	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Leachers&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Nom&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Nom&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Taille&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Taille&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+	<item>Date&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
+	<item>Date&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
+</string-array>
+<string name="menu_filter">Filtre</string>
+<string name="menu_filter_all">Tous</string>
+<string name="menu_filter_downloading">Téléchargement</string>
+<string name="menu_filter_completed">Complété</string>
+<string name="menu_filter_active">Active</string>
+<string name="menu_filter_inactive">Inactive</string>
+<string name="menu_filter_stopped">Arrêté</string>
+
 </resources>
