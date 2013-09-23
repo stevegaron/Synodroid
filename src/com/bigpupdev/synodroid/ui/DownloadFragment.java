@@ -58,7 +58,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.WindowManager.BadTokenException;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -87,6 +86,7 @@ public class DownloadFragment extends SynodroidFragment{
 	// The total upload rate view
 	private TextView totalUpView;
 	private TextView totalTasksView;
+	private TextView taskFilteringView;
 	// The total download rate view
 	private TextView totalDownView;
 	// Flag to tell app that the connect dialog is opened
@@ -132,6 +132,7 @@ public class DownloadFragment extends SynodroidFragment{
 		totalUpView.setText(" 0.00 KB/s");
 		totalDownView.setText(" 0.00 KB/s");
 		totalTasksView.setText("0");
+		taskFilteringView.setText("");
 	}
 	
 	/**
@@ -165,9 +166,11 @@ public class DownloadFragment extends SynodroidFragment{
 			totalDownView.setText(container.getTotalDown());
 			if (filter == HomeActivity.FILTER_ALL){
 				totalTasksView.setText(String.format("%d", taskAdapter.getTaskList().size()));	
+				taskFilteringView.setText("");
 			}
 			else{
-				totalTasksView.setText(String.format("%d %s", taskAdapter.getTaskList().size(), ((HomeActivity)a).getFilterText(filter)));	
+				totalTasksView.setText(String.format("%d", taskAdapter.getTaskList().size()));	
+				taskFilteringView.setText(String.format("[%s]", ((HomeActivity)a).getFilterText(filter)));
 			}
 			
 			updateEmptyValues(a.getString(R.string.empty_download_list), false);
@@ -414,6 +417,7 @@ public class DownloadFragment extends SynodroidFragment{
 		totalUpView = (TextView) downloadContent.findViewById(R.id.id_total_upload);
 		totalDownView = (TextView) downloadContent.findViewById(R.id.id_total_download);
 		totalTasksView = (TextView) downloadContent.findViewById(R.id.id_total_num_dl);
+		taskFilteringView = (TextView) downloadContent.findViewById(R.id.id_filter_type);
 		// Create the task adapter
 		TaskAdapter taskAdapter = new TaskAdapter(this);
 		taskView.setAdapter(taskAdapter);
