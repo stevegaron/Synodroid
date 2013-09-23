@@ -26,6 +26,7 @@ import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
+import com.bigpupdev.synodroid.ui.HomeActivity;
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.utils.Utils;
 
@@ -65,6 +66,8 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	// Bitmap which is used for unknown progress
 	private BitmapDrawable unknownDrawable;
 	
+	private int filter = HomeActivity.FILTER_ALL;
+	
 	private Context c;
 	private Activity a;
 
@@ -98,6 +101,9 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		unknownDrawable = new BitmapDrawable(bitmap);
 	}
 
+	public void setFilter(int pFilter){
+		filter = pFilter;
+	}
 	/**
 	 * Update the torrents list
 	 * 
@@ -111,6 +117,23 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 		notifyDataSetChanged();
 	}
 	
+	public boolean isFilteredInTask(int curFilter, String state){
+		switch(curFilter){
+			case HomeActivity.FILTER_DOWNLOADING:
+				return TaskStatus.isStateDownloading(state);
+			case HomeActivity.FILTER_COMPLETED:
+				return TaskStatus.isStateCompleted(state);
+			case HomeActivity.FILTER_ACTIVE:
+				return TaskStatus.isStateActive(state);
+			case HomeActivity.FILTER_INACTIVE:
+				return TaskStatus.isStateInactive(state);
+			case HomeActivity.FILTER_STOPPED:
+				return TaskStatus.isStateStopped(state);
+			default:
+				return true;
+		}
+	}
+	
 	/**
 	 * Update the torrents list
 	 * 
@@ -118,6 +141,7 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 	 */
 	public ArrayList<Integer> updateTasks(List<Task> tasksP, List<Integer> checked_tasks_id) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
+		List<Task> filtered_tasks = new ArrayList<Task>();
 		// First update upload informations
 		for (Task task : tasksP) {
 			if (checked_tasks_id.contains(task.taskId)){
@@ -136,9 +160,12 @@ public class TaskAdapter extends BaseAdapter implements AdapterView.OnItemClickL
 			if (isTorrent != null) {
 				task.isTorrent = isTorrent;
 			}
-			ret.add(taskId);
+			if (isFilteredInTask(filter, task.status)){
+				filtered_tasks.add(task);
+				ret.add(taskId);	
+			}
 		}
-		tasks = tasksP;
+		tasks = filtered_tasks;
 		notifyDataSetChanged();
 		return ret;
 	}

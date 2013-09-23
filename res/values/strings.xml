@@ -535,7 +535,6 @@
 
 <string name="search_res">%d result(s) found.</string>
 <string name="search_cache">%s [from cache]</string>
-
 <string-array name="search_order_array">
 	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
 	<item>Seeders&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
@@ -548,5 +547,12 @@
 	<item>Date&#x00A0;&#x00A0;&#x00A0;&#9650;</item>
 	<item>Date&#x00A0;&#x00A0;&#x00A0;&#9660;</item>
 </string-array>
+<string name="menu_filter">Filter</string>
+<string name="menu_filter_all">All</string>
+<string name="menu_filter_downloading">Downloading</string>
+<string name="menu_filter_completed">Completed</string>
+<string name="menu_filter_active">Active</string>
+<string name="menu_filter_inactive">Inactive</string>
+<string name="menu_filter_stopped">Stopped</string>
 
 </resources>

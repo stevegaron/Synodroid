@@ -77,6 +77,26 @@ public enum TaskStatus {
 		return onGoingTasks;
 	}
 	
+	public static boolean isStateDownloading(String state){
+		return state.equals("TASK_DOWNLOADING");
+	}
+	
+	public static boolean isStateCompleted(String state){
+		return state.equals("TASK_FINISHED");
+	}
+	
+	public static boolean isStateActive(String state){
+		return state.endsWith("ING");
+	}
+	
+	public static boolean isStateInactive(String state){
+		return !isStateActive(state);
+	}
+	
+	public static boolean isStateStopped(String state){
+		return state.equals("TASK_PAUSED");
+	}
+	
 	/**
 	 * Return a localized status label
 	 * 

@@ -55,10 +55,35 @@ public class HomeActivity extends BaseActivity {
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
+	private static final String PREFERENCE_DEFAULT_DL_FILTER = "general_cat.default_dl_filter";
 	
 	public static final int NO_SERVER_DIALOG_ID = 2;
 	private static final int ADD_DOWNLOAD = 3;
 	private static final int OTP_REQUEST_DIALOG_ID = 4;
+	
+	public static final int FILTER_ALL = 0;
+	public static final int FILTER_DOWNLOADING = 1;
+	public static final int FILTER_COMPLETED = 2;
+	public static final int FILTER_ACTIVE = 3;
+	public static final int FILTER_INACTIVE = 4;
+	public static final int FILTER_STOPPED = 5;
+	
+	public String getFilterText(int curFilter){
+		switch(curFilter){
+			case HomeActivity.FILTER_DOWNLOADING:
+				return getString(R.string.menu_filter_downloading);
+			case HomeActivity.FILTER_COMPLETED:
+				return getString(R.string.menu_filter_completed);
+			case HomeActivity.FILTER_ACTIVE:
+				return getString(R.string.menu_filter_active);
+			case HomeActivity.FILTER_INACTIVE:
+				return getString(R.string.menu_filter_inactive);
+			case HomeActivity.FILTER_STOPPED:
+				return getString(R.string.menu_filter_stopped);
+			default:
+				return getString(R.string.menu_filter_all);
+		}
+	}
 	
 	//private TagStreamFragment mTagStreamFragment;
     @Override
@@ -346,6 +371,11 @@ public class HomeActivity extends BaseActivity {
     	return true;
     }
     
+    private void setFilter(int filter){
+    	SharedPreferences preferences = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+	 	preferences.edit().putInt(PREFERENCE_DEFAULT_DL_FILTER, filter).commit();
+    }
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	SynoServer server = ((Synodroid)getApplication()).getServer();
@@ -353,6 +383,66 @@ public class HomeActivity extends BaseActivity {
         	try{
         		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu refresh selected.");
         	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	if (serverValid(server)) triggerRefresh();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_filter_all) {
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu filter_all selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	this.setFilter(FILTER_ALL);
+        	
+        	if (serverValid(server)) triggerRefresh();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_filter_downloading) {
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu filter_downloading selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	this.setFilter(FILTER_DOWNLOADING);
+        	
+        	if (serverValid(server)) triggerRefresh();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_filter_completed) {
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu filter_completed selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	this.setFilter(FILTER_COMPLETED);
+        	
+        	if (serverValid(server)) triggerRefresh();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_filter_active) {
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu filter_active selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	this.setFilter(FILTER_ACTIVE);
+        	
+        	if (serverValid(server)) triggerRefresh();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_filter_inactive) {
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu filter_inactive selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	this.setFilter(FILTER_INACTIVE);
+        	
+        	if (serverValid(server)) triggerRefresh();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_filter_stopped) {
+        	try{
+        		if (((Synodroid)getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"HomeActivity: Menu filter_stopped selected.");
+        	}catch (Exception ex){/*DO NOTHING*/}
+        	
+        	this.setFilter(FILTER_STOPPED);
         	
         	if (serverValid(server)) triggerRefresh();
             return true;

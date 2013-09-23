@@ -41,7 +41,6 @@ import com.bigpupdev.synodroid.utils.UIUtils;
 import com.bigpupdev.synodroid.utils.Utils;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -76,6 +75,7 @@ public class DownloadFragment extends SynodroidFragment{
 	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
 	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
 	private static final String PREFERENCE_SERVER = "servers_cat";
+	private static final String PREFERENCE_DEFAULT_DL_FILTER = "general_cat.default_dl_filter";
 	
 	// No server configured
 	private static final int NO_SERVER_DIALOG_ID = 2;
@@ -151,14 +151,25 @@ public class DownloadFragment extends SynodroidFragment{
 			
 			TaskContainer container = (TaskContainer) msg.obj;
 			List<Task> tasks = container.getTasks();
+			
+			SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		 	int filter = preferences.getInt(PREFERENCE_DEFAULT_DL_FILTER, HomeActivity.FILTER_ALL);
+		 	
 			// Get the adapter
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
+			taskAdapter.setFilter(filter);
 			validateChecked(taskAdapter.updateTasks(tasks, checked_tasks_id));
 			
 			// Update total rates
 			totalUpView.setText(container.getTotalUp());
 			totalDownView.setText(container.getTotalDown());
-			totalTasksView.setText(String.format("%d", container.getTotalTasks()));
+			if (filter == HomeActivity.FILTER_ALL){
+				totalTasksView.setText(String.format("%d", taskAdapter.getTaskList().size()));	
+			}
+			else{
+				totalTasksView.setText(String.format("%d %s", taskAdapter.getTaskList().size(), ((HomeActivity)a).getFilterText(filter)));	
+			}
+			
 			updateEmptyValues(a.getString(R.string.empty_download_list), false);
 		}
 		// Update a task's detail
