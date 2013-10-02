@@ -10,12 +10,16 @@
  */
 package com.bigpupdev.synodroid.ui;
 
+import java.util.List;
+
+import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
+import com.bigpupdev.synodroid.server.SynoServer;
+import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,6 +27,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.View;
 
 /**
  * The base class of an activity in Synodroid
@@ -30,17 +35,84 @@ import android.util.Log;
  * @author Eric Taix (eric.taix at gmail.com)
  */
 public abstract class SynodroidFragment extends Fragment implements ResponseHandler {
+	protected List<SynoAction> postOTPActions = null;
+	
+	protected boolean otp_dialog = false;
+
 	// A generic Handler which delegate to the activity
 	private Handler handler = new Handler() {
 		// The toast message
+		@SuppressWarnings("unchecked")
 		@Override
 		public void handleMessage(Message msgP) {
 			final Activity a = SynodroidFragment.this.getActivity();
+			final SynoServer server = ((Synodroid) a.getApplication()).getServer();
 			if (a != null){
 				Synodroid app = (Synodroid) a.getApplication();
 				Style msg_style = null;
 				// According to the message
 				switch (msgP.what) {
+				case ResponseHandler.MSG_CONNECT_WITH_ACTION:
+					try{
+						if (((Synodroid)a.getApplication()).DEBUG) Log.w(Synodroid.DS_TAG,"SynodroidFragment: Received connect with action message.");
+					}catch (Exception ex){/*DO NOTHING*/}
+					
+					((BaseActivity)a).showDialogToConnect(true, (List<SynoAction>) msgP.obj, true);
+					break;
+				case ResponseHandler.MSG_ERROR:
+					try{
+						if (((Synodroid)a.getApplication()).DEBUG) Log.w(Synodroid.DS_TAG,"SynodroidFragment: Received error message.");
+					}catch (Exception ex){/*DO NOTHING*/}
+					
+					// Change the title
+					((BaseActivity)a).updateSMServer(null);
+					
+					// Show the error
+					// Save the last error inside the server to surive UI rotation and
+					// pause/resume.
+					if (server != null) {
+						server.setLastError((String) msgP.obj);
+						android.view.View.OnClickListener ocl = new android.view.View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								if (server != null) {
+									if (!server.isConnected()) {
+										((BaseActivity) a).showDialogToConnect(false, null, false);
+									}
+								}
+								Crouton.cancelAllCroutons();
+							}
+						};
+						Crouton.makeText(getActivity(), server.getLastError()+ "\n\n" + getText(R.string.click_dismiss), Synodroid.CROUTON_ERROR).setOnClickListener(ocl).show();
+					}
+					break;
+				case ResponseHandler.MSG_OTP_REQUESTED:
+					try{
+						if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received OTP Request message.");
+					}catch (Exception ex){/*DO NOTHING*/}
+					
+					postOTPActions = (List<SynoAction>)msgP.obj;
+					// Show the connection dialog
+					try {
+						((BaseActivity)a).showDialog(BaseActivity.OTP_REQUEST_DIALOG_ID);
+					} catch (Exception e) {/* Unable to show dialog probably because intent has been closed. Ignoring...*/}
+					break;
+				case ResponseHandler.MSG_CONNECTED:
+					try{
+						if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received connected to server message.");
+					}catch (Exception ex){/*DO NOTHING*/}
+					
+					((BaseActivity)a).updateSMServer(server);
+					
+					break;
+				case ResponseHandler.MSG_CONNECTING:
+					try{
+						if (((Synodroid)a.getApplication()).DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received connected to server message.");
+					}catch (Exception ex){/*DO NOTHING*/}
+					
+					((BaseActivity)a).updateSMServer(null);
+					
+					break;
 				case MSG_OPERATION_PENDING:
 					if (app != null && app.DEBUG) Log.v(Synodroid.DS_TAG,"SynodroidFragment: Received operation pending message.");
 					if (a instanceof HomeActivity){
@@ -134,5 +206,25 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 		Crouton.cancelAllCroutons();
 		super.onDestroy();
 		
+	}
+	
+	public void setAlreadyCanceled(boolean value){
+		((BaseActivity) getActivity()).setAlreadyCanceled(value);
+	}
+	
+	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated){
+		((BaseActivity) getActivity()).showDialogToConnect(autoConnectIfOnlyOneServerP, actionQueueP, automated);
+	}
+	
+	public List<SynoAction> getPostOTPActions(){
+		return postOTPActions;
+	}
+	
+	public void resetPostOTPActions(){
+		postOTPActions = null;
+	}
+	
+	public void setOTPDialog(boolean otp){
+		otp_dialog = otp;
 	}
 }

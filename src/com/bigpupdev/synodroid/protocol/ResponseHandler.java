@@ -62,6 +62,7 @@ public interface ResponseHandler {
 	public static final int MSG_ALERT = 10021;
 	public static final int MSG_ERR = 10022;
 	public static final int MSG_CONFIRM = 10023;
+	public static final int MSG_CONNECT_WITH_ACTION = 10024;
 	
 	/**
 	 * Handle the response. BE CAREFUL this method will NOT be called from the main thread. So don't try to interact with the UI. Prefer to use SynodroidActivity subclass and then implements your code in handleMessage method.

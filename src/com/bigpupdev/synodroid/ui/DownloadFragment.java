@@ -20,7 +20,6 @@ import com.bigpupdev.synodroid.action.EnumShareAction;
 import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.GetDirectoryListShares;
 import com.bigpupdev.synodroid.action.SetShared;
-import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Folder;
 import com.bigpupdev.synodroid.data.SharedDirectory;
@@ -29,7 +28,6 @@ import com.bigpupdev.synodroid.data.SynoProtocol;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.data.TaskContainer;
 import com.bigpupdev.synodroid.data.TaskDetail;
-import com.bigpupdev.synodroid.preference.PreferenceFacade;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.ui.SynodroidFragment;
 import com.bigpupdev.synodroid.action.ShowDetailsAction;
@@ -46,11 +44,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnDismissListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -70,16 +66,8 @@ import android.widget.TextView;
  */
 public class DownloadFragment extends SynodroidFragment{
 	private static final String PREFERENCE_GENERAL = "general_cat";
-	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
-	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
-	private static final String PREFERENCE_SERVER = "servers_cat";
 	private static final String PREFERENCE_DEFAULT_DL_FILTER = "general_cat.default_dl_filter";
-	
-	// No server configured
-	private static final int NO_SERVER_DIALOG_ID = 2;
-	// No server configured
-	private static final int OTP_REQUEST_DIALOG_ID = 4;
 
 	// The torrent listview
 	public ListView taskView;
@@ -89,28 +77,8 @@ public class DownloadFragment extends SynodroidFragment{
 	private TextView taskFilteringView;
 	// The total download rate view
 	private TextView totalDownView;
-	// Flag to tell app that the connect dialog is opened
-	private boolean connectDialogOpened = false;
 	
-	private boolean otp_dialog = false;
-	private List<SynoAction> postOTPActions = null;
-	
-	public boolean alreadyCanceled = false;
-	public ActionModeHelper mCurrentActionMode;
-	
-	private android.view.View.OnClickListener ocl;
-	
-	public List<SynoAction> getPostOTPActions(){
-		return postOTPActions;
-	}
-	
-	public void resetPostOTPActions(){
-		postOTPActions = null;
-	}
-	
-	public void setOTPDialog(boolean otp){
-		otp_dialog = otp;
-	}
+	public ActionModeHelper mCurrentActionMode;	
 	
 	private void updateEmptyValues(String text, boolean showPB){
 		View empty = taskView.getEmptyView();
@@ -192,11 +160,7 @@ public class DownloadFragment extends SynodroidFragment{
 				if (((Synodroid)a.getApplication()).DEBUG) Log.w(Synodroid.DS_TAG,"DownloadFragment: Received error message.");
 			}catch (Exception ex){/*DO NOTHING*/}
 			
-			// Change the title
-			((HomeActivity)a).updateSMServer(null);
-			
 			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false);
-			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
 			resetCurrentStateValues();
 			
@@ -207,27 +171,6 @@ public class DownloadFragment extends SynodroidFragment{
 			taskView.setOnItemClickListener(taskAdapter);
 			taskView.setOnItemLongClickListener(taskAdapter);
 			validateChecked(taskAdapter.updateTasks(tasks, checked_tasks_id));
-			
-			// Show the error
-			// Save the last error inside the server to surive UI rotation and
-			// pause/resume.
-			final SynoServer server = ((Synodroid) a.getApplication()).getServer();
-			if (server != null) {
-				server.setLastError((String) msg.obj);
-				android.view.View.OnClickListener ocl = new android.view.View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						if (server != null) {
-							if (!server.isConnected()) {
-								showDialogToConnect(false, null, false);
-							}
-						}
-						Crouton.cancelAllCroutons();
-					}
-				};
-				Crouton.makeText(getActivity(), server.getLastError()+ "\n\n" + getText(R.string.click_dismiss), Synodroid.CROUTON_ERROR).setOnClickListener(ocl).show();
-			}
 		}
 		// Connection is done
 		else if (msg.what == ResponseHandler.MSG_CONNECTED) {
@@ -238,10 +181,8 @@ public class DownloadFragment extends SynodroidFragment{
 			final SynoServer server = ((Synodroid) a.getApplication()).getServer();
 			// Change the title
 			String title = server.getNickname();
-			
-			((HomeActivity)a).updateSMServer(server);
+			server.setRecurrentAction(this, new GetAllAndOneDetailTaskAction(server.getSortAttribute(), server.isAscending(), (TaskAdapter) taskView.getAdapter()), true);
 			((HomeActivity)a).updateActionBarTitle(title, server.getProtocol() == SynoProtocol.HTTPS);
-			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			
 			updateEmptyValues(a.getString(R.string.empty_list_loading), true);
 			
@@ -255,13 +196,6 @@ public class DownloadFragment extends SynodroidFragment{
 			// Clear the prevous task list
 			TaskAdapter taskAdapter = (TaskAdapter) taskView.getAdapter();
 			validateChecked(taskAdapter.updateTasks(new ArrayList<Task>(), checked_tasks_id));
-			postOTPActions = (List<SynoAction>)msg.obj;
-			// Show the connection dialog
-			try {
-				a.showDialog(OTP_REQUEST_DIALOG_ID);
-			} catch (Exception e) {
-				// Unable to show dialog probably because intent has been closed. Ignoring...
-			}
 			updateEmptyValues(a.getString(R.string.empty_not_connected), false);
 		}
 		// Connecting to the server
@@ -275,7 +209,6 @@ public class DownloadFragment extends SynodroidFragment{
 			validateChecked(taskAdapter.updateTasks(new ArrayList<Task>(), checked_tasks_id));
 			((HomeActivity)a).updateSMServer(null);
 			((HomeActivity)a).updateActionBarTitle(a.getString(R.string.app_name), false);
-			((HomeActivity)a).updateActionBarTitleOCL(ocl);
 			resetCurrentStateValues();
 			
 			// Show the connection dialog
@@ -385,13 +318,6 @@ public class DownloadFragment extends SynodroidFragment{
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        final Activity a = getActivity(); 
-        ocl = new android.view.View.OnClickListener(){
-			public void onClick(View v) {
-				((BaseActivity) a).getSlidingMenu().showContent();
-				showDialogToConnect(false, null, false);
-			}
-		};
 	}
 	
 	/**
@@ -405,7 +331,7 @@ public class DownloadFragment extends SynodroidFragment{
 		}catch (Exception ex){/*DO NOTHING*/}
 		
 		if (savedInstanceState != null){
-			alreadyCanceled = savedInstanceState.getBoolean("alreadyCanceled");
+			((BaseActivity) getActivity()).setAlreadyCanceled(savedInstanceState.getBoolean("alreadyCanceled"));
 		}
 		
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -553,91 +479,6 @@ public class DownloadFragment extends SynodroidFragment{
 		return true;
 	}
 
-	/**
-	 * Show the dialog to connect to a server
-	 */
-	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated) {
-		SharedPreferences generalPref = getActivity().getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
-		SharedPreferences serverPref = getActivity().getSharedPreferences(PREFERENCE_SERVER, Activity.MODE_PRIVATE);
-		boolean autoDetect = generalPref.getBoolean(PREFERENCE_AUTO_DSM, true);
-		String defaultSrv = serverPref.getString(PREFERENCE_DEF_SRV, "0");
-		
-		final Activity a = getActivity();
-		if (!connectDialogOpened && a != null) {
-			final Synodroid app = (Synodroid) a.getApplication();
-			if (app != null){
-				if (!app.isNetworkAvailable())
-					return;
-				
-				final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), app.DEBUG, autoDetect);
-				// If at least one server
-				if (servers.size() != 0) {
-					// If more than 1 server OR if we don't want to autoconnect then
-					// show the dialog
-					if (servers.size() > 1 || !autoConnectIfOnlyOneServerP) {
-						boolean skip = false;
-						String[] serversTitle = new String[servers.size()];
-						for (int iLoop = 0; iLoop < servers.size(); iLoop++) {
-							SynoServer s = servers.get(iLoop);
-							serversTitle[iLoop] = s.getNickname();
-							
-							//Check if default server and connect to it skipping the dialog...
-							if (defaultSrv.equals(s.getID()) && autoConnectIfOnlyOneServerP){
-								app.connectServer(DownloadFragment.this, s, actionQueueP, automated);
-								skip = true;
-							}
-						}
-						if (!skip){
-							connectDialogOpened = true;
-							AlertDialog.Builder builder = new AlertDialog.Builder(a);
-							builder.setTitle(getString(R.string.menu_connect));
-							// When the user select a server
-							builder.setItems(serversTitle, new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int item) {
-									SynoServer server = servers.get(item);
-									// Change the server
-									app.connectServer(DownloadFragment.this, server, actionQueueP, automated);
-									dialog.dismiss();
-								}
-							});
-							AlertDialog connectDialog = builder.create();
-							try {
-								connectDialog.show();
-							} catch (BadTokenException e) {
-								// Unable to show dialog probably because intent has been closed. Ignoring...
-							}
-							connectDialog.setOnDismissListener(new OnDismissListener() {
-								public void onDismiss(DialogInterface dialog) {
-									connectDialogOpened = false;
-								}
-							});
-						}
-					} else {
-						// Auto connect to the first server
-						if (servers.size() > 0) {
-							SynoServer server = servers.get(0);
-							// Change the server
-							app.connectServer(DownloadFragment.this, server, actionQueueP, automated);
-						}
-					}
-				}
-				// No server then show the dialog to configure a server
-				else {
-					// Only if the EULA has been accepted. If the EULA has not been
-					// accepted, it means that the EULA is currenlty being displayed so
-					// don't show the "Wizard" dialog
-					if (EulaHelper.hasAcceptedEula(a) && !alreadyCanceled) {
-						try {
-							a.showDialog(NO_SERVER_DIALOG_ID);
-						} catch (Exception e) {
-							// Unable to show dialog probably because intent has been closed or the dialog is already displayed. Ignoring...
-						}
-					}
-				}
-			}
-		}
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -647,9 +488,6 @@ public class DownloadFragment extends SynodroidFragment{
 	public void onResume() {
 		super.onResume();
 		final Activity a = getActivity();
-		if (ocl != null) {
-			((HomeActivity)a).updateActionBarTitleOCL(ocl);
-		}
 		
 		SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 		if (preferences.getBoolean(PREFERENCE_SHOW_GET_STARTED, true)){
@@ -695,7 +533,7 @@ public class DownloadFragment extends SynodroidFragment{
 		// the title bar on top. This fixes thoses cases.
 		SynoServer server = ((Synodroid) a.getApplication()).getServer();
 		((HomeActivity)a).updateSMServer(server);
-		((HomeActivity)a).updateActionBarTitleOCL(ocl);
+		Synodroid app = (Synodroid) a.getApplication();
 		if (server != null && server.isConnected()) {
 			String title = server.getNickname();
 			
@@ -703,10 +541,9 @@ public class DownloadFragment extends SynodroidFragment{
 			updateEmptyValues(a.getString(R.string.empty_list_loading), true);
 			
 			// Launch the gets task's details recurrent action
-			Synodroid app = (Synodroid) a.getApplication();
 			if ((server.isUsingLocalConnection() && app.shouldUsePublicConnection()) || (!server.isUsingLocalConnection() && !app.shouldUsePublicConnection())){
 				server.disconnect();
-				showDialogToConnect(true, null, true);
+				((BaseActivity) a).showDialogToConnect(true, null, true);
 			}
 			else{
 				app.setRecurrentAction(this, new GetAllAndOneDetailTaskAction(server.getSortAttribute(), server.isAscending(), (TaskAdapter) taskView.getAdapter()));
@@ -720,8 +557,8 @@ public class DownloadFragment extends SynodroidFragment{
 			resetCurrentStateValues();
 			
 			if (connectToServer && !otp_dialog)
-				showDialogToConnect(true, null, true);
-		}
+				((BaseActivity) a).showDialogToConnect(true, null, true);
+		}	
 	}
 
 	/**
@@ -743,8 +580,7 @@ public class DownloadFragment extends SynodroidFragment{
 		// Save UI state changes to the savedInstanceState.
 		// This bundle will be passed to onCreate if the process is
 		// killed and restarted.
-		savedInstanceState.putBoolean("alreadyCanceled", alreadyCanceled);
-
+		savedInstanceState.putBoolean("alreadyCanceled", ((BaseActivity) getActivity()).getAlreadyCanceled());
 		// etc.
 		super.onSaveInstanceState(savedInstanceState);
 	}

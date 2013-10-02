@@ -16,30 +16,45 @@
 
 package com.bigpupdev.synodroid.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.adapter.SlidingMenuAdapter;
+import com.bigpupdev.synodroid.preference.PreferenceFacade;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.utils.ActionModeHelper;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
+import com.bigpupdev.synodroid.utils.EulaHelper;
 import com.bigpupdev.synodroid.utils.SlidingMenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager.BadTokenException;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -51,6 +66,13 @@ import android.widget.TextView;
  * inherit from {@link BaseSinglePaneActivity} or {@link BaseMultiPaneActivity}.
  */
 public abstract class BaseActivity extends FragmentActivity {
+	private static final String PREFERENCE_AUTO = "auto";
+	private static final String PREFERENCE_AUTO_CREATENOW = "auto.createnow";
+	private static final String PREFERENCE_GENERAL = "general_cat";
+	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
+	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
+	private static final String PREFERENCE_SERVER = "servers_cat";
+	
     final ActivityHelper mActivityHelper = ActivityHelper.createInstance(this);
     final ActionModeHelper mActionModeHelper = ActionModeHelper.createInstance();
 	
@@ -63,6 +85,13 @@ public abstract class BaseActivity extends FragmentActivity {
 	private static final int SMNU_AB = 6;
 	private static final int SMNU_SET = 7;
 	
+	public static final int NO_SERVER_DIALOG_ID = 2;
+	public static final int OTP_REQUEST_DIALOG_ID = 4;
+	
+	// Flag to tell app that the connect dialog is opened
+	private boolean connectDialogOpened = false;
+	private boolean alreadyCanceled = false;
+		
 	protected SlidingMenu menu = null;
 	private SlidingMenuItem menuListSelectedItem = null;
 	
@@ -70,7 +99,20 @@ public abstract class BaseActivity extends FragmentActivity {
 		return menu;
 	};
 	
-	/**
+	public boolean getAlreadyCanceled(){
+		return alreadyCanceled;
+	}
+	
+	public void setAlreadyCanceled(boolean value){
+		alreadyCanceled = value;
+	}
+	
+	public void updateActionBarTitleOCL(android.view.View.OnClickListener ocl){
+    	ActivityHelper ah = getActivityHelper();
+    	if (ah != null) ah.setTitleOnClickListener(ocl);
+    }
+    
+    /**
 	 * Show the preference activity
 	 */
 	public void showSearchActivity(boolean clear) {
@@ -104,6 +146,208 @@ public abstract class BaseActivity extends FragmentActivity {
 		else{
 			svName.setText(R.string.empty_not_connected);
 			svURL.setText("");
+		}
+	}
+	
+	private SynodroidFragment getDisplayFragment(){
+		FragmentManager fm = getSupportFragmentManager();
+		SynodroidFragment sf = null;
+		try{
+			sf = (SynodroidFragment) fm.findFragmentById(R.id.fragment_download);
+		} catch (Exception ed){
+			sf = null;
+		}
+		
+		if (sf == null){
+			try{
+				sf = (SynodroidFragment) fm.findFragmentById(R.id.fragment_browser);
+			} catch (Exception eb){
+				sf = null;
+			}
+		}
+		
+		if (sf == null){
+			try{
+				sf = (SynodroidFragment) fm.findFragmentById(R.id.fragment_file);
+			} catch (Exception ef){
+				sf = null;
+			}
+		}
+		
+		if (sf == null){
+			try{
+				sf = (SynodroidFragment) fm.findFragmentById(R.id.fragment_search);
+			} catch (Exception es){
+				sf = null;
+			}
+		}
+		
+		return sf;
+	}
+	
+	/**
+	 * Create the connection and error dialogs
+	 */
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		super.onCreateDialog(id);
+		Dialog dialog = null;
+		switch (id) {
+		// No server have been yet configured
+		case NO_SERVER_DIALOG_ID:
+			AlertDialog.Builder builderNoServer = new AlertDialog.Builder(BaseActivity.this);
+			builderNoServer.setTitle(R.string.dialog_title_information);
+			builderNoServer.setMessage(getString(R.string.no_server_configured));
+			builderNoServer.setCancelable(true);
+			builderNoServer.setPositiveButton(getString(R.string.button_yesplease), new android.content.DialogInterface.OnClickListener() {
+				// Launch the Preference activity
+				public void onClick(DialogInterface dialogP, int whichP) {
+					okToCreateAServer();
+				}
+			});
+			builderNoServer.setNegativeButton(getString(R.string.button_nothanks), new android.content.DialogInterface.OnClickListener() {
+				// Launch the Preference activity
+				public void onClick(DialogInterface dialogP, int whichP) {
+					alreadyCanceled = true;
+				}
+			});
+			dialog = builderNoServer.create();
+			break;
+		case OTP_REQUEST_DIALOG_ID:
+			final Synodroid app = (Synodroid) getApplication();
+			final SynodroidFragment current_fragment = getDisplayFragment();
+			current_fragment.setOTPDialog(true);
+			
+			AlertDialog.Builder otp_request = new AlertDialog.Builder(BaseActivity.this);
+			otp_request.setTitle(R.string.title_otp);
+			LayoutInflater otp_inflater = getLayoutInflater();
+			View otp_v = otp_inflater.inflate(R.layout.otp_request, null);
+			final EditText otp_edt = (EditText) otp_v.findViewById(R.id.otp_pass);
+			otp_edt.setText("");
+			otp_request.setView(otp_v);
+			otp_request.setPositiveButton(getString(android.R.string.ok), new android.content.DialogInterface.OnClickListener() {
+				// Launch the Preference activity
+				public void onClick(DialogInterface dialogP, int whichP) {
+					try{
+			        	app.connectServer(current_fragment, app.getServer(), current_fragment.getPostOTPActions(), false, otp_edt.getText().toString());
+			        	current_fragment.setOTPDialog(false);
+			        	current_fragment.resetPostOTPActions();
+			        	removeDialog(OTP_REQUEST_DIALOG_ID);
+			        }
+			        catch (Exception e){
+						//Cannot clear all when download fragment not accessible.
+						try{
+							if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call OTP login when download fragment hidden.");
+						}catch (Exception ex){/*DO NOTHING*/}
+					}
+				}
+			});
+			dialog = otp_request.create();
+			break;
+		}
+		return dialog;
+	}
+	
+	/**
+	 * The user agree to create a new as no server has been configured or no server is suitable for the current connection
+	 */
+	private void okToCreateAServer() {
+		final SharedPreferences preferences = getSharedPreferences(PREFERENCE_AUTO, Activity.MODE_PRIVATE);
+		preferences.edit().putBoolean(PREFERENCE_AUTO_CREATENOW, true).commit();
+		showPreferenceActivity();
+	}
+	
+	/**
+	 * Show the preference activity
+	 */
+	private void showPreferenceActivity() {
+		Intent next = new Intent();
+		next.setClass(this, DownloadPreferenceActivity.class);
+		startActivity(next);
+	}
+	
+	/**
+	 * Show the dialog to connect to a server
+	 */
+	public void showDialogToConnect(boolean autoConnectIfOnlyOneServerP, final List<SynoAction> actionQueueP, final boolean automated) {
+		SharedPreferences generalPref = getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
+		SharedPreferences serverPref = getSharedPreferences(PREFERENCE_SERVER, Activity.MODE_PRIVATE);
+		boolean autoDetect = generalPref.getBoolean(PREFERENCE_AUTO_DSM, true);
+		String defaultSrv = serverPref.getString(PREFERENCE_DEF_SRV, "0");
+		
+		final Activity a = this;
+		if (!connectDialogOpened && a != null) {
+			final Synodroid app = (Synodroid) a.getApplication();
+			if (app != null){
+				if (!app.isNetworkAvailable())
+					return;
+				
+				final ArrayList<SynoServer> servers = PreferenceFacade.loadServers(a, PreferenceManager.getDefaultSharedPreferences(a), app.DEBUG, autoDetect);
+				// If at least one server
+				if (servers.size() != 0) {
+					// If more than 1 server OR if we don't want to autoconnect then
+					// show the dialog
+					if (servers.size() > 1 || !autoConnectIfOnlyOneServerP) {
+						boolean skip = false;
+						String[] serversTitle = new String[servers.size()];
+						for (int iLoop = 0; iLoop < servers.size(); iLoop++) {
+							SynoServer s = servers.get(iLoop);
+							serversTitle[iLoop] = s.getNickname();
+							
+							//Check if default server and connect to it skipping the dialog...
+							if (defaultSrv.equals(s.getID()) && autoConnectIfOnlyOneServerP){
+								app.connectServer(getDisplayFragment(), s, actionQueueP, automated);
+								skip = true;
+							}
+						}
+						if (!skip){
+							connectDialogOpened = true;
+							AlertDialog.Builder builder = new AlertDialog.Builder(a);
+							builder.setTitle(getString(R.string.menu_connect));
+							// When the user select a server
+							builder.setItems(serversTitle, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int item) {
+									SynoServer server = servers.get(item);
+									// Change the server
+									app.connectServer(getDisplayFragment(), server, actionQueueP, automated);
+									dialog.dismiss();
+								}
+							});
+							AlertDialog connectDialog = builder.create();
+							try {
+								connectDialog.show();
+							} catch (BadTokenException e) {
+								// Unable to show dialog probably because intent has been closed. Ignoring...
+							}
+							connectDialog.setOnDismissListener(new OnDismissListener() {
+								public void onDismiss(DialogInterface dialog) {
+									connectDialogOpened = false;
+								}
+							});
+						}
+					} else {
+						// Auto connect to the first server
+						if (servers.size() > 0) {
+							SynoServer server = servers.get(0);
+							// Change the server
+							app.connectServer(getDisplayFragment(), server, actionQueueP, automated);
+						}
+					}
+				}
+				// No server then show the dialog to configure a server
+				else {
+					// Only if the EULA has been accepted. If the EULA has not been
+					// accepted, it means that the EULA is currenlty being displayed so
+					// don't show the "Wizard" dialog
+					if (EulaHelper.hasAcceptedEula(a) && !alreadyCanceled) {
+						try {
+							a.showDialog(NO_SERVER_DIALOG_ID);
+						} catch (Exception e) {
+							// Unable to show dialog probably because intent has been closed or the dialog is already displayed. Ignoring...
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -307,6 +551,14 @@ public abstract class BaseActivity extends FragmentActivity {
 
         if (srv != null){
         	updateSMServer(srv);
+        }
+        if (this instanceof HomeActivity || this instanceof SearchActivity || this instanceof BrowserActivity || this instanceof FileActivity ){
+        	setServerChangeListener(new android.view.View.OnClickListener(){
+    			public void onClick(View v) {
+    				menu.showContent();
+    				showDialogToConnect(false, null, false);
+    			}
+    		});
         }
     }
     

@@ -20,6 +20,7 @@ import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
@@ -35,7 +36,6 @@ import com.bigpupdev.synodroid.protocol.https.AcceptAllHostNameVerifier;
 import com.bigpupdev.synodroid.protocol.https.AcceptAllTrustManager;
 import com.bigpupdev.synodroid.utils.GenericException;
 import com.bigpupdev.synodroid.R;
-
 import com.bigpupdev.synodroid.action.AddTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.data.DSMVersion;
@@ -135,9 +135,26 @@ public class SynoServer extends SimpleSynoServer{
 	 * @param recurrentActionP
 	 *            the recurrentAction to set
 	 */
-	public void setRecurrentAction(ResponseHandler handlerP, SynoAction recurrentActionP) {
+	public void setRecurrentAction(ResponseHandler handlerP, SynoAction recurrentActionP){
+		setRecurrentAction(handlerP, recurrentActionP, false);
+	}
+	
+	/**
+	 * Set a new recurrent action. The collector thread is interrupted to executed the new recurrent action immediatly
+	 * 
+	 * @param handlerP
+	 *            The handler which will receive the response
+	 * @param recurrentActionP
+	 *            the recurrentAction to set
+	 */
+	public void setRecurrentAction(ResponseHandler handlerP, SynoAction recurrentActionP, boolean executeNow) {
 		bindResponseHandler(handlerP);
 		recurrentAction = recurrentActionP;
+		if (executeNow){
+			try {
+				this.executeAsynchronousAction(handlerP, recurrentActionP, false);
+			} catch (Exception e) {}
+		}
 	}
 
 	/**
@@ -174,8 +191,6 @@ public class SynoServer extends SimpleSynoServer{
 						boolean silentMode = false;
 						while (connected && !stop) {
 							try {
-								// Update the progressbar
-								fireMessage(SynoServer.this.handler, ResponseHandler.MSG_OPERATION_PENDING);
 								// Execute the recurrent action
 								SynoAction toDo = null;
 								synchronized (this) {
@@ -184,6 +199,8 @@ public class SynoServer extends SimpleSynoServer{
 									}
 								}
 								if (toDo != null) {
+									// Update the progressbar
+									fireMessage(SynoServer.this.handler, ResponseHandler.MSG_OPERATION_PENDING);
 									toDo.execute(SynoServer.this.handler, SynoServer.this);
 								}
 								// In case we are disconnected before the response is

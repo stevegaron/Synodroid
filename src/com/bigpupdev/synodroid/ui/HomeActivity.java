@@ -18,7 +18,6 @@ import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.utils.ActivityHelper;
-import com.bigpupdev.synodroid.ui.DownloadPreferenceActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -50,16 +49,12 @@ import android.widget.RelativeLayout;
  * displayed.
  */
 public class HomeActivity extends BaseActivity {
-	private static final String PREFERENCE_AUTO = "auto";
-	private static final String PREFERENCE_AUTO_CREATENOW = "auto.createnow";
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_SHOW_GET_STARTED = "general_cat.show_get_started";
 	private static final String PREFERENCE_DEFAULT_DL_FILTER = "general_cat.default_dl_filter";
 	
-	public static final int NO_SERVER_DIALOG_ID = 2;
 	private static final int ADD_DOWNLOAD = 3;
-	private static final int OTP_REQUEST_DIALOG_ID = 4;
 	
 	public static final int FILTER_ALL = 0;
 	public static final int FILTER_DOWNLOADING = 1;
@@ -103,72 +98,14 @@ public class HomeActivity extends BaseActivity {
     	if (ah != null) ah.setActionBarTitle(title, is_secure);
     }	
     
-    public void updateActionBarTitleOCL(android.view.View.OnClickListener ocl){
-    	ActivityHelper ah = getActivityHelper();
-    	if (ah != null) ah.setTitleOnClickListener(ocl);
-    }
     /**
 	 * Create the connection and error dialogs
 	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		super.onCreateDialog(id);
-		Dialog dialog = null;
+		Dialog dialog = super.onCreateDialog(id);
 		switch (id) {
 		// No server have been yet configured
-		case NO_SERVER_DIALOG_ID:
-			AlertDialog.Builder builderNoServer = new AlertDialog.Builder(HomeActivity.this);
-			builderNoServer.setTitle(R.string.dialog_title_information);
-			builderNoServer.setMessage(getString(R.string.no_server_configured));
-			builderNoServer.setCancelable(true);
-			builderNoServer.setPositiveButton(getString(R.string.button_yesplease), new OnClickListener() {
-				// Launch the Preference activity
-				public void onClick(DialogInterface dialogP, int whichP) {
-					okToCreateAServer();
-				}
-			});
-			builderNoServer.setNegativeButton(getString(R.string.button_nothanks), new OnClickListener() {
-				// Launch the Preference activity
-				public void onClick(DialogInterface dialogP, int whichP) {
-					FragmentManager fm = getSupportFragmentManager();
-					DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-					fragment_download.alreadyCanceled = true;
-				}
-			});
-			dialog = builderNoServer.create();
-			break;
-		case OTP_REQUEST_DIALOG_ID:
-			final Synodroid app = (Synodroid) getApplication();
-			FragmentManager fm = getSupportFragmentManager();
-			final DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-			fragment_download.setOTPDialog(true);
-			
-			AlertDialog.Builder otp_request = new AlertDialog.Builder(HomeActivity.this);
-			otp_request.setTitle(R.string.title_otp);
-			LayoutInflater otp_inflater = getLayoutInflater();
-			View otp_v = otp_inflater.inflate(R.layout.otp_request, null);
-			final EditText otp_edt = (EditText) otp_v.findViewById(R.id.otp_pass);
-			otp_edt.setText("");
-			otp_request.setView(otp_v);
-			otp_request.setPositiveButton(getString(android.R.string.ok), new OnClickListener() {
-				// Launch the Preference activity
-				public void onClick(DialogInterface dialogP, int whichP) {
-					try{
-			        	app.connectServer(fragment_download, app.getServer(), fragment_download.getPostOTPActions(), false, otp_edt.getText().toString());
-			        	fragment_download.setOTPDialog(false);
-			        	fragment_download.resetPostOTPActions();
-			        	removeDialog(OTP_REQUEST_DIALOG_ID);
-			        }
-			        catch (Exception e){
-						//Cannot clear all when download fragment not accessible.
-						try{
-							if (((Synodroid)getApplication()).DEBUG) Log.e(Synodroid.DS_TAG, "HomeActivity: App tried to call OTP login when download fragment hidden.");
-						}catch (Exception ex){/*DO NOTHING*/}
-					}
-				}
-			});
-			dialog = otp_request.create();
-			break;
 		case ADD_DOWNLOAD:
 			AlertDialog.Builder add_download = new AlertDialog.Builder(HomeActivity.this);
 			add_download.setTitle(R.string.menu_add);
@@ -262,24 +199,6 @@ public class HomeActivity extends BaseActivity {
 			break;
 		}
 		return dialog;
-	}
-	
-	/**
-	 * The user agree to create a new as no server has been configured or no server is suitable for the current connection
-	 */
-	private void okToCreateAServer() {
-		final SharedPreferences preferences = getSharedPreferences(PREFERENCE_AUTO, Activity.MODE_PRIVATE);
-		preferences.edit().putBoolean(PREFERENCE_AUTO_CREATENOW, true).commit();
-		showPreferenceActivity();
-	}
-	
-	/**
-	 * Show the preference activity
-	 */
-	private void showPreferenceActivity() {
-		Intent next = new Intent();
-		next.setClass(this, DownloadPreferenceActivity.class);
-		startActivity(next);
 	}
 	
 	/*

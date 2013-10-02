@@ -18,17 +18,15 @@ import com.bigpupdev.synodroid.ui.DetailFiles;
 import com.bigpupdev.synodroid.ui.DetailMain;
 import com.bigpupdev.synodroid.ui.DownloadFragment;
 import com.bigpupdev.synodroid.ui.SearchFragment;
+import com.bigpupdev.synodroid.ui.SynodroidFragment;
 import com.bigpupdev.synodroid.utils.Utils;
 import com.bigpupdev.synodroid.R;
-
 import com.bigpupdev.synodroid.action.DeleteMultipleTaskAction;
 import com.bigpupdev.synodroid.action.DeleteTaskAction;
-import com.bigpupdev.synodroid.action.GetAllAndOneDetailTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 import de.keyboardsurfer.android.widget.crouton.Style.Builder;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -41,7 +39,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 
@@ -131,7 +128,7 @@ public class Synodroid extends Application {
 	 * @param serverP
 	 */
 	
-	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated) {
+	public synchronized void connectServer(SynodroidFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated) {
 		connectServer(activityP, serverP, actionQueueP, automated, null);
 	}
 
@@ -184,15 +181,13 @@ public class Synodroid extends Application {
 		return pub;
 	}
 	
-	public synchronized void connectServer(DownloadFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated, String otp) {
+	public synchronized void connectServer(SynodroidFragment activityP, SynoServer serverP, List<SynoAction> actionQueueP, boolean automated, String otp) {
 		// if (currentServer == null || !currentServer.isAlive() || !currentServer.equals(serverP)) {
 		// First disconnect the old server
 		if (currentServer != null && !automated) {
 			currentServer.disconnect();
 		}
-		// Set the recurrent action
-		GetAllAndOneDetailTaskAction recurrentAction = new GetAllAndOneDetailTaskAction(serverP.getSortAttribute(), serverP.isAscending(), activityP.getTaskAdapter());
-		serverP.setRecurrentAction(activityP, recurrentAction);
+				
 		// Then connect the new one
 		currentServer = serverP;
 		currentServer.connect(activityP, actionQueueP, shouldUsePublicConnection(), otp);
@@ -305,6 +300,8 @@ public class Synodroid extends Application {
 		else {
 			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
 			actionQueue.add(actionP);
+			fragmentP.setAlreadyCanceled(false);
+			fragmentP.showDialogToConnect(true, actionQueue, true);
 		}
 	}
 
@@ -325,6 +322,8 @@ public class Synodroid extends Application {
 		else {
 			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
 			actionQueue.add(actionP);
+			fragmentP.setAlreadyCanceled(false);
+			fragmentP.showDialogToConnect(true, actionQueue, true);
 		}
 	}
 	
@@ -344,6 +343,8 @@ public class Synodroid extends Application {
 		else {
 			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
 			actionQueue.add(actionP);
+			fragmentP.setAlreadyCanceled(false);
+			fragmentP.showDialogToConnect(true, actionQueue, true);
 		}
 	}
 	
@@ -386,7 +387,7 @@ public class Synodroid extends Application {
 		else {
 			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
 			actionQueue.add(actionP);
-			fragmentP.alreadyCanceled = false;
+			fragmentP.setAlreadyCanceled(false);
 			fragmentP.showDialogToConnect(true, actionQueue, true);
 		}
 	}
@@ -418,8 +419,14 @@ public class Synodroid extends Application {
 	 */
 
 	public void executeAsynchronousAction(ResponseHandler handlerP, SynoAction actionP, final boolean forceRefreshP, final boolean showToastP) {
-		if (currentServer != null) {
+		if (currentServer != null && currentServer.isConnected()) {
 			currentServer.executeAsynchronousAction(handlerP, actionP, forceRefreshP, showToastP);
+		}
+		else{
+			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
+			actionQueue.add(actionP);
+			
+			fireMessage(handlerP, ResponseHandler.MSG_CONNECT_WITH_ACTION, actionQueue);
 		}
 	}
 
@@ -431,11 +438,14 @@ public class Synodroid extends Application {
 	 * @param forceRefreshP
 	 */
 	public void executeAsynchronousAction(ResponseHandler handlerP, SynoAction actionP, final boolean forceRefreshP) {
-		if (currentServer != null) {
+		if (currentServer != null && currentServer.isConnected()) {
 			currentServer.executeAsynchronousAction(handlerP, actionP, forceRefreshP);
 		}
 		else{
-			fireMessage(handlerP, ResponseHandler.MSG_ALERT, ((Fragment) handlerP).getText(R.string.empty_not_connected));
+			ArrayList<SynoAction> actionQueue = new ArrayList<SynoAction>();
+			actionQueue.add(actionP);
+			
+			fireMessage(handlerP, ResponseHandler.MSG_CONNECT_WITH_ACTION, actionQueue);
 		}
 	}
 
