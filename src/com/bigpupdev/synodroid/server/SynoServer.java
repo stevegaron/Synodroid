@@ -367,8 +367,11 @@ public class SynoServer extends SimpleSynoServer{
 		Message msg = new Message();
 		msg.what = msgP;
 		msg.obj = objP;
-		handlerP.handleReponse(msg);
-
+		try{
+			handlerP.handleReponse(msg);
+		}
+		catch (NullPointerException npe){}
+		
 	}
 
 	/**

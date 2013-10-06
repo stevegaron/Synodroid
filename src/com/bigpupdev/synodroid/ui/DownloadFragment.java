@@ -488,6 +488,7 @@ public class DownloadFragment extends SynodroidFragment{
 	public void onResume() {
 		super.onResume();
 		final Activity a = getActivity();
+		Synodroid app = (Synodroid) a.getApplication();
 		
 		SharedPreferences preferences = a.getSharedPreferences(PREFERENCE_GENERAL, Activity.MODE_PRIVATE);
 		if (preferences.getBoolean(PREFERENCE_SHOW_GET_STARTED, true)){
@@ -518,7 +519,7 @@ public class DownloadFragment extends SynodroidFragment{
 			}
 			else{
 				try{
-					if (((Synodroid)a.getApplication()).DEBUG) Log.i(Synodroid.DS_TAG,"DownloadFragment: This was an old intent. Skipping it...");
+					if (app.DEBUG) Log.i(Synodroid.DS_TAG,"DownloadFragment: This was an old intent. Skipping it...");
 				}
 				catch (Exception ex){/*DO NOTHING*/}
 			}
@@ -531,9 +532,7 @@ public class DownloadFragment extends SynodroidFragment{
 
 		// There are some case where the connected server does not show up in
 		// the title bar on top. This fixes thoses cases.
-		SynoServer server = ((Synodroid) a.getApplication()).getServer();
-		((HomeActivity)a).updateSMServer(server);
-		Synodroid app = (Synodroid) a.getApplication();
+		SynoServer server = app.getServer();
 		if (server != null && server.isConnected()) {
 			String title = server.getNickname();
 			

@@ -12,6 +12,7 @@ package com.bigpupdev.synodroid.ui;
 
 import java.util.List;
 
+import com.bigpupdev.synodroid.action.DetailTaskAction;
 import com.bigpupdev.synodroid.action.SynoAction;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.server.SynoServer;
@@ -173,6 +174,22 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 		}
 	};
 
+	public void onResume(){
+		super.onResume();
+		Activity a = getActivity();
+		Synodroid app = (Synodroid) a.getApplication();
+		try{
+			if (app.DEBUG) Log.v(Synodroid.DS_TAG,"DetailMain: Resuming server.");
+		}catch (Exception ex){/*DO NOTHING*/}
+		
+		SynoServer server = app.getServer();
+		if (server != null){
+			server.bindResponseHandler(this);
+		}
+		((BaseActivity) a).updateSMServer(server);
+		
+	}
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// ignore orientation change
