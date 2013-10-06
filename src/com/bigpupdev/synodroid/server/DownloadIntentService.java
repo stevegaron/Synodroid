@@ -11,6 +11,8 @@ import java.util.UUID;
 
 import com.bigpupdev.synodroid.R;
 import com.bigpupdev.synodroid.Synodroid;
+import com.bigpupdev.synodroid.action.AddTaskAction;
+import com.bigpupdev.synodroid.ui.BrowserFragment;
 import com.bigpupdev.synodroid.ui.HomeActivity;
 import com.bigpupdev.synodroid.utils.ServiceHelper;
 
@@ -76,7 +78,7 @@ public class DownloadIntentService extends IntentService{
 			/* Open a connection to that URL. */
 			HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
 			
-			if (!cookie.equals("")){
+			if (cookie != null && !cookie.equals("")){
 				ucon.setRequestProperty("Cookie", cookie);
 			}
 			
@@ -126,18 +128,13 @@ public class DownloadIntentService extends IntentService{
 			ServiceHelper.cancelNotification(this, DL_ID);
 		}
 
-		Intent broadcastIntent = new Intent();
-		if (uri.startsWith("file")){
-			broadcastIntent.setAction(Intent.ACTION_VIEW);
-			broadcastIntent.setData(Uri.parse(uri));
+		boolean out_url = false;
+		if (!uri.startsWith("file")){
+			out_url = true;
 		}
-		else{
-			broadcastIntent.setAction(Intent.ACTION_SEND);
-			broadcastIntent.putExtra(Intent.EXTRA_TEXT, uri);
-		}
-		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-		broadcastIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		broadcastIntent.setClass(this, HomeActivity.class);
-		getApplication().startActivity(broadcastIntent);
+		
+		AddTaskAction addTask = new AddTaskAction(Uri.parse(uri), out_url, false);
+		Synodroid app = (Synodroid) getApplication();
+		app.executeAsynchronousAction(app.getServer().getResponseHandler(), addTask, false);
 	}
 }

@@ -69,7 +69,7 @@ import android.widget.TextView.OnEditorActionListener;
  * 
  * @author Steve Garon (synodroid at gmail dot com)
  */
-@SuppressLint("SetJavaScriptEnabled")
+@SuppressLint({ "SetJavaScriptEnabled", "NewApi" })
 public class BrowserFragment extends SynodroidFragment {
 	private ImageButton bookmark_btn = null;
 	private ImageButton stop_btn = null;
@@ -281,6 +281,10 @@ public class BrowserFragment extends SynodroidFragment {
 		if(UIUtils.isICS()) webSettings.setDisplayZoomControls(false);
 		webSettings.setUseWideViewPort(true);
 		webSettings.setLoadWithOverviewMode(true);
+		webSettings.setAppCacheMaxSize(1024*1024*8);
+		webSettings.setAppCachePath("/data/data/com.bigpupdev.synodroid/cache");
+		webSettings.setAppCacheEnabled(true);
+		webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); 
 		
 		if (curBrowserUrl != null){
 			myWebView.loadUrl(curBrowserUrl);
@@ -485,6 +489,7 @@ public class BrowserFragment extends SynodroidFragment {
         	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_download).toString(), url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
         	
         	url_text.setText(url_last);
+        	((Synodroid)getActivity().getApplication()).setBrowserUrl(url_last);
 		}
 		
 	}
