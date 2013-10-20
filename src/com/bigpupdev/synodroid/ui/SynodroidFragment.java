@@ -47,8 +47,8 @@ public abstract class SynodroidFragment extends Fragment implements ResponseHand
 		@Override
 		public void handleMessage(Message msgP) {
 			final Activity a = SynodroidFragment.this.getActivity();
-			final SynoServer server = ((Synodroid) a.getApplication()).getServer();
 			if (a != null){
+				final SynoServer server = ((Synodroid) a.getApplication()).getServer();
 				Synodroid app = (Synodroid) a.getApplication();
 				Style msg_style = null;
 				// According to the message
