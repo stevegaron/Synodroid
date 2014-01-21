@@ -329,15 +329,18 @@ class DSHandlerDSM22 implements DSHandler {
 				if (data.has("istorrent"))
 					result.isTorrent = data.getBoolean("istorrent");
 				if (data.has("speed")) {
-					Pattern p = Pattern.compile("(((\\d)*\\.(\\d)*) [KMGT]B/s)");
+					Pattern p = Pattern.compile("(((\\d)*\\.(\\d)*) ([KMGT])B/s)");
 					Matcher m = p.matcher(data.getString("speed"));
 					if (m.find() && m.groupCount() >= 2) {
 						result.speedUpload = Utils.toDouble(m.group(2));
+						result.speedUpUnit = m.group(5);
 					}
 					if (m.find() && m.groupCount() >= 2) {
 						result.speedDownload = Utils.toDouble(m.group(2));
+						result.speedDownUnit = m.group(5);
 					} else {
 						result.speedDownload = result.speedUpload;
+						result.speedDownUnit = result.speedUpUnit;
 						result.speedUpload = 0.0;
 					}
 				}

@@ -259,9 +259,9 @@ public class DetailActivity extends BaseActivity{
 		}
 		result.add(proDetail);
 		// ------------ Speed
-		String speed = getString(R.string.detail_progress_download) + " " + details.speedDownload + " KB/s";
+		String speed = getString(R.string.detail_progress_download) + " " + details.speedDownload + " " +details.speedDownUnit + "B/s";
 		if (details.isTorrent) {
-			speed = speed + " - " + getString(R.string.detail_progress_upload) + " " + details.speedUpload + " KB/s";
+			speed = speed + " - " + getString(R.string.detail_progress_upload) + " " + details.speedUpload + " " +details.speedUpUnit + "B/s";
 		}
 		result.add(new DetailText(getString(R.string.detail_speed), speed));
 		// ------------ Peers

@@ -37,6 +37,9 @@ public class TaskDetail implements Serializable {
 	public double speedUpload = 0;
 	// The current download speed
 	public double speedDownload = 0;
+	
+	public String speedUpUnit = "";
+	public String speedDownUnit = "";
 
 	// The filename
 	public String fileName;
