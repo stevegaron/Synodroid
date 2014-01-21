@@ -56,7 +56,7 @@ public interface ResponseHandler {
 	
 	public static final int MSG_SE_LIST_RETRIEVED = 100015;
 	
-	public static final int MSG_OTP_REQUESTED = 100015;
+	public static final int MSG_OTP_REQUESTED = 100016;
 	
 	public static final int MSG_INFO = 10020;
 	public static final int MSG_ALERT = 10021;
