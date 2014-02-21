@@ -33,7 +33,6 @@ import com.bigpupdev.synodroid.wizard.AddServerWizard;
 import com.bigpupdev.synodroid.wizard.ServerWizard;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -88,6 +87,8 @@ public class DownloadPreferenceActivity extends CustomPreferenceActivity impleme
 	private static final String PREFERENCE_AUTO_DSM = "general_cat.auto_detect_DSM";
 	private static final String PREFERENCE_DEF_SRV = "servers_cat.default_srv";
 	private static final String PREFERENCE_SERVER = "servers_cat";
+	private static final String PREFERENCE_SEARCH = "search_cat";
+	private static final String PREFERENCE_SEARCH_TIMEOUT = "search_cat.timeout";
 	
 	// Store the current max server id
 	private int maxServerId = 0;
@@ -193,9 +194,32 @@ public class DownloadPreferenceActivity extends CustomPreferenceActivity impleme
 			}
 		});
 		
+		PreferenceCategory searchCategory = (PreferenceCategory) prefScreen.getPreferenceManager().findPreference(PREFERENCE_SEARCH);
+		
+		final ListPreferenceWithValue searchTimeout = ListPreferenceWithValue.create(this, PREFERENCE_SEARCH_TIMEOUT, R.string.label_pref_search_timeout, R.string.hint_pref_search_timeout, null);
+		searchTimeout.setOrder(0);
+		searchTimeout.setKey(PREFERENCE_SEARCH_TIMEOUT);
+		searchCategory.addPreference(searchTimeout);
+		// Build the sort list
+		searchTimeout.setEntries(getResources().getStringArray(R.array.search_timeout_array));
+		searchTimeout.setEntryValues(getResources().getStringArray(R.array.search_timeout_array));
+		try{
+			SharedPreferences search_preferences = getSharedPreferences(PREFERENCE_SEARCH, Activity.MODE_PRIVATE);
+			searchTimeout.setValue(Integer.toString(search_preferences.getInt(PREFERENCE_SEARCH_TIMEOUT, 30)));
+		}
+		catch (Exception e){}
+		searchTimeout.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				SharedPreferences preferences = getSharedPreferences(PREFERENCE_SEARCH, Activity.MODE_PRIVATE);
+				preferences.edit().putInt(PREFERENCE_SEARCH_TIMEOUT, Integer.parseInt((String) newValue)).commit();
+				return true;
+			}
+		});
+		
+		
 		final Preference clearHistory = new Preference(this);
 		clearHistory.setTitle(R.string.clear_search_history);
-		generalCategory.addPreference(clearHistory);
+		searchCategory.addPreference(clearHistory);
 		clearHistory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			public boolean onPreferenceClick(Preference arg0) {

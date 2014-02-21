@@ -767,7 +767,7 @@ class DSHandlerDSM22 implements DSHandler {
 	}
 
 	public List<SearchResult> search(String term, SortOrder order, int start,
-			int limit) throws Exception {
+			int limit, int MAX_LOOP) throws Exception {
 		throw new Exception("Unsupported");
 	}
 

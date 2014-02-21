@@ -44,6 +44,8 @@ import com.bigpupdev.synodroid.protocol.Part;
 import com.bigpupdev.synodroid.protocol.QueryBuilder;
 import com.bigpupdev.synodroid.protocol.StreamFactory;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
@@ -61,7 +63,6 @@ class DSHandlerDSM31 implements DSHandler {
 	private static final String SEARCH_URI = "/webman/modules/DownloadStation/dlm/btsearch.cgi";
 	private static final String FILE_URI = "/webman/modules/FileBrowser/file_share.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
-	private static final int MAX_LOOP = 4;
 	
 	/* The Synology's server */
 	private SimpleSynoServer server;
@@ -1045,7 +1046,7 @@ class DSHandlerDSM31 implements DSHandler {
 		}
 	}
 	
-	public List<SearchResult> search(String query, SortOrder order, int start, int limit) throws Exception{
+	public List<SearchResult> search(String query, SortOrder order, int start, int limit, int MAX_LOOP) throws Exception{
 		List<SearchResult> results = new ArrayList<SearchResult>();
 		List<SearchEngine> seList = getSearchEngines();
 		
@@ -1058,7 +1059,6 @@ class DSHandlerDSM31 implements DSHandler {
 				plugins += se.name;
 			}
 		}
-		
 		QueryBuilder builder = new QueryBuilder().add("action", "search").add("query", query).add("plugins", plugins);
 		JSONObject json = null;
 		json = server.sendJSONRequest(SEARCH_URI, builder.toString(), "GET");

@@ -196,6 +196,6 @@ public interface DSHandler {
 	public List<SearchEngine> getSearchEngines() throws Exception;
 	public void setSearchEngines(List<SearchEngine> seList) throws Exception;
 
-	public List<SearchResult> search(String term, SortOrder order, int start, int limit) throws Exception;
+	public List<SearchResult> search(String term, SortOrder order, int start, int limit, int MAX_LOOP) throws Exception;
 	
 }

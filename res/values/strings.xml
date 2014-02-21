@@ -555,4 +555,15 @@
 <string name="menu_filter_inactive">Inactive</string>
 <string name="menu_filter_stopped">Stopped</string>
 
+<string name="label_pref_search_timeout">DSM Search Timeout</string>
+<string name="hint_pref_search_timeout">Timeout in seconds</string>
+
+<string-array name="search_timeout_array">
+    <item>15</item>
+    <item>30</item>
+    <item>45</item>
+    <item>60</item>
+    <item>75</item>
+    <item>90</item>
+</string-array>
 </resources>

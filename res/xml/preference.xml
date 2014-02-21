@@ -17,6 +17,11 @@
     android:summaryOff="@string/hint_asc_sort_off"></CheckBoxPreference>
   </PreferenceCategory>
   <PreferenceCategory
+    android:title="@string/menu_search"
+    android:key="search_cat"
+    android:persistent="true">
+  </PreferenceCategory>
+  <PreferenceCategory
     android:title="@string/title_cat_debug"
     android:key="debug_cat"
     android:persistent="true">
@@ -24,7 +29,6 @@
   <PreferenceCategory
     android:title="@string/title_cat_servers"
     android:key="servers_cat"
-    android:persistent="true"
-  >
+    android:persistent="true">
   </PreferenceCategory>
 </PreferenceScreen>

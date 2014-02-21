@@ -6,8 +6,10 @@ import com.bigpupdev.synodroid.Synodroid;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.server.SimpleSynoServer;
 
+import android.app.Activity;
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -18,6 +20,8 @@ public class SynodroidDSMSearch extends ContentProvider {
 	public static final String PROVIDER_NAME = "com.bigpupdev.synodroid.utils.SynodroidDSMSearch";
 	public static final String CONTENT_URI = "content://" + PROVIDER_NAME + "/search/";
 	public static final String[] COLS = new String[] { "_ID", "NAME", "TORRENTURL", "DETAILSURL", "SIZE", "ADDED", "SEEDERS", "LEECHERS" };
+	private static final String PREFERENCE_SEARCH = "search_cat";
+	private static final String PREFERENCE_SEARCH_TIMEOUT = "search_cat.timeout";
 	
 	private static final int SEARCH_TERM = 1;
 	
@@ -81,7 +85,9 @@ public class SynodroidDSMSearch extends ContentProvider {
 			if (!term.equals("")) {
 				// Perform the actual search
 	            try {
-            		List<SearchResult> results = server.getDSMHandlerFactory().getDSHandler().search(term, order, param.getStart(), param.getLimit());
+	            	SharedPreferences search_preferences = getSharedPreferences(PREFERENCE_SEARCH, Activity.MODE_PRIVATE);
+	    			
+            		List<SearchResult> results = server.getDSMHandlerFactory().getDSHandler().search(term, order, param.getStart(), param.getLimit(), Integer.toString(search_preferences.getInt(PREFERENCE_SEARCH_TIMEOUT, 30)));
                     // Return the results as MatrixCursor
                     for (SearchResult result : results) {
                             Object[] values = new Object[8];

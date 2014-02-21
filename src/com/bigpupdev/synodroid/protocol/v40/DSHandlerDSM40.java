@@ -58,7 +58,6 @@ class DSHandlerDSM40 implements DSHandler {
 	private static final String SEARCH_URI = "/webman/3rdparty/DownloadStation/dlm/btsearch.cgi";
 	private static final String FILE_URI = "/webman/modules/FileBrowser/file_share.cgi";
 	private static final String BOUNDARY = "-----------7dabb2d41348";
-	private static final int MAX_LOOP = 4;
 	
 	/* The Synology's server */
 	private SimpleSynoServer server;
@@ -937,7 +936,7 @@ class DSHandlerDSM40 implements DSHandler {
 		}
 	}
 
-	public List<SearchResult> search(String query, SortOrder order, int start, int limit) throws Exception{
+	public List<SearchResult> search(String query, SortOrder order, int start, int limit, int MAX_LOOP) throws Exception{
 		List<SearchResult> results = new ArrayList<SearchResult>();
 		List<SearchEngine> seList = getSearchEngines();
 		
