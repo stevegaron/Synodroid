@@ -63,13 +63,19 @@ public class SynoServerConnection {
 			}
 
 			if (valid) {
-				SynoProtocol protocol = SynoProtocol.valueOf(props.getProperty(radical + PreferenceFacade.PROTOCOL_SUFFIX));
-				int port = 5000;
+				SynoProtocol protocol = SynoProtocol.valueOf("HTTPS");
+				try{
+					protocol = SynoProtocol.valueOf(props.getProperty(radical + PreferenceFacade.PROTOCOL_SUFFIX));
+				}
+				catch (IllegalArgumentException ex){
+					if (debug) Log.w(Synodroid.DS_TAG, "An invalid protocol was detected while loading " + (local ? "local" : "public") + " connection. Will use default protocol (HTTPS).");
+				}
+				int port = 5001;
 				try{
 					port = Integer.parseInt(props.getProperty(radical + PreferenceFacade.PORT_SUFFIX));
 				}
 				catch (NumberFormatException numEx){
-					if (debug) Log.w(Synodroid.DS_TAG, "An invalid port number was detected while loading " + (local ? "local" : "public") + " connection. This connection will be ignored.");
+					if (debug) Log.w(Synodroid.DS_TAG, "An invalid port number was detected while loading " + (local ? "local" : "public") + " connection. Will use default HTTPS port (5001).");
 				}
 				
 				String host = props.getProperty(radical + PreferenceFacade.HOST_SUFFIX);
