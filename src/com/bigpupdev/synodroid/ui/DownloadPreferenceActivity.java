@@ -200,14 +200,15 @@ public class DownloadPreferenceActivity extends CustomPreferenceActivity impleme
 		searchTimeout.setOrder(0);
 		searchTimeout.setKey(PREFERENCE_SEARCH_TIMEOUT);
 		searchCategory.addPreference(searchTimeout);
-		// Build the sort list
 		searchTimeout.setEntries(getResources().getStringArray(R.array.search_timeout_array));
 		searchTimeout.setEntryValues(getResources().getStringArray(R.array.search_timeout_array));
+		
 		try{
 			SharedPreferences search_preferences = getSharedPreferences(PREFERENCE_SEARCH, Activity.MODE_PRIVATE);
 			searchTimeout.setValue(Integer.toString(search_preferences.getInt(PREFERENCE_SEARCH_TIMEOUT, 30)));
 		}
 		catch (Exception e){}
+		
 		searchTimeout.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				SharedPreferences preferences = getSharedPreferences(PREFERENCE_SEARCH, Activity.MODE_PRIVATE);
@@ -219,6 +220,7 @@ public class DownloadPreferenceActivity extends CustomPreferenceActivity impleme
 		
 		final Preference clearHistory = new Preference(this);
 		clearHistory.setTitle(R.string.clear_search_history);
+		clearHistory.setOrder(1);
 		searchCategory.addPreference(clearHistory);
 		clearHistory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 

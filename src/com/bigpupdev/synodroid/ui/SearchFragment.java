@@ -56,7 +56,9 @@ public class SearchFragment extends SynodroidFragment {
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private static final String PREFERENCE_SEARCH_SOURCE = "general_cat.search_source";
 	private static final String PREFERENCE_SEARCH_ORDER = "general_cat.search_order";
-
+	private static final String PREFERENCE_SEARCH = "search_cat";
+	private static final String PREFERENCE_SEARCH_TIMEOUT = "search_cat.timeout";
+	
 	private final String[] from = new String[] { "NAME", "SIZE", "ADDED", "LEECHERS", "SEEDERS", "TORRENTURL" };
 	private final int[] to = new int[] { R.id.result_title, R.id.result_size, R.id.result_date, R.id.result_leechers, R.id.result_seeds, R.id.result_url };
 	private TextView emptyText;
@@ -540,8 +542,9 @@ public class SearchFragment extends SynodroidFragment {
 					skipCache = false;
 					if (search_src.equals("DSM Search")){
 						Synodroid app = (Synodroid) getActivity().getApplication();
-
-						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50"}, SEARCH_ORDER);
+						SharedPreferences search_preferences = getActivity().getSharedPreferences(PREFERENCE_SEARCH, Activity.MODE_PRIVATE);
+		    			
+						return getActivity().managedQuery(Uri.parse(SynodroidDSMSearch.CONTENT_URI+params[0]), null, null, new String[] { app.getServer().getDsmVersion().getTitle(), app.getServer().getCookies(), app.getServer().getUrl(), String.valueOf(app.DEBUG), "0", "50", Integer.toString(search_preferences.getInt(PREFERENCE_SEARCH_TIMEOUT, 30)/5)}, SEARCH_ORDER);
 
 					}
 					else{

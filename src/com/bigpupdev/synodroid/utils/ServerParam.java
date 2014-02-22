@@ -9,6 +9,7 @@ public class ServerParam {
 	private boolean dbg = false;
 	private int start = 0;
 	private int limit = 0;
+	private int max_loop = 0;
 	
 	public String getDSMVersion() { return dsm_version; }
     public String getCookie() { return cookie; }
@@ -16,15 +17,17 @@ public class ServerParam {
     public boolean getDbg() { return dbg; }
     public int getStart() { return start; }
     public int getLimit() { return limit; }
+    public int getMaxLoop() { return max_loop; }
     
 	public ServerParam(String[] selectionArgs){
-		if (selectionArgs.length == 6){
+		if (selectionArgs.length == 7){
 			this.dsm_version = selectionArgs[0];
 			this.cookie = selectionArgs[1];
 			this.url = selectionArgs[2];
 			this.dbg = selectionArgs[3]=="true";
 			this.start = Integer.parseInt(selectionArgs[4]);
 			this.limit = Integer.parseInt(selectionArgs[5]);
+			this.max_loop = Integer.parseInt(selectionArgs[6]);
 		}
 		else{
 			throw new RuntimeException("Wrong number of server configuration arguments.");
