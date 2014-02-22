@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bigpupdev.synodroid"
     android:installLocation="auto"
-    android:versionCode="2350"
-    android:versionName="2.3.5" >
+    android:versionCode="2360"
+    android:versionName="2.3.6 Beta" >
 
     <uses-sdk
         android:minSdkVersion="7"
