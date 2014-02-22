@@ -16,6 +16,9 @@ import com.bigpupdev.synodroid.Synodroid;
 import com.slidingmenu.lib.SlidingMenu;
 
 public class BrowserActivity extends BaseActivity{
+	private static final String PREFERENCE_DEFAULT_URL = "bookmark_cat.default_ur";
+	private static final String PREFERENCE_BOOKMARK = "bookmark_cat";
+	
 	private static final String PREFERENCE_FULLSCREEN = "general_cat.fullscreen";
 	private static final String PREFERENCE_GENERAL = "general_cat";
 	private String default_url = "http://www.google.com";
@@ -109,6 +112,8 @@ public class BrowserActivity extends BaseActivity{
 			}catch (Exception ex){/*DO NOTHING*/}
 			
 			WebView webView = (WebView) fragment_browser.getView().findViewById(R.id.webview);
+			SharedPreferences preferences = getSharedPreferences(PREFERENCE_BOOKMARK, Activity.MODE_PRIVATE);
+			default_url = preferences.getString(PREFERENCE_DEFAULT_URL, default_url);
 			webView.loadUrl(default_url);
 			return true;
         }

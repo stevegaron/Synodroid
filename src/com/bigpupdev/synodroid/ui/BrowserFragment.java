@@ -24,12 +24,12 @@ import com.bigpupdev.synodroid.utils.BookmarkMenuItem;
 import com.bigpupdev.synodroid.utils.UIUtils;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -71,6 +71,9 @@ import android.widget.TextView.OnEditorActionListener;
  */
 @SuppressLint({ "SetJavaScriptEnabled", "NewApi" })
 public class BrowserFragment extends SynodroidFragment {
+	private static final String PREFERENCE_DEFAULT_URL = "bookmark_cat.default_ur";
+	private static final String PREFERENCE_BOOKMARK = "bookmark_cat";
+	
 	private ImageButton bookmark_btn = null;
 	private ImageButton stop_btn = null;
 	private EditText url_text = null;
@@ -86,7 +89,7 @@ public class BrowserFragment extends SynodroidFragment {
 		// ignore orientation change
 		super.onConfigurationChanged(newConfig);
 	}
-
+	
 	/**
 	 * Activity creation
 	 */
@@ -142,24 +145,20 @@ public class BrowserFragment extends SynodroidFragment {
 	        	Runnable ok = new Runnable(){
 					@Override
 					public void run() {
-						deleteFromDB(menuListSelectedItem.url);
-						
-						HashMap<String, String>bookmarks = getUrlsFromDB();
-						adapter.clear();
-				        for (Map.Entry<String, String> entry : bookmarks.entrySet()){
-				        	adapter.add(new BookmarkMenuItem(entry.getValue(), entry.getKey(), null));
-				        }
-				        adapter.sort(comp);
-				        adapter.notifyDataSetChanged();
+						SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_BOOKMARK, Activity.MODE_PRIVATE);
+						preferences.edit().putString(PREFERENCE_DEFAULT_URL, menuListSelectedItem.url).commit();
+						((BrowserActivity)getActivity()).getSlidingMenu().showContent(true);
+						Crouton.makeText(getActivity(), getText(R.string.home_set)+" "+menuListSelectedItem.url, Synodroid.CROUTON_CONFIRM).show();
 					}
 	            };
 
-	        	dialog.Confirm(getActivity(), getActivity().getText(R.string.confirm_remove_bookmark).toString(), menuListSelectedItem.url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
+	        	dialog.Confirm(getActivity(), getActivity().getText(R.string.menu_default_url).toString(), menuListSelectedItem.url, getActivity().getText(R.string.button_cancel).toString(), getActivity().getText(R.string.button_ok).toString(), ok, ConfirmDialog.empty);
 	        	
 				return true;
 			}
         
         });
+        
 		myWebView = (WebView) browser.findViewById(R.id.webview);
 		url_favicon = (ImageView) browser.findViewById(R.id.favicon);
 		stop_btn = (ImageButton) browser.findViewById(R.id.stop);
@@ -290,6 +289,9 @@ public class BrowserFragment extends SynodroidFragment {
 			myWebView.loadUrl(curBrowserUrl);
 		}
 		else{
+			SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCE_BOOKMARK, Activity.MODE_PRIVATE);
+			default_url = preferences.getString(PREFERENCE_DEFAULT_URL, default_url);
+			url_last = default_url;
 			myWebView.loadUrl(default_url);
 		}	
 		registerForContextMenu(myWebView);

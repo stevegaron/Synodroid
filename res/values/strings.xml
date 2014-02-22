@@ -557,7 +557,6 @@
 
 <string name="label_pref_search_timeout">DSM Search Timeout</string>
 <string name="hint_pref_search_timeout">Timeout in seconds</string>
-
 <string-array name="search_timeout_array">
     <item>5</item>
     <item>10</item>
@@ -570,4 +569,8 @@
     <item>90</item>
     <item>120</item>
 </string-array>
+<string name="menu_default_url">Set as Homepage</string>
+<string name="home_set">Homepage set to:</string>
+
+
 </resources>
