@@ -73,7 +73,7 @@
 	       android:layout_marginRight="20dp"
 	       android:layout_marginTop="5dp"
 	       android:background="#F000"
-	       android:padding="5dp"
+	       android:padding="2dp"
 	       android:dividerHeight="0dp"
 		   android:divider="@null"
 	       tools:listitem="@layout/sliding_menu_item" >
