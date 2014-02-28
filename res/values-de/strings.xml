@@ -280,7 +280,7 @@
 <string name="app_help">FAQ: Häufig gestellte Fragen</string>
 <string name="email">Fordern sie Unterstützung per Mail an!</string>
 <string name="faq1">Wie finde ich einen Server?</string>
-<string name="rep1">Sie finden keinen Server, sie müssen einen besitzen. Synodroid wurde geschrieben um ein Synology Network Attached Storage (NAS) zu steuern. Wenn sie kein Synology NAS besitzen ist diese App für sie nutzlos. Deinstallieren sie sie...</string>
+<string name="rep1">Sie finden keinen Server, sie müssen einen besitzen. Synodroid wurde geschrieben um ein Synology Network Attached Storage (NAS) zu steuern. Wenn sie kein Synology NAS besitzen ist diese App für sie nutzlos. Deinstallieren sie...</string>
 
 <string name="faq2">Wo kann ich ein Synology NAS kaufen?</string>
 <string name="rep2">Sehen sie auf der Synology Website unter "Hier erhältlich" nach.</string>
@@ -418,7 +418,7 @@
 <string name="search_engine_st1">Transdroid Torrentsuche</string>
 <string name="search_engine_t2">Die Transdroid Torrentsuche bietet eine Suche für alle DSM-Versionen an. Um sie zu benutzen müssen Sie sie zuerst installieren. Einen Link zur aktuellen Version finden sie im Menü der Suchseite. Wenn Sie diese Suchengine benutzen können Sie wählen, von welcher Seite sie Torrentinformationen beziehen möchten und wie die Ergebnisse sortiert sein sollen.</string>
 <string name="search_engine_st2">DSM Suchengine (nur Pro)</string>
-<string name="search_engine_t3">Synodroid Pro erlaubt den Zugriff auf die integrierte Suchfunktion Ihrer DiskStation. Suchen, die über die integrierte Suche ausgeführt werden werden direkt an mehrere Suchmaschinen geschickt, die benutzten Suchmaschinen können in den Einstellungen ausgewählt werden.</string>
+<string name="search_engine_t3">Synodroid Pro erlaubt den Zugriff auf die integrierte Suchfunktion Ihrer DiskStation. Suchen, die über die integrierte Suche ausgeführt werden direkt an mehrere Suchmaschinen geschickt, die benutzten Suchmaschinen können in den Einstellungen ausgewählt werden.</string>
 <string name="upgrade_st1">1. Dialog zum Hinzufügen von Downloads</string>
 <string name="upgrade_t2">Der Dialog zum Hinzufügen von Downloads ist eine praktische Funktion, das Sie eine Adresse eintippen oder einfügen lässt um das Ziel auf ihrem NAS herunterzuladen.</string>
 <string name="upgrade_st2">2. Herunterladen in Unterordner</string>
