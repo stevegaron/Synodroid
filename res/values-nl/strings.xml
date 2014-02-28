@@ -548,4 +548,22 @@
 <string name="menu_filter_inactive">Inactief</string>
 <string name="menu_filter_stopped">Gestopt</string>
 
+<string name="label_pref_search_timeout">DSM Zoeken timeout</string>
+<string name="hint_pref_search_timeout">Timeout in seconden</string>
+<string-array name="search_timeout_array">
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+    <item>20</item>
+    <item>25</item>
+    <item>30</item>
+    <item>45</item>
+    <item>60</item>
+    <item>90</item>
+    <item>120</item>
+</string-array>
+<string name="menu_default_url">Instellen als startpagina</string>
+<string name="home_set">Startpagina opgeslagen als:</string>
+
+
 </resources>
