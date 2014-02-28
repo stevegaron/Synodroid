@@ -16,8 +16,6 @@
  */
 package com.bigpupdev.synodroid.action;
 
-import java.util.List;
-
 import com.bigpupdev.synodroid.server.SynoServer;
 import com.bigpupdev.synodroid.protocol.ResponseHandler;
 import com.bigpupdev.synodroid.R;
@@ -31,14 +29,10 @@ import com.bigpupdev.synodroid.data.Task;
  */
 public class ResumeAllAction implements SynoAction {
 
-	private List<Task> tasks;
-
 	/**
 	 * Default constructor
 	 */
-	public ResumeAllAction(List<Task> tasksP) {
-		tasks = tasksP;
-	}
+	public ResumeAllAction() {}
 
 	/*
 	 * (non-Javadoc)
@@ -46,7 +40,7 @@ public class ResumeAllAction implements SynoAction {
 	 * @see com.bigpupdev.synodroid.common.SynoAction#execute(com.bigpupdev.synodroid.ds.TorrentListActivity, com.bigpupdev.synodroid.common.SynoServer)
 	 */
 	public void execute(ResponseHandler handlerP, SynoServer serverP) throws Exception {
-		serverP.getDSMHandlerFactory().getDSHandler().resumeAll(tasks);
+		serverP.getDSMHandlerFactory().getDSHandler().resumeAll();
 	}
 
 	/*

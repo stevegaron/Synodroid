@@ -13,7 +13,6 @@ import com.bigpupdev.synodroid.action.GetDirectoryListShares;
 import com.bigpupdev.synodroid.action.RemoveErroneousMultipleTaskAction;
 import com.bigpupdev.synodroid.action.ResumeAllAction;
 import com.bigpupdev.synodroid.action.StopAllAction;
-import com.bigpupdev.synodroid.adapter.TaskAdapter;
 import com.bigpupdev.synodroid.data.DSMVersion;
 import com.bigpupdev.synodroid.data.Task;
 import com.bigpupdev.synodroid.server.SynoServer;
@@ -464,8 +463,7 @@ public class HomeActivity extends BaseActivity {
 				FragmentManager fm = getSupportFragmentManager();
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-		        	List<Task> tasks = ((TaskAdapter) fragment_download.taskView.getAdapter()).getTaskList();
-		    		app.executeAction(fragment_download, new StopAllAction(tasks), false);
+		        	app.executeAction(fragment_download, new StopAllAction(), false);
 	            	app.delayedRefresh();
 		        }
 				catch (Exception e){
@@ -485,8 +483,7 @@ public class HomeActivity extends BaseActivity {
 				FragmentManager fm = getSupportFragmentManager();
 		        try{
 		        	DownloadFragment fragment_download = (DownloadFragment) fm.findFragmentById(R.id.fragment_download);
-		        	List<Task> tasks = ((TaskAdapter) fragment_download.taskView.getAdapter()).getTaskList();
-		    		app.executeAction(fragment_download, new ResumeAllAction(tasks), false);
+		    		app.executeAction(fragment_download, new ResumeAllAction(), false);
 	            	app.delayedRefresh();
 		        }
 				catch (Exception e){

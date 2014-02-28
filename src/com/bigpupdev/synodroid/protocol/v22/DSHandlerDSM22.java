@@ -34,7 +34,6 @@ import com.bigpupdev.synodroid.data.TaskDetail;
 import com.bigpupdev.synodroid.data.TaskFile;
 import com.bigpupdev.synodroid.data.TaskFilesContainer;
 import com.bigpupdev.synodroid.data.TaskProperties;
-import com.bigpupdev.synodroid.data.TaskStatus;
 import com.bigpupdev.synodroid.protocol.DSHandler;
 import com.bigpupdev.synodroid.protocol.DSMException;
 import com.bigpupdev.synodroid.protocol.DownloadStationNotFound;
@@ -209,17 +208,15 @@ class DSHandlerDSM22 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#resumeAll(List<com.bigpupdev. synodroid. common.data.Task>)
 	 */
-	public void resumeAll(List<Task> taskP) throws Exception {
-		String taskids = "";
-		for (Task task : taskP) {
-			if (task.status.equals(TaskStatus.TASK_PAUSED.toString())) {
-				if (!taskids.equals("")){
-					taskids += ":";
-				}
-				taskids += ""+task.taskId;
+	public void resumeAll() throws Exception {
+		// If we are logged on
+		if (server.isConnected()) {
+			QueryBuilder getAllRequest = new QueryBuilder().add("action", "resume_all").add("idList", "");
+			// Execute
+			synchronized (server) {
+				server.sendJSONRequest(DM_URI, getAllRequest.toString(), "GET");
 			}
 		}
-		resume(taskids);
 	}
 
 	/*
@@ -243,17 +240,15 @@ class DSHandlerDSM22 implements DSHandler {
 	 * 
 	 * @see com.bigpupdev.synodroid.common.protocol.DSHandler#stopAll(List<com.bigpupdev.synodroid . common.data.Task>)
 	 */
-	public void stopAll(List<Task> taskP) throws Exception {
-		String taskids = "";
-		for (Task task : taskP) {
-			if (task.status.equals(TaskStatus.TASK_DOWNLOADING.toString()) || task.status.equals(TaskStatus.TASK_PRE_SEEDING.toString()) || task.status.equals(TaskStatus.TASK_SEEDING.toString()) || task.status.equals(TaskStatus.TASK_HASH_CHECKING.toString()) || task.status.equals(TaskStatus.TASK_WAITING.toString())) {
-				if (!taskids.equals("")){
-					taskids += ":";
-				}
-				taskids += ""+task.taskId;
+	public void stopAll() throws Exception {
+		// If we are logged on
+		if (server.isConnected()) {
+			QueryBuilder getAllRequest = new QueryBuilder().add("action", "pause_all").add("idList", "");
+			// Execute
+			synchronized (server) {
+				server.sendJSONRequest(DM_URI, getAllRequest.toString(), "GET");
 			}
 		}
-		stop(taskids);
 	}
 
 	/*

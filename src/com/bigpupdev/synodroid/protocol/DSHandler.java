@@ -178,18 +178,16 @@ public interface DSHandler {
 	/**
 	 * Resume all paused tasks
 	 * 
-	 * @param taskP
 	 * @throws Exception
 	 */
-	public void resumeAll(List<Task> taskP) throws Exception;
+	public void resumeAll() throws Exception;
 
 	/**
 	 * Pause all running tasks
 	 * 
-	 * @param taskP
 	 * @throws Exception
 	 */
-	public void stopAll(List<Task> taskP) throws Exception;
+	public void stopAll() throws Exception;
 	
 	public List<Folder> getDirectoryListing(String srcPath) throws Exception;
 	
